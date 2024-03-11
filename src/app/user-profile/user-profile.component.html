@@ -1,16 +1,99 @@
-<div class="div">
-    <img
-      loading="lazy"
-      srcset="..."
-      class="img"
-    />
-    <div class="div-2">Administator</div>
-    <div class="div-3">Id</div>
-    <div class="div-4">1234</div>
-    <div class="div-5">Ime i prezime</div>
-    <div class="div-6">Pera Perić</div>
-    <div class="div-7">Datum rođenja</div>
-    <div class="div-8">20/05/1990</div>
-    <div class="div-9">Email</div>
-    <div class="div-10">pera@gmail.com</div>
-  </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<div class="navbar"></div>
+<div class="container">
+    <div class="card profile">
+        <div class="user-image"></div>
+        <p class="h4 name">Pera Perić</p>
+        <p class="role">Admin</p>
+        <!-- <p class="h4 name">{{user.firstName + ' ' + user.lastName}}</p> 
+        <p class="role">{{user.role}}</p>  -->
+        <p class="bold">Datum rođenja:</p>
+        <p class="p indented">12/07/2000</p>
+        <!-- <p class="p indented">{{user.dateOfBirth}}</p> -->
+        <p class="bold">Email:</p>
+        <p class="p indented">ppericgmail.com</p>
+        <!-- <p class="p indented">{{user.email}}</p> -->
+    </div>
+    <div class="card details">
+        <h2 class="h4">Uredi profil</h2>
+        <hr>
+        <div class="input-row">
+            <div class="input-container">
+                <p class="bold">Prezime</p>
+                <input type="text" class="input" >
+            </div>
+            <div class="input-container">
+                <p class="bold">Pol</p>
+                <select class="input">
+                    <option value="male">Muški</option>
+                    <option value="female">Ženski</option>
+                    <option value="female">Ostalo</option>
+                </select>
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-container">
+                <p class="bold">Broj telefona</p>
+                <input type="text" class="input">
+            </div>
+            <div class="input-container">
+                <p class="bold">Adresa</p>
+                <input type="text" class="input" >
+            </div>
+        </div>
+
+
+        <!-- <div class="related-accounts">
+            <h3 class="p bold">Povezani računi</h3>
+            <ul class="related-accounts-list">
+                <li *ngFor="let account of userAccounts" class="p">
+                    {{ account.accountNumber }}
+                    <span class="account-actions">
+                        <a href="#"><i class="fas fa-edit"></i></a>
+                        <a href="#"><i class="fas fa-trash-alt"></i></a>
+                    </span>
+                </li>
+            </ul>
+        </div> -->
+        
+
+        <div class="related-accounts">
+            <h3 class="p bold">Povezani računi</h3>
+            <ul class="related-accounts-list">
+                <li class="p">
+                    555-534535-545
+                    <span class="account-actions">
+                        <a href="#"><i class="fas fa-edit"></i></a>
+                        <a href="#"><i class="fas fa-trash-alt"></i></a>
+                    </span>
+                </li>
+                <li class="p">
+                    555-534535-545
+                    <span class="account-actions">
+                        <a href="#"><i class="fas fa-edit"></i></a>
+                        <a href="#"><i class="fas fa-trash-alt"></i></a>
+                    </span>
+                </li>
+                <li class="p">
+                    555-534535-545
+                    <span class="account-actions">
+                        <a href="#"><i class="fas fa-edit"></i></a>
+                        <a href="#"><i class="fas fa-trash-alt"></i></a>
+                    </span>
+                </li>
+                <li class="p">
+                    555-534535-545
+                    <span class="account-actions">
+                        <a href="#"><i class="fas fa-edit"></i></a>
+                        <a href="#"><i class="fas fa-trash-alt"></i></a>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="buttons">
+            <button class="button-change-password">Promeni lozinku</button>
+            <button class="button-save">Sačuvaj</button>
+        </div>
+    </div>
+    
+</div>

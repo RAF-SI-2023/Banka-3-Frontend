@@ -24,7 +24,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     MatTableModule
     RegisterComponent,
     RegisterCodeComponent,
-    RegisterPasswordComponent
+    RegisterPasswordComponent,
     UserProfileComponent
   ],
   providers: [],
