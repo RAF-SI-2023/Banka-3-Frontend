@@ -15,7 +15,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     AppComponent,
     RegisterComponent,
     RegisterCodeComponent,
-    RegisterPasswordComponent
+    RegisterPasswordComponent,
     UserProfileComponent
   ],
   imports: [

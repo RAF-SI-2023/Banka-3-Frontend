@@ -24,6 +24,7 @@
   --h1-size: 4rem;
   --h2-size: 3rem;
   --h3-size: 2rem;
+  --h4-size: 1.5rem;
   --input-size: 1rem;
   --paragraph-size: 1rem;
 }
@@ -48,6 +49,14 @@
   font-family: 'Archivo', sans-serif;
   font-weight: 700;
 }
+
+.h4{
+  font-size: var(--h4-size);
+  color: var(--blue-dark);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+}
+
 html, body {
   min-height: 100vh;
   height: auto;
