@@ -1,0 +1,25 @@
+<div style="color: #FDF1DD;">
+<div class="table">
+    <mat-table [dataSource]="users" matSort>
+
+        <ng-container *ngFor="let column of userColumns" [matColumnDef]="column">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column | titlecase }} </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+            <ng-container *ngIf="column === 'datum'">
+                {{ element[column] | date: 'dd-MM-yyyy' }}
+              </ng-container>
+
+              <ng-container *ngIf="column !== 'datum'">
+                {{ element[column] }}
+              </ng-container>
+
+        </mat-cell>
+        </ng-container>
+
+        <!-- <mat-header-row *matHeaderRowDef="['opcije']"></mat-header-row> -->
+      
+        <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: userColumns;"></mat-row>
+      </mat-table>
+</div>
+</div>

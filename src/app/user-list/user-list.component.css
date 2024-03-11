@@ -1,0 +1,7 @@
+.table{
+    width: 80%;
+    height: 66.67vh !important;
+    display: flex;
+    background-color: #ffffff;
+    margin: 200px 150px 0px 150px;
+}
