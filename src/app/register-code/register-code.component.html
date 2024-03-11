@@ -1,0 +1,18 @@
+<html lang="en">
+<body>
+    <div class="logoContainer">
+        <img class="logo" src="assets/fullLogo.svg" alt="logo">
+    </div>
+    <div class="container">
+    <div class="formContainer">
+        <div style="width: 100%;text-align: center; margin: 1rem 0rem 1rem 0rem"><span class="h3">Aktivacioni kod</span></div>
+        <span style="text-align: center; font-weight: 700;">Klikom na dugme Generisi kod,<br> Aktivacioni kod Vam se salje na email</span>
+        <form >
+            <input class="myButtonPrimary" onClick="generate()" value="GENERISI AKTIVACIONI KOD" [(ngModel)]="code"><br>
+            <input class="inputField" type="number" id="code" name="code" placeholder="Aktivacioni kod"><br>
+            <input class="myButtonSecondary" type="submit" value="Nastavi">
+        </form>
+    </div>
+    </div>
+</body>
+</html>
