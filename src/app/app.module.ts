@@ -7,6 +7,8 @@ import { RegisterComponent } from './register/register.component';
 import { RegisterCodeComponent } from './register-code/register-code.component';
 import { RegisterPasswordComponent } from './register-password/register-password.component';
 import { FormsModule } from '@angular/forms';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+
 
 @NgModule({
   declarations: [
@@ -14,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     RegisterComponent,
     RegisterCodeComponent,
     RegisterPasswordComponent
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
