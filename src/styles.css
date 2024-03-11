@@ -1,1 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+
+  box-sizing: border-box;
+
+}
+:root{
+
+  line-height: 1.5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  --max-screen-width: 86rem;
+  --background-main: #F6F6F6;
+  --background-elements: #FFFFFF;
+  --button-primary: #D22055;
+  --button-secondary: #104D7B;
+  --blue-dark: #071E2D;
+  --blue-medium: #104D7B;
+  --blue-light: #A0D4F5;
+  --font-color: #071E2D;
+  --h1-size: 4rem;
+  --h2-size: 3rem;
+  --h3-size: 2rem;
+  --paragraph-size: 1rem;
+}
+
+.h1{
+  font-size: var(--h1-size);
+  color: var(--blue-dark);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.h2{
+  font-size: var(--h2-size);
+  color: var(--blue-dark);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.h3{
+  font-size: var(--h3-size);
+  color: var(--blue-dark);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+}
+
+.p{
+  font-size: var(--paragraph-size);
+  color: var(--blue-dark);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
+}
