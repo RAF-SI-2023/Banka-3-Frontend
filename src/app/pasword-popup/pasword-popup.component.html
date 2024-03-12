@@ -1,0 +1,19 @@
+<html lang="en">
+<body>
+<div class="container">
+  <div class="formContainer">
+    <div style="width: 100%;text-align: center; margin: 1rem 0rem 1rem 0rem"><span class="h3">Promena lozinke</span></div>
+    <hr class="horizontal-line">
+    <form>
+      <input class="inputField"  id="password" name="password" placeholder="Stara lozinka" [(ngModel)]="password"><br>
+      <input class="inputField" id="repeatPassword" name="repeatPassword" placeholder="Nova lozinka" [(ngModel)]="newPass"><br>
+    </form>
+
+    <div class="buttons" style="padding: 2em">
+      <button class="myButtonSecondary">Promeni lozinku</button>
+      <button (click)="closePopup()" class="myButtonPrimary">Odustani</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
