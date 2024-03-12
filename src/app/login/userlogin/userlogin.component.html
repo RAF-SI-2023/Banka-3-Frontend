@@ -1,37 +1,57 @@
-<p>userlogin works!</p>
 <div class="background-container">
-  <img src="assets/logo_2.svg" alt="Banka 3" class="logo-img" />
+  <!-- <img src="assets/logo_2.svg" alt="Banka 3" class="logo-img" /> -->
   <div
     class="d-flex align-items-center justify-content-center vh-100 vw-100 panel-wrapper"
   >
-    <div
-      class="opaque-panel d-flex flex-column align-items-center justify-content-center"
-    >
-      <h2 class="disable-opacity h2"><b>Prijava korisnika</b></h2>
-      <input
-        type="text"
-        placeholder="Email"
-        class="input-box"
-        [(ngModel)]="email"
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        class="input-box"
-        [(ngModel)]="password"
-      />
-      <a class="forgot-link" routerLink="/forgot-password"
-        ><u>Zaboravili ste email ili lozinku?</u></a
-      >
+    <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
       <div
-        class="button-container d-flex flex-column align-items-center justify-content-center"
+        class="opaque-panel d-flex flex-column align-items-center justify-content-center"
       >
-        <button class="primary-button" (click)="submitLogin()">Log in</button>
-        <button class="secondary-button" [routerLink]="['/register']">
-          Register
-        </button>
+        <h2 class="disable-opacity h2"><b>Prijava korisnika</b></h2>
+        <input
+          type="text"
+          placeholder="Email"
+          class="input-box"
+          formControlName="email"
+        />
+        <span
+          *ngIf="email && email.invalid && email.touched"
+          class="wrong-input-span"
+        >
+          Email is incorrect!</span
+        >
+        <input
+          type="password"
+          placeholder="Password"
+          class="input-box"
+          formControlName="password"
+        />
+        <span
+          *ngIf="password && password.invalid && password.touched"
+          class="wrong-input-span"
+        >
+          Password cannot be blank.</span
+        >
+        <a class="forgot-link" routerLink="/forgot-password"
+          ><u>Zaboravili ste email ili lozinku?</u></a
+        >
+        <div
+          class="button-container d-flex flex-column align-items-center justify-content-center"
+        >
+          <button
+            class="primary-button"
+            type="submit"
+            [disabled]="loginForm.invalid"
+            [ngClass]="{ disabled: loginForm.invalid }"
+          >
+            Log in
+          </button>
+          <button class="secondary-button" [routerLink]="['/register']">
+            Register
+          </button>
+        </div>
+        <a routerLink="/admin-login" class="admin-link">Prijava admina</a>
       </div>
-      <a routerLink="/admin-login" class="admin-link"><b>Prijava admina</b></a>
-    </div>
+    </form>
   </div>
 </div>
