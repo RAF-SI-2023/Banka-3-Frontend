@@ -25,18 +25,19 @@ import { AdminLoginComponent } from './login/admin-login/admin-login.component';
     UserListComponent,
     UserloginComponent,
     AdminLoginComponent,
-
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    MatTableModule,
     RegisterComponent,
     RegisterCodeComponent,
     RegisterPasswordComponent,
-    UserProfileComponent
+    UserProfileComponent,
+
   ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        MatTableModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
