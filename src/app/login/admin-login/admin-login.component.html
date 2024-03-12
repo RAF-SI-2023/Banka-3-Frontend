@@ -1,0 +1,37 @@
+<p>admin-login works!</p>
+<div class="background-container">
+  <img src="assets/logo_2.svg" alt="Banka 3" class="logo-img" />
+  <div
+    class="d-flex align-items-center justify-content-center vh-100 vw-100 panel-wrapper"
+  >
+    <div
+      class="opaque-panel d-flex flex-column align-items-center justify-content-center"
+    >
+      <h2 class="disable-opacity h2"><b>Prijava admina</b></h2>
+      <input
+        type="text"
+        placeholder="Email"
+        class="input-box"
+        [(ngModel)]="email"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        class="input-box"
+        [(ngModel)]="password"
+      />
+      <a class="forgot-link" routerLink="/forgot-password"
+        ><u>Zaboravili ste email ili lozinku?</u></a
+      >
+      <div
+        class="button-container d-flex flex-column align-items-center justify-content-center"
+      >
+        <button class="primary-button" (click)="submitLogin()">Log in</button>
+        <button class="secondary-button" [routerLink]="['/register']">
+          Register
+        </button>
+      </div>
+      <a routerLink="/user-login" class="user-link">Prijava korisnika</a>
+    </div>
+  </div>
+</div>
