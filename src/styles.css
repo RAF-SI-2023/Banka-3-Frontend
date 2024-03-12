@@ -33,6 +33,8 @@ body{
   --h1-size: 4rem;
   --h2-size: 3rem;
   --h3-size: 2rem;
+  --h4-size: 1.5rem;
+  --input-size: 1rem;
   --paragraph-size: 1rem;
 
 }
@@ -56,6 +58,60 @@ body{
   color: var(--blue-dark);
   font-family: 'Archivo', sans-serif;
   font-weight: 700;
+}
+
+.h4{
+  font-size: var(--h4-size);
+  color: var(--blue-dark);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+}
+
+html, body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}
+.myButtonPrimary{
+font-size: var(--input-size);
+font-family: 'Archivo', sans-serif;
+font-weight: 400;
+padding:0.5rem 1rem 0.5rem 1rem;
+margin:0.5rem;
+color:white;
+border-radius: 0.3rem;
+border:none;
+-webkit-box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+-moz-box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+background-color:var(--button-primary);
+}
+.myButtonSecondary{
+  font-size: var(--input-size);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
+  padding:0.5rem 1rem 0.5rem 1rem;
+  margin:0.5rem;
+  color:white;
+  border-radius: 0.3rem;
+  border:none;
+  -webkit-box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+  -moz-box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+  box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+  background-color:var(--button-secondary);
+  }
+
+.inputField{
+font-size: var(--input-size);
+font-family: 'Archivo', sans-serif;
+font-weight: 400;
+padding:1rem;
+margin:0.5rem;
+border-radius: 0.3rem;
+border:none;
+-webkit-box-shadow: 0px 2px 4px 1px rgba(168,168,168,0.66);
+-moz-box-shadow: 0px 2px 4px 1px rgba(168,168,168,0.66);
+box-shadow: 0px 2px 4px 1px rgba(168,168,168,0.66);
 }
 
 .p{

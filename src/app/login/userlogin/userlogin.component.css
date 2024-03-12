@@ -1,0 +1,155 @@
+:root{
+    /* Dodato za manje ekrane na dole */
+    --input-box-height-small: 2.5rem;
+    --input-box-width-small: 18rem;
+    --button-height-small: 2.5rem;
+    --button-width-small: 12rem;
+    --font-size-sm: 1rem;
+    --padding-small: 0.5rem;
+    --margin-small: 0.5rem;
+    --margin-logo-bottom: 1.5rem; /* Margina između logotipa i panela */
+    --input-box-height: 3.75rem;
+    --input-box-width: 23.75rem;
+    --button-height: 3.5rem;
+    --button-width: 12rem;
+    --font-size-lg: 1.5rem;
+    --margin-standard: 0.5rem;
+    --padding-standard: 0.75rem;
+    --border-radius-standard: 0.5rem;
+}
+.h2{
+    color: #114D7B; /* Na Figmi stoji ova boja za naslov Prijava korisnika */
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+* {
+    box-sizing: border-box;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    margin: var(--margin-standard);
+    padding: var(--padding-standard);
+}
+
+
+.background-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-image: url('../../../assets/login_background.svg');
+    background-size: cover;
+    background-position: center;
+}
+
+.panel-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.opaque-panel {
+    padding: var(--padding-standard);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--margin-logo-bottom); 
+    background-color: rgba(246, 246, 246, 0.67);
+    border-radius: var(--border-radius-standard);
+    box-shadow: 0 0.25rem 0.125rem -0.125rem rgba(10, 10, 10, 0.3);
+    padding: var(--padding-standard);
+    width: 41.25rem; 
+    max-width: 90%; 
+    margin-top: var(--margin-logo-bottom);
+    
+}
+
+.input-box {
+    background-color: transparent;
+    border-radius: var(--border-radius-standard);
+    border: 0;
+    box-shadow: 0 0.25rem 0.125rem -0.125rem rgba(10, 10, 10, 0.3);
+    margin: var(--margin-standard);
+    width: var(--input-box-width);
+    max-width: 100%;
+    padding: var(--padding-standard);
+    font-size: var(--font-size-lg);
+    background-color: var(--background-main);
+    font-family: 'Archivo', sans-serif;
+    color: var(--font-color);
+}
+::placeholder{
+    color: #D7D7D7;
+}
+
+.primary-button, .secondary-button {
+    border-radius: var(--border-radius-standard);
+    border: 0;
+    height: var(--button-height);
+    width: var(--button-width);
+    font-size: var(--font-size-lg);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 300;
+    margin: var(--margin-standard);
+    cursor: pointer;
+}
+
+.primary-button {
+    background-color: var(--button-primary);
+    color: #F6F6F6;
+}
+
+.secondary-button {
+    background-color: var(--button-secondary);
+    color: #F6F6F6;
+}
+
+.forgot-link {
+    color: #8898AA;
+    font-family: 'Archivo', sans-serif;
+    margin: var(--margin-standard);
+}
+.admin-link {
+    color: #8898AA;
+    font-family: 'Archivo', sans-serif;
+    margin: var(--margin-standard);
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.logo-img {
+    max-width: 18.125rem;
+    max-height: 7rem;
+    position: fixed;
+    top: 2rem;
+    left: 4.375rem;
+    float: left;
+}
+
+@media (max-width: 48rem) { /* 768px */
+    .logo-img {
+        width: 50%;
+        margin-bottom: 3rem;
+        transition: width 0.5s ease, margin-bottom 0.5s ease;
+    }
+
+    .panel-wrapper {
+        margin-top: 2rem;
+    }
+    .opaque-panel, .input-box, .primary-button, .secondary-button {
+        width: 90%; 
+        max-width: 20rem;
+    }
+}
