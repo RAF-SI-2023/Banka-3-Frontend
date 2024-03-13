@@ -5,3 +5,35 @@
     background-color: #ffffff;
     margin: 200px 150px 0px 150px;
 }
+:root{
+  /* Dodato za manje ekrane na dole */
+  --input-box-height-small: 2.5rem;
+  --input-box-width-small: 18rem;
+  --button-height-small: 2.5rem;
+  --button-width-small: 12rem;
+  --font-size-sm: 1rem;
+  --padding-small: 0.5rem;
+  --margin-small: 0.5rem;
+  --margin-logo-bottom: 1.5rem; /* Margina između logotipa i panela */
+  --input-box-height: 3.75rem;
+  --input-box-width: 23.75rem;
+  --button-height: 3.5rem;
+  --button-width: 12rem;
+  --font-size-lg: 1.5rem;
+  --margin-standard: 0.5rem;
+  --padding-standard: 0.75rem;
+  --border-radius-standard: 0.5rem;
+}
+.primary-button {
+  background-color: var(--button-primary);
+  color: #F6F6F6;
+  border-radius: 5px;
+  border: 0;
+  height: var(--button-height);
+  width: var(--button-width);
+  font-size: var(--font-size-lg);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 300;
+  margin: var(--margin-standard);
+  cursor: pointer;
+}
