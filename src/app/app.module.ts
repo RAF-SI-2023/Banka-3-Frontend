@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatTableModule } from '@angular/material/table';
 
@@ -11,7 +11,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterCodeComponent } from './register-code/register-code.component';
 import { RegisterPasswordComponent } from './register-password/register-password.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserloginComponent } from './login/userlogin/userlogin.component';
 import { AdminLoginComponent } from './login/admin-login/admin-login.component';
@@ -32,7 +32,6 @@ import {PaswordPopupComponent} from "./pasword-popup/pasword-popup.component";
     RegisterPasswordComponent,
     UserProfileComponent,
     PaswordPopupComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -40,9 +39,13 @@ import {PaswordPopupComponent} from "./pasword-popup/pasword-popup.component";
     NgbModule,
     MatTableModule,
     FormsModule,
-    MatSortModule
+    MatSortModule,
+    ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    NO_ERRORS_SCHEMA
+  ]
 })
 export class AppModule { }
