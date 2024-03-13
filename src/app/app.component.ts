@@ -8,4 +8,17 @@ import { NavbarComponent } from './navbar/navbar.component';
 })
 export class AppComponent {
   title = 'appName';
+  isLoggedIn : boolean
+
+  constructor() {
+    this.isLoggedIn = false;
+  }
+
+  setLoggedIn(value : boolean){
+    this.isLoggedIn = value;
+  }
+
+  getLoggedIn(){
+    return this.isLoggedIn;
+  }
 }

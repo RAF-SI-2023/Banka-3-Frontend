@@ -15,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserloginComponent } from './login/userlogin/userlogin.component';
 import { AdminLoginComponent } from './login/admin-login/admin-login.component';
+import {MatSortModule} from "@angular/material/sort";
+import {PaswordPopupComponent} from "./pasword-popup/pasword-popup.component";
 
 
 
@@ -29,15 +31,17 @@ import { AdminLoginComponent } from './login/admin-login/admin-login.component';
     RegisterCodeComponent,
     RegisterPasswordComponent,
     UserProfileComponent,
+    PaswordPopupComponent,
 
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgbModule,
-        MatTableModule,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    MatTableModule,
+    FormsModule,
+    MatSortModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
