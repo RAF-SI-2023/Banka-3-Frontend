@@ -1,10 +1,23 @@
-<div style="color: #FDF1DD;">
+
 <div class="table">
+  <div class="container">
+    <div class="table-header">
+        <button class="primary-button" >Dodaj korisnika +</button>
     <mat-table [dataSource]="users" matSort>
 
         <ng-container *ngFor="let column of userColumns" [matColumnDef]="column">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column | titlecase }} </mat-header-cell>
-          <mat-cell *matCellDef="let element"> 
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ column | titlecase }}
+            <ng-container *ngIf="column === 'id'">
+              <img [width]="16" [height]="16" src="assets/arrow-down-arrow-up.svg" />
+            </ng-container>
+             <!-- Za sve ostale kolone osim 'Opcije', prikaži i ikonu za sortiranje i filter -->
+      <ng-container *ngIf="column !== 'id' && column !== 'opcije'">
+        <img [width]="16"[height]="16" src="assets/arrow-down-arrow-up.svg" />
+        <img [width]="16"[height]="16" src="assets/filter.svg" />
+      </ng-container>
+             </mat-header-cell>
+          <mat-cell *matCellDef="let element">
             <ng-container *ngIf="column === 'datum'">
                 {{ element[column] | date: 'dd-MM-yyyy' }}
               </ng-container>
@@ -17,9 +30,9 @@
         </ng-container>
 
         <!-- <mat-header-row *matHeaderRowDef="['opcije']"></mat-header-row> -->
-      
+
         <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: userColumns;"></mat-row>
       </mat-table>
 </div>
-</div>
+
