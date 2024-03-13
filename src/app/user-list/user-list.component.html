@@ -1,10 +1,10 @@
 <div class="page">
   <div class="panel"> 
 
-    <button class="users-button">
+    <button [ngStyle]="{ 'opacity': !usersFlag ? '0.5' : '1'}" class="users-button" (click)="switchToUsers()">
       K o r i s n i c i
     </button>
-    <button class="employees-button" [disabled]="true" style="opacity: 0.5;">
+    <button [ngStyle]="{ 'opacity': !employeesFlag ? '0.5' : '1'}" class="employees-button" (click)="switchToEmployees()">
       Z a p o s l e n i
     </button>
 

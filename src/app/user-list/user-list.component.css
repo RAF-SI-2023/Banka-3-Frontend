@@ -93,6 +93,10 @@
   margin-left: 5px;
 }
 
+.disabled-button{
+  opacity: 0.5%;
+}
+
 .search-container {
   width: 300px;
   position: relative;

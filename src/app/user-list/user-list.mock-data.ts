@@ -52,3 +52,56 @@ export const MOCK_USERS: User[] = [
         permisije: ['Perms']
       }
   ];
+
+  export const MOCK_EMPLOYEES: User[] = [
+    {
+      id: 6,
+      ime: 'Petar',
+      prezime: 'Petrovic',
+      jmbg: '1504957123456',
+      datum: new Date('1995-04-15'),
+      email: 'petar@example.com',
+      telefon: '0612345678',
+      permisije: ['Perms']
+    },
+    {
+      id: 7,
+      ime: 'Milica',
+      prezime: 'Milic',
+      jmbg: '2512888234567',
+      datum: new Date('1988-12-25'),
+      email: 'milica@example.com',
+      telefon: '0648765432',
+      permisije: ['Perms']
+    },
+    {
+      id: 8,
+      ime: 'Marko',
+      prezime: 'Markovic',
+      jmbg: '0705963456789',
+      datum: new Date('1996-05-07'),
+      email: 'marko@example.com',
+      telefon: '0659876543',
+      permisije: ['Perms']
+    },
+    {
+      id: 9,
+      ime: 'Jelena',
+      prezime: 'Jovanovic',
+      jmbg: '1804908765432',
+      datum: new Date('1990-04-18'),
+      email: 'jelena@example.com',
+      telefon: '0623334455',
+      permisije: ['Perms']
+    },
+    {
+      id: 10,
+      ime: 'Filip',
+      prezime: 'Filipovic',
+      jmbg: '2203962345678',
+      datum: new Date('1996-03-22'),
+      email: 'filip@example.com',
+      telefon: '0635554443',
+      permisije: ['Perms']
+    }
+  ];
