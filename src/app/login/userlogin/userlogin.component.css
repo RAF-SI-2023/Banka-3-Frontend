@@ -1,4 +1,4 @@
-:root{
+:host{
     /* Dodato za manje ekrane na dole */
     --input-box-height-small: 2.5rem;
     --input-box-width-small: 18rem;
@@ -35,7 +35,9 @@ body, html {
     margin: var(--margin-standard);
     padding: var(--padding-standard);
 }
-
+.wrong-input-span{
+    color: red
+}
 
 .background-container {
     display: flex;

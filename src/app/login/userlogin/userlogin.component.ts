@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-userlogin',
@@ -6,10 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./userlogin.component.css']
 })
 export class UserloginComponent {
-  email: string = ''
-  password: string = ''
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required)
+  })
 
   submitLogin() {
+    console.log("SUbmit forme");
 
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password() {
+    return this.loginForm.get('password');
   }
 }
