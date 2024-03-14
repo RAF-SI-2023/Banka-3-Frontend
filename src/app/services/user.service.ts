@@ -28,7 +28,7 @@ export class UserService {
       phoneNumber: phoneNumber,
       email: email
     }
-    return this.httpClient.post<Token>(`${this.apiUrlEmployee}/register`, obj)
+    return this.httpClient.post<Token>(`${this.apiUrlUser}/register`, obj)
   }
   getAllUsers(){
     const headers = new HttpHeaders({
