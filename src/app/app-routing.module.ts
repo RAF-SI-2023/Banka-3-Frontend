@@ -14,6 +14,7 @@ import {CreateEmployeeComponent} from "./create-employee/create-employee.compone
 import {AuthGuard} from "./guards/auth.guard";
 import {AdminGuard} from "./guards/admin.guard";
 import {A} from "@angular/cdk/keycodes";
+import {CreateUserComponent} from "./create-user/create-user.component";
 
 const routes: Routes = [
 
@@ -66,6 +67,16 @@ const routes: Routes = [
     path: 'add-employee',
     component: CreateEmployeeComponent,
     canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'add-user',
+    component: CreateUserComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'user-profile/:id',
+    component: UserProfileComponent,
+    canActivate: [AuthGuard]
   },
 ];
 

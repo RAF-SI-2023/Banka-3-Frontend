@@ -10,6 +10,10 @@
   height: 4rem;
 }
 
+img{
+  cursor: pointer;
+}
+
 .container{
   display: flex;
   margin: auto 0.5rem;

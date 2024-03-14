@@ -1,32 +1,40 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<div *ngIf="user" class="container">
-  <div class="card profile">
-    <div class="user-image"></div>
-    <p class="h4 name">{{user.firstName + ' ' + user.lastName}}</p>
-
-    <p class="role">{{user.role.roleName}}</p>
-    <p class="bold">Datum rođenja:</p>
-    <p class="p indented">{{user.dateOfBirth | date}}</p>
-    <p class="bold">Email:</p>
-    <p class="p indented">{{user.email}}</p>
-  </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.css" integrity="sha512-SudEgtLVV+Wip7/PrEh2zd0mO/PqR1w26NEJfhnHGxZdng3KYsLhpAZQG0mPMUykCYoKgdBc7/ItrUYzbC0aTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.js" integrity="sha512-SmkWOBrqYIdqATrk8lM9D2LXXA5rZAcuGTgdzM5REXSGYAtlTgp+88rUzBXxKEd78bnvyEfA7sbZIfe8/vA2Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<div class="container">
   <div class="card details">
-    <h2 class="h4">Uredi korisnika</h2>
+    <h2 class="h4">Dodaj korisnika</h2>
     <hr>
     <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Ime</p>
+        <input type="text" class="input" [(ngModel)]="user.firstName">
+      </div>
       <div class="input-container">
         <p class="bold">Prezime</p>
         <input type="text" class="input" [(ngModel)]="user.lastName">
       </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Email</p>
+        <input type="text" class="input" [(ngModel)]="user.email">
+      </div>
+    </div>
+    <div class="input-container">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Odaberi datum rodjenja" [(ngModel)]="dtUser">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
       <div class="input-container">
         <p class="bold">Pol</p>
-        <input type="text" class="input" [(ngModel)]="user.gender">
+        <input type="text" class="input" [(ngModel)]="user.gender" >
       </div>
     </div>
     <div class="input-row">
       <div class="input-container">
-        <p class="bold">Broj telefona</p>
-        <input type="text" class="input" [(ngModel)]="user.phoneNumber">
+        <p class="bold">JMBG</p>
+        <input type="text" class="input" [(ngModel)]="user.jmbg">
       </div>
       <div class="input-container">
         <p class="bold">Adresa</p>
@@ -35,8 +43,8 @@
     </div>
     <div class="input-row">
       <div class="input-container">
-        <p class="bold">Active</p>
-        <input type="checkbox" class="input" [(ngModel)]="user.isActive">
+        <p class="bold">Broj telefona</p>
+        <input type="text" class="input" [(ngModel)]="user.phoneNumber">
       </div>
     </div>
     <div class="buttons">
@@ -45,3 +53,4 @@
   </div>
 
 </div>
+

@@ -81,7 +81,7 @@ export class UserService {
 
     return this.httpClient.put<any>(`${this.apiUrlEmployee}/${employee?.employeeId}`, employee, { headers })
   }
-  createUser(user: User | null){
+  createUser(user: User | undefined){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
