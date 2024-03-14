@@ -27,7 +27,7 @@
     </div>
       <div class="input-container">
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Odaberi datum rodjenja" [(ngModel)]="employee.dateOfBirth">
+          <input matInput [matDatepicker]="picker" placeholder="Odaberi datum rodjenja" [(ngModel)]="dtEmployee">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>

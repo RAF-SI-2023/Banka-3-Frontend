@@ -14,16 +14,19 @@ export class UserListComponent implements OnInit{
   usersFlag = true;
   employeesFlag = false;
   // currUser: object = atob(sessionStorage.getItem("token")!.split(".")[1]);
+  frstName: string = '';
+  lstName: string = '';
+  eml: string = '';
+  role: string = '';
+  firstName2: string = '';
+  lastName2: string = '';
+  email2: string = '';
 
   users: User[] = [];
   employees: Employee[] = [];
   userColumns: string[] = [ "userId","firstName", "lastName","jmbg", "dateOfBirth", "email","phoneNumber", "roleName", "opcije"]
   employeeColumns: string[] = [ "employeeId","firstName", "lastName","jmbg", "dateOfBirth", "email","phoneNumber", "roleName", "opcije"]
 
-  firstName: string = ''
-  lastName: string = ''
-  email: string = ''
-  role: string = ''
 
   constructor(private userService : UserService, private router: Router) {
   }
@@ -47,20 +50,21 @@ export class UserListComponent implements OnInit{
 
   }
   searchEmployee(){
-    this.userService.searchEmployees(this.firstName, this.lastName, this.email, this.role).subscribe(res => {
+    this.userService.searchEmployees(this.firstName2, this.lastName2, this.email2, this.role).subscribe(res => {
       this.employees = res;
-      console.log(res)
     })
   }
   searchUser(){
-    this.userService.searchUsers(this.firstName, this.lastName, this.email).subscribe(res => {
+    this.userService.searchUsers(this.frstName, this.lstName, this.eml).subscribe(res => {
       this.users = res
-      console.log(res)
     })
   }
   deleteEmployee(id: number){
     this.userService.deleteEmployee(id).subscribe(res => {
       console.log(res)
+      this.employees.filter( employee => {
+        return employee.isActive
+      })
     })
     console.log(id)
   }
@@ -69,6 +73,9 @@ export class UserListComponent implements OnInit{
   }
   deleteUser(id: number){
     this.userService.deleteUser(id).subscribe(res => {
+      this.users.filter(user => {
+        return user.isActive
+      })
       console.log(res)
     })
   }
@@ -79,9 +86,15 @@ export class UserListComponent implements OnInit{
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe( res=> {
       this.users = res;
+      this.users.filter(user => {
+        return user.isActive
+      })
     })
     this.userService.getAllEmployees().subscribe( res=> {
       this.employees = res;
+      this.employees.filter( employee => {
+        return employee.isActive
+      })
     })
   }
 

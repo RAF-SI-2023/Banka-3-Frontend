@@ -12,23 +12,17 @@
     <div class="header">
 
       <div *ngIf="usersFlag" class="search-container">
-        <input [ngModel]="firstName" type="text" placeholder="Ime">
-<!--        <div class="search-icon">-->
-<!--          <img [width]="36"[height]="24" src="assets/search.svg" alt="Search">-->
-<!--        </div>-->
-        <input [ngModel]="lastName" type="text" placeholder="Prezime">
-        <input [ngModel]="email" type="text" placeholder="Email">
-        <button class="btn-submit" type="submit" (click)="searchUser()">Pretraži</button>
+        <input [(ngModel)]="frstName" type="text" placeholder="Ime">
+        <input [(ngModel)]="lstName" type="text" placeholder="Prezime">
+        <input [(ngModel)]="eml" type="text" placeholder="Email">
+        <button class="btn-submit" type="submit" (click)="searchUser()">Pretraži korisnika</button>
       </div>
       <div *ngIf="employeesFlag" class="search-container">
-        <input [ngModel]="firstName" type="text" placeholder="Ime">
-        <!--        <div class="search-icon">-->
-        <!--          <img [width]="36"[height]="24" src="assets/search.svg" alt="Search">-->
-        <!--        </div>-->
-        <input [ngModel]="lastName" type="text" placeholder="Prezime">
-        <input [ngModel]="email" type="text" placeholder="Email">
-        <input [ngModel]="role" type="text" placeholder="Role">
-        <button class="btn-submit" type="submit" (click)="searchEmployee()">Pretraži</button>
+        <input [(ngModel)]="firstName2" type="text" placeholder="Ime">
+        <input [(ngModel)]="lastName2" type="text" placeholder="Prezime">
+        <input [(ngModel)]="email2" type="text" placeholder="Email">
+        <input [(ngModel)]="role" type="text" placeholder="Role">
+        <button class="btn-submit" type="submit" (click)="searchEmployee()">Pretraži zaposlenog</button>
       </div>
 
         <button *ngIf="false" class="primary-button" [routerLink]="'/add-user'">Dodaj korisnika

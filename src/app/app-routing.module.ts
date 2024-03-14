@@ -11,6 +11,9 @@ import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {EditUserComponent} from "./edit-user/edit-user.component";
 import {EditEmployeeComponent} from "./edit-employee/edit-employee.component";
 import {CreateEmployeeComponent} from "./create-employee/create-employee.component";
+import {AuthGuard} from "./guards/auth.guard";
+import {AdminGuard} from "./guards/admin.guard";
+import {A} from "@angular/cdk/keycodes";
 
 const routes: Routes = [
 
@@ -29,7 +32,7 @@ const routes: Routes = [
   {
     path: 'user-list',
     component: UserListComponent,
-    canActivate: []
+    canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'user-login',
@@ -47,18 +50,22 @@ const routes: Routes = [
   {
     path: 'user-profile',
     component: UserProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'edit-user/:id',
     component: EditUserComponent,
+    canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'edit-employee/:id',
     component: EditEmployeeComponent,
+    canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'add-employee',
     component: CreateEmployeeComponent,
+    canActivate: [AuthGuard, AdminGuard]
   },
 ];
 
