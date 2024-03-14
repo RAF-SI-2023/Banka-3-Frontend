@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<div *ngIf="employee" class="container">
+  <div class="card profile">
+    <div class="employee-image"></div>
+    <p class="h4 name">{{employee.firstName + ' ' + employee.lastName}}</p>
+
+    <p class="role">{{employee.role.roleName}}</p>
+    <!-- <p class="h4 name">{{employee.firstName + ' ' + user.lastName}}</p>
+    <p class="role">{{employee.role}}</p>  -->
+    <p class="bold">Datum rođenja:</p>
+    <p class="p indented">{{employee.dateOfBirth | date}}</p>
+    <!-- <p class="p indented">{{employee.dateOfBirth}}</p> -->
+    <p class="bold">Email:</p>
+    <p class="p indented">{{employee.email}}</p>
+    <!-- <p class="p indented">{{employee.email}}</p> -->
+  </div>
+  <div class="card details">
+    <h2 class="h4">Uredi korisnika</h2>
+    <hr>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Prezime</p>
+        <input type="text" class="input" [(ngModel)]="employee.lastName">
+      </div>
+      <div class="input-container">
+        <p class="bold">Pol</p>
+        <input type="text" class="input" [(ngModel)]="employee.gender">
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Broj telefona</p>
+        <input type="text" class="input" [(ngModel)]="employee.phoneNumber">
+      </div>
+      <div class="input-container">
+        <p class="bold">Adresa</p>
+        <input type="text" class="input" [(ngModel)]="employee.address" >
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Active</p>
+        <input type="checkbox" class="input" [(ngModel)]="employee.isActive">
+      </div>
+      <div class="input-container">
+        <p class="bold">Permisije</p>
+        <div class="inner-wrap">
+          <label *ngFor="let item of permissions; let i = index">
+            <input type="checkbox" id="permission{{i}}" [checked]="isPermissionSelected(item)"
+                   (change)="togglePermission(item)" >
+            {{ item.authority }}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+      <button (click)="save()" class="button-change-password">Sačuvaj</button>
+    </div>
+  </div>
+
+</div>

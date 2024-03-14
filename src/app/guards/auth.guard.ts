@@ -8,7 +8,7 @@ import {
   UrlTree
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import {TokenService} from "./token.service";
+import {TokenService} from "../services/token.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,12 @@ export class AuthGuard implements CanActivate, CanDeactivate<unknown> {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if(this.tokenService.getToken() === ''){
+    if(sessionStorage.getItem("token") === null){
       this.router.navigate(['user-login']);
       return false;
     }
-      // this.router.navigate(['user-login']);
-      // return false;
+    // this.router.navigate(['user-login']);
+    // return false;
     return true;
   }
 

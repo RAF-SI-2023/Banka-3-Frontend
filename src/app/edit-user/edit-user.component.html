@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<div *ngIf="user" class="container">
+  <div class="card profile">
+    <div class="user-image"></div>
+    <p class="h4 name">{{user.firstName + ' ' + user.lastName}}</p>
+
+    <p class="role">{{user.role.roleName}}</p>
+    <!-- <p class="h4 name">{{user.firstName + ' ' + user.lastName}}</p>
+    <p class="role">{{user.role}}</p>  -->
+    <p class="bold">Datum rođenja:</p>
+    <p class="p indented">{{user.dateOfBirth | date}}</p>
+    <!-- <p class="p indented">{{user.dateOfBirth}}</p> -->
+    <p class="bold">Email:</p>
+    <p class="p indented">{{user.email}}</p>
+    <!-- <p class="p indented">{{user.email}}</p> -->
+  </div>
+  <div class="card details">
+    <h2 class="h4">Uredi korisnika</h2>
+    <hr>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Prezime</p>
+        <input type="text" class="input" [(ngModel)]="user.lastName">
+      </div>
+      <div class="input-container">
+        <p class="bold">Pol</p>
+        <input type="text" class="input" [(ngModel)]="user.gender">
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Broj telefona</p>
+        <input type="text" class="input" [(ngModel)]="user.phoneNumber">
+      </div>
+      <div class="input-container">
+        <p class="bold">Adresa</p>
+        <input type="text" class="input" [(ngModel)]="user.address" >
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Active</p>
+        <input type="checkbox" class="input" [(ngModel)]="user.isActive">
+      </div>
+    </div>
+    <!-- <div class="related-accounts">
+        <h3 class="p bold">Povezani računi</h3>
+        <ul class="related-accounts-list">
+            <li *ngFor="let account of userAccounts" class="p">
+                {{ account.accountNumber }}
+                <span class="account-actions">
+                    <a href="#"><i class="fas fa-edit"></i></a>
+                    <a href="#"><i class="fas fa-trash-alt"></i></a>
+                </span>
+            </li>
+        </ul>
+    </div> -->
+    <div class="buttons">
+      <button (click)="save()" class="button-change-password">Sačuvaj</button>
+    </div>
+  </div>
+
+</div>
