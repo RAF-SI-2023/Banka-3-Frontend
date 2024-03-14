@@ -25,6 +25,9 @@ export class AdminLoginComponent {
       this.userService.loginEmployee(email, password).subscribe(res => {
         sessionStorage.setItem("token", res.token);
         this.router.navigate(['user-list'])
+          .then(()=> {
+            window.location.reload()
+          })
       })
     }
   }
