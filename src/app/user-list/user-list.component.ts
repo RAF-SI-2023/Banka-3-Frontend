@@ -24,7 +24,7 @@ export class UserListComponent implements OnInit{
 
   users: User[] = [];
   employees: Employee[] = [];
-  userColumns: string[] = [ "userId","firstName", "lastName","jmbg", "dateOfBirth", "email","phoneNumber", "roleName", "opcije"]
+  userColumns: string[] = [ "userId","firstName", "lastName","jmbg", "dateOfBirth", "email","phoneNumber", "opcije"]
   employeeColumns: string[] = [ "employeeId","firstName", "lastName","jmbg", "dateOfBirth", "email","phoneNumber", "roleName", "opcije"]
 
 

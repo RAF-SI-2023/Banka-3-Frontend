@@ -62,8 +62,12 @@
         <input type="text" class="input" [(ngModel)]="employee.phoneNumber">
       </div>
       <div class="input-container">
-        <p class="bold">Role</p>
-        <input type="text" class="input" [(ngModel)]="employee.role" >
+        <div class="inner-wrap">
+          <div class="input-container">
+            <p class="bold">Role</p>
+            <input type="text" class="input" [(ngModel)]="employee.role">
+          </div>
+        </div>
       </div>
     </div>
     <div class="buttons">

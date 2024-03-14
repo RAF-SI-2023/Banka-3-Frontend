@@ -6,14 +6,10 @@
     <p class="h4 name">{{name + ' ' + surname}}</p>
 
     <p class="role">Admin</p>
-    <!-- <p class="h4 name">{{user.firstName + ' ' + user.lastName}}</p>
-    <p class="role">{{user.role}}</p>  -->
     <p class="bold">Datum rođenja:</p>
     <p class="p indented">{{birthDate}}</p>
-    <!-- <p class="p indented">{{user.dateOfBirth}}</p> -->
     <p class="bold">Email:</p>
     <p class="p indented">{{email}}</p>
-    <!-- <p class="p indented">{{user.email}}</p> -->
   </div>
   <div class="card details">
     <h2 class="h4">Uredi profil</h2>
@@ -38,21 +34,6 @@
         <input type="text" class="input" [(ngModel)]="addr" >
       </div>
     </div>
-
-
-    <!-- <div class="related-accounts">
-        <h3 class="p bold">Povezani računi</h3>
-        <ul class="related-accounts-list">
-            <li *ngFor="let account of userAccounts" class="p">
-                {{ account.accountNumber }}
-                <span class="account-actions">
-                    <a href="#"><i class="fas fa-edit"></i></a>
-                    <a href="#"><i class="fas fa-trash-alt"></i></a>
-                </span>
-            </li>
-        </ul>
-    </div> -->
-
 
     <div class="related-accounts">
       <h3 class="p bold">Povezani računi</h3>

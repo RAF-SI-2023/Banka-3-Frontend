@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Employee, Permission} from "../models/models";
 import {UserService} from "../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -8,7 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: './create-employee.component.html',
   styleUrls: ['./create-employee.component.css']
 })
-export class CreateEmployeeComponent {
+export class CreateEmployeeComponent implements OnInit{
 
   employee = {} as Employee;
   dtEmployee: string = ''
@@ -16,6 +16,12 @@ export class CreateEmployeeComponent {
   constructor(private userService: UserService, private router : Router) {
 
   }
+
+  ngOnInit(): void {
+    this.userService.getAllPermissions().subscribe(res => {
+      this.permissions = res
+    })
+    }
 
 
   save(){
