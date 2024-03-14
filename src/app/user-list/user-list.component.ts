@@ -20,6 +20,11 @@ export class UserListComponent implements OnInit{
   userColumns: string[] = [ "userId","firstName", "lastName","jmbg", "dateOfBirth", "email","phoneNumber", "roleName", "opcije"]
   employeeColumns: string[] = [ "employeeId","firstName", "lastName","jmbg", "dateOfBirth", "email","phoneNumber", "roleName", "opcije"]
 
+  firstName: string = ''
+  lastName: string = ''
+  email: string = ''
+  role: string = ''
+
   constructor(private userService : UserService, private router: Router) {
   }
 
@@ -41,7 +46,18 @@ export class UserListComponent implements OnInit{
     })
 
   }
-
+  searchEmployee(){
+    this.userService.searchEmployees(this.firstName, this.lastName, this.email, this.role).subscribe(res => {
+      this.employees = res;
+      console.log(res)
+    })
+  }
+  searchUser(){
+    this.userService.searchUsers(this.firstName, this.lastName, this.email).subscribe(res => {
+      this.users = res
+      console.log(res)
+    })
+  }
   deleteEmployee(id: number){
     this.userService.deleteEmployee(id).subscribe(res => {
       console.log(res)

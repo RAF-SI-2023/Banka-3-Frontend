@@ -11,11 +11,24 @@
   <div class="table">
     <div class="header">
 
-      <div class="search-container">
-        <input type="text" placeholder="Pretraga">
-        <div class="search-icon">
-          <img [width]="36"[height]="30" src="assets/search.svg" alt="Search">
-        </div>
+      <div *ngIf="usersFlag" class="search-container">
+        <input [ngModel]="firstName" type="text" placeholder="Ime">
+<!--        <div class="search-icon">-->
+<!--          <img [width]="36"[height]="24" src="assets/search.svg" alt="Search">-->
+<!--        </div>-->
+        <input [ngModel]="lastName" type="text" placeholder="Prezime">
+        <input [ngModel]="email" type="text" placeholder="Email">
+        <button class="btn-submit" type="submit" (click)="searchUser()">Pretraži</button>
+      </div>
+      <div *ngIf="employeesFlag" class="search-container">
+        <input [ngModel]="firstName" type="text" placeholder="Ime">
+        <!--        <div class="search-icon">-->
+        <!--          <img [width]="36"[height]="24" src="assets/search.svg" alt="Search">-->
+        <!--        </div>-->
+        <input [ngModel]="lastName" type="text" placeholder="Prezime">
+        <input [ngModel]="email" type="text" placeholder="Email">
+        <input [ngModel]="role" type="text" placeholder="Role">
+        <button class="btn-submit" type="submit" (click)="searchEmployee()">Pretraži</button>
       </div>
 
         <button *ngIf="false" class="primary-button" [routerLink]="'/add-user'">Dodaj korisnika
