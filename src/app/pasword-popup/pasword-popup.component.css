@@ -1,0 +1,32 @@
+.formContainer {
+  background-color: #F6F6F6;
+  border-radius: 3px;
+  padding: 2rem 3rem 4rem 3rem;
+  margin: 0 auto;
+  text-align: center;
+
+}
+.col-sm{
+  padding: 10rem;
+}
+
+
+html {
+
+  margin:0;
+
+  background-repeat: no-repeat;
+}
+
+body{
+
+  padding: 5rem;
+}
+.account-actions a:hover {
+  color: #104D7B;
+}
+.horizontal-line {
+  border: none;
+  border-top: 2px solid rgba(0, 0, 0, 0.45); /* Adjust the style of the line */
+  margin: 20px 0; /* Adjust the margin above and below the line */
+}

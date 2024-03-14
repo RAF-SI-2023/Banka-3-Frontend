@@ -1,0 +1,38 @@
+<html lang="en">
+<body>
+    <div class="logoContainer">
+        <img class="logo" src="assets/fullLogo.svg" alt="logo">
+    </div>
+    <div class="container">
+    <div class="formContainer">
+        <div style="width: 100%;text-align: center; margin: 1rem 0rem 1rem 0rem"><span class="h3">Kreiranje novog naloga</span></div>
+
+        <form >
+
+            <div class="container">
+            <div class="row align-items-start">
+            <div class="col-sm">
+                <input class="inputField" type="text" id="ime" name="ime" placeholder="Ime" [(ngModel)]="firstName">
+                <input class="inputField" type="text" id="prezime" name="prezime" placeholder="Prezime" [(ngModel)]="lastName">
+                <input class="inputField" type="text" id="jmbg" name="jmbg" placeholder="JMBG" [(ngModel)]="jmbg">
+                  </div>
+                  <div class="col-sm">
+                    <input class="inputField" type="email" id="email" name="email" placeholder="Email" [(ngModel)]="email">
+                    <input class="inputField" type="text" id="pol" name="pol" placeholder="Pol" [(ngModel)]="gender">
+                    <mat-form-field class="datePick">
+                      <input matInput [matDatepicker]="picker" placeholder="Odaberi datum rodjenja" [(ngModel)]="user.dateOfBirth">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm">
+                    <input class="inputField" type="tel" id="telefon" name="telefon" pattern="[+]{1}[0-9]{3}[0-9]{8,}" placeholder="Broj telefona" [(ngModel)]="phoneNumber">
+                    <input class="myButtonPrimary" type="submit" value="Kreiraj nalog">
+                  </div>
+                </div>
+              </div>
+        </form>
+    </div>
+    </div>
+</body>
+</html>

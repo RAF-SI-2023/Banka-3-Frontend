@@ -1,1 +1,123 @@
 /* You can add global styles to this file, and also import other style files */
+
+*{
+
+  box-sizing: border-box;
+
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+:root{
+
+  line-height: 1.5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  --max-screen-width: 86rem;
+  --white-text: #FFFFFF;
+  --background-main: #F6F6F6;
+  --background-elements: #FFFFFF;
+  --button-primary: #D22055;
+  --color-primary: #D22055;
+  --color-secondary: #A0D4F5;
+  --button-secondary: #104D7B;
+  --blue-dark: #071E2D;
+  --blue-medium: #104D7B;
+  --blue-light: #A0D4F5;
+  --font-color: #071E2D;
+  --h1-size: 4rem;
+  --h2-size: 3rem;
+  --h3-size: 2rem;
+  --h4-size: 1.5rem;
+  --input-size: 1rem;
+  --paragraph-size: 1rem;
+
+}
+
+.h1{
+  font-size: var(--h1-size);
+  color: var(--blue-dark);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.h2{
+  font-size: var(--h2-size);
+  color: var(--blue-dark);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.h3{
+  font-size: var(--h3-size);
+  color: var(--blue-dark);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+}
+
+.h4{
+  font-size: var(--h4-size);
+  color: var(--blue-dark);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+}
+
+html, body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}
+.myButtonPrimary{
+font-size: var(--input-size);
+font-family: 'Archivo', sans-serif;
+font-weight: 400;
+padding:0.5rem 1rem 0.5rem 1rem;
+margin:0.5rem;
+color:white;
+border-radius: 0.3rem;
+border:none;
+-webkit-box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+-moz-box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+background-color:var(--button-primary);
+}
+.myButtonSecondary{
+  font-size: var(--input-size);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
+  padding:0.5rem 1rem 0.5rem 1rem;
+  margin:0.5rem;
+  color:white;
+  border-radius: 0.3rem;
+  border:none;
+  -webkit-box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+  -moz-box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+  box-shadow: 0px 6px 5px 0px rgba(168,168,168,0.66);
+  background-color:var(--button-secondary);
+  }
+
+.inputField{
+font-size: var(--input-size);
+font-family: 'Archivo', sans-serif;
+font-weight: 400;
+padding:1rem;
+margin:0.5rem;
+border-radius: 0.3rem;
+border:none;
+-webkit-box-shadow: 0px 2px 4px 1px rgba(168,168,168,0.66);
+-moz-box-shadow: 0px 2px 4px 1px rgba(168,168,168,0.66);
+box-shadow: 0px 2px 4px 1px rgba(168,168,168,0.66);
+}
+
+.p{
+  font-size: var(--paragraph-size);
+  color: var(--blue-dark);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
+}

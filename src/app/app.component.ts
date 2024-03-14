@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,21 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'appName';
+  isLoggedIn : boolean
+
+  constructor() {
+    if (sessionStorage.getItem("token") !== null){
+      this.isLoggedIn = true
+    }else{
+      this.isLoggedIn = false;
+    }
+  }
+
+  setLoggedIn(value : boolean){
+    this.isLoggedIn = value;
+  }
+
+  getLoggedIn(){
+    return this.isLoggedIn;
+  }
 }

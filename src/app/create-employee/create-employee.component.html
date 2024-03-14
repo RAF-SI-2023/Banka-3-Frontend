@@ -1,0 +1,79 @@
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.css" integrity="sha512-SudEgtLVV+Wip7/PrEh2zd0mO/PqR1w26NEJfhnHGxZdng3KYsLhpAZQG0mPMUykCYoKgdBc7/ItrUYzbC0aTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.js" integrity="sha512-SmkWOBrqYIdqATrk8lM9D2LXXA5rZAcuGTgdzM5REXSGYAtlTgp+88rUzBXxKEd78bnvyEfA7sbZIfe8/vA2Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<div class="container">
+  <div class="card details">
+    <h2 class="h4">Dodaj zaposlenog</h2>
+    <hr>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Ime</p>
+        <input type="text" class="input" [(ngModel)]="employee.firstName">
+      </div>
+      <div class="input-container">
+        <p class="bold">Prezime</p>
+        <input type="text" class="input" [(ngModel)]="employee.lastName">
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Username</p>
+        <input type="text" class="input" [(ngModel)]="employee.username">
+      </div>
+      <div class="input-container">
+        <p class="bold">Email</p>
+        <input type="text" class="input" [(ngModel)]="employee.email">
+      </div>
+    </div>
+      <div class="input-container">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Odaberi datum rodjenja" [(ngModel)]="dtEmployee">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      <div class="input-container">
+        <p class="bold">Pol</p>
+        <input type="text" class="input" [(ngModel)]="employee.gender" >
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">JMBG</p>
+        <input type="text" class="input" [(ngModel)]="employee.jmbg">
+      </div>
+      <div class="input-container">
+        <p class="bold">Adresa</p>
+        <input type="text" class="input" [(ngModel)]="employee.address" >
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Departman</p>
+        <input type="text" class="input" [(ngModel)]="employee.department">
+      </div>
+      <div class="input-container">
+        <p class="bold">Pozicija</p>
+        <input type="text" class="input" [(ngModel)]="employee.position" >
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <p class="bold">Broj telefona</p>
+        <input type="text" class="input" [(ngModel)]="employee.phoneNumber">
+      </div>
+      <div class="input-container">
+        <div class="inner-wrap">
+          <div class="input-container">
+            <p class="bold">Role</p>
+            <input type="text" class="input" [(ngModel)]="employee.role">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+      <button (click)="save()" class="button-change-password">Napravi korisnika</button>
+    </div>
+  </div>
+
+</div>
+
