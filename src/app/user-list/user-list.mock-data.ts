@@ -1,107 +1,202 @@
-import { User } from "../models/models";
+import {Employee, User} from "../models/models";
 
-export const MOCK_USERS: User[] = [
-    {
-      id: 1,
-      ime: 'Marko',
-      prezime: 'Markovic',
-      jmbg: '0101984758234',
-      datum: new Date('1998-01-01'),
-      email: 'marko@example.com',
-      telefon: '0611234567',
-      permisije: ['Perms']
-    },
-    {
-      id: 2,
-      ime: 'Ana',
-      prezime: 'Anic',
-      jmbg: '0505938788234',
-      datum: new Date('1993-05-05'),
-      email: 'ana@example.com',
-      telefon: '0649876543',
-      permisije: ['Perms']
-    },
-    {
-        id: 3,
-        ime: 'Ivan',
-        prezime: 'Ivanovic',
-        jmbg: '0202956723456',
-        datum: new Date('1995-02-02'),
-        email: 'ivan@example.com',
-        telefon: '0651112233',
-        permisije: ['Perms']
-      },
-      {
-        id: 4,
-        ime: 'Jovana',
-        prezime: 'Jovanovic',
-        jmbg: '2807979834567',
-        datum: new Date('1997-07-28'),
-        email: 'jovana@example.com',
-        telefon: '0623334445',
-        permisije: ['Perms']
-      },
-      {
-        id: 5,
-        ime: 'Stefan',
-        prezime: 'Stefanovic',
-        jmbg: '1103999876543',
-        datum: new Date('1999-03-11'),
-        email: 'stefan@example.com',
-        telefon: '0635556667',
-        permisije: ['Perms']
-      }
-  ];
-
-  export const MOCK_EMPLOYEES: User[] = [
-    {
-      id: 6,
-      ime: 'Petar',
-      prezime: 'Petrovic',
-      jmbg: '1504957123456',
-      datum: new Date('1995-04-15'),
-      email: 'petar@example.com',
-      telefon: '0612345678',
-      permisije: ['Perms']
-    },
-    {
-      id: 7,
-      ime: 'Milica',
-      prezime: 'Milic',
-      jmbg: '2512888234567',
-      datum: new Date('1988-12-25'),
-      email: 'milica@example.com',
-      telefon: '0648765432',
-      permisije: ['Perms']
-    },
-    {
-      id: 8,
-      ime: 'Marko',
-      prezime: 'Markovic',
-      jmbg: '0705963456789',
-      datum: new Date('1996-05-07'),
-      email: 'marko@example.com',
-      telefon: '0659876543',
-      permisije: ['Perms']
-    },
-    {
-      id: 9,
-      ime: 'Jelena',
-      prezime: 'Jovanovic',
-      jmbg: '1804908765432',
-      datum: new Date('1990-04-18'),
-      email: 'jelena@example.com',
-      telefon: '0623334455',
-      permisije: ['Perms']
-    },
-    {
-      id: 10,
-      ime: 'Filip',
-      prezime: 'Filipovic',
-      jmbg: '2203962345678',
-      datum: new Date('1996-03-22'),
-      email: 'filip@example.com',
-      telefon: '0635554443',
-      permisije: ['Perms']
-    }
-  ];
+// export const MOCK_USERS: User[] = [
+//     {
+//       userId: 1,
+//       firstName: 'Marko',
+//       lastName: 'Markovic',
+//       jmbg: '0101984758234',
+//       dateOfBirth: 1,
+//       email: 'marko@example.com',
+//       phoneNumber: '0611234567',
+//       gender: 'M',
+//       address: '',
+//       isActive: false,
+//       role: {
+//         roleName: "ADMIN",
+//         permissions: [
+//           "CAN_READ"
+//         ]
+//       }
+//     },
+//   {
+//     userId: 2,
+//     firstName: 'Marko',
+//     lastName: 'Markovic',
+//     jmbg: '0101984758234',
+//     dateOfBirth: 1,
+//     email: 'marko@example.com',
+//     phoneNumber: '0611234567',
+//     gender: 'M',
+//     address: '',
+//     isActive: true,
+//     role: {
+//       roleName: "ADMIN",
+//       permissions: [
+//         "CAN_READ"
+//       ]
+//     }
+//   },
+//   {
+//     userId: 3,
+//     firstName: 'Marko',
+//     lastName: 'Markovic',
+//     jmbg: '0101984758234',
+//     dateOfBirth: 1,
+//     email: 'marko@example.com',
+//     phoneNumber: '0611234567',
+//     gender: 'M',
+//     address: '',
+//     isActive: true,
+//     role: {
+//       roleName: "ADMIN",
+//       permissions: [
+//         "CAN_READ"
+//       ]
+//     }
+//   },
+//   {
+//     userId: 4,
+//     firstName: 'Marko',
+//     lastName: 'Markovic',
+//     jmbg: '0101984758234',
+//     dateOfBirth: 1,
+//     email: 'marko@example.com',
+//     phoneNumber: '0611234567',
+//     gender: 'M',
+//     address: '',
+//     isActive: true,
+//     role: {
+//       roleName: "ADMIN",
+//       permissions: [
+//         "CAN_READ"
+//       ]
+//     }
+//   },
+//   {
+//     userId: 5,
+//     firstName: 'Marko',
+//     lastName: 'Markovic',
+//     jmbg: '0101984758234',
+//     dateOfBirth: 1,
+//     email: 'marko@example.com',
+//     phoneNumber: '0611234567',
+//     gender: 'M',
+//     address: '',
+//     isActive: true,
+//     role: {
+//       roleName: "ADMIN",
+//       permissions: [
+//         "CAN_READ"
+//       ]
+//     }
+//   },
+// ];
+//
+//   export const MOCK_EMPLOYEES: Employee[] = [
+//   {
+//     employeeId: 1,
+//     firstName: 'John',
+//     lastName: 'Doe',
+//     username: 'johndoe',
+//     jmbg: '1234567890123',
+//     dateOfBirth: 719228800000,
+//     gender: 'Male',
+//     phoneNumber: '123-456-7890',
+//     address: '123 Main St, Anytown, USA',
+//     email: 'johndoe@example.com',
+//     isActive: true,
+//     position: 'Software Engineer',
+//     department: 'Engineering',
+//     role: {
+//       roleName: "ADMIN",
+//       permissions: [
+//         "CAN_READ"
+//       ]
+//     }
+//   },
+//   {
+//     employeeId: 2,
+//     firstName: 'Alice',
+//     lastName: 'Smith',
+//     username: 'alicesmith',
+//     jmbg: '9876543210987',
+//     dateOfBirth: 725155200000,
+//     gender: 'Female',
+//     phoneNumber: '987-654-3210',
+//     address: '456 Elm St, Othertown, USA',
+//     email: 'alicesmith@example.com',
+//     isActive: true,
+//     position: 'Marketing Specialist',
+//     department: 'Marketing',
+//     role: {
+//       roleName: "ADMIN",
+//       permissions: [
+//         "CAN_READ"
+//       ]
+//     }
+//   },
+//   {
+//     employeeId: 3,
+//     firstName: 'Michael',
+//     lastName: 'Johnson',
+//     username: 'michaeljohnson',
+//     jmbg: '5678901234567',
+//     dateOfBirth: 684835200000,
+//     gender: 'Male',
+//     phoneNumber: '567-890-1234',
+//     address: '789 Oak St, Anothertown, USA',
+//     email: 'michaeljohnson@example.com',
+//     isActive: true,
+//     position: 'HR Manager',
+//     department: 'Human Resources',
+//     role: {
+//       roleName: "ADMIN",
+//       permissions: [
+//         "CAN_READ"
+//       ]
+//     }
+//   },
+//   {
+//     employeeId: 4,
+//     firstName: 'Emily',
+//     lastName: 'Brown',
+//     username: 'emilybrown',
+//     jmbg: '6543210987654',
+//     dateOfBirth: 699292800000,
+//     gender: 'Female',
+//     phoneNumber: '654-321-0987',
+//     address: '321 Pine St, Yetanothertown, USA',
+//     email: 'emilybrown@example.com',
+//     isActive: true,
+//     position: 'Financial Analyst',
+//     department: 'Finance',
+//     role: {
+//       roleName: "ADMIN",
+//       permissions: [
+//         "CAN_READ"
+//       ]
+//     }
+//   },
+//   {
+//     employeeId: 5,
+//     firstName: 'David',
+//     lastName: 'Wilson',
+//     username: 'davidwilson',
+//     jmbg: '4321098765432',
+//     dateOfBirth: 710553600000,
+//     gender: 'Male',
+//     phoneNumber: '432-109-8765',
+//     address: '987 Maple St, Townsville, USA',
+//     email: 'davidwilson@example.com',
+//     isActive: true,
+//     position: 'Sales Representative',
+//     department: 'Sales',
+//     role: {
+//       roleName: "ADMIN",
+//       permissions: [
+//         "CAN_READ"
+//       ]
+//     }
+//   }
+// ];

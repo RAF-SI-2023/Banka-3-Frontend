@@ -12,18 +12,17 @@
             <div class="container">
             <div class="row align-items-start">
             <div class="col-sm">
-                <input class="inputField" type="text" id="ime" name="ime" placeholder="Ime" [(ngModel)]="ime">
-                <input class="inputField" type="text" id="prezime" name="prezime" placeholder="Prezime" [(ngModel)]="prezime">
-                <input class="inputField" type="number" id="jmbg" name="jmbg" placeholder="JMBG" [(ngModel)]="jmbg">
+                <input class="inputField" type="text" id="ime" name="ime" placeholder="Ime" [(ngModel)]="firstName">
+                <input class="inputField" type="text" id="prezime" name="prezime" placeholder="Prezime" [(ngModel)]="lastName">
+                <input class="inputField" type="text" id="jmbg" name="jmbg" placeholder="JMBG" [(ngModel)]="jmbg">
                   </div>
                   <div class="col-sm">
                     <input class="inputField" type="email" id="email" name="email" placeholder="Email" [(ngModel)]="email">
-                    <input class="inputField" type="number" id="datumRodjenja" name="datumRodjenja" placeholder="Datum rodjenja" [(ngModel)]="datumRodjenja">
-                    <input class="inputField" type="text" id="pol" name="pol" placeholder="Pol" [(ngModel)]="pol">
+                    <input class="inputField" type="text" id="datumRodjenja" name="datumRodjenja" placeholder="Datum rodjenja" [(ngModel)]="dateOfBirth">
+                    <input class="inputField" type="text" id="pol" name="pol" placeholder="Pol" [(ngModel)]="gender">
                   </div>
                   <div class="col-sm">
-                    <input class="inputField" type="text" id="adresa" name="adresa" placeholder="Adresa stanovanja" [(ngModel)]="adresa">
-                    <input class="inputField" type="tel" id="telefon" name="telefon" pattern="[+]{1}[0-9]{3}[0-9]{8,}" placeholder="Broj telefona" [(ngModel)]="telefon">
+                    <input class="inputField" type="tel" id="telefon" name="telefon" pattern="[+]{1}[0-9]{3}[0-9]{8,}" placeholder="Broj telefona" [(ngModel)]="phoneNumber">
                     <input class="myButtonPrimary" type="submit" value="Kreiraj nalog">
                   </div>
                 </div>

@@ -18,6 +18,14 @@ import { UserloginComponent } from './login/userlogin/userlogin.component';
 import { AdminLoginComponent } from './login/admin-login/admin-login.component';
 import {MatSortModule} from "@angular/material/sort";
 import {PaswordPopupComponent} from "./pasword-popup/pasword-popup.component";
+import { EditUserComponent } from './edit-user/edit-user.component';
+import {HttpClientModule} from "@angular/common/http";
+import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
+import { CreateUserComponent } from './create-user/create-user.component';
+import { CreateEmployeeComponent } from './create-employee/create-employee.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import {MatNativeDateModule} from "@angular/material/core";
 
 
 
@@ -33,6 +41,10 @@ import {PaswordPopupComponent} from "./pasword-popup/pasword-popup.component";
     RegisterPasswordComponent,
     UserProfileComponent,
     PaswordPopupComponent,
+    EditUserComponent,
+    EditEmployeeComponent,
+    CreateUserComponent,
+    CreateEmployeeComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +55,11 @@ import {PaswordPopupComponent} from "./pasword-popup/pasword-popup.component";
     MatSortModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],
