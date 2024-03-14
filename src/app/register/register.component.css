@@ -1,11 +1,11 @@
 .formContainer {
-    background-color: rgba(230, 230, 230, 0.747); 
-    border-radius: 3px; 
+    background-color: rgba(230, 230, 230, 0.747);
+    border-radius: 3px;
     padding: 2rem 3rem 4rem 3rem;
-    margin: 0 auto; 
+    margin: 0 auto;
     text-align: justify;
     width:80%;
-    
+
 }
 .col-sm{
     padding: 0;
@@ -39,4 +39,10 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     padding: 3rem;
+}
+.datePick{
+  width: 13rem;
+  margin:0.5rem;
+  border-radius: 0.3rem;
+  border:none;
 }

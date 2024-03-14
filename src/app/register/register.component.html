@@ -18,8 +18,12 @@
                   </div>
                   <div class="col-sm">
                     <input class="inputField" type="email" id="email" name="email" placeholder="Email" [(ngModel)]="email">
-                    <input class="inputField" type="text" id="datumRodjenja" name="datumRodjenja" placeholder="Datum rodjenja" [(ngModel)]="dateOfBirth">
                     <input class="inputField" type="text" id="pol" name="pol" placeholder="Pol" [(ngModel)]="gender">
+                    <mat-form-field class="datePick">
+                      <input matInput [matDatepicker]="picker" placeholder="Odaberi datum rodjenja" [(ngModel)]="user.dateOfBirth">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
                   </div>
                   <div class="col-sm">
                     <input class="inputField" type="tel" id="telefon" name="telefon" pattern="[+]{1}[0-9]{3}[0-9]{8,}" placeholder="Broj telefona" [(ngModel)]="phoneNumber">

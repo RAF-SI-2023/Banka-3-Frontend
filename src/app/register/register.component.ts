@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {UserService} from "../services/user.service";
+import {User} from "../models/models";
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,7 @@ export class RegisterComponent {
   firstName: string = ''
   lastName: string= ''
   jmbg: string = ''
-  dateOfBirth: string = ''
+  user = {} as User;
   gender: string = ''
   phoneNumber: string = ''
   email: string = ''
@@ -20,9 +21,8 @@ export class RegisterComponent {
 
   onSubmit(): void {
     this.userService.registerUser(this.firstName, this.lastName, this.jmbg,
-      this.dateOfBirth, this.gender, this.phoneNumber, this.email).subscribe(res => {
+      this.user.dateOfBirth.toString(), this.gender, this.phoneNumber, this.email).subscribe(res => {
       console.log(res)
-
     })
 
     console.log('Form submitted!');
