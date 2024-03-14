@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class CreateEmployeeComponent {
 
   employee = {} as Employee;
+  dtEmployee: string = ''
   permissions: Permission[] | null = null;
   constructor(private userService: UserService, private router : Router) {
 
@@ -18,9 +19,11 @@ export class CreateEmployeeComponent {
 
 
   save(){
-    console.log(this.employee)
+    let dt = new Date(this.dtEmployee).getDate()
+    this.employee.dateOfBirth = dt;
+    console.log(this.employee.dateOfBirth)
     this.userService.createEmployee(this.employee).subscribe(res => {
-      console.log(this.employee)
+
       console.log(res)
       this.router.navigate(['user-list'])
     })

@@ -103,7 +103,7 @@ export class UserService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    return this.httpClient.delete<any>(`${this.apiUrlUser}`, { headers })
+    return this.httpClient.delete<any>(`${this.apiUrlUser}/${id}`, { headers })
   }
   deleteEmployee(id: number){
     const headers = new HttpHeaders({
@@ -111,7 +111,7 @@ export class UserService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    return this.httpClient.delete<any>(`${this.apiUrlEmployee}`, { headers })
+    return this.httpClient.delete<any>(`${this.apiUrlEmployee}/${id}`, { headers })
   }
   searchUsers(firstName: string, lastName: string, email: string){
     const headers = new HttpHeaders({
@@ -119,16 +119,8 @@ export class UserService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    let obj = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email
-    }
 
-    return this.httpClient.post<User[]>(`${this.apiUrlUser}/search?firstName=
-    ${firstName}&lastName=${lastName}
-    &email=${email}`,
-      { headers })
+    return this.httpClient.get<User[]>(`${this.apiUrlUser}/search?firstName=${firstName}&lastName=${lastName}&email=${email}`, { headers })
   }
   searchEmployees(firstName: string, lastName: string, email: string, role: string){
     const headers = new HttpHeaders({
@@ -136,17 +128,7 @@ export class UserService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    // let obj = {
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   email: email,
-    //   role: role
-    // }
-
-    return this.httpClient.get<Employee[]>(`${this.apiUrlEmployee}/search?firstName=
-    ${firstName}&lastName=${lastName}
-    &email=${email}&role=${role}`,
-      { headers })
+    return this.httpClient.get<Employee[]>(`${this.apiUrlEmployee}/search?firstName=${firstName}&lastName=${lastName}&email=${email}&role=${role}`, { headers })
   }
   getAllPermissions(){
     const headers = new HttpHeaders({
