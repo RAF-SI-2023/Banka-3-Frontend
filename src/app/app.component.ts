@@ -11,7 +11,11 @@ export class AppComponent {
   isLoggedIn : boolean
 
   constructor() {
-    this.isLoggedIn = false;
+    if (sessionStorage.getItem("token") !== null){
+      this.isLoggedIn = true
+    }else{
+      this.isLoggedIn = false;
+    }
   }
 
   setLoggedIn(value : boolean){

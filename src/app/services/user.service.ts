@@ -125,7 +125,10 @@ export class UserService {
       email: email
     }
 
-    return this.httpClient.post<User[]>(`${this.apiUrlUser}/search`, obj,{ headers })
+    return this.httpClient.post<User[]>(`${this.apiUrlUser}/search?firstName=
+    ${firstName}&lastName=${lastName}
+    &email=${email}`,
+      { headers })
   }
   searchEmployees(firstName: string, lastName: string, email: string, role: string){
     const headers = new HttpHeaders({
@@ -133,14 +136,17 @@ export class UserService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    let obj = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      role: role
-    }
+    // let obj = {
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   email: email,
+    //   role: role
+    // }
 
-    return this.httpClient.post<User[]>(`${this.apiUrlEmployee}/search`, obj,{ headers })
+    return this.httpClient.get<Employee[]>(`${this.apiUrlEmployee}/search?firstName=
+    ${firstName}&lastName=${lastName}
+    &email=${email}&role=${role}`,
+      { headers })
   }
   getAllPermissions(){
     const headers = new HttpHeaders({
