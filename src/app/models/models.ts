@@ -9,7 +9,6 @@ export interface User {
   address: string,
   email: string,
   isActive: boolean,
-  role: Role
 }
 
 export interface Employee {
@@ -29,11 +28,12 @@ export interface Employee {
 }
 
 export interface Permission {
-  role: number,
+  permissionId: number
   authority: string
 }
 
 export interface Role {
+  roleId: number | undefined,
   roleName: string,
 }
 
