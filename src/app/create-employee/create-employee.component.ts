@@ -52,15 +52,19 @@ export class CreateEmployeeComponent implements OnInit{
     this.employee.address = this.employeeForm.get('address')?.value;
     this.employee.email = this.employeeForm.get('email')?.value;
     this.employee.isActive = this.employeeForm.get('isActive')?.value;
-    this.employee.role = this.employeeForm.get('role')?.value;
+    // this.employee.role = this.employeeForm.get('role')?.value;
+
+    // @ts-ignore
+    let rId: number | undefined = this.roles?.find(role => role.roleName === this.employeeForm.get('role')?.value).roleId;
+    this.employee.role = {
+      roleId: rId,
+      roleName : this.employeeForm.get('role')?.value
+    }
 
     let dt = new Date(this.employeeForm.get('dateOfBirth')?.value).getTime();
     this.employee.dateOfBirth = dt;
 
-
-
     this.userService.createEmployee(this.employee).subscribe(res => {
-
       console.log(res)
       this.router.navigate(['user-list'])
     });
