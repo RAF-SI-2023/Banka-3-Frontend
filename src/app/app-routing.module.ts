@@ -33,7 +33,7 @@ const routes: Routes = [
   {
     path: 'user-list',
     component: UserListComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'user-login',
@@ -51,32 +51,32 @@ const routes: Routes = [
   {
     path: 'user-profile',
     component: UserProfileComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path: 'edit-user/:id',
     component: EditUserComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'edit-employee/:id',
     component: EditEmployeeComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'add-employee',
     component: CreateEmployeeComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'add-user',
     component: CreateUserComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'user-profile/:id',
     component: UserProfileComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
 ];
 

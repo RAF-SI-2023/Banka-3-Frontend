@@ -26,6 +26,7 @@ import { CreateEmployeeComponent } from './create-employee/create-employee.compo
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import {MatNativeDateModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 
 
@@ -58,7 +59,8 @@ import {MatNativeDateModule} from "@angular/material/core";
     HttpClientModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule
 
   ],
   providers: [],

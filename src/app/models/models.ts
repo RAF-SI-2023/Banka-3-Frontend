@@ -24,14 +24,12 @@ export interface Employee {
   address: string,
   email: string,
   isActive: boolean,
-  position: string,
-  department: string,
   permissions: Permission[],
   role: Role
 }
 
 export interface Permission {
-  roleId: number,
+  role: number,
   authority: string
 }
 
