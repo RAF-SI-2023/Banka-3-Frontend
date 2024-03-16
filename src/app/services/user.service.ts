@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Employee, Permission, Token, User} from "../models/models";
+import {Employee, Permission, Role, Token, User} from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
@@ -9,6 +9,7 @@ export class UserService {
   apiUrlUser : string = "http://localhost:8080/api/v1/user"
   apiUrlEmployee : string = "http://localhost:8080/api/v1/employee"
   apiUrlPermission : string = "http://localhost:8080/api/v1/permission"
+  apiUrlRole : string = "http://localhost:8080/api/v1/role"
   constructor(private httpClient : HttpClient) { }
 
   loginEmployee(email: string | null | undefined, password: string | null | undefined){
@@ -18,6 +19,7 @@ export class UserService {
     }
     return this.httpClient.post<Token>(`${this.apiUrlEmployee}/auth/login`, obj)
   }
+
   registerUser(firstName: string, lastName: string, jmbg: string, dateOfBirth: string, gender: string, phoneNumber: string, email: string){
     let obj = {
       firstName: firstName,
@@ -62,6 +64,14 @@ export class UserService {
     })
 
     return this.httpClient.get<Employee>(`${this.apiUrlEmployee}/${id}`, { headers })
+  }
+
+  getAllRoles(){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.get<Role[]>(`${this.apiUrlRole}/getAll`, { headers })
   }
 
   saveUser(user: User | null){
@@ -118,7 +128,6 @@ export class UserService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-
 
     return this.httpClient.get<User[]>(`${this.apiUrlUser}/search?firstName=${firstName}&lastName=${lastName}&email=${email}`, { headers })
   }

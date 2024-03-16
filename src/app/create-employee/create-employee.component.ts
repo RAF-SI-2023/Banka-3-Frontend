@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Employee, Permission} from "../models/models";
+import {Employee, Permission, Role} from "../models/models";
 import {UserService} from "../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatLegacyNavList} from "@angular/material/legacy-list";
 
 @Component({
   selector: 'app-create-employee',
@@ -13,26 +15,87 @@ export class CreateEmployeeComponent implements OnInit{
   employee = {} as Employee;
   dtEmployee: string = ''
   permissions: Permission[] | null = null;
-  constructor(private userService: UserService, private router : Router) {
+  employeeForm: FormGroup;
+  roles: Role[] | null = null;
 
+
+  constructor(private fb: FormBuilder, private userService: UserService, private router : Router) {
+    this.employeeForm = this.fb.group({
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
+      dateOfBirth: new FormControl('', Validators.required),
+      gender: new FormControl('', Validators.required),
+      jmbg: new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]),
+      phoneNumber: new FormControl('', [Validators.required, Validators.pattern(/^06\d{7,8}$/)]),
+      address: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      isActive: new FormControl(true),
+      role: new FormControl('', Validators.required)
+    })
   }
 
   ngOnInit(): void {
-    this.userService.getAllPermissions().subscribe(res => {
-      this.permissions = res
-    })
-    }
 
+   this.userService.getAllRoles().subscribe(res => {
+     this.roles = res;
+   })
+  }
 
   save(){
-    let dt = new Date(this.dtEmployee).getDate()
+    this.employee.firstName = this.employeeForm.get('firstName')?.value;
+    this.employee.lastName = this.employeeForm.get('lastName')?.value;
+    this.employee.username = this.employeeForm.get('username')?.value;
+    this.employee.jmbg = this.employeeForm.get('jmbg')?.value;
+    this.employee.gender = this.employeeForm.get('gender')?.value;
+    this.employee.phoneNumber = this.employeeForm.get('phoneNumber')?.value;
+    this.employee.address = this.employeeForm.get('address')?.value;
+    this.employee.email = this.employeeForm.get('email')?.value;
+    this.employee.isActive = this.employeeForm.get('isActive')?.value;
+    this.employee.role = this.employeeForm.get('role')?.value;
+
+    let dt = new Date(this.employeeForm.get('dateOfBirth')?.value).getTime();
     this.employee.dateOfBirth = dt;
-    console.log(this.employee.dateOfBirth)
+
+
+
     this.userService.createEmployee(this.employee).subscribe(res => {
 
       console.log(res)
       this.router.navigate(['user-list'])
-    })
+    });
   }
-
+  get firstName(){
+    return this.employeeForm.get('firstName');
+  }
+  get lastName(){
+    return this.employeeForm.get('lastName');
+  }
+  get username(){
+    return this.employeeForm.get('username');
+  }
+  get jmbg(){
+    return this.employeeForm.get('jmbg');
+  }
+  get dateOfBirth(){
+    return this.employeeForm.get('dateOfBirth');
+  }
+  get gender(){
+    return this.employeeForm.get('gender');
+  }
+  get phoneNumber(){
+    return this.employeeForm.get('phoneNumber');
+  }
+  get address(){
+    return this.employeeForm.get('address');
+  }
+  get email(){
+    return this.employeeForm.get('email');
+  }
+  get isActive(){
+    return this.employeeForm.get('isActive');
+  }
+  get role(){
+    return this.employeeForm.get('role');
+  }
 }
