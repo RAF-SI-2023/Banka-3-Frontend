@@ -106,6 +106,7 @@ export class UserService {
     })
 
     return this.httpClient.post<any>(`${this.apiUrlEmployee}`, employee, { headers })
+  //TODO:   Dodati pre returna da se posalje aktivacioni kod na mail koji je prosledjen u okviru employee.
   }
   deleteUser(id: number){
     const headers = new HttpHeaders({
