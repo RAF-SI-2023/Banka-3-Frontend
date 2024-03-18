@@ -27,6 +27,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import { UserControllComponent } from './user-controll/user-controll.component';
+import { FormAddFirmComponent } from './form-add-firm/form-add-firm.component';
 
 
 
@@ -46,6 +48,8 @@ import {MatSelectModule} from "@angular/material/select";
     EditEmployeeComponent,
     CreateUserComponent,
     CreateEmployeeComponent,
+    UserControllComponent,
+    FormAddFirmComponent,
   ],
   imports: [
     BrowserModule,
