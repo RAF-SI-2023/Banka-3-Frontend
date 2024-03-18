@@ -22,7 +22,7 @@ export class UserloginComponent {
 
   passwordForm = new FormGroup({
     activationCode: new FormControl('', [Validators.required, Validators.pattern(/^\d{6}$/)]),
-    password: new FormControl('', Validators.required),
+    password: new FormControl('',[Validators.required,Validators.minLength(8),Validators.maxLength(32),Validators.pattern(/^(?=.*\d.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/)]),
     confirmPassword: new FormControl('', Validators.required)
   })
 
@@ -62,4 +62,6 @@ export class UserloginComponent {
   get confirmPassword() {
     return this.passwordForm.get('confirmPassword')
   }
+
+
 }

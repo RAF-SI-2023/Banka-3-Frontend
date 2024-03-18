@@ -54,7 +54,7 @@
           *ngIf="activationCode && activationCode.invalid && activationCode.touched"
           class="wrong-input-span"
         >
-      Activation Code is invalid or empty.</span
+      Aktivacioni kod ne valja.</span
         >
 
         <input
@@ -67,7 +67,7 @@
           *ngIf="newPassword && newPassword.invalid && newPassword.touched"
           class="wrong-input-span"
         >
-        Password is required.</span
+        Lozinka je obavezna.</span
         >
 
         <input
@@ -77,10 +77,10 @@
           formControlName="confirmPassword"
         />
         <span
-          *ngIf="confirmPassword && confirmPassword.invalid && confirmPassword.touched"
+          *ngIf="passwordForm.get('password')?.value !== passwordForm.get('confirmPassword')?.value"
           class="wrong-input-span"
         >
-      Confirm Password is required.</span
+      Lozinke se ne podudaraju.</span
         >
 
         <div class="button-container d-flex flex-column align-items-center justify-content-center">
@@ -112,7 +112,7 @@
           *ngIf="email && email.invalid && email.touched"
           class="wrong-input-span"
         >
-          Email is incorrect!</span
+          Adresa nije ispravna!</span
         >
         <input
           type="password"
@@ -124,7 +124,7 @@
           *ngIf="password && password.invalid && password.touched"
           class="wrong-input-span"
         >
-          Password cannot be blank.</span
+          Lozinka je obavezna.</span
         >
         <a class="forgot-link" routerLink="/forgot-password"
           ><u>Zaboravili ste email ili lozinku?</u></a
