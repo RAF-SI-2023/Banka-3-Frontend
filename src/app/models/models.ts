@@ -27,6 +27,18 @@ export interface Employee {
   role: Role
 }
 
+export interface Firm {
+  firmId: number,
+  firmName: string,
+  email: string,
+  phoneNumber: number,
+  matNumberFirm: number,
+  pib: number,
+  industryCode: number,
+  isActive: boolean,
+
+}
+
 export interface Permission {
   permissionId: number
   authority: string
