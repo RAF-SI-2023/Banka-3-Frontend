@@ -28,6 +28,7 @@ export interface Employee {
 }
 
 export interface Firm {
+  firmId: number,
   firmName: string,
   email: string,
   phoneNumber: number,
