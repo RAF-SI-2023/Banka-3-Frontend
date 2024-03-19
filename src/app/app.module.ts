@@ -30,6 +30,8 @@ import {MatSelectModule} from "@angular/material/select";
 import { PasswordActivationComponent } from './password-activation/password-activation.component';
 import { UserControllComponent } from './user-controll/user-controll.component';
 import { FormAddFirmComponent } from './form-add-firm/form-add-firm.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { PasswordActivationComponent } from './reset-password/password-activation/password-activation.component';
 
 
 
@@ -52,6 +54,8 @@ import { FormAddFirmComponent } from './form-add-firm/form-add-firm.component';
     PasswordActivationComponent,
     UserControllComponent,
     FormAddFirmComponent,
+    ResetPasswordComponent,
+    PasswordActivationComponent,
   ],
   imports: [
     BrowserModule,

@@ -166,6 +166,15 @@ export class UserService {
       }),
       responseType: 'text'
     });
+    resetPassword(email: string, isUser: boolean){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    if(isUser)
+        return this.httpClient.get(`${this.apiUrlUser}/resetPassword?email=${email}`, { headers });
+    return this.httpClient.get(`${this.apiUrlEmployee}/resetPassword?email=${email}`, { headers });
+
   }
 
 }
