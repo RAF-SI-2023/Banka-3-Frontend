@@ -4,7 +4,6 @@ import {UserService} from "../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatLegacyNavList} from "@angular/material/legacy-list";
-import {EmailService} from "../services/email.service";
 
 @Component({
   selector: 'app-create-employee',
@@ -20,7 +19,7 @@ export class CreateEmployeeComponent implements OnInit{
   roles: Role[] | null = null;
 
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router : Router, private emailService: EmailService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router : Router) {
     this.employeeForm = this.fb.group({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -67,10 +66,6 @@ export class CreateEmployeeComponent implements OnInit{
 
     this.userService.createEmployee(this.employee).subscribe(res => {
       console.log(res)
-      //Slanje aktivacionog koda na mail novokreiranog zaposlenog.
-      this.emailService.sendActivationCodeToEmail(this.employee.email).subscribe( data => {
-        console.log("Poslat zahtev za slanje aktivacionog koda na mail.")
-      });
       this.router.navigate(['user-list'])
     });
   }

@@ -155,13 +155,10 @@ export class UserService {
    */
   setEmployeePassword(identifier: string, password: string){
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      // 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      'Content-Type': 'application/json'
     });
-    let body = {
-      password: password
-    }
-    return this.httpClient.post<any>(`${this.apiUrlEmployee}/setPassword/${identifier}`, body);
+    let sendToUrl = "http://localhost:8081/api/v1/employee";
+    return this.httpClient.post<any>(`${sendToUrl}/setPassword/${identifier}`, password, { headers } );
   }
 
 }
