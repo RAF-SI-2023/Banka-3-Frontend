@@ -27,6 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import { PasswordActivationComponent } from './password-activation/password-activation.component';
 import { UserControllComponent } from './user-controll/user-controll.component';
 import { FormAddFirmComponent } from './form-add-firm/form-add-firm.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -50,6 +51,7 @@ import { PasswordActivationComponent } from './reset-password/password-activatio
     EditEmployeeComponent,
     CreateUserComponent,
     CreateEmployeeComponent,
+    PasswordActivationComponent,
     UserControllComponent,
     FormAddFirmComponent,
     ResetPasswordComponent,

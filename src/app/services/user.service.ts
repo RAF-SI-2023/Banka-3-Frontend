@@ -148,14 +148,33 @@ export class UserService {
     return this.httpClient.get<Permission[]>(`${this.apiUrlPermission}/getAll`,{ headers })
   }
 
-  resetPassword(email: string, isUser: boolean){
+  /** Funkcija za: POST: /api/v1/employee/setPassword/{identifier}, u bodyu ocekuje password.
+   * Poziva se iz password-activation komponente prilikom podesavanja sifre zaposlenog.
+   *
+   * @param identifier
+   * @param password
+   */
+  setEmployeePassword(identifier: string, password: string){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      responseType: 'text'
+    });
+    let sendToUrl = "http://localhost:8081/api/v1/employee";  //PORT: 8081 jer user-service zauzme 8080 na beku
+    return this.httpClient.post(`${sendToUrl}/setPassword/${identifier}`, password, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text'
+    });
+    resetPassword(email: string, isUser: boolean){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
     if(isUser)
-    return this.httpClient.get(`${this.apiUrlUser}/resetPassword?email=${email}`, { headers });
+        return this.httpClient.get(`${this.apiUrlUser}/resetPassword?email=${email}`, { headers });
     return this.httpClient.get(`${this.apiUrlEmployee}/resetPassword?email=${email}`, { headers });
+
   }
 
 }

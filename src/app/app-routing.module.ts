@@ -15,6 +15,7 @@ import {AuthGuard} from "./guards/auth.guard";
 import {AdminGuard} from "./guards/admin.guard";
 import {A} from "@angular/cdk/keycodes";
 import {CreateUserComponent} from "./create-user/create-user.component";
+import {PasswordActivationComponent} from "./password-activation/password-activation.component";
 import {UserControllComponent} from "./user-controll/user-controll.component";
 import {FormAddFirmComponent} from "./form-add-firm/form-add-firm.component";
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -95,6 +96,10 @@ const routes: Routes = [
     component: FormAddFirmComponent,
     //canActivate: [AuthGuard]
   },
+  {
+    path: 'change-password/:code',
+    component: PasswordActivationComponent
+  }
 ];
 
 @NgModule({
