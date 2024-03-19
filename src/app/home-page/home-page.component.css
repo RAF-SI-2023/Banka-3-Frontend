@@ -90,3 +90,20 @@
 .transactionDetails{
     padding:1rem;
 }
+.arrowWrapper{
+height: 100%;
+align-items: center;
+}
+.arrow{
+    background-color:red;
+    width: 2rem;
+    height:2rem;
+    
+}
+.selectCardWrapper{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
