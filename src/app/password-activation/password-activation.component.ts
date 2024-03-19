@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 
 @Component({
@@ -11,7 +11,7 @@ import {UserService} from "../services/user.service";
 export class PasswordActivationComponent implements OnInit{
   passwordForm: FormGroup;
   code: string;
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private userService: UserService, private router: Router) {
     // Dohvatanje parametra 'code' iz URL-a
     //@ts-ignore
     this.code = this.route.snapshot.paramMap.get('code');
@@ -90,11 +90,12 @@ export class PasswordActivationComponent implements OnInit{
     console.log("Identifier: " + this.code);
     this.userService.setEmployeePassword(this.code, this.passwordForm.get('password')?.value).subscribe( data => {
       console.log("Poslat POST zahtev, potreban redirect na sledecu stranicu.");
-      // Treba da se prebaci na employee-view stranicu nakon poslatog zahteva ukoliko je uspesno postavljena sifra.
-
+      if ( data === 'Password successfully changed'){
+        this.router.navigate(['/admin-login']); //Potrebno promeniti kada se napravi employee-view
+      } else {
+        alert("Neuspesno postavljanje sifre. Proverite mail i pokusajte opet.");
+      }
     })
-
-
   }
 
 }

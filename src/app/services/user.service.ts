@@ -149,16 +149,23 @@ export class UserService {
   }
 
   /** Funkcija za: POST: /api/v1/employee/setPassword/{identifier}, u bodyu ocekuje password.
+   * Poziva se iz password-activation komponente prilikom podesavanja sifre zaposlenog.
    *
    * @param identifier
    * @param password
    */
   setEmployeePassword(identifier: string, password: string){
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      responseType: 'text'
     });
-    let sendToUrl = "http://localhost:8081/api/v1/employee";
-    return this.httpClient.post<any>(`${sendToUrl}/setPassword/${identifier}`, password, { headers } );
+    let sendToUrl = "http://localhost:8081/api/v1/employee";  //PORT: 8081 jer user-service zauzme 8080 na beku
+    return this.httpClient.post(`${sendToUrl}/setPassword/${identifier}`, password, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text'
+    });
   }
 
 }
