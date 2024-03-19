@@ -56,11 +56,52 @@
 .cardLogoWrapper{
     height:100%;
 }
+.myModalWrapper{
+position: absolute;
+z-index: 5;
+background-color: rgba(0, 0, 0, 0.5);
+height: 100%;
+width: 100%;
+display:none;
+justify-content: center;
+align-items: center;
+}
+.formGroup {
+    margin-bottom: 1rem;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.myModal{
+padding:2rem 3rem 2rem 3rem;
+background-color: white;
+border-radius: 1rem;
+width: 80%;
+}
+
+.formWrapper{
+    display:flex;
+    max-width: 35rem;
+    flex-wrap: wrap;
+}
 .cardLogo{
     height:3rem;
     width:3rem;
     border-radius: 100%;
     background-color: black;
+}
+.converterWrapper{
+    align-items: center;
+    display: flex;
+}
+.currencyWrapper{
+    display: flex;
+    flex-direction: column;
+}
+.currencyConverter{
+    display: flex;
 }
 .transactionView{
     background-color: white;
@@ -90,8 +131,9 @@
 .transactionDetails{
     padding:1rem;
 }
-.arrowWrapper{
+.convertArrow{
 height: 100%;
+display: flex;
 align-items: center;
 }
 .arrow{
@@ -106,4 +148,11 @@ align-items: center;
     flex-direction: row;
     width: 100%;
     justify-content: center;
+}
+
+.accountDetailsWrapper{
+    margin:2rem 0rem 2rem 0rem;
+}
+.rightMargin{
+    margin-right: 2rem;
 }

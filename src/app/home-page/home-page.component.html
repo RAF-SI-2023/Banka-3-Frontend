@@ -1,3 +1,70 @@
+<div class="myModalWrapper">
+    <div class="myModal">
+        <div class="myModalForm">
+            <h3>Detalji racuna</h3>
+            <div class="formWrapper">
+            <div class="formGroup">
+                <label for="ownerName">Vlasnik:</label>
+                <input class="inputField rightMargin" type="text" id="ownerName" name="Vlasnik" placeholder="Vlasnik" [(ngModel)]="ownerName">
+            </div>
+            <div class="formGroup">
+                <label for="accountNumber">Broj racuna:</label>
+                <input class="inputField" type="text" id="accountNumber" name="Broj racuna" placeholder="Broj racuna" [(ngModel)]="accountNumber">
+            </div>
+            <div class="formGroup">
+                <label for="availableBalance">Raspolozivo stanje:</label>
+                <input class="inputField rightMargin" type="text" id="availableBalance" name="Raspolozivo stanje" placeholder="Raspolozivo stanje" [(ngModel)]="availableBalance">
+            </div>
+            <div class="formGroup">
+                <label for="type">Tip:</label>
+                <input class="inputField" type="text" id="type" name="Tip" placeholder="Tip" [(ngModel)]="type">
+            </div>
+            <div class="formGroup">
+                <label for="accountState">Stanje racuna:</label>
+                <input class="inputField rightMargin" type="text" id="accountState" name="Stanje racuna" placeholder="Stanje racuna" [(ngModel)]="accountState">
+            </div>
+            <div class="formGroup">
+                <label for="reservedFunds">Rezervisana sredstva:</label>
+                <input class="inputField" type="text" id="reservedFunds" name="Rezervisana sredstva" placeholder="Rezervisana sredstva" [(ngModel)]="reservedFunds">
+            </div>
+                            
+        </div>
+        <div class="accountDetailsButtons">
+            <button class="myButtonPrimary" (click)="backToMain()">Nazad</button>
+            <button class="myButtonPrimary" (click)="newPayment()">Novo placanje</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="myModalWrapper currencyConverter">
+
+    <div class="myModal">
+        <h3>Menjacnica</h3>
+        <div class="converterWrapper">
+        <div class="currencyWrapper">
+            <select id="currencySelect" [(ngModel)]="selectedCurrency1">
+                <option *ngFor="let currency of currencies" [value]="currency">{{currency}}</option>
+              </select>
+            <input class="inputField" type="text" id="currency1" name="currency1" [(ngModel)]="currency1">
+        </div>
+        <div class="convertArrow">
+            <div class="arrow"></div>
+        </div>
+        <div class="currencyWrapper">
+            <select id="currencySelect" [(ngModel)]="selectedCurrency2">
+                <option *ngFor="let currency of currencies" [value]="currency">{{currency}}</option>
+              </select>
+            <input class="inputField" type="text" id="currency2" name="currency1" [(ngModel)]="currency2">
+        </div>
+        </div>
+        <div class="accountDetailsButtons">
+            <button class="myButtonPrimary" (click)="backToMain()">Izvrsi konverziju</button>
+        </div>
+    </div>
+
+</div> -->
+
 <app-navbar></app-navbar>
 <div class="accountsView">
     <div class="container">
@@ -8,7 +75,7 @@
             <div class="arrow">       
             </div>
         </div>
-        <div class="accountCard">
+        <div class="accountCard" (click)="displayDetails()">
             <div class="cardLogoWrapper">
                 <div class="cardLogo">
                     
