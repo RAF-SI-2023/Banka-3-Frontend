@@ -17,6 +17,7 @@ import {A} from "@angular/cdk/keycodes";
 import {CreateUserComponent} from "./create-user/create-user.component";
 import {UserControllComponent} from "./user-controll/user-controll.component";
 import {FormAddFirmComponent} from "./form-add-firm/form-add-firm.component";
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
 
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'user-login',
     component: UserloginComponent,
+  },
+  {
+    path: 'forgot-password/:type',
+    component: ResetPasswordComponent,
   },
   {
     path: '',
