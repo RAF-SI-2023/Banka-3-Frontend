@@ -29,6 +29,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import { UserControllComponent } from './user-controll/user-controll.component';
 import { FormAddFirmComponent } from './form-add-firm/form-add-firm.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 
 
@@ -50,6 +51,7 @@ import { FormAddFirmComponent } from './form-add-firm/form-add-firm.component';
     CreateEmployeeComponent,
     UserControllComponent,
     FormAddFirmComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
