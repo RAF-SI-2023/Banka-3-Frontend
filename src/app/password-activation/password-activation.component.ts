@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-password-activation',
@@ -8,7 +10,11 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, 
 })
 export class PasswordActivationComponent implements OnInit{
   passwordForm: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+  code: string;
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private userService: UserService) {
+    // Dohvatanje parametra 'code' iz URL-a
+    //@ts-ignore
+    this.code = this.route.snapshot.paramMap.get('code');
     this.passwordForm = this.formBuilder.group({
       password: ['', [Validators.required, this.passwordValidator]],
       confirmPassword: ['', Validators.required]
@@ -53,8 +59,8 @@ export class PasswordActivationComponent implements OnInit{
   /**
    * Funkcija koja ce proveriti da li se lozinke iz polja password i confirmPassword poklapaju,
    * posto je odradjena validacija za password, ovo je dovoljno za confirmPassword jer trebaju biti isti.
-   * @param controlName
-   * @param matchingControlName
+   * @param controlName prvi password
+   * @param matchingControlName ponovljeni password
    * @constructor
    */
   MustMatch(controlName: string, matchingControlName: string){
@@ -79,9 +85,16 @@ export class PasswordActivationComponent implements OnInit{
    * u slucaju uspesno postavljene sifre zaposlenog redirectujemo na 'EmployeeView' stranicu.
    */
   onSubmit(){
-    //TODO: Pripremiti sta ce se slati u body-u (password) za sledeci zahtev: POST: /api/v1/employee/setPassword?identifier=******
     console.log("Sifra1: " + this.passwordForm.get('password')?.value);
     console.log("Sifra2: " + this.passwordForm.get('confirmPassword')?.value);
+    console.log("Identifier: " + this.code);
+    this.userService.setEmployeePassword(this.code, this.passwordForm.get('password')?.value).subscribe( data => {
+      console.log("Poslat POST zahtev, potreban redirect na sledecu stranicu.");
+      // Treba da se prebaci na employee-view stranicu nakon poslatog zahteva ukoliko je uspesno postavljena sifra.
+
+    })
+
+
   }
 
 }
