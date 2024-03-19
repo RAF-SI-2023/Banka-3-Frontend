@@ -1,0 +1,92 @@
+/* <app-navbar></app-navbar>
+<div class="accountsView">
+    <div class="accountsScroller">
+        <h2>Pregled racuna</h2>
+        <div class="accountCard">
+            <div class="cardLogoWrapper">
+                <div class="cardLogo">
+                    
+                </div>
+            </div>
+            <div class="cardInfoWrapper">
+                <h3>Tekuci</h3>
+                <p> 340-000100000003632-87</p>
+                <h3>Raspolozivo stanje</h3>
+                <p> 123,456.00 RSD</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="transactionView">
+        <h2>Pregled transakcija</h2>
+        <div class="transactionsWrapper">
+            <div class="transactionCard">
+                <div class="transactionDate">
+                    <p> 01 Mart 2024</p>
+                </div>
+                <p>Broj tekuceg racuna na koji je poslat</p>
+                <h3>1,512.00 RSD</h3>
+            </div>
+        </div>
+    </div>
+</div>*/
+
+.accountsView{
+    background-color:black;
+    width:100%;
+    padding:2rem;
+}
+.accountsScroller{
+    margin:auto;
+    background-color:white;
+    display:flex;
+    flex-direction: column;
+    border-radius:1rem;
+    -ms-flex-item-align: center;
+}
+.accountCard{
+    display:flex;
+    border-radius: 1rem;
+    background-color:yellow;
+    margin:1rem 3rem 1rem 3rem;
+    -ms-flex-item-align: center;
+    flex-direction: row;
+    padding:1rem 2rem 1rem 2rem;
+}
+.cardLogoWrapper{
+    height:100%;
+}
+.cardLogo{
+    height:3rem;
+    width:3rem;
+    border-radius: 100%;
+    background-color: black;
+}
+.transactionView{
+    background-color: white;
+    width: 100%;
+    padding:3rem;
+}
+.cardInfoWrapper{
+    margin-left:2rem;
+}
+.transactionsWrapper{
+    padding:1rem;
+    margin:0;
+    border:black 2px solid;
+
+}
+.transactionCard{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border-bottom-style: 2px yellow solid;
+}
+.transactionDate{
+    width:7rem;
+    padding:1rem;
+    border-right: 2px solid black;
+}
+.transactionDetails{
+    padding:1rem;
+}
