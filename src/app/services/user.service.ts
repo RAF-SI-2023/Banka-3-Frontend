@@ -20,6 +20,31 @@ export class UserService {
     return this.httpClient.post<Token>(`${this.apiUrlEmployee}/auth/login`, obj)
   }
 
+  checkEmail(email: string | null | undefined){
+
+    return this.httpClient.get<any>(`${this.apiUrlUser}/isUserActive/${email}`);
+  }
+
+
+  loginUser(email: string | null | undefined, password: string | null | undefined) {
+    let obj = {
+      email: email,
+      password: password
+    }
+    return this.httpClient.post<Token>(`${this.apiUrlUser}/auth/login`, obj)
+  }
+
+  setPassword(email:string, activationCode:number, password:string | null | undefined, confirmPassword:string | null | undefined){
+    let obj = {
+      email: email,
+      activationCode: activationCode,
+      password: password,
+      confirmPassword:confirmPassword
+    }
+    return this.httpClient.post<any>(`${this.apiUrlUser}/activateUser`, obj)
+  }
+
+
   registerUser(firstName: string, lastName: string, jmbg: string, dateOfBirth: string, gender: string, phoneNumber: string, email: string){
     let obj = {
       firstName: firstName,

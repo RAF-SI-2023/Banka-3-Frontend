@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {UserService} from "../../services/user.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -10,6 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class UserloginComponent {
   codeActivate: boolean = false;
   showCheckAddress: boolean = true;
+  address: string = '';
 
   checkEmailForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -26,21 +29,52 @@ export class UserloginComponent {
     confirmPassword: new FormControl('', Validators.required)
   })
 
+  constructor(private userService: UserService, private router: Router) {
+  }
 
   //  Proverava da li postoji korisnik sa datim mejlom
   checkAddr() {
+    this.showCheckAddress = false;
+    if(this.email?.valid){
+    this.userService.checkEmail(this.emailCheck?.value)
+      .subscribe(response => {
+        this.codeActivate = response.codeActivate;
+        this.address = response.email;
+      }, error => {
+        console.error('Error occurred:', error);
+      });
 
-  this.showCheckAddress = false;
-  }
+  }}
 
 
-  // Kreira usera sa datom adresom i vraca ga nazad na login
   createUser() {
+    if (this.newPassword?.value !== this.confirmPassword?.value) {
+      console.error('Passwords do not match');
+      return;
+    }
 
+    this.userService.setPassword(this.address, Number(this.activationCode?.value), this.newPassword?.value,this.confirmPassword?.value)
+      .subscribe(response => {
+        // Handle response as needed
+      }, error => {
+        console.error('Error occurred:', error);
+      });
+    this.codeActivate = true;
   }
 
   submitLogin() {
-
+    if(this.email?.valid && this.password?.valid){
+      let email = this.loginForm.get("email")?.value
+      let password = this.loginForm.get("password")?.value
+      console.log(email, password)
+      this.userService.loginUser(email, password).subscribe(res => {
+        sessionStorage.setItem("token", res.token);
+        this.router.navigate(['home-page'])
+          .then(()=> {
+            window.location.reload()
+          })
+      })
+    }
   }
 
   get email() {
