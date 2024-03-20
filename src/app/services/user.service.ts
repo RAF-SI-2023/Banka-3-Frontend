@@ -179,6 +179,7 @@ export class UserService {
       }),
       responseType: 'text'
     });
+  }
     resetPassword(email: string, isUser: boolean){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

@@ -33,7 +33,8 @@ import { PasswordActivationComponent } from './password-activation/password-acti
 import { UserControllComponent } from './user-controll/user-controll.component';
 import { FormAddFirmComponent } from './form-add-firm/form-add-firm.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { PasswordActivationComponent } from './reset-password/password-activation/password-activation.component';
+import { PasswordConfirmationComponent } from './reset-password/password-confirmation/password-confirmation.component';
+//import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
 
 @NgModule({
@@ -59,6 +60,8 @@ import { PasswordActivationComponent } from './reset-password/password-activatio
     FormAddFirmComponent,
     ResetPasswordComponent,
     PasswordActivationComponent,
+    PasswordConfirmationComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -73,7 +76,7 @@ import { PasswordActivationComponent } from './reset-password/password-activatio
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
 
   ],
   providers: [],
