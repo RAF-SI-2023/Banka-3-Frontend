@@ -30,6 +30,9 @@ import {MatSelectModule} from "@angular/material/select";
 import { UserControllComponent } from './user-controll/user-controll.component';
 import { FormAddFirmComponent } from './form-add-firm/form-add-firm.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { BillComponent } from './bill/bill.component';
+import { PayingComponent } from './paying/paying.component';
+import { ExchangeComponent } from './exchange/exchange.component';
 
 
 
@@ -52,6 +55,9 @@ import { HomePageComponent } from './home-page/home-page.component';
     UserControllComponent,
     FormAddFirmComponent,
     HomePageComponent,
+    BillComponent,
+    PayingComponent,
+    ExchangeComponent,
   ],
   imports: [
     BrowserModule,
