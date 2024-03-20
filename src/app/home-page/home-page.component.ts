@@ -26,19 +26,19 @@ export class HomePageComponent {
   }
 
    accounts = [
-    { id: '1', ownerName: 'John Doe', accountNumber: '1234567890', availableBalance: 1000, type: 'Savings', accountState: 'Active', reservedFunds: 0,     transactions: [
-      { id: '1', date: '2024-03-18', description: 'Payment received', amount: 500, tradeAccount:"11123142142" },
-      { id: '2', date: '2024-03-17', description: 'Utility bill payment', amount: -100, tradeAccount:"11123142142"  },
-      { id: '3', date: '2024-03-16', description: 'Withdrawal', amount: -200, tradeAccount:"11123142142"  },
-      { id: '4', date: '2024-03-15', description: 'Deposit', amount: 1000, tradeAccount:"11123142142"  }
+    { id: '1', ownerName: 'John Doe', accountNumber: '340-000100003632-87', availableBalance: 1000, type: 'Savings', accountState: 'Active', reservedFunds: 0,     transactions: [
+      { id: '1', date: '2024-03-18', description: 'Payment received', amount: 500, tradeAccount:"340-000100003632-87" },
+      { id: '2', date: '2024-03-17', description: 'Utility bill payment', amount: -100, tradeAccount:"340-000100003632-87"  },
+      { id: '3', date: '2024-03-16', description: 'Withdrawal', amount: -200, tradeAccount:"340-000100003632-87"  },
+      { id: '4', date: '2024-03-15', description: 'Deposit', amount: 1000, tradeAccount:"340-000100003632-87"  }
     ] },
-    { id: '2', ownerName: 'Jane Smith', accountNumber: '0987654321', availableBalance: 500, type: 'Checking', accountState: 'Active', reservedFunds: 0,     transactions: [
-      { id: '1', date: '2024-03-21', description: 'Payment received', amount: 500, tradeAccount:"11123142142" },
+    { id: '2', ownerName: 'Jane Smith', accountNumber: '340-000100003632-87', availableBalance: 500, type: 'Checking', accountState: 'Active', reservedFunds: 0,     transactions: [
+      { id: '1', date: '2024-03-21', description: 'Payment', amount: -500, tradeAccount:"340-000100003632-87" },
       { id: '2', date: '2024-03-11', description: 'Utility bill payment', amount: -100, tradeAccount:"11123142142"  },
       { id: '3', date: '2024-02-21', description: 'Withdrawal', amount: -200, tradeAccount:"11123142142"  },
       { id: '4', date: '2024-02-13', description: 'Deposit', amount: 1000, tradeAccount:"11123142142"  }
     ] },
-    { id: '3', ownerName: 'Alice Johnson', accountNumber: '1357924680', availableBalance: 1500, type: 'Savings', accountState: 'Active', reservedFunds: 0,     transactions: [
+    { id: '3', ownerName: 'Alice Johnson', accountNumber: '340-000100003632-87', availableBalance: 1500, type: 'Savings', accountState: 'Active', reservedFunds: 0,     transactions: [
       { id: '1', date: '2024-04-18', description: 'Payment received', amount: 500, tradeAccount:"11123142142" },
       { id: '2', date: '2023-03-17', description: 'Utility bill payment', amount: -100, tradeAccount:"11123142142"  },
       { id: '3', date: '2023-05-16', description: 'Withdrawal', amount: -200, tradeAccount:"11123142142"  },
@@ -54,6 +54,13 @@ export class HomePageComponent {
   //   { id: '4', date: '2024-03-15', description: 'Deposit', amount: 1000 }
   // ];
 
+  getIconClass(transactionAmount: number): string {
+    return transactionAmount > 0 ? 'incoming' : 'outgoing';
+  }
+
+  getTransactionClass(transactionAmount: number): string {
+    return transactionAmount > 0 ? 'incoming' : 'outgoing';
+  }
 
    backToMain() {
     const modalWrapper = document.querySelector('.myModalWrapper') as HTMLElement;
@@ -116,12 +123,12 @@ previousAccount() {
 updateTransactions() {
   this.transactions = this.selectedAccount.transactions;
 }
-displayDetails(){
+displayDetails() { // Copy the selected account
   const modalWrapper = document.querySelector('.myModalWrapper') as HTMLElement;
   if (modalWrapper) {
-      modalWrapper.style.display = 'flex';
+    modalWrapper.style.display = 'flex';
   } else {
-      console.error('Modal wrapper element not found.');
+    console.error('Modal wrapper element not found.');
   }
 }
 

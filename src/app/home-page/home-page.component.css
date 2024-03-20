@@ -31,11 +31,17 @@
     </div>
 </div>*/
 
-
+.blueText{
+    color:var(--blue-medium)
+}
+.myContainer{
+    max-width: 50rem;
+    margin: auto;
+}
 .accountsView{
     background-color:var(--blue-light);
     width:100%;
-    padding:2rem;
+    padding:1rem;
 }
 .accountsScroller{
     margin:auto;
@@ -51,7 +57,7 @@
     margin:1rem 1rem 1rem 1rem;
     -ms-flex-item-align: center;
     flex-direction: row;
-    padding:2rem 3rem 2rem 3rem;
+    padding:2rem 3rem 3rem 2rem;
 }
 .cardLogoWrapper{
     height:100%;
@@ -108,7 +114,7 @@ width: 80%;
     /* background-color: var(--background-main); */
     background-color: #f6f6f6;
     width: 100%;
-    padding:3rem;
+    padding-top:1rem;
 }
 .cardInfoWrapper{
     margin-left:2rem;
@@ -180,6 +186,9 @@ line-height: 2.5rem;
 .year{
     font-family: 'Archivo', sans-serif;
     font-weight: 400;
+}
+.transactionIconWrapper{
+    margin:1rem 1rem 0rem 0rem;
 }
 .selectCardWrapper{
     align-items: center;
