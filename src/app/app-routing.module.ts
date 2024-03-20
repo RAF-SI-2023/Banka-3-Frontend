@@ -15,6 +15,9 @@ import {AuthGuard} from "./guards/auth.guard";
 import {AdminGuard} from "./guards/admin.guard";
 import {A} from "@angular/cdk/keycodes";
 import {CreateUserComponent} from "./create-user/create-user.component";
+
+import {UserAddAccountFormComponent} from "./user-add-account-form/user-add-account-form.component";
+import {FirmAddAccountFormComponent} from "./firm-add-account-form/firm-add-account-form.component";
 import {PasswordActivationComponent} from "./password-activation/password-activation.component";
 import {UserControllComponent} from "./user-controll/user-controll.component";
 import {FormAddFirmComponent} from "./form-add-firm/form-add-firm.component";
@@ -87,7 +90,15 @@ const routes: Routes = [
     //canActivate: [AuthGuard]
   },
   {
-    path: 'user-controll',
+    path: 'user-account/:userId',
+    component: UserAddAccountFormComponent
+  },
+  {
+    path: 'firm-account/:firmId',
+    component: FirmAddAccountFormComponent
+  },
+  {
+      path: 'user-controll',
     component: UserControllComponent,
     //canActivate: [AuthGuard]
   },
