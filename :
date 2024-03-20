@@ -1,0 +1,26 @@
+Kreiranje izgleda i validacija aktivacije sifre
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# interactive rebase in progress; onto c197568
+# Last command done (1 command done):
+#    pick ecba6b5 Kreiranje izgleda i validacija aktivacije sifre
+# Next commands to do (3 remaining commands):
+#    pick a5189c5 Dodat mail servis i zahtevi za slanje aktivacionog koda
+#    pick 50e6e0b Ispravke oko slanja zahteva i identifiera
+# You are currently rebasing branch 'FRN-14' on 'c197568'.
+#
+# Changes to be committed:
+#	modified:   src/app/app-routing.module.ts
+#	modified:   src/app/app.module.ts
+#	new file:   src/app/password-activation/password-activation.component.css
+#	new file:   src/app/password-activation/password-activation.component.html
+#	new file:   src/app/password-activation/password-activation.component.spec.ts
+#	new file:   src/app/password-activation/password-activation.component.ts
+#	modified:   src/app/services/user.service.ts
+#
+
+Final commit
+
+
