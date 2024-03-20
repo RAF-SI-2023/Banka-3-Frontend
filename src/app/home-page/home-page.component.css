@@ -139,12 +139,12 @@ width: 80%;
 }
 .transactionDate{
     width:7rem;
-    padding:1rem;
+    padding:0.6rem;
     background-color:var(--blue-dark);
     color:white;
 }   
 .transactionDetails{
-    padding:1rem;
+    padding:0.7rem 0.7rem 0.7rem 1rem;
 }
 .transactionDetailsWrapper{
     display: flex;
@@ -155,14 +155,15 @@ display: flex;
 align-items: center;
 }
 .incoming{
-    transform: rotate(135deg);
-    fill:green;
+    transform: rotate(-45deg);
+    fill:green !important;
     background-color: green;
     border-radius: 100%;
 }
 .outgoing{
-    transform: rotate(-45deg);
+    transform: rotate(135deg);
     background-color: red;
+    fill:red !important;
     border-radius: 100%;
 }
 
@@ -175,11 +176,11 @@ font-size: 2rem;
 font-family: 'Archivo', sans-serif;
 font-weight: 700;
 margin-bottom: 0;
-line-height: 2.5rem;
+line-height: 2.1rem;
 }
 .month{
     font-family: 'Archivo', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1rem;
 }

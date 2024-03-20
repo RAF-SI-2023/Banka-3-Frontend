@@ -1,5 +1,6 @@
 <html lang="en">
 <body>
+    <app-navbar></app-navbar>
     <div class="container" >
         <div class="formContainer">
             <div class="row">
@@ -8,7 +9,7 @@
                         <span class="h3">Broj računa</span>
                     </div>
                     <div style="margin: 1rem 0rem 1rem 0rem">
-                        <span class="p lighter">{{ accountNumber }}</span>
+                        <span class="p lighter">{{ account.accountNumber }}</span>
                     </div>
                 </div>
                 <div class="col-sm text-right">
@@ -16,7 +17,7 @@
                         <span class="h3">Raspoloživo</span>
                     </div>
                     <div style="margin: 1rem 0rem 1rem 0rem">
-                        <span class="p lighter">123,456.00 RSD</span>
+                        <span class="p lighter">{{ account.availableBalance }}</span>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paying',
@@ -15,6 +15,7 @@ export class PayingComponent implements OnInit {
   selectedPaymentCode: number = 1; 
   accountNumberPattern: RegExp = /^[0-9]{3}-[0-9]{13}-[0-9]{2}$/;
   recipientAccountControl: FormControl = new FormControl();
+  account:any;
 
   formGroup = new FormGroup({
       recipientName: new FormControl('', Validators.required),
@@ -25,16 +26,25 @@ export class PayingComponent implements OnInit {
       selectedPaymentCode: new FormControl('', Validators.required),
   })
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {}
+  constructor(private formBuilder: FormBuilder, private router: Router) {
+
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation && navigation.extras.state) {
+      this.account = navigation.extras.state['account'];
+    }
+  }
+
+
+
 
   ngOnInit(): void {
     for (let i = 120; i <= 290; i++) {
       this.paymentCodes.push(i);
     }
 
-    this.route.params.subscribe(params => {
-      this.accountNumber = params['accountNumber'];
-    });
+    // this.route.params.subscribe(params => {
+    //   this.accountNumber = params['accountNumber'];
+    // });
 
   
   }

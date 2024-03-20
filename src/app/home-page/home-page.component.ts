@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -20,10 +21,15 @@ export class HomePageComponent {
   transactions: any[] = [];
 
 
-  constructor() {
+  constructor(private router: Router) {
     this.selectedAccount = this.accounts[0];
+    
     this.updateTransactions() // Selecting the first account
+    
   }
+
+
+
 
    accounts = [
     { id: '1', ownerName: 'John Doe', accountNumber: '340-000100003632-87', availableBalance: 1000, type: 'Savings', accountState: 'Active', reservedFunds: 0,     transactions: [
@@ -123,13 +129,9 @@ previousAccount() {
 updateTransactions() {
   this.transactions = this.selectedAccount.transactions;
 }
-displayDetails() { // Copy the selected account
-  const modalWrapper = document.querySelector('.myModalWrapper') as HTMLElement;
-  if (modalWrapper) {
-    modalWrapper.style.display = 'flex';
-  } else {
-    console.error('Modal wrapper element not found.');
-  }
+displayDetails() {
+  const account=this.selectedAccount;
+  this.router.navigate(['/bill'], { state: { account: account } });
 }
 
   // Function to refresh the page
