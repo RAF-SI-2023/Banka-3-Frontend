@@ -47,7 +47,7 @@ export class UserloginComponent {
   }}
 
 
-  createUser() {
+  createPassword() {
     if (this.newPassword?.value !== this.confirmPassword?.value) {
       console.error('Passwords do not match');
       return;
