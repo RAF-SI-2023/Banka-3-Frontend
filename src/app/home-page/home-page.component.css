@@ -31,14 +31,14 @@
     </div>
 </div>*/
 
+
 .accountsView{
-    background-color:black;
+    background-color:var(--blue-light);
     width:100%;
     padding:2rem;
 }
 .accountsScroller{
     margin:auto;
-    background-color:white;
     display:flex;
     flex-direction: column;
     border-radius:1rem;
@@ -47,17 +47,17 @@
 .accountCard{
     display:flex;
     border-radius: 1rem;
-    background-color:yellow;
-    margin:1rem 3rem 1rem 3rem;
+    background-color:white;
+    margin:1rem 1rem 1rem 1rem;
     -ms-flex-item-align: center;
     flex-direction: row;
-    padding:1rem 2rem 1rem 2rem;
+    padding:2rem 3rem 2rem 3rem;
 }
 .cardLogoWrapper{
     height:100%;
 }
 .myModalWrapper{
-position: absolute;
+position: fixed;
 z-index: 5;
 background-color: rgba(0, 0, 0, 0.5);
 height: 100%;
@@ -65,6 +65,7 @@ width: 100%;
 display:none;
 justify-content: center;
 align-items: center;
+
 }
 .formGroup {
     margin-bottom: 1rem;
@@ -104,7 +105,8 @@ width: 80%;
     display: flex;
 }
 .transactionView{
-    background-color: white;
+    /* background-color: var(--background-main); */
+    background-color: #f6f6f6;
     width: 100%;
     padding:3rem;
 }
@@ -112,22 +114,28 @@ width: 80%;
     margin-left:2rem;
 }
 .transactionsWrapper{
-    padding:1rem;
+    /* padding:1rem;
     margin:0;
-    border:black 2px solid;
+    border:black 2px solid; */
 
 }
 .transactionCard{
     display: flex;
     flex-direction: row;
     background-color: white;
-    border-bottom-style: 2px yellow solid;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    -webkit-box-shadow: 1px 8px 9px 0px rgba(209,209,209,1);
+    -moz-box-shadow: 1px 8px 9px 0px rgba(209,209,209,1);
+    box-shadow: 1px 8px 9px 0px rgba(209,209,209,1);
 }
 .transactionDate{
     width:7rem;
     padding:1rem;
-    border-right: 2px solid black;
-}
+    background-color:var(--blue-dark);
+    color:white;
+}   
 .transactionDetails{
     padding:1rem;
 }
@@ -137,10 +145,26 @@ display: flex;
 align-items: center;
 }
 .arrow{
-    background-color:red;
     width: 2rem;
     height:2rem;
     
+}
+.day{
+font-size: 2rem;
+font-family: 'Archivo', sans-serif;
+font-weight: 700;
+margin-bottom: 0;
+line-height: 2.5rem;
+}
+.month{
+    font-family: 'Archivo', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1rem;
+}
+.year{
+    font-family: 'Archivo', sans-serif;
+    font-weight: 400;
 }
 .selectCardWrapper{
     align-items: center;
