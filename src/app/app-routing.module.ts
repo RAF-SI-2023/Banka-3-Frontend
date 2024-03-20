@@ -15,6 +15,8 @@ import {AuthGuard} from "./guards/auth.guard";
 import {AdminGuard} from "./guards/admin.guard";
 import {A} from "@angular/cdk/keycodes";
 import {CreateUserComponent} from "./create-user/create-user.component";
+import {UserAddAccountFormComponent} from "./user-add-account-form/user-add-account-form.component";
+import {FirmAddAccountFormComponent} from "./firm-add-account-form/firm-add-account-form.component";
 
 const routes: Routes = [
 
@@ -78,6 +80,15 @@ const routes: Routes = [
     component: UserProfileComponent,
     //canActivate: [AuthGuard]
   },
+  {
+    path: 'user-account/:userId',
+    component: UserAddAccountFormComponent
+  },
+  {
+    path: 'firm-account/:firmId',
+    component: FirmAddAccountFormComponent
+  },
+
 ];
 
 @NgModule({

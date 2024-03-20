@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Employee, Permission, Role, Token, User} from "../models/models";
+import {Account, Employee, Permission, Role, Token, User} from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
@@ -10,6 +10,10 @@ export class UserService {
   apiUrlEmployee : string = "http://localhost:8080/api/v1/employee"
   apiUrlPermission : string = "http://localhost:8080/api/v1/permission"
   apiUrlRole : string = "http://localhost:8080/api/v1/role"
+  apiUrlAccount : string = "http://localhost:8080/api/v1/account"
+  apiUrlForeignAccount : string = "http://localhost:8080/api/v1/foreignAccount"
+  apiUrlCompanyAccount : string = "http://localhost:8080/api/v1/companyAccount"
+
   constructor(private httpClient : HttpClient) { }
 
   loginEmployee(email: string | null | undefined, password: string | null | undefined){
@@ -30,8 +34,10 @@ export class UserService {
       phoneNumber: phoneNumber,
       email: email
     }
+
     return this.httpClient.post<Token>(`${this.apiUrlUser}/register`, obj)
   }
+
   getAllUsers(){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -48,6 +54,14 @@ export class UserService {
     })
 
     return this.httpClient.get<Employee[]>(`${this.apiUrlEmployee}/getAll`, { headers })
+  }
+  getAllCurrency(){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    return this.httpClient.get<Account[]>(`${this.apiUrlAccount}/getAll`, { headers })
   }
   getUserById(id : number){
     const headers = new HttpHeaders({
@@ -147,5 +161,4 @@ export class UserService {
 
     return this.httpClient.get<Permission[]>(`${this.apiUrlPermission}/getAll`,{ headers })
   }
-
 }

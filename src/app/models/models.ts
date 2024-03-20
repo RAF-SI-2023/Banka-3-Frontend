@@ -32,6 +32,14 @@ export interface Permission {
   authority: string
 }
 
+export interface Account{
+  balance: number,
+  account: string,
+  mark: string,
+  employeeId: number,
+  userId: number,
+
+}
 export interface Role {
   roleId: number | undefined,
   roleName: string,
