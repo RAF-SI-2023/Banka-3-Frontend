@@ -3,6 +3,7 @@ import { Firm } from "../models/models";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
+import {FirmService} from "../services/firm.service";
 
 @Component({
   selector: 'app-form-add-firm',
@@ -15,14 +16,14 @@ export class FormAddFirmComponent implements OnInit{
   firmForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router : Router) {
+  constructor(private firmService : FirmService, private fb: FormBuilder, private router : Router) {
     this.firmForm = this.fb.group({
       firmName: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       phoneNumber: new FormControl('', [Validators.required, Validators.pattern(/^06\d{7,8}$/)]),
-      matNumberFirm: new FormControl('', Validators.required),
-      pib: new FormControl('', Validators.required),
-      industryCode: new FormControl('', Validators.required),
+      matNumberFirm: new FormControl('', [Validators.required, Validators.pattern(/\d{8}$/)]),
+      pib: new FormControl('', [Validators.required, Validators.pattern(/\d{9}$/)]),
+      industryCode: new FormControl('', [Validators.required, Validators.pattern(/\d{4}$/)]),
       isActive: new FormControl(true),
     })
   }
@@ -40,10 +41,10 @@ export class FormAddFirmComponent implements OnInit{
     this.firm.industryCode = this.firmForm.get('industryCode')?.value;
     this.firm.isActive = this.firmForm.get('isActive')?.value;
 
-   /* this.userService.createEmployee(this.firm).subscribe(res => {
+    this.firmService.createFirm(this.firm).subscribe(res => {
       console.log(res)
       this.router.navigate(['user-controll'])
-    });*/
+    });
   }
   get firmName(){
     return this.firmForm.get('firmName');
