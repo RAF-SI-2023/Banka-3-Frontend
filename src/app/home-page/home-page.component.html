@@ -31,7 +31,7 @@
         </div>
         <div class="accountDetailsButtons">
             <button class="myButtonPrimary" (click)="backToMain()">Nazad</button>
-            <button class="myButtonPrimary" (click)="newPayment()">Novo placanje</button>
+            <button class="myButtonSecondary" (click)="newPayment()">Novo placanje</button>
         </div>
         </div>
     </div>
@@ -101,6 +101,7 @@
     <div class="transactionsWrapper" *ngFor="let transaction of transactions">
 
         <div class="transactionCard">
+        <div class="transactionDetailsWrapper">
           <div class="transactionDate">
                         <!-- Display day -->
                         <div class="day">{{ getDayFromDate(transaction.date) }}</div>
@@ -110,12 +111,18 @@
                         <div class="year">{{ getYearFromDate(transaction.date) }}</div>
           </div>
 
-          
           <div class="transactionDetails">
             <p class="h4">Broj racuna:</p>
             <p class="h3">{{ transaction.tradeAccount }}</p>
             <p class="h4">Iznos:</p>
             <span style="text-align: center" class="h2">{{ transaction.amount }} RSD</span>
+          </div>
+        </div>
+          <!-- <div class="transactionIconWrapper">
+            <img height="128px" width="128px" class="arrow incoming" src="assets/arrow-left.svg">
+          </div> -->
+          <div class="transactionIconWrapper">
+            <img height="128px" width="128px" class="arrow outgoing" src="assets/arrow-left.svg">
           </div>
 
         </div>

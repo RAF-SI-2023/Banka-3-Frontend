@@ -124,6 +124,7 @@ width: 80%;
     flex-direction: row;
     background-color: white;
     margin-top: 1rem;
+    justify-content: space-between;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
     -webkit-box-shadow: 1px 8px 9px 0px rgba(209,209,209,1);
@@ -139,15 +140,29 @@ width: 80%;
 .transactionDetails{
     padding:1rem;
 }
+.transactionDetailsWrapper{
+    display: flex;
+}
 .convertArrow{
 height: 100%;
 display: flex;
 align-items: center;
 }
+.incoming{
+    transform: rotate(135deg);
+    fill:green;
+    background-color: green;
+    border-radius: 100%;
+}
+.outgoing{
+    transform: rotate(-45deg);
+    background-color: red;
+    border-radius: 100%;
+}
+
 .arrow{
-    width: 2rem;
-    height:2rem;
-    
+    width: 4rem;
+    height:4rem;
 }
 .day{
 font-size: 2rem;
