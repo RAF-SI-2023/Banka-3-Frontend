@@ -9,7 +9,6 @@ export interface User {
   address: string,
   email: string,
   isActive: boolean,
-  role: Role
 }
 
 export interface Employee {
@@ -24,18 +23,76 @@ export interface Employee {
   address: string,
   email: string,
   isActive: boolean,
-  position: string,
-  department: string,
   permissions: Permission[],
   role: Role
 }
 
+export interface FirmCreateDto {
+  companyId: number,
+  title: string,
+  email: string,
+  number: number,
+  matBr: number,
+  pib: number,
+  sifraDelatnosti: number,
+
+}
+export interface Firm {
+  companyId: number,
+  title: string,
+  email: string,
+  number: number,
+  maticnibroj: number,
+  pib: number,
+  sifraDelatnosti: number,
+  companyAccounts: CompanyAccount[]
+
+}
+
+export interface UserActivationDto{
+  email: string,
+  isActive: boolean
+}
+export interface CompanyAccount{
+  companyAccountId: number,
+  company: Firm,
+  balance: number,
+  availableBalance: number,
+  employee: Employee,
+  creationDate: number,
+  expireDate: number,
+  active: boolean,
+  currency: Currency,
+  accountNumber: string,
+}
+
+export interface Currency{
+  currencyId: number,
+  name: string,
+  mark: string
+}
+
+
 export interface Permission {
-  roleId: number,
+  permissionId: number
   authority: string
 }
 
+export interface Account{
+  balance: number,
+  accountType: string,
+  mark: string,
+  employeeId: number,
+  userId: number,
+}
+
+export interface Currency{
+  currencyId: number,
+  name: string,
+  mark: string
+}
 export interface Role {
+  roleId: number | undefined,
   roleName: string,
 }
 

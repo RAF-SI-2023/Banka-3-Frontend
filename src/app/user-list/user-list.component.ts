@@ -47,7 +47,6 @@ export class UserListComponent implements OnInit{
     this.userService.getAllUsers().subscribe( res=> {
       this.users = res;
     })
-
   }
   searchEmployee(){
     this.userService.searchEmployees(this.firstName2, this.lastName2, this.email2, this.role).subscribe(res => {
@@ -71,6 +70,10 @@ export class UserListComponent implements OnInit{
   editEmployee(employee: Employee){
     this.router.navigate(['edit-employee', employee.employeeId])
   }
+  addAccountToUser(user: User){
+    this.router.navigate(['user-account', user.userId])
+  }
+
   deleteUser(id: number){
     this.userService.deleteUser(id).subscribe(res => {
       this.users.filter(user => {

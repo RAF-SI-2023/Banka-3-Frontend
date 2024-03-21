@@ -1,0 +1,110 @@
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.css" integrity="sha512-SudEgtLVV+Wip7/PrEh2zd0mO/PqR1w26NEJfhnHGxZdng3KYsLhpAZQG0mPMUykCYoKgdBc7/ItrUYzbC0aTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.js" integrity="sha512-SmkWOBrqYIdqATrk8lM9D2LXXA5rZAcuGTgdzM5REXSGYAtlTgp+88rUzBXxKEd78bnvyEfA7sbZIfe8/vA2Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<form [formGroup]="firmForm" (ngSubmit)="save()">
+  <div class="container">
+    <div class="card details">
+      <h2 class="h4">&nbsp;</h2>
+      <h2 class="h4" style="text-align: center; font-weight: bold;">Dodaj firmu</h2>
+
+      <hr>
+      <div class="input-row">
+        <div class="input-container">
+          <p class="bold">Ime firme</p>
+          <input
+            type="text"
+            placeholder=""
+            class="input"
+            formControlName="firmName"
+          />
+          <span
+            *ngIf="firmName && firmName.invalid && firmName.touched"
+            class="wrong-input-span"
+          >
+            Ime firme mora da bude popunjeno!</span
+          >
+        </div>
+        <div class="input-container">
+          <p class="bold">PIB</p>
+          <input
+            type="text"
+            placeholder=""
+            class="input"
+            formControlName="pib"
+          />
+          <span
+            *ngIf="pib && pib.invalid && pib.touched"class="wrong-input-span">
+              PIB mora da ima tacno 9 cifara!</span>
+        </div>
+      </div>
+
+
+
+
+      <div class="input-row">
+        <div class="input-container">
+          <p class="bold">Broj telefona</p>
+          <input
+            type="text"
+            placeholder=""
+            class="input"
+            formControlName="phoneNumber"
+          />
+          <span
+            *ngIf="phoneNumber && phoneNumber.invalid && phoneNumber.touched"class="wrong-input-span">
+           Broj mora da pocinje sa 06, da ima 9-10 cifara i ne sme biti prazno!</span>
+        </div>
+        <div class="input-container">
+          <p class="bold">Email</p>
+          <input
+            type="text"
+            placeholder=""
+            class="input"
+            formControlName="email"
+          />
+          <span
+            *ngIf="email && email.invalid && email.touched"class="wrong-input-span">
+            Email mora da ima dobar format i ne sme biti prazan!</span>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <div class="input-container">
+          <p class="bold">Maticni broj firme</p>
+          <input
+            type="text"
+            placeholder=""
+            class="input"
+            formControlName="matNumberFirm"
+          />
+          <span
+            *ngIf="matNumberFirm && matNumberFirm.invalid && matNumberFirm.touched"
+            class="wrong-input-span"
+          >
+            Maticni broj firme mora da ima 8 cifara!</span
+          >
+        </div>
+
+
+        <div class="input-container">
+          <p class="bold">Sifra delatnosti</p>
+          <input
+            type="text"
+            placeholder=""
+            class="input"
+            formControlName="industryCode"
+          />
+          <span
+            *ngIf="industryCode && industryCode.invalid && industryCode.touched"
+            class="wrong-input-span"
+          >
+            Sifra delatnosti mora da ima 4 cifre!</span
+          >
+        </div>
+      </div>
+      <div class="buttons">
+        <button (click)="save()" class="button-change-password"[disabled]="!firmForm.valid" [routerLink]="'/firm-account/:employeeId'">Kreiraj firmu</button>
+      </div>
+    </div>
+  </div>
+</form>

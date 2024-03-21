@@ -22,9 +22,9 @@ export class AdminGuard implements CanActivate, CanDeactivate<unknown> {
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
     return tk.role === "ADMIN";
 
+
+
   }
-
-
 
   canDeactivate(
     component: unknown,
