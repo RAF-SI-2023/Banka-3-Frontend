@@ -58,11 +58,12 @@ export class UserloginComponent {
     this.userService.setPassword(this.address, Number(this.activationCode?.value), this.newPassword?.value)
       .subscribe(response => {
         // Handle response as needed
+        this.codeActivate = true;
+        this.showCheckAddress = true;
         console.log(response)
       }, error => {
         console.error('Error occurred:', error);
       });
-    // this.codeActivate = true;
   }
 
   submitLogin() {

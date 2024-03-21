@@ -45,7 +45,7 @@ export class CreateUserComponent {
     this.user.dateOfBirth = dt;
 
     this.userService.createUser(this.user).subscribe(res => {
-      this.user.userId = res;
+      this.user = res;
       console.log(res);
 
       this.router.navigate(['user-account', this.user.userId]);
