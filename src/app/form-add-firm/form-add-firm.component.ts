@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { Firm } from "../models/models";
+import {Firm, FirmCreateDto} from "../models/models";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
@@ -12,7 +12,7 @@ import {FirmService} from "../services/firm.service";
 })
 export class FormAddFirmComponent{
 
-  firm = {} as Firm;
+  firm = {} as FirmCreateDto;
   firmForm: FormGroup;
 
 
@@ -28,25 +28,23 @@ export class FormAddFirmComponent{
     })
   }
   save(){
-    this.firm.firmName = this.firmForm.get('firmName')?.value;
+    this.firm.title = this.firmForm.get('firmName')?.value;
     this.firm.email = this.firmForm.get('email')?.value;
-    this.firm.phoneNumber = this.firmForm.get('phoneNumber')?.value;
-    this.firm.matNumberFirm = this.firmForm.get('matNumberFirm')?.value;
+    this.firm.number = this.firmForm.get('phoneNumber')?.value;
+    this.firm.matBr = this.firmForm.get('matNumberFirm')?.value;
     this.firm.pib = this.firmForm.get('pib')?.value;
-    this.firm.industryCode = this.firmForm.get('industryCode')?.value;
-    this.firm.isActive = this.firmForm.get('isActive')?.value;
+    this.firm.sifraDelatnosti = this.firmForm.get('industryCode')?.value;
+    this.firmService.createFirm(this.firm).subscribe(res => {
+      this.firm = res;
+      this.router.navigate(['firm-account', this.firm.companyId]);
+      console.log(res);
 
-    this.router.navigate([`firm-account/${this.firm.firmId}`]);
+    })
+
    /* this.userService.createEmployee(this.firm).subscribe(res => {
       console.log(res)
       this.router.navigate(['user-controll'])
     });*/
-    this.userService.createFirm(this.firm).subscribe(res => {
-      this.firm.firmId = res;
-      console.log(res);
-
-      this.router.navigate([`firm-account/${this.firm.firmId}`]);
-    })
 
   }
   get firmName(){

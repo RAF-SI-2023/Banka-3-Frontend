@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Account, Employee, Role, User} from "../models/models";
+import {Account, Currency, Employee, Role, User} from "../models/models";
 import {UserService} from "../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -13,7 +13,7 @@ import {parseJson} from "@angular/cli/src/utilities/json-file";
 export class UserAddAccountFormComponent implements OnInit{
 
   account: Account = {} as Account
-  currencies: Account[] | null = null;
+  currencies: Currency[] | null = null;
   userId: number;
   employeeId: number;
   accountForm: FormGroup
@@ -35,14 +35,16 @@ export class UserAddAccountFormComponent implements OnInit{
     this.account.balance = this.accountForm.get('balance')?.value;
     this.account.mark = this.accountForm.get('mark')?.value;
 
-    if(this.account.accountType == 'Tekuci')
-    this.userService.saveAccount(this.userId, this.account.balance, this.account.mark, this.employeeId).subscribe(res => {
-      console.log(res);
-    });
-
+    if(this.account.accountType == 'Tekuci'){
+      this.userService.saveAccount(this.userId, this.account.balance, "DINAR", this.employeeId, this.account.accountType).subscribe(res => {
+        console.log(res);
+      });
+    }else{
       this.userService.saveForeignAccount(this.userId, this.account.balance, this.account.mark, this.employeeId).subscribe(res => {
         console.log(res);
-    })
+      })
+    }
+
   }
 
   ngOnInit(): void {
@@ -51,8 +53,8 @@ export class UserAddAccountFormComponent implements OnInit{
       this.userId = Number(params.get('userId'));
     })
 
-    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1])) as Employee;
-    this.employeeId = tk.employeeId;
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    this.employeeId = tk.id;
 
     this.userService.getAllCurrency().subscribe(res => {
       this.currencies = res;

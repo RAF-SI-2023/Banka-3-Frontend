@@ -65,7 +65,7 @@
             <mat-form-field>
               <mat-label>Valuta</mat-label>
               <mat-select formControlName = "mark">
-                <mat-option *ngFor="let currency of currencies" [value]="currency">{{currency}}</mat-option>
+                <mat-option *ngFor="let currency of currencies" [value]="currency.name">{{currency.name}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>

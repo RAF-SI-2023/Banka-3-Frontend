@@ -24,7 +24,7 @@ export class UserControllComponent implements OnInit{
   users: User[] = [];
   firm: Firm[] = [];
   userColumns: string[] = [ "userId","firstName", "lastName","jmbg", "dateOfBirth", "email","phoneNumber", "opcije"]
-  firmColumns: string[] = [ "firmId","firmName", "email","phoneNumber", "matNumberFirm", "pib","industryCode", "opcije"]
+  firmColumns: string[] = [ "companyId","title", "email","number", "maticniBroj", "pib","sifraDelatnosti", "opcije"]
 
 
   constructor(private firmService : FirmService, private userService : UserService, private router: Router) {
@@ -60,9 +60,6 @@ export class UserControllComponent implements OnInit{
   deleteFirm(id: number){
     this.firmService.deleteFirm(id).subscribe(res => {
       console.log(res)
-      this.firm.filter( firm => {
-        return firm.isActive
-      })
     })
     console.log(id)
   }
@@ -78,6 +75,10 @@ export class UserControllComponent implements OnInit{
     this.router.navigate(['edit-user', user.userId])
   }
 
+  createAccount(user: User){
+    this.router.navigate(['user-account', user.userId])
+  }
+
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe( res=> {
       this.users = res;
@@ -87,9 +88,6 @@ export class UserControllComponent implements OnInit{
     })
     this.firmService.getAllFirm().subscribe( res=> {
       this.firm = res;
-      this.firm.filter( firm => {
-        return firm.isActive
-      })
     })
   }
 }

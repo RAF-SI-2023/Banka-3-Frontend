@@ -59,6 +59,7 @@
             <ng-container *ngIf="column === 'opcije'">
               <img (click)="deleteUser(element['userId'])" [width]="24" [height]="24" src="assets/trash-svgrepo-com.svg">
               <img (click)="editUser(element)" [width]="24" [height]="24" src="assets/pen-square-svgrepo-com.svg">
+              <img class="plus" (click)="createAccount(element)" [width]="24" [height]="24" src="assets/plus-large-black.svg">
             </ng-container>
           </mat-cell>
         </ng-container>

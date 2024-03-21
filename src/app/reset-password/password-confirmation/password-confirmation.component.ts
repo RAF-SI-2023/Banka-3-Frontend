@@ -9,11 +9,12 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
   styleUrls: ['./password-confirmation.component.css']
 })
 export class PasswordConfirmationComponent implements OnInit {
-goBack() {
-throw new Error('Method not implemented.');
-}
+  goBack() {
+    throw new Error('Method not implemented.');
+  }
   passwordForm: FormGroup;
   code: string;
+  tip: string;
 
   constructor(
     private userService: UserService,
@@ -32,10 +33,13 @@ throw new Error('Method not implemented.');
     }, { validators: this.passwordMatchValidator });
 
     this.code = '';
+    this.tip = ''
   }
 
   ngOnInit(): void {
     this.code = this.route.snapshot.paramMap.get('code')!;
+    //@ts-ignore
+    this.tip = this.route.snapshot.paramMap.get('tip');
   }
 
   // Validator za proveru da li se lozinke podudaraju
@@ -48,10 +52,10 @@ throw new Error('Method not implemented.');
   submit(): void {
     if (this.passwordForm.valid) {
       const newPassword = this.passwordForm.get('password')?.value;
-      this.userService.tryResetPassword(this.code, newPassword).subscribe({
+      this.userService.tryResetPassword(this.code, newPassword, this.tip).subscribe({
         next: (response) => {
           console.log(response);
-          this.router.navigate(['/login']);
+          this.router.navigate(['/admin-login']);
         },
         error: (error) => {
           console.error(error);

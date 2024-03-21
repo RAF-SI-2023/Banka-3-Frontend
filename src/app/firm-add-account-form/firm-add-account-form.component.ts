@@ -14,7 +14,7 @@ export class FirmAddAccountFormComponent implements OnInit {
 
   account = {} as Account
   firmForm: FormGroup
-  userId: number;
+  companyId: number;
   employeeId: number;
 
   constructor(private fb: FormBuilder, private userService: UserService, private route : ActivatedRoute) {
@@ -23,7 +23,7 @@ export class FirmAddAccountFormComponent implements OnInit {
       balance: new FormControl('', Validators.required),
       mark: new FormControl('', Validators.required),
     })
-    this.userId = 0;
+    this.companyId = 0;
     this.employeeId = 0;
   }
   save(){
@@ -31,17 +31,18 @@ export class FirmAddAccountFormComponent implements OnInit {
     this.account.balance = this.firmForm.get('balance')?.value;
     this.account.mark = this.firmForm.get('mark')?.value;
 
-    this.userService.saveCompanyAccount(this.userId, this.account.balance, this.account.mark, this.employeeId).subscribe(res => {
+    this.userService.saveCompanyAccount(this.companyId, this.account.balance, "DINAR", this.employeeId, this.account.accountType).subscribe(res => {
       console.log(res);
     });
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.userId = Number(params.get('userId'));
+      this.companyId = Number(params.get('firmId'));
     })
 
-    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1])) as Employee;
-    this.employeeId = tk.employeeId;
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    // console.log(tk)
+    this.employeeId = tk.id;
 
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Employee, Firm, User} from "../models/models";
+import {Employee, Firm, FirmCreateDto, User} from "../models/models";
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class FirmService {
     return this.httpClient.get<Firm>(`${this.apiUrlFirm}/company/getByCompany/${companyId}`, { headers })
   }
 
-  createFirm(firm: Firm | undefined){
+  createFirm(firm: FirmCreateDto | undefined){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`

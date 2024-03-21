@@ -85,9 +85,9 @@ export class PasswordActivationComponent implements OnInit{
    * u slucaju uspesno postavljene sifre zaposlenog redirectujemo na 'EmployeeView' stranicu.
    */
   onSubmit(){
-    console.log("Sifra1: " + this.passwordForm.get('password')?.value);
-    console.log("Sifra2: " + this.passwordForm.get('confirmPassword')?.value);
-    console.log("Identifier: " + this.code);
+    // console.log("Sifra1: " + this.passwordForm.get('password')?.value);
+    // console.log("Sifra2: " + this.passwordForm.get('confirmPassword')?.value);
+    // console.log("Identifier: " + this.code);
     this.userService.setEmployeePassword(this.code, this.passwordForm.get('password')?.value).subscribe( data => {
       console.log("Poslat POST zahtev, potreban redirect na sledecu stranicu.");
       if ( data === 'Password successfully changed'){

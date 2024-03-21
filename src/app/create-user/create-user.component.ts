@@ -48,7 +48,7 @@ export class CreateUserComponent {
       this.user.userId = res;
       console.log(res);
 
-      this.router.navigate([`user-account/${this.user.userId}`]);
+      this.router.navigate(['user-account', this.user.userId]);
     });
   }
 

@@ -26,6 +26,7 @@ import { ExchangeComponent } from './exchange/exchange.component';
 import { BillComponent } from './bill/bill.component';
 import { PayingComponent } from './paying/paying.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import {PasswordConfirmationComponent} from "./reset-password/password-confirmation/password-confirmation.component";
 
 
 const routes: Routes = [
@@ -54,6 +55,10 @@ const routes: Routes = [
   {
     path: 'forgot-password/:type',
     component: ResetPasswordComponent,
+  },
+  {
+    path: ':tip/password-confirm/:code',
+    component: PasswordConfirmationComponent,
   },
   {
     path: '',
