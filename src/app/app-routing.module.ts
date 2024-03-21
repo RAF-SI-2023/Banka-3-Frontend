@@ -21,7 +21,12 @@ import {FirmAddAccountFormComponent} from "./firm-add-account-form/firm-add-acco
 import {PasswordActivationComponent} from "./password-activation/password-activation.component";
 import {UserControllComponent} from "./user-controll/user-controll.component";
 import {FormAddFirmComponent} from "./form-add-firm/form-add-firm.component";
+import { HomePageComponent } from './home-page/home-page.component';
+import { ExchangeComponent } from './exchange/exchange.component';
+import { BillComponent } from './bill/bill.component';
+import { PayingComponent } from './paying/paying.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+
 
 const routes: Routes = [
 
@@ -88,7 +93,11 @@ const routes: Routes = [
     path: 'user-profile/:id',
     component: UserProfileComponent,
     //canActivate: [AuthGuard]
-  },
+  },{
+  path: 'welcome',
+  component: HomePageComponent,
+  //canActivate: [AuthGuard]
+},
   {
     path: 'user-account/:userId',
     component: UserAddAccountFormComponent
@@ -101,6 +110,21 @@ const routes: Routes = [
       path: 'user-controll',
     component: UserControllComponent,
     //canActivate: [AuthGuard]
+  },
+  {
+    path: 'exchange',
+    component: ExchangeComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+  path: 'bill',
+  component: BillComponent,
+  //canActivate: [AuthGuard]
+},
+  {
+  path: 'payment',
+  component: PayingComponent,
+  //canActivate: [AuthGuard]
   },
   {
     path: 'form-add-firm',
