@@ -15,8 +15,9 @@ export class ResetPasswordComponent implements OnInit{
   })
     isUser = false;
 
-    constructor(private userService : UserService, private route : ActivatedRoute, private router : Router) {
-    }
+    constructor(private userService : UserService, private route : ActivatedRoute, private router : Router) {}
+
+    // iz rute vadi informaciju o tome da li je ulogovan user ili employee
   ngOnInit(): void {
     this.route.paramMap.subscribe( params =>
       (params.get('type')?.includes('user')) ? this.isUser = true : this.isUser = false
@@ -30,8 +31,8 @@ export class ResetPasswordComponent implements OnInit{
   }
 
   goBack(){
-    const c = this.isUser ? 'user' : 'admin'
-    this.router.navigate([c + '-login']);
+    const path = this.isUser ? 'user' : 'admin'
+    this.router.navigate([path + '-login']);
   }
 
   get email() {
