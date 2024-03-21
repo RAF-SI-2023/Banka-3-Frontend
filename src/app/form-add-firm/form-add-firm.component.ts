@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   templateUrl: './form-add-firm.component.html',
   styleUrls: ['./form-add-firm.component.css']
 })
-export class FormAddFirmComponent implements OnInit{
+export class FormAddFirmComponent{
 
   firm = {} as Firm;
   firmForm: FormGroup;
@@ -26,11 +26,6 @@ export class FormAddFirmComponent implements OnInit{
       isActive: new FormControl(true),
     })
   }
-
-  ngOnInit(): void {
-
-  }
-
   save(){
     this.firm.firmName = this.firmForm.get('firmName')?.value;
     this.firm.email = this.firmForm.get('email')?.value;
@@ -40,10 +35,17 @@ export class FormAddFirmComponent implements OnInit{
     this.firm.industryCode = this.firmForm.get('industryCode')?.value;
     this.firm.isActive = this.firmForm.get('isActive')?.value;
 
+    this.router.navigate([`firm-account/${this.firm.firmId}`]);
    /* this.userService.createEmployee(this.firm).subscribe(res => {
       console.log(res)
       this.router.navigate(['user-controll'])
     });*/
+    this.userService.createFirm(this.firm).subscribe(res => {
+      this.firm.firmId = res;
+      console.log(res);
+
+      this.router.navigate([`firm-account/${this.firm.firmId}`]);
+    })
   }
   get firmName(){
     return this.firmForm.get('firmName');

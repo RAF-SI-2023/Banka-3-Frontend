@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Account, Employee, Permission, Role, Token, User} from "../models/models";
+import {Account, Employee, Firm, Permission, Role, Token, User} from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {from, Observable} from "rxjs";
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,7 @@ export class UserService {
   apiUrlEmployee : string = "http://localhost:8080/api/v1/employee"
   apiUrlPermission : string = "http://localhost:8080/api/v1/permission"
   apiUrlRole : string = "http://localhost:8080/api/v1/role"
+  apiUrlCompany: string = "http://localhost:8080/api/v1/company"
   apiUrlAccount : string = "http://localhost:8080/api/v1/account"
   apiUrlForeignAccount : string = "http://localhost:8080/api/v1/foreignAccount"
   apiUrlCompanyAccount : string = "http://localhost:8080/api/v1/companyAccount"
@@ -88,6 +91,31 @@ export class UserService {
     return this.httpClient.get<Role[]>(`${this.apiUrlRole}/getAll`, { headers })
   }
 
+   saveAccount(userId: number, balance:number, mark:string, employeeId:number){
+     const headers = new HttpHeaders({
+       'Content-Type': 'application/json',
+       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+     })
+     const body = {userId, balance, mark, employeeId};
+     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/`,body,{ headers })
+   }
+   saveForeignAccount(userId: number, balance:number, mark:string, employeeId:number){
+     const headers = new HttpHeaders({
+       'Content-Type': 'application/json',
+       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+     })
+     const body = {userId, balance, mark, employeeId};
+     return this.httpClient.post<Account[]>(`${this.apiUrlForeignAccount}/`,body, { headers })
+   }
+   saveCompanyAccount(userId: number, balance:number, mark:string, employeeId:number){
+     const headers = new HttpHeaders({
+       'Content-Type': 'application/json',
+       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+     })
+     const body = {userId, balance, mark, employeeId};
+     return this.httpClient.post<Account[]>(`${this.apiUrlCompanyAccount}/`, body,{ headers })
+   }
+
   saveUser(user: User | null){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -110,8 +138,8 @@ export class UserService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-
-    return this.httpClient.post<any>(`${this.apiUrlUser}`, user, { headers })
+    return from([1,2,3]);
+    //return this.httpClient.post<any>(`${this.apiUrlUser}`, user, { headers })
   }
   createEmployee(employee: Employee | undefined){
     const headers = new HttpHeaders({
@@ -120,6 +148,15 @@ export class UserService {
     })
 
     return this.httpClient.post<any>(`${this.apiUrlEmployee}`, employee, { headers })
+  }
+
+  createFirm(firm: Firm | undefined){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    return this.httpClient.post<any>(`${this.apiUrlCompany}`, firm, { headers })
   }
   deleteUser(id: number){
     const headers = new HttpHeaders({
@@ -188,6 +225,5 @@ export class UserService {
     if(isUser)
         return this.httpClient.get(`${this.apiUrlUser}/resetPassword?email=${email}`, { headers });
     return this.httpClient.get(`${this.apiUrlEmployee}/resetPassword?email=${email}`, { headers });
-
   }
 }

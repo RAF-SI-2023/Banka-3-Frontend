@@ -20,9 +20,7 @@ export class AdminGuard implements CanActivate, CanDeactivate<unknown> {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-    return tk.role === "ADMIN";
-
-
+    return tk.role === "ROLE_BANKING_OFFICER";
 
   }
 
