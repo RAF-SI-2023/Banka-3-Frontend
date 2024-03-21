@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
+import {UserActivationDto} from "../../models/models";
 
 
 @Component({
@@ -12,6 +13,7 @@ import {Router} from "@angular/router";
 export class UserloginComponent {
   codeActivate: boolean = false;
   showCheckAddress: boolean = true;
+  userActivationDto = {} as UserActivationDto
   address: string = '';
 
   checkEmailForm = new FormGroup({
@@ -34,17 +36,17 @@ export class UserloginComponent {
 
   //  Proverava da li postoji korisnik sa datim mejlom
   checkAddr() {
-    this.showCheckAddress = false;
-    if(this.email?.valid){
+    // this.showCheckAddress = false;
     this.userService.checkEmail(this.emailCheck?.value)
       .subscribe(response => {
-        this.codeActivate = response.codeActivate;
-        this.address = response.email;
+        this.userActivationDto = response;
+        this.codeActivate = this.userActivationDto.isActive
+        this.address = this.userActivationDto.email
+        this.showCheckAddress = false;
       }, error => {
         console.error('Error occurred:', error);
       });
-
-  }}
+  }
 
 
   createPassword() {
@@ -53,13 +55,15 @@ export class UserloginComponent {
       return;
     }
 
-    this.userService.setPassword(this.address, Number(this.activationCode?.value), this.newPassword?.value,this.confirmPassword?.value)
+    this.userService.setPassword(this.address, Number(this.activationCode?.value), this.newPassword?.value)
       .subscribe(response => {
         // Handle response as needed
+        this.codeActivate = true;
+        this.showCheckAddress = true;
+        console.log(response)
       }, error => {
         console.error('Error occurred:', error);
       });
-    this.codeActivate = true;
   }
 
   submitLogin() {
@@ -69,7 +73,7 @@ export class UserloginComponent {
       console.log(email, password)
       this.userService.loginUser(email, password).subscribe(res => {
         sessionStorage.setItem("token", res.token);
-        this.router.navigate(['home-page'])
+        this.router.navigate(['welcome'])
           .then(()=> {
             window.location.reload()
           })

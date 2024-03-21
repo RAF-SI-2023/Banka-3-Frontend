@@ -65,7 +65,6 @@ export class CreateEmployeeComponent implements OnInit{
     this.employee.dateOfBirth = dt;
 
     this.userService.createEmployee(this.employee).subscribe(res => {
-      console.log(res)
       this.router.navigate(['user-list'])
     });
   }

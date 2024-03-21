@@ -27,17 +27,51 @@ export interface Employee {
   role: Role
 }
 
-export interface Firm {
-  firmId: number,
-  firmName: string,
+export interface FirmCreateDto {
+  companyId: number,
+  title: string,
   email: string,
-  phoneNumber: number,
-  matNumberFirm: number,
+  number: number,
+  matBr: number,
   pib: number,
-  industryCode: number,
-  isActive: boolean,
+  sifraDelatnosti: number,
 
 }
+export interface Firm {
+  companyId: number,
+  title: string,
+  email: string,
+  number: number,
+  maticnibroj: number,
+  pib: number,
+  sifraDelatnosti: number,
+  companyAccounts: CompanyAccount[]
+
+}
+
+export interface UserActivationDto{
+  email: string,
+  isActive: boolean
+}
+export interface CompanyAccount{
+  companyAccountId: number,
+  company: Firm,
+  balance: number,
+  availableBalance: number,
+  employee: Employee,
+  creationDate: number,
+  expireDate: number,
+  active: boolean,
+  currency: Currency,
+  accountNumber: string,
+}
+
+export interface Currency{
+  currencyId: number,
+  name: string,
+  mark: string
+}
+
 
 export interface Permission {
   permissionId: number
@@ -50,7 +84,12 @@ export interface Account{
   mark: string,
   employeeId: number,
   userId: number,
+}
 
+export interface Currency{
+  currencyId: number,
+  name: string,
+  mark: string
 }
 export interface Role {
   roleId: number | undefined,

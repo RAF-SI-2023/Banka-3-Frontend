@@ -27,7 +27,7 @@
                     <label for="reservedFunds">Rezervisana sredstva:</label>
                     <input class="inputField" type="text" id="reservedFunds" name="Rezervisana sredstva" placeholder="Rezervisana sredstva" [(ngModel)]="selectedAccount.reservedFunds" readonly>
                   </div>
-                            
+
         </div>
         <div class="accountDetailsButtons">
             <button class="myButtonPrimary" (click)="backToMain()">Nazad</button>
@@ -65,7 +65,7 @@
 
 </div> -->
 
-<app-navbar></app-navbar>
+<!--<app-navbar></app-navbar>-->
 <div class="accountsView">
     <div class="container">
       <div class="accountsScroller">
@@ -74,7 +74,7 @@
             <div class="arrowWrapper" (click)="previousAccount()">
                 <img height="48px" width="48px" class="arrow" src="assets/arrow-left.svg" alt="Next" class="arrow-svg">
             </div>
-  
+
           <!-- Display selected account details -->
           <div class="accountCard" (click)="displayDetails()">
             <div class="cardLogoWrapper">
@@ -87,7 +87,7 @@
               <p class="h4 blueText">{{ selectedAccount.availableBalance }} RSD</p>
             </div>
           </div>
-  
+
           <div class="arrowWrapper" (click)="nextAccount()">
             <img height="48px" width="48px" class="arrow" src="assets/arrow-right.svg" alt="Next" class="arrow-svg">
         </div>

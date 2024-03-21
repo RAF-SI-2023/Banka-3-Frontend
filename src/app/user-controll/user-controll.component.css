@@ -26,6 +26,10 @@
   margin-top: 50px;
 }
 
+.plus{
+  fill: #000
+}
+
 .table{
   flex-direction: column;
   align-items:flex-start;
