@@ -32,6 +32,10 @@ import { FirmAddAccountFormComponent } from './firm-add-account-form/firm-add-ac
 import { PasswordActivationComponent } from './password-activation/password-activation.component';
 import { UserControllComponent } from './user-controll/user-controll.component';
 import { FormAddFirmComponent } from './form-add-firm/form-add-firm.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { BillComponent } from './bill/bill.component';
+import { PayingComponent } from './paying/paying.component';
+import { ExchangeComponent } from './exchange/exchange.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PasswordConfirmationComponent } from './reset-password/password-confirmation/password-confirmation.component';
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
@@ -58,6 +62,10 @@ import { PasswordConfirmationComponent } from './reset-password/password-confirm
     PasswordActivationComponent,
     UserControllComponent,
     FormAddFirmComponent,
+    HomePageComponent,
+    BillComponent,
+    PayingComponent,
+    ExchangeComponent,
     ResetPasswordComponent,
     PasswordActivationComponent,
     PasswordConfirmationComponent,

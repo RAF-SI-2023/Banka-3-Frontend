@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Account, Employee, Firm, Permission, Role, Token, User} from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {from, Observable} from "rxjs";
-
+import { parseJson } from '@angular/cli/src/utilities/json-file';
 
 @Injectable({
   providedIn: 'root'
@@ -217,13 +217,39 @@ export class UserService {
       responseType: 'text'
     });
   }
+
+  // Funkcija koja salje jedan ili drugi POST poziv
+  // ( u zavisnosti od toga da li je ulogovan user ili employee )
+  // koji trigeruje slanje aktivacionog koda na mail
     resetPassword(email: string, isUser: boolean){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
     if(isUser)
-        return this.httpClient.get(`${this.apiUrlUser}/resetPassword?email=${email}`, { headers });
-    return this.httpClient.get(`${this.apiUrlEmployee}/resetPassword?email=${email}`, { headers });
+      return this.httpClient.get<any>(`${this.apiUrlUser}/resetPassword?email=${email}`, { headers });
+    return this.httpClient.get<any>(`${this.apiUrlEmployee}/resetPassword?email=${email}`, { headers });
+
+  }
+
+  // Funkcija koja salje jedan ili drugi POST poziv
+  // ( u zavisnosti od toga da li je ulogovan user ili employee )
+  // backendu da postavi novi password korisniku/useru
+  tryResetPassword(identifier: string, password: string){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    let body = {
+      identifier: identifier,
+      password: password
+    };
+
+    const isUser = !("role" in parseJson(atob(sessionStorage.getItem("token")!.split('.')[1])));
+    if(isUser)
+        return this.httpClient.post<any>(`${this.apiUrlUser}/tryPasswordReset`,  body, { headers });
+    return this.httpClient.post<any>(`${this.apiUrlEmployee}/tryPasswordReset`, body, { headers });
+
   }
 }
