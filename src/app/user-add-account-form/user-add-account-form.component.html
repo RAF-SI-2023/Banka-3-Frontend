@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.css" integrity="sha512-SudEgtLVV+Wip7/PrEh2zd0mO/PqR1w26NEJfhnHGxZdng3KYsLhpAZQG0mPMUykCYoKgdBc7/ItrUYzbC0aTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.js" integrity="sha512-SmkWOBrqYIdqATrk8lM9D2LXXA5rZAcuGTgdzM5REXSGYAtlTgp+88rUzBXxKEd78bnvyEfA7sbZIfe8/vA2Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <div class="container">
+    <div class="card details">
+      <h2 class="h4">&nbsp;</h2>
+      <h2 class="h4" style="text-align: center; font-weight: bold;">Forma za dodavanje racuna korisnika</h2>
+      <hr>
+      <div class="input-container">
+        <p class="bold">Tip racuna</p>
+      </div>
+      <div class="input-row">
+        <mat-form-field>
+          <mat-label>Izaberite tip racuna</mat-label>
+          <mat-select [(ngModel)] = "account.account">
+            <mat-option value="Tekuci">Tekuci</mat-option>
+            <mat-option value="Devizni">Devizni</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="account.account === 'Tekuci'">
+        <div class="card details-smaller">
+          <h2 class="h4">&nbsp;</h2>
+          <h2 class="h4" style="text-align: right; font-weight: bold;">Tekuci racun</h2>
+          <div class="spacer"></div>
+          <div class="input-container">
+            <input
+              type="text"
+              placeholder="Balance za korisnika"
+              class="input"
+              [(ngModel)]="account.balance"
+            />
+            <label>RSD</label>
+          </div>
+          <div class="spacer"></div>
+
+          <div class="buttons">
+            <button (click)="save()" class="button-next" >Kreiraj racun</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="account.account === 'Devizni'">
+        <div class="card details-smaller">
+          <h2 class="h4" style="text-align: right; font-weight: bold;">Devizni racun</h2>
+
+          <div class="input-container">
+            <input
+              type="text"
+              placeholder="Balance za korisnika"
+              class="input"
+              [(ngModel)]="account.balance"
+            />
+            <div style="width: 5%;"></div>
+            <mat-form-field>
+              <mat-label>Valuta</mat-label>
+              <mat-select [(ngModel)] = "account.mark">
+                <mat-option *ngFor="let currency of currencies" [value]="currency">{{currency}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="spacer"></div>
+
+          <div class="buttons">
+            <button (click)="save()" class="button-next" >Kreiraj racun</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
