@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Employee, Firm, User} from "../models/models";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
+import {FirmService} from "../services/firm.service";
 
 @Component({
   selector: 'app-user-controll',
@@ -26,17 +27,16 @@ export class UserControllComponent implements OnInit{
   firmColumns: string[] = [ "firmId","firmName", "email","phoneNumber", "matNumberFirm", "pib","industryCode", "opcije"]
 
 
-  constructor(private userService : UserService, private router: Router) {
+  constructor(private firmService : FirmService, private userService : UserService, private router: Router) {
   }
 
-  //show only active users
   switchToFirm(){
     if(this.firmaFlag) return;
     this.usersFlag = !this.usersFlag;
     this.firmaFlag = !this.firmaFlag;
-   /* this.userService.getAllEmployees().subscribe( res=> {
-      this.employees = res;
-    })*/
+    this.firmService.getAllFirm().subscribe( res=> {
+      this.firm = res;
+    })
   }
   switchToUsers(){
     if(this.usersFlag) return;
@@ -47,23 +47,24 @@ export class UserControllComponent implements OnInit{
     })
 
   }
-  searchFirm(){}
+  searchFirm(){
+    this.firmService.searchFirm(this.frstName, this.eml).subscribe(res => {
+      this.firm = res
+    })
+  }
   searchUser(){
     this.userService.searchUsers(this.frstName, this.lstName, this.eml).subscribe(res => {
       this.users = res
     })
   }
   deleteFirm(id: number){
-   /* this.userService.deleteEmployee(id).subscribe(res => {
+    this.firmService.deleteFirm(id).subscribe(res => {
       console.log(res)
-      this.employees.filter( employee => {
-        return employee.isActive
+      this.firm.filter( firm => {
+        return firm.isActive
       })
-    })*/
+    })
     console.log(id)
-  }
-  editFirm(firm: Firm){
-   // this.router.navigate(['edit-employee', employee.employeeId])
   }
   deleteUser(id: number){
     this.userService.deleteUser(id).subscribe(res => {
@@ -84,11 +85,11 @@ export class UserControllComponent implements OnInit{
         return user.isActive
       })
     })
-    /*this.userService.getAllEmployees().subscribe( res=> {
-      this.employees = res;
-      this.employees.filter( employee => {
-        return employee.isActive
+    this.firmService.getAllFirm().subscribe( res=> {
+      this.firm = res;
+      this.firm.filter( firm => {
+        return firm.isActive
       })
-    })*/
+    })
   }
 }
