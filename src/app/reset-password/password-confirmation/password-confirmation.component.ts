@@ -48,7 +48,7 @@ throw new Error('Method not implemented.');
   submit(): void {
     if (this.passwordForm.valid) {
       const newPassword = this.passwordForm.get('password')?.value;
-      this.userService.resetPassword(this.code, newPassword).subscribe({
+      this.userService.tryResetPassword(this.code, newPassword).subscribe({
         next: (response) => {
           console.log(response);
           this.router.navigate(['/login']);
