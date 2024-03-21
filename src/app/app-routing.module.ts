@@ -100,11 +100,13 @@ const routes: Routes = [
 },
   {
     path: 'user-account/:userId',
-    component: UserAddAccountFormComponent
+    component: UserAddAccountFormComponent,
+    //canActivate: [AuthGuard,RoleGuard]
   },
   {
     path: 'firm-account/:firmId',
-    component: FirmAddAccountFormComponent
+    component: FirmAddAccountFormComponent,
+    //canActivate: [AuthGuard,RoleGuard]
   },
   {
       path: 'user-controll',

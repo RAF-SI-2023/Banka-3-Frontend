@@ -46,7 +46,7 @@ export interface Permission {
 
 export interface Account{
   balance: number,
-  account: string,
+  accountType: string,
   mark: string,
   employeeId: number,
   userId: number,

@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { User } from "../models/models";
+import {Employee, User} from "../models/models";
 import { UserService } from "../services/user.service";
+import {Router} from "@angular/router";
+import {parseJson} from "@angular/cli/src/utilities/json-file";
 
 @Component({
   selector: 'app-create-user',
@@ -13,7 +15,8 @@ export class CreateUserComponent {
   dtUser: string = '';
   userForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private userService: UserService) {
+
+  constructor(private fb: FormBuilder,private userService: UserService, private router: Router) {
 
       this.userForm = this.fb.group({
         firstName: new FormControl('', Validators.required),
@@ -27,8 +30,6 @@ export class CreateUserComponent {
         isActive: new FormControl(true),
       })
   }
-
-  //todo errori hendluj response nakon kreiranja kad nesto
   save() {
 
     this.user.firstName = this.userForm.get('firstName')?.value;
@@ -44,9 +45,13 @@ export class CreateUserComponent {
     this.user.dateOfBirth = dt;
 
     this.userService.createUser(this.user).subscribe(res => {
+      this.user.userId = res;
       console.log(res);
+
+      this.router.navigate([`user-account/${this.user.userId}`]);
     });
   }
+
 
   get firstName(){
     return this.userForm.get('firstName');
@@ -75,4 +80,6 @@ export class CreateUserComponent {
   get isActive(){
     return this.userForm.get('isActive');
   }
+
+
 }

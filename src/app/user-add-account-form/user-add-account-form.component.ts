@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Account, Employee, Role, User} from "../models/models";
 import {UserService} from "../services/user.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {parseJson} from "@angular/cli/src/utilities/json-file";
 
 @Component({
   selector: 'app-user-add-account-form',
@@ -11,48 +12,60 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class UserAddAccountFormComponent implements OnInit{
 
-  account = {} as Account
+  account: Account = {} as Account
   currencies: Account[] | null = null;
-  user = {} as User
-  employee = {} as Employee
-  userForm: FormGroup
+  userId: number;
+  employeeId: number;
+  accountForm: FormGroup
 
-
-  constructor(private fb: FormBuilder,private userService: UserService, private route : ActivatedRoute) {
-    this.userForm = this.fb.group({
-      account: new FormControl('', Validators.required),
+  constructor(private fb: FormBuilder,private userService: UserService, private route : ActivatedRoute,private router: Router) {
+    this.accountForm = this.fb.group({
+      accountType: new FormControl('', Validators.required),
       balance: new FormControl('', Validators.required),
       mark: new FormControl('', Validators.required),
+
+
+      })
+    this.userId = 0;
+    this.employeeId = 0;
+    }
+
+  save(){
+    this.account.accountType = this.accountForm.get('accountType')?.value;
+    this.account.balance = this.accountForm.get('balance')?.value;
+    this.account.mark = this.accountForm.get('mark')?.value;
+
+    if(this.account.accountType == 'Tekuci')
+    this.userService.saveAccount(this.userId, this.account.balance, this.account.mark, this.employeeId).subscribe(res => {
+      console.log(res);
+    });
+
+      this.userService.saveForeignAccount(this.userId, this.account.balance, this.account.mark, this.employeeId).subscribe(res => {
+        console.log(res);
     })
   }
-  save(){
 
-    this.account.account = this.userForm.get('account')?.value;
-    this.account.balance = this.userForm.get('balance')?.value;
-    this.account.mark = this.userForm.get('mark')?.value;
-
-  }
   ngOnInit(): void {
+
+    this.route.paramMap.subscribe(params => {
+      this.userId = Number(params.get('userId'));
+    })
+
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1])) as Employee;
+    this.employeeId = tk.employeeId;
 
     this.userService.getAllCurrency().subscribe(res => {
       this.currencies = res;
     });
+  }
 
-    //this.route.paramMap.subscribe(params => {
-      //   const userId = +params.get('userId');
-      //   const employeeId = +params.get('employeeId');
-      //
-      //   if (userId) {
-      //     this.userService.getUserById(userId).subscribe(res => {
-      //       this.user = res;
-      //     });
-      //   }
-      //
-      //   if (employeeId) {
-      //     this.userService.getEmployeeById(employeeId).subscribe(res => {
-      //       this.employee = res;
-      //     });
-      //   }
-      // });
+  get accountType(){
+    return this.accountForm.get('accountType');
+  }
+  get balance(){
+    return this.accountForm.get('balance');
+  }
+  get mark(){
+    return this.accountForm.get('mark');
   }
 }
