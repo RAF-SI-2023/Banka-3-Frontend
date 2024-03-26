@@ -3,6 +3,9 @@ import {Account, Currency, Employee, Firm, Permission, Role, Token, User, UserAc
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {from, Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
+import { parseJson } from '@angular/cli/src/utilities/json-file';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +23,6 @@ export class UserService {
   apiUrlCompanyAccount : string = "http://localhost:8080/api/v1/companyAccount"
   apiUrlCurrency : string = "http://localhost:8080/api/v1/currency"
   apiUrlContact : string = "http://localhost:8080/api/v1/contact"
-  apiUrlTransaction: string = "http://localhost:8080/api/v2/transaction"
 
   constructor(private httpClient : HttpClient) { }
 

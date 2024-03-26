@@ -113,3 +113,17 @@ export interface Contact{
   name: string,
   accountNumber: string
 }
+
+export interface AccountDto{
+  accountId: number,
+  accountNumber: string,
+  user: User,
+  balance: number,
+  availableBalance: number,
+  creationDate: number,
+  expirationDate: number,
+  active: boolean,
+  employee: Employee,
+  currency: Currency,
+  accountType: string,
+}
