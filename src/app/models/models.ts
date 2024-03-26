@@ -99,3 +99,11 @@ export interface Role {
 export interface Token {
   token: string
 }
+
+export interface Contact{
+  contactId: number,
+  userId: number,
+  myName: string,
+  name: string,
+  accountNumber: string
+}
