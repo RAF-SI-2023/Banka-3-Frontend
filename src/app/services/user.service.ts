@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   Account,
-  Contact,
   Currency,
   Employee,
   Firm,
@@ -32,7 +31,6 @@ export class UserService {
   apiUrlForeignAccount : string = "http://localhost:8080/api/v1/foreignAccount"
   apiUrlCompanyAccount : string = "http://localhost:8080/api/v1/companyAccount"
   apiUrlCurrency : string = "http://localhost:8080/api/v1/currency"
-  apiUrlContact : string = "http://localhost:8080/api/v1/contact"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -305,73 +303,5 @@ export class UserService {
         return this.httpClient.post<any>(`${this.apiUrlEmailEmployee}/tryPasswordReset`,  body, { headers });
     return this.httpClient.post<any>(`${this.apiUrlEmailUser}/tryPasswordReset`, body, { headers });
 
-  }
-
-  /**
-   * Funkcija za dohvatanje svih kontakata korisnika sa prosledjenim ID-em.
-   * @param userId ID Korisnika
-   */
-  getUsersContactsById(userId: number){
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-    return this.httpClient.get<Contact[]>(`${this.apiUrlContact}/${userId}`, { headers });
-  }
-
-  deleteUsersContact(userId: number, contactId: number){
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-    //Proveriti sa bekom koja ce putanja biti za brisanje.
-    return this.httpClient.delete(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
-  }
-
-  //Funkcija za dodavanje kontakta korisniku
-  addContact(userId: number, contactData: Contact) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-    return this.httpClient.post<any>(`${this.apiUrlContact}/${userId}`,contactData, {headers});
-  }
-
-  //Funkcija za izmenu kontakta
-  editContact(userId: number, contactId: number, name: string, myName: string, accountNumber: string){
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-    const body = {
-      MyName: myName,
-      Name: name,
-      AccountNumber: accountNumber
-    }
-    return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { body }, { headers });
-  }
-
-  /**
-   * Funkcija koja ce vratiti kontakt placanja korisnika po njegovom id-u i id-u kontakta.
-   * @param userId
-   * @param contactId
-   */
-  getUsersContactByContactId(userId: number, contactId: number){
-    //TODO: Proveriti sa bekom da li su dodali ovu rutu
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-    return this.httpClient.get<Contact>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
-  }
-
-  getUsersAccounts(){
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-
-    const id = (parseJson(atob(sessionStorage.getItem("token")!.split('.')[1])) as User).userId;
-
-    return this.httpClient.get<any[]>(`${this.apiUrlAccount}/getByUser/${id}/`, { headers });
   }
 }
