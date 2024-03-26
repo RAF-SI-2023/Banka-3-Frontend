@@ -43,6 +43,6 @@ export class PaymentRecipientComponent implements OnInit{
   }
   editContact(contact: Contact) {
 
-    this.router.navigate(['/edit-payment-recipient'], { state: { contact } });
+    this.router.navigate([`/edit-payment-recipient/${contact.contactId}`], { state: { contact } });
   }
 }

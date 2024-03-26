@@ -335,11 +335,30 @@ export class UserService {
   }
 
   //Funkcija za izmenu kontakta
-  editContact(userId: number, contactId: number){
+  editContact(userId: number, contactId: number, name: string, myName: string, accountNumber: string){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
+    const body = {
+      MyName: myName,
+      Name: name,
+      AccountNumber: accountNumber
+    }
+    return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { body }, { headers });
+  }
+
+  /**
+   * Funkcija koja ce vratiti kontakt placanja korisnika po njegovom id-u i id-u kontakta.
+   * @param userId
+   * @param contactId
+   */
+  getUsersContactByContactId(userId: number, contactId: number){
+    //TODO: Proveriti sa bekom da li su dodali ovu rutu
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.get<Contact>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
   }
 }
