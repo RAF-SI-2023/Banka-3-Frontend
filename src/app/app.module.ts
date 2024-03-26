@@ -38,6 +38,7 @@ import { PayingComponent } from './paying/paying.component';
 import { ExchangeComponent } from './exchange/exchange.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PasswordConfirmationComponent } from './reset-password/password-confirmation/password-confirmation.component';
+import {CommonModule} from "@angular/common";
 import { PaymentRecipientComponent } from './payment-recipient/payment-recipient.component';
 import { CreatePaymentRecipientComponent } from './create-payment-recipient/create-payment-recipient.component';
 import { EditPaymentRecipientComponent } from './edit-payment-recipient/edit-payment-recipient.component';
