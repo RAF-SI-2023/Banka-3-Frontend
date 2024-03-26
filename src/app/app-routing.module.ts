@@ -11,9 +11,7 @@ import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {EditUserComponent} from "./edit-user/edit-user.component";
 import {EditEmployeeComponent} from "./edit-employee/edit-employee.component";
 import {CreateEmployeeComponent} from "./create-employee/create-employee.component";
-import {AuthGuard} from "./guards/auth.guard";
-import {AdminGuard} from "./guards/admin.guard";
-import {A} from "@angular/cdk/keycodes";
+
 import {CreateUserComponent} from "./create-user/create-user.component";
 
 import {UserAddAccountFormComponent} from "./user-add-account-form/user-add-account-form.component";
@@ -28,6 +26,8 @@ import { PayingComponent } from './paying/paying.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import {PasswordConfirmationComponent} from "./reset-password/password-confirmation/password-confirmation.component";
 import {PaymentRecipientComponent} from "./payment-recipient/payment-recipient.component";
+import {CreatePaymentRecipientComponent} from "./create-payment-recipient/create-payment-recipient.component";
+import {EditPaymentRecipientComponent} from "./edit-payment-recipient/edit-payment-recipient.component";
 
 
 const routes: Routes = [
@@ -146,6 +146,16 @@ const routes: Routes = [
   {
     path: 'payment-recipients',
     component: PaymentRecipientComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-payment-recipient',
+    component: CreatePaymentRecipientComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit-payment-recipient',
+    component: EditPaymentRecipientComponent,
     // canActivate: [AuthGuard]
   }
 ];
