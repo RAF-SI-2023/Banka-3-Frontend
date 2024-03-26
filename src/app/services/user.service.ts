@@ -1,16 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Account,
-  Currency,
-  Employee,
-  Firm,
-  Permission,
-  Role,
-  Token,
-  TransactionDto,
-  User,
-  UserActivationDto
-} from "../models/models";
+import {Account, Currency, Employee, Firm, Permission, Role, Token, User, UserActivationDto} from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {from, Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
@@ -30,6 +19,7 @@ export class UserService {
   apiUrlForeignAccount : string = "http://localhost:8080/api/v1/foreignAccount"
   apiUrlCompanyAccount : string = "http://localhost:8080/api/v1/companyAccount"
   apiUrlCurrency : string = "http://localhost:8080/api/v1/currency"
+  apiUrlContact : string = "http://localhost:8080/api/v1/contact"
   apiUrlTransaction: string = "http://localhost:8080/api/v2/transaction"
 
   constructor(private httpClient : HttpClient) { }
@@ -45,14 +35,6 @@ export class UserService {
   checkEmail(email: string | null | undefined){
 
     return this.httpClient.get<UserActivationDto>(`${this.apiUrlUser}/isUserActive/${email}`);
-  }
-
-  startTransaction(transactionDto: TransactionDto | number){
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-    return this.httpClient.post<any>(`${this.apiUrlTransaction}/startTransaction`,transactionDto,{headers} )
   }
 
 

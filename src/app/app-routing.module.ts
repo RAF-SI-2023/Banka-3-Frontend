@@ -27,6 +27,7 @@ import { BillComponent } from './bill/bill.component';
 import { PayingComponent } from './paying/paying.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import {PasswordConfirmationComponent} from "./reset-password/password-confirmation/password-confirmation.component";
+import {PaymentRecipientComponent} from "./payment-recipient/payment-recipient.component";
 
 
 const routes: Routes = [
@@ -141,6 +142,11 @@ const routes: Routes = [
   {
     path: 'change-password/:code',
     component: PasswordActivationComponent
+  },
+  {
+    path: 'payment-recipients',
+    component: PaymentRecipientComponent,
+    // canActivate: [AuthGuard]
   }
 ];
 

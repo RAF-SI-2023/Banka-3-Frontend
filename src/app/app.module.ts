@@ -39,6 +39,7 @@ import { ExchangeComponent } from './exchange/exchange.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PasswordConfirmationComponent } from './reset-password/password-confirmation/password-confirmation.component';
 import {CommonModule} from "@angular/common";
+import { PaymentRecipientComponent } from './payment-recipient/payment-recipient.component';
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
 
