@@ -11,9 +11,7 @@ import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {EditUserComponent} from "./edit-user/edit-user.component";
 import {EditEmployeeComponent} from "./edit-employee/edit-employee.component";
 import {CreateEmployeeComponent} from "./create-employee/create-employee.component";
-import {AuthGuard} from "./guards/auth.guard";
-import {AdminGuard} from "./guards/admin.guard";
-import {A} from "@angular/cdk/keycodes";
+
 import {CreateUserComponent} from "./create-user/create-user.component";
 
 import {UserAddAccountFormComponent} from "./user-add-account-form/user-add-account-form.component";

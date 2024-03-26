@@ -4,7 +4,7 @@ import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 import {Contact} from "../models/models";
 import { ActivatedRoute } from '@angular/router';
-import {jwtDecode} from "jwt-decode/build/esm";
+
 
 @Component({
   selector: 'app-edit-payment-recipient',
