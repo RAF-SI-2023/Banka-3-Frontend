@@ -10,13 +10,7 @@
    padding-top: 5rem;
  }
 
-.user-image {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
-  background-color: gray;
-  margin: 0 auto 1rem;
-}
+
 
 .img-radius {
   border-radius: 5px;
