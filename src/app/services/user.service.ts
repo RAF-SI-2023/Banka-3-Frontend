@@ -1,5 +1,16 @@
 import { Injectable } from '@angular/core';
-import {Account, Currency, Employee, Firm, Permission, Role, Token, User, UserActivationDto} from "../models/models";
+import {
+  Account,
+  Contact,
+  Currency,
+  Employee,
+  Firm,
+  Permission,
+  Role,
+  Token,
+  User,
+  UserActivationDto
+} from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {from, Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
@@ -19,6 +30,7 @@ export class UserService {
   apiUrlForeignAccount : string = "http://localhost:8080/api/v1/foreignAccount"
   apiUrlCompanyAccount : string = "http://localhost:8080/api/v1/companyAccount"
   apiUrlCurrency : string = "http://localhost:8080/api/v1/currency"
+  apiUrlContact : string = "http://localhost:8080/api/v1/contact"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -291,5 +303,25 @@ export class UserService {
         return this.httpClient.post<any>(`${this.apiUrlEmailEmployee}/tryPasswordReset`,  body, { headers });
     return this.httpClient.post<any>(`${this.apiUrlEmailUser}/tryPasswordReset`, body, { headers });
 
+  }
+
+  /**
+   * Funkcija za dohvatanje svih kontakata korisnika sa prosledjenim ID-em.
+   * @param userId ID Korisnika
+   */
+  getUsersContactsById(userId: number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.get<Contact[]>(`${this.apiUrlContact}/${userId}`, { headers });
+  }
+
+  deleteUsersContact(userId: number, contactId: number){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    //Proveriti sa bekom koja ce putanja biti za brisanje.
+    return this.httpClient.delete(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
   }
 }

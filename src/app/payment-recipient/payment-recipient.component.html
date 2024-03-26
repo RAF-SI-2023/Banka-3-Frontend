@@ -1,0 +1,32 @@
+<div class="page">
+  <div class="panel">
+    <div class="header-buttons">
+      <button class="recipients-button">
+        Primaoci plaćanja
+      </button>
+      <button class="primary-button" [routerLink]="'/add-recipient'">Dodaj kontakt
+        <img class="plus-image" [width]="28"[height]="28"  src="assets/plus-large.svg" />
+      </button>
+    </div>
+    <div class="table" style="width: 100%;">
+
+<!--      Promeniti [dataSource] -->
+      <mat-table [dataSource]="MOCK_RECIPIENTS" matSort style="width: 100%;">
+        <!-- Kolona za myName -->
+        <ng-container matColumnDef="myName">
+          <mat-cell *matCellDef="let contact"> <b> {{contact.myName}} </b> </mat-cell>
+        </ng-container>
+        <!-- Kolona za opcije (izmena i brisanje) -->
+        <ng-container matColumnDef="opcije">
+          <mat-cell *matCellDef="let contact">
+            <div class="options-container">
+              <img class="edit-button" (click)="editContact(contact)" [width]="24" [height]="24" src="assets/pen-square-svgrepo-com.svg">
+              <img class="delete-button" (click)="deleteContact(contact['contactId'])" [width]="24" [height]="24" src="assets/trash-svgrepo-com.svg">
+            </div>
+          </mat-cell>
+        </ng-container>
+        <mat-row *matRowDef="let row; columns: ['myName', 'opcije'];"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>
