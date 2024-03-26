@@ -12,6 +12,7 @@ import {
   UserActivationDto
 } from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { parseJson } from '@angular/cli/src/utilities/json-file';
 
 
 
@@ -341,5 +342,16 @@ export class UserService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
     return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
+  }
+
+  getUsersAccounts(){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    const id = (parseJson(atob(sessionStorage.getItem("token")!.split('.')[1])) as User).userId;
+
+    return this.httpClient.get<any[]>(`${this.apiUrlAccount}/getByUser/${id}/`, { headers });
   }
 }
