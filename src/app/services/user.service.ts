@@ -294,4 +294,24 @@ export class UserService {
     return this.httpClient.post<any>(`${this.apiUrlEmailUser}/tryPasswordReset`, body, { headers });
 
   }
+
+  /**
+   * Funkcija za dohvatanje svih kontakata korisnika sa prosledjenim ID-em.
+   * @param userId ID Korisnika
+   */
+  getUsersContactsById(userId: number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.get<Contact[]>(`${this.apiUrlContact}/${userId}`, { headers });
+  }
+
+  deleteUsersContact(userId: number, contactId: number){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    //Proveriti sa bekom koja ce putanja biti za brisanje.
+    return this.httpClient.delete(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
+  }
 }
