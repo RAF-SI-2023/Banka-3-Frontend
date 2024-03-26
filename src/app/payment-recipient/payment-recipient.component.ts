@@ -41,7 +41,8 @@ export class PaymentRecipientComponent implements OnInit{
       alert("Greska pri brisanju.");
     }
   }
-  editContact(contact: Contact){
-    //Odvesti na komponentu za editovanje kontakta
+  editContact(contact: Contact) {
+
+    this.router.navigate(['/edit-payment-recipient'], { state: { contact } });
   }
 }

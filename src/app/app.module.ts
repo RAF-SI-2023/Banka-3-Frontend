@@ -39,6 +39,8 @@ import { ExchangeComponent } from './exchange/exchange.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PasswordConfirmationComponent } from './reset-password/password-confirmation/password-confirmation.component';
 import { PaymentRecipientComponent } from './payment-recipient/payment-recipient.component';
+import { CreatePaymentRecipientComponent } from './create-payment-recipient/create-payment-recipient.component';
+import { EditPaymentRecipientComponent } from './edit-payment-recipient/edit-payment-recipient.component';
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
 
@@ -71,6 +73,8 @@ import { PaymentRecipientComponent } from './payment-recipient/payment-recipient
     PasswordActivationComponent,
     PasswordConfirmationComponent,
     PaymentRecipientComponent,
+    CreatePaymentRecipientComponent,
+    EditPaymentRecipientComponent,
 
   ],
   imports: [
