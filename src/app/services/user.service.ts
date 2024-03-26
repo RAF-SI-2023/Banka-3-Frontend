@@ -292,4 +292,16 @@ export class UserService {
     return this.httpClient.post<any>(`${this.apiUrlEmailUser}/tryPasswordReset`, body, { headers });
 
   }
+
+
+  sendRequest(): Promise<any> {
+    const url = 'http://putanja-ka-vasem-backend-servisu';
+
+    return this.httpClient.get(url).toPromise();
+  }
+
+  // ovde sam improvizao samo kako ce se proveravati kod koji se dobije na mailu posto nemam putanju za to
+  mailRequest(code : number){
+    return this.httpClient.get(`${this.apiUrlEmployee}`)
+  }
 }
