@@ -314,4 +314,22 @@ export class UserService {
     //Proveriti sa bekom koja ce putanja biti za brisanje.
     return this.httpClient.delete(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
   }
+
+  //Funkcija za dodavanje kontakta korisniku
+  addContact(userId: number, contactData: Contact) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.post<any>(`${this.apiUrlContact}/${userId}`,contactData, {headers});
+  }
+
+  //Funkcija za izmenu kontakta
+  editContact(userId: number, contactId: number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
+  }
 }

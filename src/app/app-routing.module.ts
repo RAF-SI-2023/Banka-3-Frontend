@@ -154,7 +154,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard]
   },
   {
-    path: 'edit-payment-recipient',
+    path: 'edit-payment-recipient/:contactId',
     component: EditPaymentRecipientComponent,
     // canActivate: [AuthGuard]
   }
