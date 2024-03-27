@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="formContainer">
+        <div style="width: 100%; margin: 1rem 0rem 1rem 0rem">
+            <span class="h3">Prikaz kredita</span>
+        </div>
+        <div style="width: 100%; margin: 1rem 0rem 1rem 0rem">
+            <span class="p lighter">{{ selectedCredit.accountNumber }}</span>
+        </div>
+        <hr>
+        <div style="margin: 1rem 0rem 1rem 0rem">
+            <div class="row">
+                <div class="col">
+                    <p class="bold">Naziv:</p>
+                    <p class="line">{{ selectedCredit.name }}</p>
+                </div>
+                <div class="col">
+                    <p class="bold">Broj računa:</p>
+                    <p class="line">{{ selectedCredit.accountNumber }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="bold">Iznos:</p>
+                    <p class="line">{{ selectedCredit.amount }}</p>
+                </div>
+                <div class="col">
+                    <p class="bold">Period otplate:</p>
+                    <p class="line">{{ selectedCredit.repaymentPeriod }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="bold">Svrha:</p>
+                    <p class="line">{{ selectedCredit.purpose }}</p>
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 100%; margin: 1rem 0rem 1rem 0rem">
+            <span class="h3">Transakcije</span>
+        </div>
+        <hr>
+        <div  *ngFor="let transaction of transactions">
+            <div class="transactionCard">
+                <div class="transactionDetailsWrapper">
+                    <div class="transactionDate">
+                        <!-- Display day -->
+                        <div class="day">{{ getDayFromDate(transaction.date) }}</div>
+                        <!-- Display month -->
+                        <div class="month">{{ getMonthFromDate(transaction.date) }}</div>
+                        <!-- Display year -->
+                        <div class="year">{{ getYearFromDate(transaction.date) }}</div>
+                    </div>
+                    <div class="transactionDetails">
+                        <p class="p blueText">{{ transaction.tradeAccount }}</p>
+                        <span style="text-align: center" class="h4">{{ transaction.amount }} RSD</span>
+                    </div>
+                </div>
+                <div class="transactionIconWrapper">
+                    <img height="128px" width="128px" class="arrow" [class]="getIconClass(transaction.amount)" src="assets/arrow-left.svg">
+                </div>
+        </div>
+</div>

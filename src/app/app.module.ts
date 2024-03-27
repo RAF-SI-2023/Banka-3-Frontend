@@ -41,6 +41,7 @@ import { PasswordConfirmationComponent } from './reset-password/password-confirm
 import { PaymentRecipientComponent } from './payment-recipient/payment-recipient.component';
 import { CreatePaymentRecipientComponent } from './create-payment-recipient/create-payment-recipient.component';
 import { EditPaymentRecipientComponent } from './edit-payment-recipient/edit-payment-recipient.component';
+import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
 
@@ -75,6 +76,7 @@ import { EditPaymentRecipientComponent } from './edit-payment-recipient/edit-pay
     PaymentRecipientComponent,
     CreatePaymentRecipientComponent,
     EditPaymentRecipientComponent,
+    CreditTransactionComponent,
 
   ],
   imports: [

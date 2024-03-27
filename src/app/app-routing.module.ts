@@ -28,6 +28,7 @@ import {PasswordConfirmationComponent} from "./reset-password/password-confirmat
 import {PaymentRecipientComponent} from "./payment-recipient/payment-recipient.component";
 import {CreatePaymentRecipientComponent} from "./create-payment-recipient/create-payment-recipient.component";
 import {EditPaymentRecipientComponent} from "./edit-payment-recipient/edit-payment-recipient.component";
+import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
 
 
 const routes: Routes = [
@@ -100,10 +101,10 @@ const routes: Routes = [
     component: UserProfileComponent,
     //canActivate: [AuthGuard]
   },{
-  path: 'welcome',
-  component: HomePageComponent,
-  //canActivate: [AuthGuard]
-},
+    path: 'welcome',
+    component: HomePageComponent,
+    //canActivate: [AuthGuard]
+  },
   {
     path: 'user-account/:userId',
     component: UserAddAccountFormComponent,
@@ -128,7 +129,7 @@ const routes: Routes = [
   path: 'bill',
   component: BillComponent,
   //canActivate: [AuthGuard]
-},
+  },
   {
   path: 'payment',
   component: PayingComponent,
@@ -156,6 +157,11 @@ const routes: Routes = [
   {
     path: 'edit-payment-recipient/:contactId',
     component: EditPaymentRecipientComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'credit-transaction',
+    component: CreditTransactionComponent,
     // canActivate: [AuthGuard]
   }
 ];
