@@ -26,5 +26,14 @@ export class NavbarComponent {
         window.location.reload()
       })
   }
+  isEmployee(): boolean {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role === 'ROLE_EMPLOYEE';
+    }
+    return false;
+  }
 
 }
+
