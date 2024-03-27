@@ -62,6 +62,7 @@ export class CreditRequestComponent implements OnInit {
       const formData = this.formGroup.value;
       console.log(formData);
       this.formGroup.reset();
+      this.router.navigate(['/credit-list']);
     } else {
       this.validateAllFormFields(this.formGroup);
     }

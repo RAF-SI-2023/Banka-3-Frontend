@@ -1,0 +1,83 @@
+<app-navbar></app-navbar>
+<div class="myContainer">
+    <div class="formContainer">
+        <div style="width: 100%; margin: 1rem 0rem 1rem 0rem">
+            <span class="h3">Prikaz kredita</span>
+        </div>
+        <div style="margin: 0rem 0rem 0rem 0rem">
+            <div class="row">
+                <div class="col">
+                    <p class="bold">Naziv:</p>
+                    <p class="line">{{ selectedCredit?.name }}</p>
+                </div>
+                <div class="col">
+                    <p class="bold">Broj računa:</p>
+                    <p class="line">{{ selectedCredit?.accountNumber }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="bold">Iznos:</p>
+                    <p class="line">{{ selectedCredit?.amount }} {{ selectedCredit?.currencyMark }}</p>
+                </div>
+                <div class="col">
+                    <p class="bold">Period otplate:</p>
+                    <p class="line">{{ selectedCredit?.paymentPeriod }} meseca</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="bold">Naknada:</p>
+                    <p class="line">{{ selectedCredit?.fee }} {{ selectedCredit?.currencyMark }}</p>
+                </div>
+                <div class="col">
+                    <p class="bold">Mesečna naknada:</p>
+                    <p class="line">{{ selectedCredit?.monthlyFee }} {{ selectedCredit?.currencyMark }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="bold">Pocetni datum:</p>
+                    <p class="line">{{ selectedCredit?.startDate }} </p>
+                </div>
+                <div class="col">
+                    <p class="bold">Krajnji datum:</p>
+                    <p class="line">{{ selectedCredit?.endDate }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="bold">Preostalo:</p>
+                    <p class="line">{{ selectedCredit?.remainingAmount }} {{ selectedCredit?.currencyMark }} </p>
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 100%; margin: 0rem 0rem 0rem 0rem">
+            <span class="h3">Transakcije</span>
+        </div>
+        <div  *ngFor="let transaction of transactions">
+            <div class="transactionCard">
+                <div class="transactionDetailsWrapper">
+                    <div class="transactionDate">
+                        <!-- Display day -->
+                        <div class="day">{{ getDayFromDate(transaction.date) }}</div>
+                        <!-- Display month -->
+                        <div class="month">{{ getMonthFromDate(transaction.date) }}</div>
+                        <!-- Display year -->
+                        <div class="year">{{ getYearFromDate(transaction.date) }}</div>
+                    </div>
+                    <div class="transactionDetails">
+                        <p class="h4 blueText">{{ transaction.tradeAccount }}</p>
+                        <span style="text-align: center" class="h3">{{ transaction.amount }} {{ selectedCredit?.currencyMark }}</span>
+                    </div>
+                </div>
+                <!-- <div class="transactionIconWrapper">
+                    <img height="128px" width="128px" class="arrow" [class]="getIconClass(transaction.amount)" src="assets/arrow-left.svg">
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

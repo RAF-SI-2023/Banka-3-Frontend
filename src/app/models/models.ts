@@ -110,6 +110,7 @@ export interface Contact{
 }
 
 export interface Credit{
+  id:number,
   name: string,
   accountNumber: string,
   amount: number,
@@ -119,7 +120,8 @@ export interface Credit{
   endDate: number,
   monthlyFee: number,
   remainingAmount: number,
-  currencyMark: string
+  currencyMark: string,
+  transactions: Transactions[]
 }
 
 export interface AccountDto{
@@ -134,4 +136,13 @@ export interface AccountDto{
   employee: Employee,
   currency: Currency,
   accountType: string,
+}
+
+
+export interface Transactions{
+  id: number,
+  date: string,
+  description: string,
+  amount: number,
+  tradeAccount:string 
 }

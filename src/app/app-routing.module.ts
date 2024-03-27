@@ -157,6 +157,27 @@ const routes: Routes = [
   {
     path: 'change-password/:code',
     component: PasswordActivationComponent
+
+  },
+  {
+    path: 'payment-recipients',
+    component: PaymentRecipientComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-payment-recipient',
+    component: CreatePaymentRecipientComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit-payment-recipient/:contactId',
+    component: EditPaymentRecipientComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'credit-transaction/:creditId',
+    component: CreditTransactionComponent,
+    // canActivate: [AuthGuard]
   }
 ];
 
