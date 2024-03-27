@@ -27,6 +27,12 @@ import { BillComponent } from './bill/bill.component';
 import { PayingComponent } from './paying/paying.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import {PasswordConfirmationComponent} from "./reset-password/password-confirmation/password-confirmation.component";
+// import {PaymentRecipientComponent} from "./payment-recipient/payment-recipient.component";
+// import {CreatePaymentRecipientComponent} from "./create-payment-recipient/create-payment-recipient.component";
+// import {EditPaymentRecipientComponent} from "./edit-payment-recipient/edit-payment-recipient.component";
+// import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
+import { CreditRequestComponent } from './credit-request/credit-request.component';
+import { CreditListComponent } from './credit-list/credit-list.component';
 
 
 const routes: Routes = [
@@ -136,6 +142,16 @@ const routes: Routes = [
   {
     path: 'form-add-firm',
     component: FormAddFirmComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'credit-request',
+    component: CreditRequestComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'credit-list',
+    component: CreditListComponent,
     //canActivate: [AuthGuard]
   },
   {

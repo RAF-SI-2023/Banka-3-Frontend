@@ -99,3 +99,39 @@ export interface Role {
 export interface Token {
   token: string
 }
+
+
+export interface Contact{
+  contactId: number,
+  userId: number,
+  myName: string,
+  name: string,
+  accountNumber: string
+}
+
+export interface Credit{
+  name: string,
+  accountNumber: string,
+  amount: number,
+  paymentPeriod: number,
+  fee: number,
+  startDate: number,
+  endDate: number,
+  monthlyFee: number,
+  remainingAmount: number,
+  currencyMark: string
+}
+
+export interface AccountDto{
+  accountId: number,
+  accountNumber: string,
+  user: User,
+  balance: number,
+  availableBalance: number,
+  creationDate: number,
+  expirationDate: number,
+  active: boolean,
+  employee: Employee,
+  currency: Currency,
+  accountType: string,
+}
