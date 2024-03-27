@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalji računa</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalji računa</title>
 </head>
 <body>
 <!--    <app-navbar></app-navbar>-->
@@ -57,5 +57,55 @@
     </form>
   </div>
 </div>
+    <div class="container">
+        <div class="formContainer">
+            <div style="width: 100%; margin: 1rem 0rem 1rem 0rem">
+                <span class="h3">Detalji računa</span>
+            </div>
+            <div style="width: 100%; margin: 1rem 0rem 1rem 0rem">
+                <span class="p lighter">{{ selectedAccount.accountNumber }}</span>
+            </div>
+            <hr>
+            <div style="margin: 1rem 0rem 1rem 0rem">
+                <div class="row">
+                    <div class="col">
+                        <p class="bold">Vlasnik:</p>
+                        <p class="line">{{ selectedAccount.ownerName }}</p>
+                    </div>
+                    <div class="col">
+                        <p class="bold">Broj računa:</p>
+                        <p class="line">{{ selectedAccount.accountNumber }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="bold">Raspoloživo stanje:</p>
+                        <p class="line">{{ selectedAccount.availableBalance }}</p>
+                    </div>
+                    <div class="col">
+                        <p class="bold">Tip:</p>
+                        <p class="line">{{ selectedAccount.type }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="bold">Stanje računa:</p>
+                        <p class="line">{{ selectedAccount.accountState }}</p>
+                    </div>
+                    <div class="col">
+                        <p class="bold">Rezervisana sredstva:</p>
+                        <p class="line">{{ selectedAccount.reservedFunds }}</p>
+                    </div>
+                </div>
+            </div>
+            <form>
+                <!-- Button Row -->
+                <div class="button-container">
+                    <button class="myButtonSecondary" type="button" (click)="goBack()">Nazad</button>
+                    <button class="myButtonPrimary" type="button" (click)="navigateToPayment()">Novo plaćanje</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
