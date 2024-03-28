@@ -20,15 +20,14 @@ export class BillComponent {
     account:any;
   constructor(private router: Router, private userService: UserService, private dialog: MatDialog) {
 
-  account: any;
-  //todo AccountDto treba da se koristi za sad nije uradjen
-
-  constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
       this.account = navigation.extras.state['account'];
     }
   }
+
+  //todo AccountDto treba da se koristi za sad nije uradjen
+
 
 
  /* navigateToPayment() {

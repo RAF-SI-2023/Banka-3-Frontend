@@ -40,7 +40,6 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { PasswordConfirmationComponent } from './reset-password/password-confirmation/password-confirmation.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { PopupTransactionComponent } from './popup/popup-transaction/popup-transaction.component';
-import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
 import { CreditListComponent } from './credit-list/credit-list.component';
 import { CreditRequestComponent } from './credit-request/credit-request.component';
 import {CommonModule} from "@angular/common";

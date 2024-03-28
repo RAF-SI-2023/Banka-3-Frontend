@@ -40,7 +40,7 @@ export class UserloginComponent {
     this.userService.checkEmail(this.emailCheck?.value)
       .subscribe(response => {
         this.userActivationDto = response;
-        this.codeActivate = this.userActivationDto.isActive
+        this.codeActivate = this.userActivationDto.active
         this.address = this.userActivationDto.email
         this.showCheckAddress = false;
       }, error => {
