@@ -1,10 +1,25 @@
 import { Injectable } from '@angular/core';
-import {Account, Currency, Employee, Firm, Permission, Role, Token, User, UserActivationDto,CreditRequestCreateDto} from "../models/models";
-
+import {
+  Account,
+  Currency,
+  Employee,
+  Firm,
+  Permission,
+  Role,
+  Token,
+  TransactionDto,
+  User,
+  Contact,
+  UserActivationDto,
+  CreditRequestCreateDto
+} from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {from, Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
 import { Credit } from '../models/models';
+
+
+
 
 
 @Injectable({
@@ -25,6 +40,7 @@ export class UserService {
   apiUrlContact : string = "http://localhost:8080/api/v1/contact"
   apiUrlCredit : string = "http://localhost:8080/api/v1/credit"
   apiUrlCreditRequest : string = "http://localhost:8080/api/v1/credit-request"
+  apiUrlTransaction: string = "http://localhost:8080/api/v2/transaction"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -39,6 +55,14 @@ export class UserService {
   checkEmail(email: string | null | undefined){
 
     return this.httpClient.get<UserActivationDto>(`${this.apiUrlUser}/isUserActive/${email}`);
+  }
+
+  startTransaction(transactionDto: TransactionDto | number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.post<any>(`${this.apiUrlTransaction}/startTransaction`,transactionDto,{headers} )
   }
 
 
@@ -324,5 +348,41 @@ export class UserService {
   // ovde sam improvizao samo kako ce se proveravati kod koji se dobije na mailu posto nemam putanju za to
   mailRequest(code : number){
     return this.httpClient.get(`${this.apiUrlEmployee}`)
+  /**
+   * Funkcija za dohvatanje svih kontakata korisnika sa prosledjenim ID-em.
+   * @param userId ID Korisnika
+   */
+  getUsersContactsById(userId: number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.get<Contact[]>(`${this.apiUrlContact}/${userId}`, { headers });
+  }
+
+  deleteUsersContact(userId: number, contactId: number){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    //Proveriti sa bekom koja ce putanja biti za brisanje.
+    return this.httpClient.delete(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
+  }
+
+  //Funkcija za dodavanje kontakta korisniku
+  addContact(userId: number, contactData: Contact) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.post<any>(`${this.apiUrlContact}/${userId}`,contactData, {headers});
+  }
+
+  //Funkcija za izmenu kontakta
+  editContact(userId: number, contactId: number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
   }
 }

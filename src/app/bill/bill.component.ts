@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import {UserService} from "../services/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {PopupTransactionComponent} from "../popup/popup-transaction/popup-transaction.component";
+import {Account} from "../models/models";
 
 @Component({
   selector: 'app-bill',
@@ -11,14 +12,18 @@ import {PopupTransactionComponent} from "../popup/popup-transaction/popup-transa
   styleUrls: ['./bill.component.css']
 })
 export class BillComponent {
+
   // owner: string = 'Pera Peric';
-  // accountNumber: string = '555-000432-534';
-  // availableBalance: number = 0;
   // type: string = '/';
   // accountStatus: string = '/';
   // reservedFunds: number = 0;
     account:any;
   constructor(private router: Router, private userService: UserService, private dialog: MatDialog) {
+
+  account: any;
+  //todo AccountDto treba da se koristi za sad nije uradjen
+
+  constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
       this.account = navigation.extras.state['account'];
@@ -30,18 +35,24 @@ export class BillComponent {
       const account=this.selectedAccount;
       this.router.navigate(['/payment'], { state: { account: account } });
   }*/
+  navigateToPayment() {
 
-  selectedAccount: any;
+    const account = this.selectedAccount;
+      this.router.navigate(['/payment'], { state: { account: account }});
+      //console.log(account);
+  }
+
 
   navigateToPayingPage(){
     this.router.navigate(['/pay', this.account]);
   }
 
   ngOnInit(): void {
-    this.selectedAccount = history.state.account;
-    console.log(this.selectedAccount); // This will log the passed selectedAccount
-  }
 
+   this.selectedAccount = history.state.account;
+    //console.log(this.selectedAccount); // This will log the passed selectedAccount
+  }
+  selectedAccount: any;
   goBack() {
     this.router.navigate(['/welcome']);
   }
