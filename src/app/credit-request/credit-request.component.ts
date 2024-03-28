@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../services/user.service';
+import { CreditRequestCreateDto } from '../models/models';
 
 @Component({
   selector: 'app-credit-request',
@@ -13,60 +13,15 @@ export class CreditRequestComponent implements OnInit {
   formGroup!: FormGroup;
   userId: string = 'user123';
   userAccounts: any[] = [];
-  account: any;
   selectedCurrency: string = 'EUR';
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
 
   ngOnInit(): void {
     this.preloadUserAccounts();
     this.initializeForm();
   }
 
-  initializeForm(): void {
-    this.formGroup = this.formBuilder.group({
-      creditType: ['', Validators.required],
-      accountNumber: ['', Validators.required],
-      amount: ['', [Validators.required, Validators.pattern(/^\d*\.?\d*$/)]],
-      repaymentPeriod: ['', Validators.required],
-      employed: [false],
-      monthlySalary: ['', [Validators.required, Validators.pattern(/^\d*\.?\d*$/)]],
-      employmentDate: ['', Validators.required],
-      creditPurpose: ['', Validators.required],
-      userId: [this.userId]
-    });
-
-
-    this.formGroup.controls['amount'].setAsyncValidators(async (control: AbstractControl) => {
-      return new Promise<ValidationErrors | null>(resolve => {
-        setTimeout(() => {
-          if (control.value && isNaN(control.value.replace(',', '.'))) {
-            resolve({ 'invalidNumber': true });
-          } else {
-            resolve(null);
-          }
-        }, 500);
-      });
-    });
-
-    this.formGroup.controls['accountNumber'].valueChanges.subscribe(selectedAccountNumber => {
-      const selectedAccount = this.userAccounts.find(account => account.accountNumber === selectedAccountNumber);
-      if (selectedAccount) {
-        this.selectedCurrency = selectedAccount.currency;
-      }
-    });
-  }
-
-  onSubmit(): void {
-    if (this.formGroup.valid) {
-      const formData = this.formGroup.value;
-      console.log(formData);
-      this.formGroup.reset();
-      this.router.navigate(['/credit-list']);
-    } else {
-      this.validateAllFormFields(this.formGroup);
-    }
-  }
   updateSelectedCurrency(event: any): void {
     const selectedAccountNumber = event.target.value;
     const selectedAccount = this.userAccounts.find(account => account.accountNumber === selectedAccountNumber);
@@ -76,21 +31,58 @@ export class CreditRequestComponent implements OnInit {
   }
 
 
-  validateAllFormFields(formGroup: FormGroup): void {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
+  initializeForm(): void {
+    this.formGroup = this.formBuilder.group({
+      name: ['', Validators.required],
+      accountNumber: ['', Validators.required],
+      amount: ['', [Validators.required, Validators.pattern(/^\d*\.?\d*$/)]],
+      applianceReason: ['', Validators.required],
+      monthlyPaycheck: ['', [Validators.required, Validators.pattern(/^\d*\.?\d*$/)]],
+      employed: [false],
+      dateOfEmployment: ['', Validators.required],
+      paymentPeriod: ['', Validators.required],
+      currencyMark: ['EUR'],
+      userId: [this.userId]
     });
   }
 
+  onSubmit(): void {
+    if (this.formGroup.valid) {
+      const creditRequestData: CreditRequestCreateDto = this.formGroup.value;
+      this.userService.sendCreditRequest(creditRequestData).subscribe(
+        response => {
+          alert("Credit request sent successfully");
+          console.log("Credit request sent successfully:", response);
+        },
+        error => {
+          alert("Failed to send credit request");
+          console.error("Error sending credit request:", error);
+        }
+      );
+    } else {
+      console.error("Form is not valid. Please fill in all required fields.");
+    }
+  }
+
+  //TODO Zameni mock podatke, sa pravim
   preloadUserAccounts(): void {
     this.userAccounts = [
       { accountNumber: '1234567890', accountName: 'Savings Account', currency: 'EUR' },
       { accountNumber: '0987654321', accountName: 'Checking Account', currency: 'USD' },
     ];
   }
+  //TODO Otkomentarisi ovu funkciju i testiraj sa pravim podacima
+  // preloadUserAccounts(): void {
+  //   this.userService.getUsersAccounts().subscribe(
+  //     accounts => {
+  //       this.userAccounts = accounts;
+  //       if (this.userAccounts.length > 0) {
+  //         this.selectedCurrency = this.userAccounts[0].currency;
+  //       }
+  //     },
+  //     error => {
+  //       console.error("Error loading user accounts:", error);
+  //     }
+  //   );
+  // }
 }

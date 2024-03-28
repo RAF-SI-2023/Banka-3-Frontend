@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Credit } from '../models/models';
 import { CreditService } from '../services/credit.service';
-
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-credit-list',
   templateUrl: './credit-list.component.html',
@@ -11,12 +11,13 @@ import { CreditService } from '../services/credit.service';
 export class CreditListComponent implements OnInit {
   credits: Credit[] = [];
 
-  constructor(private router: Router, private creditService: CreditService) {}
+  constructor(private router: Router, private creditService: CreditService, private userService: UserService) {}
 
   ngOnInit() {
     this.fetchCredits();
   }
 
+  //TODO Promeni na prave podatke
   fetchCredits() {
     this.creditService.getAllCredits().subscribe(
       credits => {
@@ -27,6 +28,17 @@ export class CreditListComponent implements OnInit {
       }
     );
   }
+
+  // fetchCredits() {
+  //   this.userService.getAllCredits().subscribe(
+  //     credits => {
+  //       this.credits = credits;
+  //     },
+  //     error => {
+  //       console.error('Error fetching credits:', error);
+  //     }
+  //   );
+  // }
 
   sortCredits(sortOption: string) {
     if (sortOption === 'asc') {

@@ -107,7 +107,7 @@ align-items: center;
 }
 .transactionView{
     /* background-color: var(--background-main); */
-    background-color: #f6f6f6;
+    background-color: var(--background-main);
     width: 100%;
     padding-top:1rem;
 }

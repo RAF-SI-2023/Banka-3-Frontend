@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Account, Currency, Employee, Firm, Permission, Role, Token, User, UserActivationDto} from "../models/models";
+
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {from, Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
+import { Credit } from '../models/models';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +22,9 @@ export class UserService {
   apiUrlForeignAccount : string = "http://localhost:8080/api/v1/foreignAccount"
   apiUrlCompanyAccount : string = "http://localhost:8080/api/v1/companyAccount"
   apiUrlCurrency : string = "http://localhost:8080/api/v1/currency"
+  apiUrlContact : string = "http://localhost:8080/api/v1/contact"
+  apiUrlCredit : string = "http://localhost:8080/api/v1/credit"
+  apiUrlCreditRequest : string = "http://localhost:8080/api/v1/credit-request"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -57,6 +63,21 @@ export class UserService {
     return this.httpClient.post<any>(`${this.apiUrlEmailUser}/activateUser`, obj, {headers})
   }
 
+  getAllCredits(): Observable<Credit[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<Credit[]>(`${this.apiUrlCredit}`, { headers });
+}
+
+  sendCreditRequest(creditRequestData: CreditRequestCreateDto): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.post<any>(`${this.apiUrlCreditRequest}`, creditRequestData, { headers });
+  }
 
   registerUser(firstName: string, lastName: string, jmbg: string, dateOfBirth: string, gender: string, phoneNumber: string, email: string){
     let obj = {
