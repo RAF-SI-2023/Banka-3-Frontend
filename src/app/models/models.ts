@@ -48,7 +48,6 @@ export interface Firm {
   companyAccounts: CompanyAccount[]
 
 }
-
 export interface UserActivationDto{
   email: string,
   isActive: boolean
@@ -71,7 +70,14 @@ export interface Currency{
   name: string,
   mark: string
 }
-
+export interface TransactionDto{
+  accountFrom: string,
+  accountTo: string,
+  amount: number,
+  currencyMark: string,
+  paymentCode: number,
+  referenceNumber: string
+}
 
 export interface Permission {
   permissionId: number
