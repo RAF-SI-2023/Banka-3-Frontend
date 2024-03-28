@@ -5,10 +5,19 @@
           <img [routerLink]="'/'" class="logo" src="../../assets/logo-full.svg" alt="logo">
         </div>
         <div class="item">
-          <a [routerLink]="'/'">Pocetna</a>
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/'">Pocetna</a>
         </div>
         <div class="item">
-          <a [routerLink]="'/user-list'">Korisnici</a>
+          <a *ngIf="isEmployeeUser" [routerLink]="'/user-list'">Korisnici</a>
+        </div>
+        <div class="item">
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/exchange'">Menjacnica</a>
+        </div>
+        <div class="item">
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/payment'">Placanja</a>
+        </div>
+        <div class="item">
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/credit-request'">Krediti</a>
         </div>
       </div>
       <div class="right">

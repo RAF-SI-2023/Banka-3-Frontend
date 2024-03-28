@@ -50,7 +50,7 @@ export interface Firm {
 }
 export interface UserActivationDto{
   email: string,
-  isActive: boolean
+  active: boolean
 }
 export interface CompanyAccount{
   companyAccountId: number,
@@ -150,7 +150,7 @@ export interface Transactions{
   date: string,
   description: string,
   amount: number,
-  tradeAccount:string 
+  tradeAccount:string
 }
 
 export interface CreditRequestDto {
