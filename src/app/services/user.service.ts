@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Account, Currency, Employee, Firm, Permission, Role, Token, User, UserActivationDto} from "../models/models";
+import {Account, Currency, Employee, Firm, Permission, Role, Token, User, UserActivationDto,CreditRequestCreateDto} from "../models/models";
 
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {from, Observable} from "rxjs";

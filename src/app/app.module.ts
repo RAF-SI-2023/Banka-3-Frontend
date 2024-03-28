@@ -43,7 +43,7 @@ import { PopupTransactionComponent } from './popup/popup-transaction/popup-trans
 // import { PaymentRecipientComponent } from './payment-recipient/payment-recipient.component';
 // import { CreatePaymentRecipientComponent } from './create-payment-recipient/create-payment-recipient.component';
 // import { EditPaymentRecipientComponent } from './edit-payment-recipient/edit-payment-recipient.component';
-// import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
+import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
 import { CreditListComponent } from './credit-list/credit-list.component';
 import { CreditRequestComponent } from './credit-request/credit-request.component';
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
@@ -81,7 +81,7 @@ import { CreditRequestComponent } from './credit-request/credit-request.componen
     // PaymentRecipientComponent,
     // CreatePaymentRecipientComponent,
     // EditPaymentRecipientComponent,
-    // CreditTransactionComponent,
+    CreditTransactionComponent,
     CreditListComponent,
     CreditRequestComponent
 

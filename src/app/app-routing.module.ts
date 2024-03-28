@@ -30,7 +30,7 @@ import {PasswordConfirmationComponent} from "./reset-password/password-confirmat
 // import {PaymentRecipientComponent} from "./payment-recipient/payment-recipient.component";
 // import {CreatePaymentRecipientComponent} from "./create-payment-recipient/create-payment-recipient.component";
 // import {EditPaymentRecipientComponent} from "./edit-payment-recipient/edit-payment-recipient.component";
-// import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
+import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
 import { CreditRequestComponent } from './credit-request/credit-request.component';
 import { CreditListComponent } from './credit-list/credit-list.component';
 
@@ -159,21 +159,21 @@ const routes: Routes = [
     component: PasswordActivationComponent
 
   },
-  {
-    path: 'payment-recipients',
-    component: PaymentRecipientComponent,
-    // canActivate: [AuthGuard]
-  },
-  {
-    path: 'add-payment-recipient',
-    component: CreatePaymentRecipientComponent,
-    // canActivate: [AuthGuard]
-  },
-  {
-    path: 'edit-payment-recipient/:contactId',
-    component: EditPaymentRecipientComponent,
-    // canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'payment-recipients',
+  //   component: PaymentRecipientComponent,
+  //   // canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'add-payment-recipient',
+  //   component: CreatePaymentRecipientComponent,
+  //   // canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'edit-payment-recipient/:contactId',
+  //   component: EditPaymentRecipientComponent,
+  //   // canActivate: [AuthGuard]
+  // },
   {
     path: 'credit-transaction/:creditId',
     component: CreditTransactionComponent,
