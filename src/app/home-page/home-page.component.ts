@@ -23,9 +23,9 @@ export class HomePageComponent {
 
   constructor(private router: Router) {
     this.selectedAccount = this.accounts[0];
-
+    
     this.updateTransactions() // Selecting the first account
-
+    
   }
 
 

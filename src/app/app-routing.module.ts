@@ -33,6 +33,8 @@ import { CreditListComponent } from './credit-list/credit-list.component';
 import {PaymentRecipientComponent} from "./payment-recipient/payment-recipient.component";
 import {CreatePaymentRecipientComponent} from "./create-payment-recipient/create-payment-recipient.component";
 import {EditPaymentRecipientComponent} from "./edit-payment-recipient/edit-payment-recipient.component";
+import { UserGuard } from './guards/user.guard';
+import { EmployeeGuard } from './guards/employee.guard';
 
 
 const routes: Routes = [
@@ -107,7 +109,7 @@ const routes: Routes = [
   },{
   path: 'welcome',
   component: HomePageComponent,
-  //canActivate: [AuthGuard]
+  // canActivate: [AuthGuard, UserGuard]
 },
   {
     path: 'user-account/:userId',
@@ -122,22 +124,22 @@ const routes: Routes = [
   {
       path: 'user-controll',
     component: UserControllComponent,
-    //canActivate: [AuthGuard]
+    // canActivate: [AuthGuard, EmployeeGuard]
   },
   {
     path: 'exchange',
     component: ExchangeComponent,
-    //canActivate: [AuthGuard]
+    // canActivate: [AuthGuard, UserGuard]
   },
   {
   path: 'bill',
   component: BillComponent,
-  //canActivate: [AuthGuard]
+  // canActivate: [AuthGuard, UserGuard]
 },
   {
   path: 'payment',
   component: PayingComponent,
-  //canActivate: [AuthGuard]
+  // canActivate: [AuthGuard, UserGuard]
   },
   {
     path: 'form-add-firm',
@@ -152,7 +154,7 @@ const routes: Routes = [
   {
     path: 'credit-list',
     component: CreditListComponent,
-    //canActivate: [AuthGuard]
+    // canActivate: [AuthGuard, UserGuard]
   },
   {
     path: 'change-password/:code',
