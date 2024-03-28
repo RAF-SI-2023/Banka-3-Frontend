@@ -1,5 +1,17 @@
 import { Injectable } from '@angular/core';
 import {Account, Currency, Employee, Firm, Permission, Role, Token, User, UserActivationDto} from "../models/models";
+import {
+  Account,
+  Contact,
+  Currency,
+  Employee,
+  Firm,
+  Permission,
+  Role,
+  Token, TransactionDto,
+  User,
+  UserActivationDto
+} from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {from, Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
@@ -327,11 +339,41 @@ export class UserService {
   }
 
   //Funkcija za izmenu kontakta
-  editContact(userId: number, contactId: number){
+  editContact(userId: number, contactId: number, name: string, myName: string, accountNumber: string){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
+    const body = {
+      MyName: myName,
+      Name: name,
+      AccountNumber: accountNumber
+    }
+    return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { body }, { headers });
+  }
+
+  /**
+   * Funkcija koja ce vratiti kontakt placanja korisnika po njegovom id-u i id-u kontakta.
+   * @param userId
+   * @param contactId
+   */
+  getUsersContactByContactId(userId: number, contactId: number){
+    //TODO: Proveriti sa bekom da li su dodali ovu rutu
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.get<Contact>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
+  }
+
+  getUsersAccounts(){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    const id = (parseJson(atob(sessionStorage.getItem("token")!.split('.')[1])) as User).userId;
+
+    return this.httpClient.get<any[]>(`${this.apiUrlAccount}/getByUser/${id}/`, { headers });
   }
 }
