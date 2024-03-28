@@ -8,16 +8,14 @@ import {
   Firm,
   Permission,
   Role,
-  Token, TransactionDto,
+  Token, 
+  TransactionDto,
   User,
   UserActivationDto
 } from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {from, Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
 import { parseJson } from '@angular/cli/src/utilities/json-file';
-
-
 
 @Injectable({
   providedIn: 'root'
