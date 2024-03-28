@@ -33,7 +33,6 @@ import { CreditListComponent } from './credit-list/credit-list.component';
 import {PaymentRecipientComponent} from "./payment-recipient/payment-recipient.component";
 import {CreatePaymentRecipientComponent} from "./create-payment-recipient/create-payment-recipient.component";
 import {EditPaymentRecipientComponent} from "./edit-payment-recipient/edit-payment-recipient.component";
-import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
 
 
 const routes: Routes = [

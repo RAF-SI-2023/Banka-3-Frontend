@@ -31,11 +31,11 @@ export class EditPaymentRecipientComponent {
     if (token){
       const decoded: any = jwtDecode(token)
       this.userId = decoded.id
-      this.userService.getUsersContactByContactId(decoded.id, this.contactId).subscribe( data => {
-        this.contactForm.get('formName')?.setValue(data.name);
-        this.contactForm.get('formMyName')?.setValue(data.myName);
-        this.contactForm.get('formContact')?.setValue(data.accountNumber);
-      })
+      // this.userService.getUsersContactByContactId(decoded.id, this.contactId).subscribe( data => {
+      //   this.contactForm.get('formName')?.setValue(data.name);
+      //   this.contactForm.get('formMyName')?.setValue(data.myName);
+      //   this.contactForm.get('formContact')?.setValue(data.accountNumber);
+      // })
     }
   }
   ngOnInit(): void {

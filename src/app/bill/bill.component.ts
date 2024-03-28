@@ -18,17 +18,17 @@ export class BillComponent {
   // accountStatus: string = '/';
   // reservedFunds: number = 0;
     account:any;
-  constructor(private router: Router, private userService: UserService, private dialog: MatDialog) {
+  constructor(private router: Router, private userService: UserService, private dialog: MatDialog) {}
 
-  account: any;
+  
   //todo AccountDto treba da se koristi za sad nije uradjen
 
-  constructor(private router: Router) {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation && navigation.extras.state) {
-      this.account = navigation.extras.state['account'];
-    }
-  }
+  // constructor(private router: Router) {
+  //   const navigation = this.router.getCurrentNavigation();
+  //   if (navigation && navigation.extras.state) {
+  //     this.account = navigation.extras.state['account'];
+  //   }
+  // }
 
 
  /* navigateToPayment() {
