@@ -1,0 +1,114 @@
+<html lang="en">
+<body>
+    <app-navbar></app-navbar>
+    <div class="myContainer">
+        <div class="formContainer">
+            <div class="row">
+                <div class="col-sm">
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="h2">Zahtev za kredit</span>
+                    </div>
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <!-- <span class="p lighter">{{ account?.accountNumber }}</span> -->
+                    </div>
+                </div>
+            </div>
+            <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Naziv kredita</p>
+                            <select class="inputField" formControlName="name">
+                                <option value="gotovinski">Gotovinski</option>
+                                <option value="brzi">Brzi</option>
+                                <option value="stambeni">Stambeni</option>
+                                <option value="investicioni">Investicioni</option>
+                                <option value="travel">Travel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Broj računa</p>
+                            <select class="inputField" formControlName="accountNumber" (change)="updateSelectedCurrency($event)">
+                                <option *ngFor="let account of userAccounts" [value]="account?.accountNumber">{{ account?.accountNumber }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Iznos kredita</p>
+                            <div style="display: flex;">
+                                <input class="inputField" type="text" formControlName="amount">
+                                <span class="currency-text">{{ selectedCurrency }}</span>
+                            </div>
+                            <div *ngIf="formGroup.get('amount')?.invalid && (formGroup.get('amount')?.dirty || formGroup.get('amount')?.touched)" class="text-danger">
+                                <div *ngIf="formGroup.get('amount')?.errors?.['required']">Iznos kredita je obavezan</div>
+                                <div *ngIf="formGroup.get('amount')?.errors?.['pattern']">Iznos kredita može sadržati samo brojeve, tačku i zarez</div>
+                                <div *ngIf="formGroup.get('amount')?.errors?.['invalidNumber']">Nevažeći broj</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Iznos mesečne uplate</p>
+                            <div style="display: flex;">
+                                <input class="inputField" type="text" formControlName="monthlyPaycheck">
+                                <span class="currency-text">RSD</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Svrha kredita</p>
+                            <textarea class="inputField" formControlName="applianceReason" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Datum zaposlenja</p>
+                            <input class="inputField" type="date" formControlName="dateOfEmployment">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Period otplate</p>
+                            <select class="inputField" formControlName="paymentPeriod">
+                                <option value="12">12 Meseci</option>
+                                <option value="24">24 Meseci</option>
+                                <option value="36">36 Meseci</option>
+                                <option value="48">48 Meseci</option>
+                                <option value="60">60 Meseci</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Zaposlenje</p>
+                            <input type="checkbox" formControlName="employed">
+                            <label class="myCheckboxText" for="employed">Zaposlen za stalno</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Hidden field for user ID -->
+                <input type="hidden" formControlName="userId" [value]="userId">
+                <!-- Submit button -->
+                <div class="row mt-2">
+                    <div class="col-sm">
+                        <input class="myButtonPrimary" type="submit" value="Pošalji zahtev" [disabled]="!formGroup.valid">
+                        <div *ngIf="!formGroup.valid" class="text-danger">
+                            Nisu sva polja popunjena
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

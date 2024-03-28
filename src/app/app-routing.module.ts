@@ -27,6 +27,9 @@ import { BillComponent } from './bill/bill.component';
 import { PayingComponent } from './paying/paying.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import {PasswordConfirmationComponent} from "./reset-password/password-confirmation/password-confirmation.component";
+import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
+import { CreditRequestComponent } from './credit-request/credit-request.component';
+import { CreditListComponent } from './credit-list/credit-list.component';
 import {PaymentRecipientComponent} from "./payment-recipient/payment-recipient.component";
 import {CreatePaymentRecipientComponent} from "./create-payment-recipient/create-payment-recipient.component";
 import {EditPaymentRecipientComponent} from "./edit-payment-recipient/edit-payment-recipient.component";
@@ -143,8 +146,32 @@ const routes: Routes = [
     //canActivate: [AuthGuard]
   },
   {
+    path: 'credit-request',
+    component: CreditRequestComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'credit-list',
+    component: CreditListComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
     path: 'change-password/:code',
     component: PasswordActivationComponent
+  },
+  {
+    path: 'add-payment-recipient',
+    component: CreatePaymentRecipientComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit-payment-recipient/:contactId',
+    component: EditPaymentRecipientComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'credit-transaction/:creditId',
+    component: CreditTransactionComponent,
   },
   {
     path: 'payment-recipients',

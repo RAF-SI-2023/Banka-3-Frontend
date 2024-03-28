@@ -10,11 +10,14 @@ import {
   TransactionDto,
   User,
   Contact,
-  UserActivationDto
+  UserActivationDto,
+  CreditRequestCreateDto
 } from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {from, Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
+import { Credit } from '../models/models';
+
 
 
 
@@ -35,6 +38,8 @@ export class UserService {
   apiUrlCompanyAccount : string = "http://localhost:8080/api/v1/companyAccount"
   apiUrlCurrency : string = "http://localhost:8080/api/v1/currency"
   apiUrlContact : string = "http://localhost:8080/api/v1/contact"
+  apiUrlCredit : string = "http://localhost:8080/api/v1/credit"
+  apiUrlCreditRequest : string = "http://localhost:8080/api/v1/credit-request"
   apiUrlTransaction: string = "http://localhost:8080/api/v2/transaction"
 
   constructor(private httpClient : HttpClient) { }
@@ -82,6 +87,21 @@ export class UserService {
     return this.httpClient.post<any>(`${this.apiUrlEmailUser}/activateUser`, obj, {headers})
   }
 
+  getAllCredits(): Observable<Credit[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<Credit[]>(`${this.apiUrlCredit}`, { headers });
+}
+
+  sendCreditRequest(creditRequestData: CreditRequestCreateDto): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.post<any>(`${this.apiUrlCreditRequest}`, creditRequestData, { headers });
+  }
 
   registerUser(firstName: string, lastName: string, jmbg: string, dateOfBirth: string, gender: string, phoneNumber: string, email: string){
     let obj = {
@@ -318,6 +338,16 @@ export class UserService {
 
   }
 
+
+  sendRequest(): Promise<any> {
+    const url = 'http://putanja-ka-vasem-backend-servisu';
+
+    return this.httpClient.get(url).toPromise();
+  }
+
+  // ovde sam improvizao samo kako ce se proveravati kod koji se dobije na mailu posto nemam putanju za to
+  mailRequest(code : number){
+    return this.httpClient.get(`${this.apiUrlEmployee}`)
   /**
    * Funkcija za dohvatanje svih kontakata korisnika sa prosledjenim ID-em.
    * @param userId ID Korisnika
