@@ -128,3 +128,4 @@ export interface AccountDto{
   currency: Currency,
   accountType: string,
 }
+
