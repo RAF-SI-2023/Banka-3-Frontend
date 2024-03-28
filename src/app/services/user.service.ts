@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {Account, Currency, Employee, Firm, Permission, Role, Token, User, UserActivationDto} from "../models/models";
 import {
   Account,
   Contact,
@@ -8,13 +7,14 @@ import {
   Firm,
   Permission,
   Role,
-  Token, 
+  Token,
   TransactionDto,
   User,
+  Contact,
   UserActivationDto
 } from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import { parseJson } from '@angular/cli/src/utilities/json-file';
+import {from, Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
 
 @Injectable({

@@ -74,10 +74,6 @@ import { CreditTransactionComponent } from './credit-transaction/credit-transact
     ResetPasswordComponent,
     PasswordActivationComponent,
     PasswordConfirmationComponent,
-    PaymentRecipientComponent,
-    CreatePaymentRecipientComponent,
-    EditPaymentRecipientComponent,
-    CreditTransactionComponent,
 
 
   ],
