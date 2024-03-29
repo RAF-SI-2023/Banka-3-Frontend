@@ -29,17 +29,6 @@ export class CreditListComponent implements OnInit {
     );
   }
 
-  // fetchCredits() {
-  //   this.userService.getAllCredits().subscribe(
-  //     credits => {
-  //       this.credits = credits;
-  //     },
-  //     error => {
-  //       console.error('Error fetching credits:', error);
-  //     }
-  //   );
-  // }
-
   sortCredits(sortOption: string) {
     if (sortOption === 'asc') {
       this.credits.sort((a, b) => a.amount - b.amount);

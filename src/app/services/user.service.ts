@@ -95,7 +95,7 @@ export class UserService {
     return this.httpClient.get<Credit[]>(`${this.apiUrlCredit}`, { headers });
 }
 
-  sendCreditRequest(creditRequestData: CreditRequestCreateDto): Observable<any> {
+  sendCreditRequest(creditRequestData: CreditRequestCreateDto) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`

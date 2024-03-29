@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../services/user.service';
-import { CreditRequestCreateDto } from '../models/models';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UserService} from '../services/user.service';
+import {CreditRequestCreateDto} from '../models/models';
 import {AccountService} from "../services/account.service";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 
@@ -13,13 +13,15 @@ import {parseJson} from "@angular/cli/src/utilities/json-file";
 export class CreditRequestComponent implements OnInit {
 
   formGroup!: FormGroup;
-  userId: string = 'user123';
+  userId: string = '';
   userAccounts: any[] = [];
-  selectedCurrency: string = 'EUR';
+  selectedCurrency: string = 'RSD';
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private accountService: AccountService) {}
 
   ngOnInit(): void {
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    this.userId = tk.id
     this.preloadUserAccounts();
     this.initializeForm();
   }
@@ -34,24 +36,36 @@ export class CreditRequestComponent implements OnInit {
 
 
   initializeForm(): void {
+
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
       accountNumber: ['', Validators.required],
       amount: ['', [Validators.required, Validators.pattern(/^\d*\.?\d*$/)]],
       applianceReason: ['', Validators.required],
-      monthlyPaycheck: ['', [Validators.required, Validators.pattern(/^\d*\.?\d*$/)]],
       employed: [false],
       dateOfEmployment: ['', Validators.required],
       paymentPeriod: ['', Validators.required],
-      currencyMark: ['EUR'],
+      currencyMark: [this.selectedCurrency],
       userId: [this.userId]
     });
   }
 
   onSubmit(): void {
     if (this.formGroup.valid) {
-      const creditRequestData: CreditRequestCreateDto = this.formGroup.value;
-      this.userService.sendCreditRequest(creditRequestData).subscribe(
+      let creditRequest = {} as CreditRequestCreateDto
+      creditRequest.currencyMark = this.formGroup.get("currencyMark")?.value
+      creditRequest.name = this.formGroup.get("name")?.value
+      creditRequest.accountNumber = this.formGroup.get("accountNumber")?.value
+      creditRequest.amount = this.formGroup.get("amount")?.value
+      creditRequest.userId = this.formGroup.get("userId")?.value
+      creditRequest.paymentPeriod = this.formGroup.get("paymentPeriod")?.value
+      creditRequest.applianceReason = this.formGroup.get("applianceReason")?.value
+      creditRequest.employed = this.formGroup.get("employed")?.value
+      let dt = this.formGroup.get("dateOfEmployment")?.value
+      creditRequest.dateOfEmployment = new Date(dt).getTime()
+
+      console.log(creditRequest)
+      this.userService.sendCreditRequest(creditRequest).subscribe(
         response => {
           alert("Credit request sent successfully");
           console.log("Credit request sent successfully:", response);
