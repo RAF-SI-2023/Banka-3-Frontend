@@ -168,7 +168,6 @@ export interface CreditRequestCreateDto {
   accountNumber: string;
   amount: number;
   applianceReason: string;
-  monthlyPaycheck: number;
   employed: boolean;
   dateOfEmployment: number;
   paymentPeriod: number;
