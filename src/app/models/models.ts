@@ -115,8 +115,19 @@ export interface Contact{
   accountNumber: string
 }
 
+export interface CreditRequestDto{
+  creditRequestId:number,
+  user: User,
+  name: string,
+  amount: number,
+  accountNumber: string
+  paymentPeriod: number,
+  currencyMark: string,
+  status: string
+}
 export interface Credit{
-  id:number,
+  creditId:number,
+  user: User,
   name: string,
   accountNumber: string,
   amount: number,
@@ -127,7 +138,6 @@ export interface Credit{
   monthlyFee: number,
   remainingAmount: number,
   currencyMark: string,
-  transactions: Transactions[]
 }
 
 export interface AccountDto{

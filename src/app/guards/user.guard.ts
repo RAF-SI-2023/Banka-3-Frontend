@@ -12,7 +12,7 @@ import {parseJson} from "@angular/cli/src/utilities/json-file";
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeGuard implements CanActivate {
+export class UserGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(
@@ -23,8 +23,7 @@ export class EmployeeGuard implements CanActivate {
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const hasRole = "role" in payload;
-      if (hasRole && payload.role === 'ROLE_BANKING_OFFICER') {
-        this.router.navigate(['user-control']);
+      if (!hasRole) {
         return true;
       }
     }

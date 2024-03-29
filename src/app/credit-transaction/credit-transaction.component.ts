@@ -11,21 +11,21 @@
 //   selectedCredit: any;
 
 //   credits = [
-//     { id: '1', name: 'Gotovinski', accountNumber: '340-000100003632-87', amount: 1000, purpose: 'Kupovina stana', repaymentPeriod: '24 meseca',     
+//     { id: '1', name: 'Gotovinski', accountNumber: '340-000100003632-87', amount: 1000, purpose: 'Kupovina stana', repaymentPeriod: '24 meseca',
 //     transactions: [
 //       { id: '1', date: '2024-03-18', description: 'Payment received', amount: 500, tradeAccount:"340-000100003632-87" },
 //       { id: '2', date: '2024-03-17', description: 'Utility bill payment', amount: -100, tradeAccount:"340-000100003632-87"  },
 //       { id: '3', date: '2024-03-16', description: 'Withdrawal', amount: -200, tradeAccount:"340-000100003632-87"  },
 //       { id: '4', date: '2024-03-15', description: 'Deposit', amount: 1000, tradeAccount:"340-000100003632-87"  }
 //     ] },
-//     { id: '2', name: 'Gotovinski', accountNumber: '340-000100003632-87', amount: 500, purpose: 'Kupovina stana', repaymentPeriod: '24 meseca',     
+//     { id: '2', name: 'Gotovinski', accountNumber: '340-000100003632-87', amount: 500, purpose: 'Kupovina stana', repaymentPeriod: '24 meseca',
 //     transactions: [
 //       { id: '1', date: '2024-03-21', description: 'Payment', amount: -500, tradeAccount:"340-000100003632-87" },
 //       { id: '2', date: '2024-03-11', description: 'Utility bill payment', amount: -100, tradeAccount:"11123142142"  },
 //       { id: '3', date: '2024-02-21', description: 'Withdrawal', amount: -200, tradeAccount:"11123142142"  },
 //       { id: '4', date: '2024-02-13', description: 'Deposit', amount: 1000, tradeAccount:"11123142142"  }
 //     ] },
-//     { id: '3', name: 'Gotovinski', accountNumber: '340-000100003632-87', amount: 1500, purpose: 'Kupovina stana', repaymentPeriod: '24 meseca',     
+//     { id: '3', name: 'Gotovinski', accountNumber: '340-000100003632-87', amount: 1500, purpose: 'Kupovina stana', repaymentPeriod: '24 meseca',
 //     transactions: [
 //       { id: '1', date: '2024-04-18', description: 'Payment received', amount: 500, tradeAccount:"11123142142" },
 //       { id: '2', date: '2023-03-17', description: 'Utility bill payment', amount: -100, tradeAccount:"11123142142"  },
@@ -72,7 +72,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CreditService } from '../services/credit.service';
-import { Credit } from '../models/models';
+import {Credit, CreditRequestDto} from '../models/models';
 
 @Component({
   selector: 'app-credit-transaction',
@@ -91,17 +91,18 @@ export class CreditTransactionComponent implements OnInit {
   //TODO Ovo jos nisu odradili na bekendu
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const creditId = params['creditId'];
-      if (creditId) {
-        this.creditService.getCreditDetails(creditId).subscribe(credit => {
-          this.selectedCredit = credit;
-          this.transactions = credit?.transactions || []; // Access transactions only if credit is not null
-        });
-      }
+      const creditId = params['creditRequestId'];
+
+      // if (creditId) {
+      //   this.creditService.getCreditDetails(creditId).subscribe(credit => {
+      //     this.selectedCredit = credit;
+      //     // this.transactions = credit?.transactions || []; // Access transactions only if credit is not null
+      //   });
+      // }
     });
   }
 
-  
+
 getDayFromDate(dateString: string): number {
   const date = new Date(dateString);
   return date.getDate();
