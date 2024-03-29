@@ -33,10 +33,10 @@ export class NavbarComponent  implements OnInit{
   }
   isEmployee(): boolean {
     const token = sessionStorage.getItem("token");
-    console.log(token)
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.role === 'ROLE_BANKING_OFFICER';
+      if(payload.role)
+        return true
     }
     return false;
   }

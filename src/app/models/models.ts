@@ -75,8 +75,8 @@ export interface TransactionDto{
   accountTo: string,
   amount: number,
   currencyMark: string,
-  paymentCode: number,
-  referenceNumber: string
+  sifraPlacanja: number,
+  pozivNaBroj: string
 }
 
 export interface Permission {
@@ -134,14 +134,14 @@ export interface AccountDto{
   accountId: number,
   accountNumber: string,
   user: User,
-  balance: number,
   availableBalance: number,
+  reservedAmount: number,
   creationDate: number,
   expirationDate: number,
   active: boolean,
   employee: Employee,
   currency: Currency,
-  accountType: string,
+  accountType: any,
 }
 
 

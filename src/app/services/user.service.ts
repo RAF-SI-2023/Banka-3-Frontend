@@ -348,11 +348,11 @@ export class UserService {
   // ovde sam improvizao samo kako ce se proveravati kod koji se dobije na mailu posto nemam putanju za to
   mailRequest(code : number) {
     return this.httpClient.get(`${this.apiUrlEmployee}`)
-    /**
-     * Funkcija za dohvatanje svih kontakata korisnika sa prosledjenim ID-em.
-     * @param userId ID Korisnika
-     */
   }
+  /**
+   * Funkcija za dohvatanje svih kontakata korisnika sa prosledjenim ID-em.
+   * @param userId ID Korisnika
+   */
   getUsersContactsById(userId: number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

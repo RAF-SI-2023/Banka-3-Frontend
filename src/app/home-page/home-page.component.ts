@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import {AccountDto, TransactionDto} from "../models/models";
+import {AccountService} from "../services/account.service";
+import {parseJson} from "@angular/cli/src/utilities/json-file";
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit{
   ownerName: string = ''; // Variable for owner name
   accountNumber: string= ''; // Variable for account number
   availableBalance: string = ''; // Variable for available balance
@@ -18,41 +21,49 @@ export class HomePageComponent {
   currencies: string[] = ['USD', 'EUR', 'GBP', 'JPY', 'AUD'];
   currency1: number = 0;
   currency2: number = 0;
-  transactions: any[] = [];
+  transactions = [] as TransactionDto[];
+  selectedAccount = {} as AccountDto;
 
+  accounts2 = [] as AccountDto[]
 
-  constructor(private router: Router) {
-    this.selectedAccount = this.accounts[0];
+  constructor(private router: Router, private accountService: AccountService) {
 
-    this.updateTransactions() // Selecting the first account
+    // this.updateTransactions() // Selecting the first account
 
   }
 
+  ngOnInit(): void {
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    this.accountService.getAccountsByUserId(tk.id).subscribe(res => {
+      this.accounts2 = res;
+      this.selectedAccount = this.accounts2[0];
+      // console.log(this.accounts2)
+      this.updateTransactions()
+    })
+  }
 
 
+  //  accounts = [
+  //   { id: '1', ownerName: 'John Doe', accountNumber: '340-000100003632-87', availableBalance: 1000, type: 'Savings', accountState: 'Active', reservedFunds: 0,     transactions: [
+  //     { id: '1', date: '2024-03-18', description: 'Payment received', amount: 500, tradeAccount:"340-000100003632-87" },
+  //     { id: '2', date: '2024-03-17', description: 'Utility bill payment', amount: -100, tradeAccount:"340-000100003632-87"  },
+  //     { id: '3', date: '2024-03-16', description: 'Withdrawal', amount: -200, tradeAccount:"340-000100003632-87"  },
+  //     { id: '4', date: '2024-03-15', description: 'Deposit', amount: 1000, tradeAccount:"340-000100003632-87"  }
+  //   ] },
+  //   { id: '2', ownerName: 'Jane Smith', accountNumber: '340-000100003632-87', availableBalance: 500, type: 'Checking', accountState: 'Active', reservedFunds: 0,     transactions: [
+  //     { id: '1', date: '2024-03-21', description: 'Payment', amount: -500, tradeAccount:"340-000100003632-87" },
+  //     { id: '2', date: '2024-03-11', description: 'Utility bill payment', amount: -100, tradeAccount:"11123142142"  },
+  //     { id: '3', date: '2024-02-21', description: 'Withdrawal', amount: -200, tradeAccount:"11123142142"  },
+  //     { id: '4', date: '2024-02-13', description: 'Deposit', amount: 1000, tradeAccount:"11123142142"  }
+  //   ] },
+  //   { id: '3', ownerName: 'Alice Johnson', accountNumber: '340-000100003632-87', availableBalance: 1500, type: 'Savings', accountState: 'Active', reservedFunds: 0,     transactions: [
+  //     { id: '1', date: '2024-04-18', description: 'Payment received', amount: 500, tradeAccount:"11123142142" },
+  //     { id: '2', date: '2023-03-17', description: 'Utility bill payment', amount: -100, tradeAccount:"11123142142"  },
+  //     { id: '3', date: '2023-05-16', description: 'Withdrawal', amount: -200, tradeAccount:"11123142142"  },
+  //     { id: '4', date: '2022-03-15', description: 'Deposit', amount: 1000, tradeAccount:"11123142142"  }
+  //   ] }
+  // ];
 
-   accounts = [
-    { id: '1', ownerName: 'John Doe', accountNumber: '340-000100003632-87', availableBalance: 1000, type: 'Savings', accountState: 'Active', reservedFunds: 0,     transactions: [
-      { id: '1', date: '2024-03-18', description: 'Payment received', amount: 500, tradeAccount:"340-000100003632-87" },
-      { id: '2', date: '2024-03-17', description: 'Utility bill payment', amount: -100, tradeAccount:"340-000100003632-87"  },
-      { id: '3', date: '2024-03-16', description: 'Withdrawal', amount: -200, tradeAccount:"340-000100003632-87"  },
-      { id: '4', date: '2024-03-15', description: 'Deposit', amount: 1000, tradeAccount:"340-000100003632-87"  }
-    ] },
-    { id: '2', ownerName: 'Jane Smith', accountNumber: '340-000100003632-87', availableBalance: 500, type: 'Checking', accountState: 'Active', reservedFunds: 0,     transactions: [
-      { id: '1', date: '2024-03-21', description: 'Payment', amount: -500, tradeAccount:"340-000100003632-87" },
-      { id: '2', date: '2024-03-11', description: 'Utility bill payment', amount: -100, tradeAccount:"11123142142"  },
-      { id: '3', date: '2024-02-21', description: 'Withdrawal', amount: -200, tradeAccount:"11123142142"  },
-      { id: '4', date: '2024-02-13', description: 'Deposit', amount: 1000, tradeAccount:"11123142142"  }
-    ] },
-    { id: '3', ownerName: 'Alice Johnson', accountNumber: '340-000100003632-87', availableBalance: 1500, type: 'Savings', accountState: 'Active', reservedFunds: 0,     transactions: [
-      { id: '1', date: '2024-04-18', description: 'Payment received', amount: 500, tradeAccount:"11123142142" },
-      { id: '2', date: '2023-03-17', description: 'Utility bill payment', amount: -100, tradeAccount:"11123142142"  },
-      { id: '3', date: '2023-05-16', description: 'Withdrawal', amount: -200, tradeAccount:"11123142142"  },
-      { id: '4', date: '2022-03-15', description: 'Deposit', amount: 1000, tradeAccount:"11123142142"  }
-    ] }
-  ];
-
-  selectedAccount:any;
   // transactions = [
   //   { id: '1', date: '2024-03-18', description: 'Payment received', amount: 500 },
   //   { id: '2', date: '2024-03-17', description: 'Utility bill payment', amount: -100 },
@@ -86,9 +97,9 @@ getAccounts() {
 
 
 nextAccount() {
-  const currentIndex = this.accounts.indexOf(this.selectedAccount);
-  const nextIndex = (currentIndex + 1) % this.accounts.length;
-  this.selectedAccount = this.accounts[nextIndex];
+  const currentIndex = this.accounts2.indexOf(this.selectedAccount);
+  const nextIndex = (currentIndex + 1) % this.accounts2.length;
+  this.selectedAccount = this.accounts2[nextIndex];
  this.updateTransactions();
 }
 
@@ -111,9 +122,9 @@ getYearFromDate(dateString: string): number {
 }
 
 previousAccount() {
-  const currentIndex = this.accounts.indexOf(this.selectedAccount);
-  const previousIndex = (currentIndex - 1 + this.accounts.length) % this.accounts.length;
-  this.selectedAccount = this.accounts[previousIndex];
+  const currentIndex = this.accounts2.indexOf(this.selectedAccount);
+  const previousIndex = (currentIndex - 1 + this.accounts2.length) % this.accounts2.length;
+  this.selectedAccount = this.accounts2[previousIndex];
 
  this.updateTransactions();
 }
@@ -127,15 +138,21 @@ previousAccount() {
 // }
 
 updateTransactions() {
-  this.transactions = this.selectedAccount.transactions;
+    console.log(this.selectedAccount)
+    this.accountService.getAllTransactionsByAccountId(this.selectedAccount.accountNumber).subscribe(res => {
+      this.transactions = res;
+      console.log(res)
+    })
+  // this.transactions = this.selectedAccount;
 }
 displayDetails() {
   const account=this.selectedAccount;
   this.router.navigate(['/bill'], { state: { account: account } });
 }
 
-  // Function to refresh the page
   newPayment() {
     window.location.reload();
   }
+
+  protected readonly Date = Date;
 }

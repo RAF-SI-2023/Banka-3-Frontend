@@ -1,71 +1,3 @@
-<div class="myModalWrapper">
-    <div class="myModal">
-        <div class="myModalForm">
-            <span class="h3">Detalji racuna</span>
-            <div class="formWrapper">
-                <div class="formGroup">
-                    <label for="ownerName">Vlasnik:</label>
-                    <input class="inputField rightMargin" type="text" id="ownerName" name="Vlasnik" placeholder="Vlasnik" [(ngModel)]="selectedAccount.ownerName" readonly>
-                  </div>
-                  <div class="formGroup">
-                    <label for="accountNumber">Broj racuna:</label>
-                    <input class="inputField" type="text" id="accountNumber" name="Broj racuna" placeholder="Broj racuna" [(ngModel)]="selectedAccount.accountNumber" readonly>
-                  </div>
-                  <div class="formGroup">
-                    <label for="availableBalance">Raspolozivo stanje:</label>
-                    <input class="inputField rightMargin" type="text" id="availableBalance" name="Raspolozivo stanje" placeholder="Raspolozivo stanje" [(ngModel)]="selectedAccount.availableBalance" readonly>
-                  </div>
-                  <div class="formGroup">
-                    <label for="type">Tip:</label>
-                    <input class="inputField" type="text" id="type" name="Tip" placeholder="Tip" [(ngModel)]="selectedAccount.type" readonly>
-                  </div>
-                  <div class="formGroup">
-                    <label for="accountState">Stanje racuna:</label>
-                    <input class="inputField rightMargin" type="text" id="accountState" name="Stanje racuna" placeholder="Stanje racuna" [(ngModel)]="selectedAccount.accountState" readonly>
-                  </div>
-                  <div class="formGroup">
-                    <label for="reservedFunds">Rezervisana sredstva:</label>
-                    <input class="inputField" type="text" id="reservedFunds" name="Rezervisana sredstva" placeholder="Rezervisana sredstva" [(ngModel)]="selectedAccount.reservedFunds" readonly>
-                  </div>
-
-        </div>
-        <div class="accountDetailsButtons">
-            <button class="myButtonPrimary" (click)="backToMain()">Nazad</button>
-            <button class="myButtonSecondary" (click)="newPayment()">Novo placanje</button>
-        </div>
-        </div>
-    </div>
-</div>
-
-<!-- <div class="myModalWrapper currencyConverter">
-
-    <div class="myModal">
-        <h3>Menjacnica</h3>
-        <div class="converterWrapper">
-        <div class="currencyWrapper">
-            <select id="currencySelect" [(ngModel)]="selectedCurrency1">
-                <option *ngFor="let currency of currencies" [value]="currency">{{currency}}</option>
-              </select>
-            <input class="inputField" type="text" id="currency1" name="currency1" [(ngModel)]="currency1">
-        </div>
-        <div class="convertArrow">
-            <div class="arrow"></div>
-        </div>
-        <div class="currencyWrapper">
-            <select id="currencySelect" [(ngModel)]="selectedCurrency2">
-                <option *ngFor="let currency of currencies" [value]="currency">{{currency}}</option>
-              </select>
-            <input class="inputField" type="text" id="currency2" name="currency1" [(ngModel)]="currency2">
-        </div>
-        </div>
-        <div class="accountDetailsButtons">
-            <button class="myButtonPrimary" (click)="backToMain()">Izvrsi konverziju</button>
-        </div>
-    </div>
-
-</div> -->
-
-<!--<app-navbar></app-navbar>-->
 <div class="accountsView">
     <div class="container">
       <div class="accountsScroller">
@@ -84,7 +16,7 @@
                 <span class="p">Broj racuna</span>
               <p class="h4 blueText">{{ selectedAccount.accountNumber }}</p>
               <span class="p">Raspolozivo stanje</span>
-              <p class="h4 blueText">{{ selectedAccount.availableBalance }} RSD</p>
+              <p class="h4 blueText">{{ selectedAccount.availableBalance - selectedAccount.reservedAmount }} RSD</p>
             </div>
           </div>
 
@@ -104,35 +36,31 @@
         <div class="transactionDetailsWrapper">
           <div class="transactionDate">
                         <!-- Display day -->
-                        <div class="day">{{ getDayFromDate(transaction.date) }}</div>
-                        <!-- Display month -->
-                        <div class="month">{{ getMonthFromDate(transaction.date) }}</div>
-                        <!-- Display year -->
-                        <div class="year">{{ getYearFromDate(transaction.date) }}</div>
+<!--                        <div class="day">{{ getDayFromDate(new Date()) }}</div>-->
+<!--                        &lt;!&ndash; Display month &ndash;&gt;-->
+<!--                        <div class="month">{{ getMonthFromDate(transaction.date) }}</div>-->
+<!--                        &lt;!&ndash; Display year &ndash;&gt;-->
+<!--                        <div class="year">{{ getYearFromDate(transaction.date) }}</div>-->
           </div>
 
-          <div class="transactionDetails">
-            <p class="h3 blueText">{{ transaction.tradeAccount }}</p>
-            <span style="text-align: center" class="h3">{{ transaction.amount }} RSD</span>
+          <div *ngIf="transaction.accountFrom === selectedAccount.accountNumber" class="transactionDetails">
+            <p  class="h3 blueText">{{ transaction.accountTo }}</p>
+            <span style="text-align: center" class="h3">{{ transaction.amount }} {{transaction.currencyMark}}</span>
+          </div>
+          <div *ngIf="transaction.accountTo === selectedAccount.accountNumber" class="transactionDetails">
+            <p  class="h3 blueText">{{ transaction.accountFrom }}</p>
+            <span style="text-align: center" class="h3">{{ transaction.amount }} {{transaction.currencyMark}}</span>
           </div>
         </div>
-          <div class="transactionIconWrapper">
-            <img height="128px" width="128px" class="arrow" [class]="getIconClass(transaction.amount)" src="assets/arrow-left.svg">
+          <div *ngIf="transaction.accountFrom == selectedAccount.accountNumber" class="transactionIconWrapper">
+            <img height="128px" width="128px" class="arrow" src="assets/arrow-up-right-svgrepo-com.svg">
+          </div>
+          <div *ngIf="transaction.accountTo == selectedAccount.accountNumber" class="transactionIconWrapper">
+            <img height="128px" width="128px" class="arrow" src="assets/arrow-down-left-svgrepo-com.svg">
           </div>
 
         </div>
       </div>
-    <!-- <div class="transactionsWrapper">
-        <div class="transactionCard">
-            <div class="transactionDate">
-                <p> 01 Mart 2024</p>
-            </div>
-            <div class="transactionDetails">
-                <p>Broj tekuceg racuna na koji je poslat</p>
-                <h3>1,512.00 RSD</h3>
-            </div>
-        </div>
-    </div> -->
 
 </div>
 
