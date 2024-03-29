@@ -1,0 +1,66 @@
+.bold {
+    font-weight: bold;
+}
+.lighter {
+    color: #b9b9b9; 
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+  }
+
+  .myButtonPrimary:disabled {
+    background-color: #b2b2b2; /* Adjust the color as needed */
+    color: #ffffff; /* Adjust the color as needed */
+    /* Add any additional styling as necessary */
+}
+
+p {
+    margin: 1rem 0rem 0rem 0rem;
+    color:var(--blue-dark);
+    color:var(--blue-medium);
+}
+.h2{
+    color:var(--blue-dark);
+    font-weight: 500;
+}
+.myCheckboxText{margin-left:0.5rem; }
+.myButtonPrimary{
+    margin:0;
+    box-shadow: none;
+}
+.myContainer{
+    max-width: 52rem;
+    margin:auto;
+}
+.inputField{
+    margin: 0rem 0rem 0rem 0rem;
+    width: 100%;
+    border:0px;
+    resize:none;
+    box-shadow: none;
+    background-color: transparent;
+    border-radius: 0;
+    padding:0.3rem 0.3rem 0.3rem 0rem;
+    color:var(--blue-medium);
+    border-bottom: 1px solid var(--blue-medium);
+}
+input:focus, input:active, input:focus-visible{
+    border: 0 !important;
+}
+
+.currency-text{
+    color:var(--blue-medium);
+}
+input::selection{
+    border: 0;
+    
+}
+body{
+    background-color: var(--background-main);
+}
+
+.input-container{
+    font-size: 1rem;
+}

@@ -121,3 +121,6 @@ box-shadow: 0px 2px 4px 1px rgba(168,168,168,0.66);
   font-family: 'Archivo', sans-serif;
   font-weight: 400;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

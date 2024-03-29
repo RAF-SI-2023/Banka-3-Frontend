@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 
@@ -7,9 +7,14 @@ import {parseJson} from "@angular/cli/src/utilities/json-file";
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent  implements OnInit{
 
+  isEmployeeUser = false
   constructor(private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.isEmployeeUser = this.isEmployee();
   }
   userProfile(){
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
@@ -26,5 +31,15 @@ export class NavbarComponent {
         window.location.reload()
       })
   }
+  isEmployee(): boolean {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      if(payload.role)
+        return true
+    }
+    return false;
+  }
 
 }
+

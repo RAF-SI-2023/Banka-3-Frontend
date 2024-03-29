@@ -1,0 +1,9 @@
+<div class="container">
+  <h2 id="naslov">Unesite kod da bi ste nastavili transakciju</h2>
+  <mat-form-field>
+    <input matInput id="sifra" [(ngModel)]="code" placeholder="Unesite kod" pattern="[0-9]{6}" title="Molimo vas unesite tačno 6 cifara">
+  </mat-form-field>
+  <button  class="button-15"  role="button" mat-button (click)="closePopup()">Nastavi</button>
+</div>
+
+

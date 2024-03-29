@@ -1,6 +1,5 @@
 <html lang="en">
 <body>
-    <app-navbar></app-navbar>
     <div class="container" >
         <div class="formContainer">
             <div class="row">
@@ -9,7 +8,7 @@
                         <span class="h3">Broj računa</span>
                     </div>
                     <div style="margin: 1rem 0rem 1rem 0rem">
-                        <span class="p lighter">{{ account.accountNumber }}</span>
+                        <span class="p lighter">{{ accountNumber }}</span>
                     </div>
                 </div>
                 <div class="col-sm text-right">
@@ -17,20 +16,20 @@
                         <span class="h3">Raspoloživo</span>
                     </div>
                     <div style="margin: 1rem 0rem 1rem 0rem">
-                        <span class="p lighter">{{ account.availableBalance }}</span>
+                        <span class="p lighter">{{ accountBalance }}</span>
                     </div>
                 </div>
             </div>
             <hr>
-            <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <form [formGroup]="groupForm" (ngSubmit)="onSubmit()" >
                 <div class="container" >
                     <div class="row">
                         <div class="col-sm">
                             <div class="input-container">
                                 <p class="bold">Naziv primaoca</p>
-                                <input class="inputField" type="text" id="recipientName" name="recipientName" formControlName="recipientName" placeholder="Naziv primaoca" required>
+                                <input class="inputField" type="text" formControlName="recipientName" placeholder="Naziv primaoca"required>
                                 <div *ngIf="recipientName && recipientName.invalid && recipientName.touched" class="error-message">
-                                    Obavezno polje.
+                                Obavezno polje.
                                 </div>
                             </div>
                         </div>
@@ -48,30 +47,27 @@
                         <div class="col-sm">
                             <div class="input-container">
                                 <p class="bold">Račun primaoca</p>
-                                <input class="inputField" type="text" id="racunPrimaoca" name="racunPrimaoca" placeholder="Račun primaoca" [(ngModel)]="recipientAccount" [formControl]="recipientAccountControl" pattern="[0-9]{3}[0-9]{13}[0-9]{2}">
+                                <input class="inputField" type="text" id="racunPrimaoca" name="racunPrimaoca" placeholder="Račun primaoca" formControlName ="recipientAccount">
                             </div>
-                            <div *ngIf="!isRecipientAccountValid() && recipientAccountControl.dirty" class="error-message">                                
-                                Molimo Vas da unesete ispravan format računa (npr. 123-0000000456789-01).
-                            </div>    
+                          <div *ngIf="recipientAccount && recipientAccount.invalid && recipientAccount.touched" class="error-message">
+                                Molimo Vas da unesete ispravan format računa (npr. 1230000000456781).
+                          </div>
                         </div>
 
                         <div class="col-sm">
                             <div class="input-container">
                                 <p class="bold">Svrha plaćanja</p>
                                 <input class="inputField" type="text" id="svrhaPlacanja" name="paymentPurpose" placeholder="Svrha plaćanja" formControlName="paymentPurpose" required>
-                                <div *ngIf="paymentPurpose && paymentPurpose.invalid && paymentPurpose.touched" class="error-message">
-                                    Obavezno polje.
-                                </div>
                             </div>
                         </div>
-                  
+
                     </div>
                     <div class="row">
                         <div class="col-sm">
                             <div class="input-container">
                                 <p class="bold">Iznos</p>
                                 <div class="input-with-addon">
-                                    <input class="inputField" type="text" id="iznos" name="iznos" placeholder="0,00" formControlName="amount" required>
+                                    <input class="inputField" type="text" id="iznos" name="iznos" placeholder="0,00" formControlName="amount">
                                     <span class="addon">RSD</span>
                                     <div *ngIf="amount && amount.invalid && amount.touched" class="error-message">
                                         Obavezno polje.
@@ -82,18 +78,21 @@
                         <div class="col-sm">
                             <div class="input-container">
                                 <p class="bold">Šifra plaćanja</p>
-                                <select class="inputField" id="sifraPlacanja" name="sifraPlacanja" [(ngModel)]="selectedPaymentCode">
-                                    <option *ngFor="let code of paymentCodes" [value]="code">{{ code }}</option>
+                                <select class="inputField" id="sifraPlacanja" name="sifraPlacanja" formControlName="selectedPaymentCode"required>
+                                  <option *ngFor="let code of paymentCodes" [value]="code">{{ code }}</option>
                                 </select>
+                              <div *ngIf="groupForm.get('selectedPaymentCode') && groupForm.get('selectedPaymentCode')?.invalid && groupForm.get('selectedPaymentCode')?.touched" class="error-message">
+                                Obavezno polje.
+                              </div>
                             </div>
                         </div>
-                      
+
                     </div>
                 </div>
                 <!-- Button Row -->
                 <div class="row mt-3">
                     <div class="col-sm">
-                        <input class="myButtonSecondary" type="submit" value="Nastavi">
+                        <input  class="myButtonSecondary" type="submit" [disabled]="!groupForm.valid" value="Nastavi">
                     </div>
                 </div>
             </form>

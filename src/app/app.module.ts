@@ -38,6 +38,15 @@ import { PayingComponent } from './paying/paying.component';
 import { ExchangeComponent } from './exchange/exchange.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PasswordConfirmationComponent } from './reset-password/password-confirmation/password-confirmation.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { PopupTransactionComponent } from './popup/popup-transaction/popup-transaction.component';
+import { CreditListComponent } from './credit-list/credit-list.component';
+import { CreditRequestComponent } from './credit-request/credit-request.component';
+import {CommonModule} from "@angular/common";
+import { PaymentRecipientComponent } from './payment-recipient/payment-recipient.component';
+import { CreatePaymentRecipientComponent } from './create-payment-recipient/create-payment-recipient.component';
+import { EditPaymentRecipientComponent } from './edit-payment-recipient/edit-payment-recipient.component';
+import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
 
@@ -69,6 +78,14 @@ import { PasswordConfirmationComponent } from './reset-password/password-confirm
     ResetPasswordComponent,
     PasswordActivationComponent,
     PasswordConfirmationComponent,
+    PopupTransactionComponent,
+    PaymentRecipientComponent,
+    CreatePaymentRecipientComponent,
+    EditPaymentRecipientComponent,
+    CreditTransactionComponent,
+    CreditListComponent,
+    CreditRequestComponent
+
 
   ],
   imports: [
@@ -85,7 +102,7 @@ import { PasswordConfirmationComponent } from './reset-password/password-confirm
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

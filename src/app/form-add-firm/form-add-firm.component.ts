@@ -41,10 +41,10 @@ export class FormAddFirmComponent{
 
     })
 
-   /* this.userService.createEmployee(this.firm).subscribe(res => {
-      console.log(res)
-      this.router.navigate(['user-controll'])
-    });*/
+   // this.userService.createEmployee(this.firm).subscribe(res => {
+   //    console.log(res)
+   //    this.router.navigate(['user-control'])
+   //  });
 
   }
   get firmName(){

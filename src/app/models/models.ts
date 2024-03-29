@@ -48,10 +48,9 @@ export interface Firm {
   companyAccounts: CompanyAccount[]
 
 }
-
 export interface UserActivationDto{
   email: string,
-  isActive: boolean
+  active: boolean
 }
 export interface CompanyAccount{
   companyAccountId: number,
@@ -71,7 +70,14 @@ export interface Currency{
   name: string,
   mark: string
 }
-
+export interface TransactionDto{
+  accountFrom: string,
+  accountTo: string,
+  amount: number,
+  currencyMark: string,
+  sifraPlacanja: number,
+  pozivNaBroj: string
+}
 
 export interface Permission {
   permissionId: number
@@ -98,4 +104,82 @@ export interface Role {
 
 export interface Token {
   token: string
+}
+
+
+export interface Contact{
+  contactId: number,
+  userId: number,
+  myName: string,
+  name: string,
+  accountNumber: string
+}
+
+export interface CreditRequestDto{
+  creditRequestId:number,
+  user: User,
+  name: string,
+  amount: number,
+  accountNumber: string
+  paymentPeriod: number,
+  currencyMark: string,
+  status: string
+}
+export interface Credit{
+  creditId:number,
+  user: User,
+  name: string,
+  accountNumber: string,
+  amount: number,
+  paymentPeriod: number,
+  fee: number,
+  startDate: number,
+  endDate: number,
+  monthlyFee: number,
+  remainingAmount: number,
+  currencyMark: string,
+}
+
+export interface AccountDto{
+  accountId: number,
+  accountNumber: string,
+  user: User,
+  availableBalance: number,
+  reservedAmount: number,
+  creationDate: number,
+  expirationDate: number,
+  active: boolean,
+  employee: Employee,
+  currency: Currency,
+  accountType: any,
+}
+
+
+export interface Transactions{
+  id: number,
+  date: string,
+  description: string,
+  amount: number,
+  tradeAccount:string
+}
+
+export interface CreditRequestDto {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  amount: number;
+  description: string;
+}
+
+export interface CreditRequestCreateDto {
+  userId: number;
+  name: string;
+  accountNumber: string;
+  amount: number;
+  applianceReason: string;
+  employed: boolean;
+  dateOfEmployment: number;
+  paymentPeriod: number;
+  currencyMark: string;
 }

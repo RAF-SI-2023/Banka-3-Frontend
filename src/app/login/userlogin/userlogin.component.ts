@@ -40,7 +40,7 @@ export class UserloginComponent {
     this.userService.checkEmail(this.emailCheck?.value)
       .subscribe(response => {
         this.userActivationDto = response;
-        this.codeActivate = this.userActivationDto.isActive
+        this.codeActivate = this.userActivationDto.active
         this.address = this.userActivationDto.email
         this.showCheckAddress = false;
       }, error => {
@@ -58,8 +58,8 @@ export class UserloginComponent {
     this.userService.setPassword(this.address, Number(this.activationCode?.value), this.newPassword?.value)
       .subscribe(response => {
         // Handle response as needed
-        this.codeActivate = true;
-        this.showCheckAddress = true;
+        this.codeActivate = false;
+        this.showCheckAddress = false;
         console.log(response)
       }, error => {
         console.error('Error occurred:', error);
@@ -73,7 +73,7 @@ export class UserloginComponent {
       console.log(email, password)
       this.userService.loginUser(email, password).subscribe(res => {
         sessionStorage.setItem("token", res.token);
-        this.router.navigate(['welcome'])
+        this.router.navigate([''])
           .then(()=> {
             window.location.reload()
           })
