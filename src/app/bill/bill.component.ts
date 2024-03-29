@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import {UserService} from "../services/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {PopupTransactionComponent} from "../popup/popup-transaction/popup-transaction.component";
-import {Account} from "../models/models";
+import {Account, AccountDto} from "../models/models";
+import {AccountService} from "../services/account.service";
 
 @Component({
   selector: 'app-bill',
@@ -13,12 +14,8 @@ import {Account} from "../models/models";
 })
 export class BillComponent {
 
-  // owner: string = 'Pera Peric';
-  // type: string = '/';
-  // accountStatus: string = '/';
-  // reservedFunds: number = 0;
-    account:any;
-  constructor(private router: Router, private userService: UserService, private dialog: MatDialog) {
+  account = {} as AccountDto;
+  constructor(private router: Router, private userService: UserService, private dialog: MatDialog, private accountService: AccountService) {
 
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
@@ -51,9 +48,9 @@ export class BillComponent {
    this.selectedAccount = history.state.account;
     //console.log(this.selectedAccount); // This will log the passed selectedAccount
   }
-  selectedAccount: any;
+  selectedAccount = {} as AccountDto;
   goBack() {
-    this.router.navigate(['/welcome']);
+    this.router.navigate(['']);
   }
 
   openDialog(){

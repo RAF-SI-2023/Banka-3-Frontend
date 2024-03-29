@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { CreditRequestCreateDto } from '../models/models';
+import {AccountService} from "../services/account.service";
+import {parseJson} from "@angular/cli/src/utilities/json-file";
 
 @Component({
   selector: 'app-credit-request',
@@ -15,7 +17,7 @@ export class CreditRequestComponent implements OnInit {
   userAccounts: any[] = [];
   selectedCurrency: string = 'EUR';
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private accountService: AccountService) {}
 
   ngOnInit(): void {
     this.preloadUserAccounts();
@@ -26,7 +28,7 @@ export class CreditRequestComponent implements OnInit {
     const selectedAccountNumber = event.target.value;
     const selectedAccount = this.userAccounts.find(account => account.accountNumber === selectedAccountNumber);
     if (selectedAccount) {
-      this.selectedCurrency = selectedAccount.currency;
+      this.selectedCurrency = selectedAccount.currency.mark;
     }
   }
 
@@ -65,24 +67,24 @@ export class CreditRequestComponent implements OnInit {
   }
 
   //TODO Zameni mock podatke, sa pravim
-  preloadUserAccounts(): void {
-    this.userAccounts = [
-      { accountNumber: '1234567890', accountName: 'Savings Account', currency: 'EUR' },
-      { accountNumber: '0987654321', accountName: 'Checking Account', currency: 'USD' },
-    ];
-  }
-  //TODO Otkomentarisi ovu funkciju i testiraj sa pravim podacima
   // preloadUserAccounts(): void {
-  //   this.userService.getUsersAccounts().subscribe(
-  //     accounts => {
-  //       this.userAccounts = accounts;
-  //       if (this.userAccounts.length > 0) {
-  //         this.selectedCurrency = this.userAccounts[0].currency;
-  //       }
-  //     },
-  //     error => {
-  //       console.error("Error loading user accounts:", error);
-  //     }
-  //   );
+  //   this.userAccounts = [
+  //     { accountNumber: '1234567890', accountName: 'Savings Account', currency: 'EUR' },
+  //     { accountNumber: '0987654321', accountName: 'Checking Account', currency: 'USD' },
+  //   ];
   // }
+  preloadUserAccounts(): void {
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    this.accountService.getAccountsByUserId(tk.id).subscribe(
+      accounts => {
+        this.userAccounts = accounts;
+        if (this.userAccounts.length > 0) {
+          this.selectedCurrency = this.userAccounts[0].currency.mark;
+        }
+      },
+      error => {
+        console.error("Error loading user accounts:", error);
+      }
+    );
+  }
 }

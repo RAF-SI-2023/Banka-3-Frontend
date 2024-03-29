@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Route, Router} from '@angular/router';
-import {Account, TransactionDto} from "../models/models";
+import {Account, AccountDto, TransactionDto} from "../models/models";
 import {UserService} from "../services/user.service";
 import {HttpClient} from "@angular/common/http";
+import {AccountService} from "../services/account.service";
+import {PopupTransactionComponent} from "../popup/popup-transaction/popup-transaction.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-paying',
@@ -14,21 +17,20 @@ export class PayingComponent implements OnInit {
 
   accountNumber: string = '';
   accountType: string = '';
-  recipientAccount: string = '';
   accountBalance: number = 0;
   accountMark: string = '';
   transactionId: number = 0;
 
-  accountNumberPattern: RegExp = /^[0-9]{3}-[0-9]{13}-[0-9]{2}$/;
+  accountNumberPattern: RegExp = /^\d{16}$/;
   recipientAccountControl: FormControl = new FormControl();
-  account : any;
+  account = {} as AccountDto;
 
   paymentCodes: number[] = [];
 
   transaction: TransactionDto = {} as TransactionDto;
   groupForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router, private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private dialog: MatDialog,private accountService: AccountService,private userService: UserService, private router: Router, private http: HttpClient) {
 
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
@@ -37,7 +39,7 @@ export class PayingComponent implements OnInit {
     this.groupForm = this.formBuilder.group({
       recipientName: new FormControl('', Validators.required),
       referenceNumber: new FormControl('', Validators.required),
-      recipientAccount: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{13}[0-9]{2}')]),
+      recipientAccount: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{16}$/)]),
       paymentPurpose: new FormControl('', Validators.required),
       amount: new FormControl('', Validators.required),
       selectedPaymentCode: new FormControl('', Validators.required),
@@ -51,7 +53,7 @@ export class PayingComponent implements OnInit {
       //todo account number ide preko getAll
       if (this.selectedAccount) {
         this.accountNumber = this.selectedAccount.accountNumber;
-        this.accountBalance = this.selectedAccount.availableBalance;
+        this.accountBalance = this.selectedAccount.availableBalance - this.selectedAccount.reservedAmount;
         //this.accountMark = this.selectedAccount.currency;
       }
 
@@ -79,28 +81,25 @@ export class PayingComponent implements OnInit {
     //todo fali dto
     //this.transaction.currencyMark = this.account;
     this.transaction.accountFrom = this.accountNumber;
-    this.transaction.paymentCode = this.groupForm.get('selectedPaymentCode')?.value;
+    this.transaction.sifraPlacanja = this.groupForm.get('selectedPaymentCode')?.value;
     this.transaction.amount = this.groupForm.get('amount')?.value;
-    this.transaction.referenceNumber = this.groupForm.get('referenceNumber')?.value;
+    this.transaction.pozivNaBroj = this.groupForm.get('referenceNumber')?.value;
     this.transaction.accountTo = this.groupForm.get('recipientAccount')?.value;
-
-    this.userService.startTransaction(this.transaction).subscribe(
+    this.transaction.currencyMark = this.selectedAccount.currency.mark
+    this.accountService.sendTransaction(this.transaction).subscribe(
       (response) => {
-        if (response.status === 200) {
-          this.transactionId = response.body;
-          this.router.navigate(['/validateTransaction'], {state: {transactionId : this.transactionId }});
-        } else {
-          alert('Nemate dovoljno sredstava');
-        }
+          this.transactionId = response
+            this.dialog.open(PopupTransactionComponent,{
+              data: { inputValue: this.transactionId }
+            });
+
+        // this.router.navigate(['/validateTransaction'], {state: {transactionId : this.transactionId }});
       },
       (error) => {
         console.error('Nemate dovoljno sredstava:', error);
         alert('Nemate dovoljno sredstava');
       }
     );
-  }
-    isRecipientAccountValid(): boolean {
-    return this.accountNumberPattern.test(this.recipientAccount);
   }
 
   formatRecipientAccount(value: string): void {
@@ -114,7 +113,6 @@ export class PayingComponent implements OnInit {
       formattedValue += cleanValue[i];
     }
 
-    this.recipientAccount = formattedValue;
   }
 
   isFieldInvalid(fieldName: string): boolean {
@@ -125,6 +123,9 @@ export class PayingComponent implements OnInit {
 
   get recipientName() {
     return this.groupForm.get('recipientName');
+  }
+  get recipientAccount() {
+    return this.groupForm.get('recipientAccount');
   }
 
   get referenceNumber() {

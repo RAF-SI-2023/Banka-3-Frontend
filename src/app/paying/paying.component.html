@@ -47,10 +47,10 @@
                         <div class="col-sm">
                             <div class="input-container">
                                 <p class="bold">Račun primaoca</p>
-                                <input class="inputField" type="text" id="racunPrimaoca" name="racunPrimaoca" placeholder="Račun primaoca" formControlName ="recipientAccount" [formControl]="recipientAccountControl" pattern="[0-9]{3}[0-9]{13}[0-9]{2}">
+                                <input class="inputField" type="text" id="racunPrimaoca" name="racunPrimaoca" placeholder="Račun primaoca" formControlName ="recipientAccount">
                             </div>
-                          <div *ngIf="!isRecipientAccountValid() && recipientAccountControl.dirty" class="error-message">
-                                Molimo Vas da unesete ispravan format računa (npr. 123-0000000456789-01).
+                          <div *ngIf="recipientAccount && recipientAccount.invalid && recipientAccount.touched" class="error-message">
+                                Molimo Vas da unesete ispravan format računa (npr. 1230000000456781).
                           </div>
                         </div>
 

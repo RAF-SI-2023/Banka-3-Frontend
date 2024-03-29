@@ -105,15 +105,16 @@ const routes: Routes = [
     path: 'user-profile/:id',
     component: UserProfileComponent,
     canActivate: [AuthGuard]
-  },{
+  },
+  {
   path: '',
   component: HomePageComponent,
   canActivate: [AuthGuard]
-},
+  },
   {
     path: 'user-account/:userId',
     component: UserAddAccountFormComponent,
-    canActivate: [AuthGuard, EmployeeGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'firm-account/:firmId',

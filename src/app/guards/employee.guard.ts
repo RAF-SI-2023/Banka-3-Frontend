@@ -23,12 +23,12 @@ export class EmployeeGuard implements CanActivate {
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const hasRole = "role" in payload;
-      if (hasRole && payload.role !== 'ROLE_ADMIN') {
+      if (hasRole && payload.role === 'ROLE_BANKING_OFFICER') {
+        this.router.navigate(['user-control']);
         return true;
       }
     }
 
-    this.router.navigate(['user-login']);
     return false;
   }
 }
