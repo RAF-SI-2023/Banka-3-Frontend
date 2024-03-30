@@ -1,0 +1,262 @@
+.line {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem;
+  padding-bottom: 5px;
+}
+
+body{
+  background-color: var(--background-main);
+}
+
+
+.bold {
+  font-weight: bold;
+}
+
+.lighter {
+  color: #b9b9b9;
+}
+.myContainer{
+  max-width: 50rem;
+  margin: auto;
+}
+:root{
+  background-color: var(--background-main);
+}
+
+/* TRANSAKCIJE */
+
+.blueText{
+  color:var(--blue-medium)
+}
+.myContainer{
+  max-width: 50rem;
+  margin: auto;
+}
+.accountsView{
+  background-color:var(--blue-light);
+  width:100%;
+  padding:1rem;
+}
+.accountsScroller{
+  margin:auto;
+  display:flex;
+  flex-direction: column;
+  border-radius:1rem;
+  -ms-flex-item-align: center;
+}
+.transactionCard{
+  display: flex;
+  flex-direction: row;
+  background-color: #D6E4ED;
+  margin-top: 1rem;
+  justify-content: space-between;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+.cardLogoWrapper{
+  height:100%;
+}
+.myModalWrapper{
+  position: fixed;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  display:none;
+  justify-content: center;
+  align-items: center;
+
+}
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.myModal{
+  padding:2rem 3rem 2rem 3rem;
+  background-color: white;
+  border-radius: 1rem;
+  width: 80%;
+}
+
+.formWrapper{
+  display:flex;
+  max-width: 35rem;
+  flex-wrap: wrap;
+}
+.cardLogo{
+  height:3rem;
+  width:3rem;
+  border-radius: 100%;
+  background-color: black;
+}
+.converterWrapper{
+  align-items: center;
+  display: flex;
+}
+.currencyWrapper{
+  display: flex;
+  flex-direction: column;
+}
+.currencyConverter{
+  display: flex;
+}
+.transactionView{
+  /* background-color: var(--background-main); */
+  background-color: var(--background-main);
+  width: 100%;
+  padding-top:1rem;
+}
+.cardInfoWrapper{
+  margin-left:2rem;
+}
+.transactionDate{
+  width:5rem;
+  padding:0.2rem 0.2rem 0.2rem 0.5rem;
+  background-color:transparent;
+  border-right:3px var(--blue-dark) solid;
+  color:var(--blue-dark);
+}
+.transactionDetails{
+  padding:0.7rem 0.7rem 0.7rem 1rem;
+}
+.transactionDetailsWrapper{
+  display: flex;
+}
+.convertArrow{
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.incoming{
+  transform: rotate(-45deg);
+  fill:#008000 !important;
+  background-color: green;
+  border-radius: 100%;
+}
+.outgoing{
+  transform: rotate(135deg);
+  background-color: red;
+  fill:red !important;
+  border-radius: 100%;
+}
+
+.incoming img.arrow {
+  filter: hue-rotate(120deg); /* Change hue to green */
+}
+
+.outgoing img.arrow {
+  filter: hue-rotate(0deg); /* Change hue to red */
+}
+
+
+.arrow{
+  width: 3rem;
+  height:3rem;
+}
+.day{
+  font-size: 1.5rem;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0;
+  line-height: 2.1rem;
+}
+.month{
+  font-family: 'Archivo', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1rem;
+}
+.year{
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
+}
+.transactionIconWrapper{
+  margin:1rem 1rem 0rem 0rem;
+}
+.selectCardWrapper{
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+.accountDetailsWrapper{
+  margin:2rem 0rem 2rem 0rem;
+}
+.rightMargin{
+  margin-right: 2rem;
+}
+
+.bold {
+  font-weight: bold;
+}
+.lighter {
+  color: #b9b9b9;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+}
+
+.myButtonPrimary:disabled {
+  background-color: #b2b2b2; /* Adjust the color as needed */
+  color: #ffffff; /* Adjust the color as needed */
+  /* Add any additional styling as necessary */
+}
+
+p {
+  margin: 0rem 0rem 0rem 0rem;
+  color:var(--blue-dark);
+  color:var(--blue-medium);
+}
+.h2{
+  color:var(--blue-dark);
+  font-weight: 500;
+}
+.myCheckboxText{margin-left:0.5rem; }
+.myButtonPrimary{
+  margin:0;
+  box-shadow: none;
+}
+.myContainer{
+  max-width: 52rem;
+  margin:auto;
+}
+.inputField{
+  margin: 0rem 0rem 0rem 0rem;
+  width: 100%;
+  border:0px;
+  resize:none;
+  box-shadow: none;
+  background-color: transparent;
+  border-radius: 0;
+  padding:0.3rem 0.3rem 0.3rem 0rem;
+  color:var(--blue-medium);
+  border-bottom: 1px solid var(--blue-medium);
+}
+input:focus, input:active, input:focus-visible{
+  border: 0 !important;
+}
+
+.currency-text{
+  color:var(--blue-medium);
+}
+input::selection{
+  border: 0;
+
+}
+body{
+  background-color: var(--background-main);
+}
+
+.input-container{
+  font-size: 1rem;
+}

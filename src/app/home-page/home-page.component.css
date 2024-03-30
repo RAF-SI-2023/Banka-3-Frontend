@@ -5,7 +5,7 @@
         <div class="accountCard">
             <div class="cardLogoWrapper">
                 <div class="cardLogo">
-                    
+
                 </div>
             </div>
             <div class="cardInfoWrapper">
@@ -127,6 +127,7 @@ width: 80%;
 }
 .transactionCard{
     display: flex;
+    cursor: pointer;
     flex-direction: row;
     background-color: white;
     margin-top: 1rem;
@@ -142,7 +143,7 @@ width: 80%;
     padding:0.6rem;
     background-color:var(--blue-dark);
     color:white;
-}   
+}
 .transactionDetails{
     padding:0.7rem 0.7rem 0.7rem 1rem;
 }
