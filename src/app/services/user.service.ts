@@ -174,7 +174,7 @@ export class UserService {
        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
      })
      const body = {userId, balance: balance, currency: mark, employeeId, accountType: "ZA_MLADE"};
-     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/${userId}`,body,{ headers })
+     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createAccount`,body,{ headers })
    }
    saveForeignAccount(userId: number, balance:number, mark:string, employeeId:number){
      const headers = new HttpHeaders({

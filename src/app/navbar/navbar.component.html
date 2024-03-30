@@ -5,28 +5,28 @@
           <img [routerLink]="'/'" class="logo" src="../../assets/logo-full.svg" alt="logo">
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/'">Pocetna</a>
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/'">Početna</a>
         </div>
         <div class="item">
           <a *ngIf="isEmployeeUser" [routerLink]="'/user-list'">Korisnici</a>
         </div>
         <div class="item">
-          <a *ngIf="isEmployeeUser" [routerLink]="'/user-control'">Racuni</a>
+          <a *ngIf="isEmployeeUser" [routerLink]="'/user-control'">Računi</a>
         </div>
         <div class="item">
           <a *ngIf="isEmployeeUser" [routerLink]="'/credit-list'">Krediti</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/exchange'">Menjacnica</a>
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/exchange'">Menjačnica</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/payment'">Placanja</a>
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/payment'">Plaćanja</a>
         </div>
         <div class="item">
           <a *ngIf="!isEmployeeUser" [routerLink]="'/credit-request'">Krediti</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/payment-recipients'">Primaoci placanja</a>
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/payment-recipients'">Primaoci plaćanja</a>
         </div>
       </div>
       <div class="right">
@@ -42,7 +42,7 @@
         </div>
         <div class="logout">
           <button (click)="logout()" class="log" type="button">
-            Logout
+            Odjavi se
           </button>
         </div>
 

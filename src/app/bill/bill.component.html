@@ -6,13 +6,13 @@
     <title>Detalji računa</title>
 </head>
 <body>
-<div class="container">
+<div class="myContainer">
   <div class="formContainer">
     <div style="width: 100%; margin: 1rem 0rem 1rem 0rem">
-      <span class="h3">Detalji računa</span>
+      <span class="h2">Detalji računa</span>
     </div>
     <div style="width: 100%; margin: 1rem 0rem 1rem 0rem">
-      <span class="p lighter">{{ selectedAccount.accountNumber }}</span>
+      <span class="p blueText">{{ selectedAccount.accountNumber }}</span>
     </div>
     <hr>
     <div style="margin: 1rem 0rem 1rem 0rem">
@@ -45,7 +45,7 @@
     </div>
     <form>
       <!-- Button Row -->
-      <div class="row mt-3 container">
+      <div class="button-container">
         <button class="myButtonSecondary" type="button" (click)="goBack()">Nazad</button>
         <button class="myButtonPrimary" type="button" (click)="navigateToPayment()">Novo plaćanje</button>
       </div>
