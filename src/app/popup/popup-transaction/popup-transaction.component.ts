@@ -2,6 +2,10 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {UserService} from "../../services/user.service";
 import {AccountService} from "../../services/account.service";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router'; // Importovanje Router servisa
+
+
 
 @Component({
   selector: 'app-popup-transaction',
@@ -10,19 +14,44 @@ import {AccountService} from "../../services/account.service";
 })
 export class PopupTransactionComponent {
   code : number | undefined;
-  constructor(private dialog: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any, private userService : UserService, private accountService: AccountService) {}
+  
+
+  constructor(
+    private dialog: MatDialogRef<any>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private accountService: AccountService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {}
+
+
   closePopup() {
-    // uhvatimo kod koji je poslat od strane back-a
-    this.accountService.confirmTransaction(this.data.inputValue, this.code).subscribe(res => {
-      console.log(res)
-    })
-    /* proverimo da li je kod sa back-a i uneti kod isti ako jeste treba da se odradi prolazak transakcije na neku putanju,
-     ako nije izlazi nije ispravna sifra */
-    // if(this.code === this.data){
-    //   // logika za prolazak transakcije..
-    //
-    // }else{
-    //   alert("Nije ispravna sifra");
-    // }
+
+    this.accountService.confirmTransaction(this.data.inputValue, this.data.code).subscribe(
+      response => {
+        console.log("Odgovor servera:", response);
+        this.openSuccessSnackBar();
+        this.dialog.close();
+        this.router.navigate(['/']); 
+      },
+      error => {
+        console.error("Greška pri potvrđivanju transakcije:", error);
+        this.openErrorSnackBar();
+        this.dialog.close();
+      }
+    );    
+  
+  }
+
+  openSuccessSnackBar() {
+    this.snackBar.open('Transakcija uspešna', 'Zatvori', {
+      duration: 2000, 
+    });
+  }
+  
+  openErrorSnackBar() {
+    this.snackBar.open('Transakcija neuspešna', 'Zatvori', {
+      duration: 0, 
+    });
   }
 }

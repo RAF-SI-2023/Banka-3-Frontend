@@ -7,6 +7,8 @@ import {HttpClient} from "@angular/common/http";
 import {AccountService} from "../services/account.service";
 import {PopupTransactionComponent} from "../popup/popup-transaction/popup-transaction.component";
 import {MatDialog} from "@angular/material/dialog";
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-paying',
@@ -30,7 +32,9 @@ export class PayingComponent implements OnInit {
   transaction: TransactionDto = {} as TransactionDto;
   groupForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private dialog: MatDialog,private accountService: AccountService,private userService: UserService, private router: Router, private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
+    private accountService: AccountService,private userService: UserService, 
+    private router: Router, private http: HttpClient, private snackBar: MatSnackBar) {
 
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
@@ -61,19 +65,19 @@ export class PayingComponent implements OnInit {
       this.paymentCodes.push(i);
     }
   }
+  
 
   //todo currency, account Number
   onSubmit() {
     if (this.groupForm && this.groupForm.valid) {
       if (this.groupForm.get('amount')?.value > this.accountBalance) {
-
-        alert('Nemate dovoljno sredstava na računu za izvršenje ove transakcije.');
+        this.openErrorSnackBar('Nemate dovoljno sredstava na računu za izvršenje ove transakcije.');
 
       } else {
         this.startTransaction();
       }
     } else {
-      alert("Fields not filled correctly.")
+      this.openErrorSnackBar("Polja nisu dobro popunjena.");
     }
   }
 
@@ -88,18 +92,30 @@ export class PayingComponent implements OnInit {
     this.transaction.currencyMark = this.selectedAccount.currency.mark
     this.accountService.sendTransaction(this.transaction).subscribe(
       (response) => {
-          this.transactionId = response
-            this.dialog.open(PopupTransactionComponent,{
-              data: { inputValue: this.transactionId }
-            });
-
-        // this.router.navigate(['/validateTransaction'], {state: {transactionId : this.transactionId }});
+        this.transactionId = response;
+        this.dialog.open(PopupTransactionComponent, {
+          data: { successful: true, inputValue: this.transactionId }
+        });
       },
       (error) => {
         console.error('Nemate dovoljno sredstava:', error);
-        alert('Nemate dovoljno sredstava');
+        this.openErrorSnackBar('Nemate dovoljno sredstava');
       }
     );
+  }
+
+
+
+  openSuccessSnackBar() {
+    this.snackBar.open('Transakcija uspešna', 'Zatvori', {
+      duration: 2000, 
+    });
+  }
+  
+  openErrorSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 0, 
+    });
   }
 
   formatRecipientAccount(value: string): void {

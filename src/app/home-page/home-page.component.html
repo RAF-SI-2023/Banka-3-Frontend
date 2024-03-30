@@ -1,11 +1,10 @@
 <div class="accountsView">
     <div class="container">
       <div class="accountsScroller">
-        <span style="text-align: center" class="h2">Pregled racuna</span>
+        <span style="text-align: center" class="h2">Pregled računa</span>
         <div class="selectCardWrapper">
             <div class="arrowWrapper" (click)="previousAccount()">
-                <img height="48px" width="48px" class="arrow" src="assets/arrow-left.svg" alt="Next" class="arrow-svg">
-            </div>
+              <img height="48px" width="48px" class="arrow" src="assets/left-chevron-svgrepo-com.svg" alt="Next" class="arrow-svg">            </div>
 
           <!-- Display selected account details -->
           <div class="accountCard" (click)="displayDetails()">
@@ -13,16 +12,15 @@
               <div class="cardLogo"></div>
             </div>
             <div class="cardInfoWrapper">
-                <span class="p">Broj racuna</span>
+                <span class="p">Broj računa</span>
               <p class="h4 blueText">{{ selectedAccount.accountNumber }}</p>
-              <span class="p">Raspolozivo stanje</span>
+              <span class="p">Raspoloživo stanje</span>
               <p class="h4 blueText">{{ selectedAccount.availableBalance - selectedAccount.reservedAmount }} RSD</p>
             </div>
           </div>
 
           <div class="arrowWrapper" (click)="nextAccount()">
-            <img height="48px" width="48px" class="arrow" src="assets/arrow-right.svg" alt="Next" class="arrow-svg">
-        </div>
+            <img height="48px" width="48px" class="arrow" src="assets/right-chevron-svgrepo-com.svg" alt="Next" class="arrow-svg">        </div>
         </div>
       </div>
     </div>
@@ -44,19 +42,19 @@
           </div>
 
           <div *ngIf="transaction.accountFrom === selectedAccount.accountNumber" class="transactionDetails">
-            <p  class="h3 blueText">{{ transaction.accountTo }}</p>
-            <span style="text-align: center" class="h3">{{ transaction.amount }} {{transaction.currencyMark}}</span>
+            <p  class="p blueText">{{ transaction.accountTo }}</p>
+            <span style="text-align: center" class="h4">{{ transaction.amount }} {{transaction.currencyMark}}</span>
           </div>
           <div *ngIf="transaction.accountTo === selectedAccount.accountNumber" class="transactionDetails">
-            <p  class="h3 blueText">{{ transaction.accountFrom }}</p>
-            <span style="text-align: center" class="h3">{{ transaction.amount }} {{transaction.currencyMark}}</span>
+            <p  class="p blueText">{{ transaction.accountFrom }}</p>
+            <span style="text-align: center" class="h4">{{ transaction.amount }} {{transaction.currencyMark}}</span>
           </div>
         </div>
           <div *ngIf="transaction.accountFrom == selectedAccount.accountNumber" class="transactionIconWrapper">
-            <img height="128px" width="128px" class="arrow" src="assets/arrow-up-right-svgrepo-com.svg">
+            <img height="128px" width="128px" class="arrow" src="assets/money-send-svgrepo-com.svg">
           </div>
           <div *ngIf="transaction.accountTo == selectedAccount.accountNumber" class="transactionIconWrapper">
-            <img height="128px" width="128px" class="arrow" src="assets/arrow-down-left-svgrepo-com.svg">
+            <img height="128px" width="128px" class="arrow" src="assets/money-recive-svgrepo-com.svg">
           </div>
 
         </div>

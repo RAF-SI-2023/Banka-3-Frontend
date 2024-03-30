@@ -15,9 +15,22 @@
 .button-container {
     display: flex;
     justify-content: flex-start;
-    margin-top: 20px;
+    margin-top: 1rem;
 }
 
 .button-container button {
-    margin-right: 10px; /* Dodajte margine između dugmadi po potrebi */
+    margin-right: 0.5rem;
+    margin-left: 0rem;
+}
+
+body{
+    background-color: var(--background-main);
+}
+
+.blueText{
+    color:var(--blue-medium)
+}
+.myContainer{
+    max-width: 52rem;
+    margin:auto;
 }

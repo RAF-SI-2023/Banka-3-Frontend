@@ -1,59 +1,55 @@
-<html lang="en">
-<body>
-    <div class="container">
-        <div class="formContainer">
-            <div style="width: 100%; text-align: center; margin: 1rem 0rem 1rem 0rem">
-                <span class="h3">Menjačnica</span>
-            </div>
-            <hr>
-            <form>
-                <div class="container" style="text-align: center;">
-                    <div class="row align-items-center">
-                        <div class="col-sm">
-                            <div class="input-container">
-                                <select class="inputField" #currency1>
-                                    <option value="EUR" selected>EUR</option>
-                                    <option value="RSD">RSD</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <!-- This column is empty to adjust the layout -->
-                        </div>
-                        <div class="col-sm">
-                            <div class="input-container">
-                                <select class="inputField" #currency2>
-                                    <option value="EUR">EUR</option>
-                                    <option value="RSD" selected>RSD</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                    </div>                    
-                    <div class="row align-items-center">
-                        <div class="col-sm">
-                            <div class="input-container">
-                                <input class="inputField" type="text" id="moneyValue1" name="moneyValue1" [(ngModel)]="money1">
-                            </div>
-                        </div>
-                        <div class="col-sm arrow-container">
-                            <svg height="24" width="24" fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g data-name="Layer 2"> <g data-name="arrow-forward"> <rect transform="rotate(-90 12 12)" opacity="0"></rect> <path d="M5 13h11.86l-3.63 4.36a1 1 0 0 0 1.54 1.28l5-6a1.19 1.19 0 0 0 .09-.15c0-.05.05-.08.07-.13A1 1 0 0 0 20 12a1 1 0 0 0-.07-.36c0-.05-.05-.08-.07-.13a1.19 1.19 0 0 0-.09-.15l-5-6A1 1 0 0 0 14 5a1 1 0 0 0-.64.23 1 1 0 0 0-.13 1.41L16.86 11H5a1 1 0 0 0 0 2z"></path> </g> </g> </g></svg>
-                        </div>
-                        <div class="col-sm">
-                            <div class="input-container">
-                                <input class="inputField" type="text" id="moneyValue2" name="moneyValue2" [(ngModel)]="money2" readonly>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="row mt-3">
-                    <div class="col-sm text-center">
-                        <input class="myButtonSecondary" type="submit" value="Izvrši konverziju" (click)="onConvert(currency1.value, currency2.value, money1)">
-                    </div>
-                </div>
-            </form>
+<div class="myContainer">
+    <div class="formContainer">
+        <div style="width: 100%; text-align: center; margin: 1rem 0rem 1rem 0rem">
+            <span class="h2">Menjačnica</span>
         </div>
+        <hr>
+        <form>
+            <div class="container" style="text-align: center;">
+                <div class="row align-items-center">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <select class="inputField" #currency1>
+                                <option value="EUR" selected>EUR</option>
+                                <option value="RSD">RSD</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <!-- This column is empty to adjust the layout -->
+                    </div>
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <select class="inputField" #currency2>
+                                <option value="EUR">EUR</option>
+                                <option value="RSD" selected>RSD</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                </div>                    
+                <div class="row align-items-center">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <input class="inputField" type="text" id="moneyValue1" name="moneyValue1" [(ngModel)]="money1">
+                        </div>
+                    </div>
+                    <div class="col-sm arrow-container">
+                        <svg height="24" width="24" fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g data-name="Layer 2"> <g data-name="arrow-forward"> <rect transform="rotate(-90 12 12)" opacity="0"></rect> <path d="M5 13h11.86l-3.63 4.36a1 1 0 0 0 1.54 1.28l5-6a1.19 1.19 0 0 0 .09-.15c0-.05.05-.08.07-.13A1 1 0 0 0 20 12a1 1 0 0 0-.07-.36c0-.05-.05-.08-.07-.13a1.19 1.19 0 0 0-.09-.15l-5-6A1 1 0 0 0 14 5a1 1 0 0 0-.64.23 1 1 0 0 0-.13 1.41L16.86 11H5a1 1 0 0 0 0 2z"></path> </g> </g> </g></svg>
+                    </div>
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <input class="inputField" type="text" id="moneyValue2" name="moneyValue2" [(ngModel)]="money2" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row mt-3">
+                <div class="col-sm text-center">
+                    <input class="myButtonSecondary" type="submit" value="Izvrši konverziju" (click)="onConvert(currency1.value, currency2.value, money1)">
+                </div>
+            </div>
+        </form>
     </div>
-</body>
-</html>
+</div>

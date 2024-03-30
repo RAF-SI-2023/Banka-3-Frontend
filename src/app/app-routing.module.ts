@@ -110,9 +110,9 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-  path: '',
-  component: HomePageComponent,
-  canActivate: [AuthGuard]
+    path: '',
+    component: HomePageComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'user-account/:userId',
@@ -135,14 +135,14 @@ const routes: Routes = [
     canActivate: [AuthGuard, UserGuard]
   },
   {
-  path: 'bill',
-  component: BillComponent,
-  canActivate: [AuthGuard, UserGuard]
-},
+    path: 'bill',
+    component: BillComponent,
+    canActivate: [AuthGuard, UserGuard]
+  },
   {
-  path: 'payment',
-  component: PayingComponent,
-  canActivate: [AuthGuard, UserGuard]
+    path: 'payment',
+    component: PayingComponent,
+    canActivate: [AuthGuard, UserGuard]
   },
   {
     path: 'form-add-firm',

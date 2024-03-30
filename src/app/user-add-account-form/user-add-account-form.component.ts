@@ -4,6 +4,7 @@ import {UserService} from "../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-add-account-form',
@@ -18,7 +19,7 @@ export class UserAddAccountFormComponent implements OnInit{
   employeeId: number;
   accountForm: FormGroup
 
-  constructor(private fb: FormBuilder,private userService: UserService, private route : ActivatedRoute,private router: Router) {
+  constructor(private fb: FormBuilder,private userService: UserService, private route : ActivatedRoute,private router: Router, private snackBar: MatSnackBar) {
     this.accountForm = this.fb.group({
       accountType: new FormControl('', Validators.required),
       balance: new FormControl('', Validators.required),
@@ -36,15 +37,34 @@ export class UserAddAccountFormComponent implements OnInit{
     this.account.mark = this.accountForm.get('mark')?.value;
 
     if(this.account.accountType == 'Tekuci'){
-      this.userService.saveAccount(this.userId, this.account.balance, "DINAR", this.employeeId, this.account.accountType).subscribe(res => {
-        console.log(res);
-      });
+      this.userService.saveAccount(this.userId, this.account.balance, "DINAR", this.employeeId, this.account.accountType)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.openErrorSnackBar('Uspešno kreiran račun.');
+        },
+        error=>{
+          this.openErrorSnackBar('Greška u kreiranju računa.');
+        });
     }else{
-      this.userService.saveForeignAccount(this.userId, this.account.balance, this.account.mark, this.employeeId).subscribe(res => {
-        console.log(res);
-      })
+      this.userService.saveForeignAccount(this.userId, this.account.balance, this.account.mark, this.employeeId)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.openErrorSnackBar('Uspešno kreiran račun.');
+        },
+        error=>{
+          this.openErrorSnackBar('Greška u kreiranju računa.');
+        });
     }
 
+  }
+
+
+  openErrorSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 2000, 
+    });
   }
 
   ngOnInit(): void {

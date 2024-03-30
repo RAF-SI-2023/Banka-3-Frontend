@@ -39,6 +39,7 @@ import { ExchangeComponent } from './exchange/exchange.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PasswordConfirmationComponent } from './reset-password/password-confirmation/password-confirmation.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { PopupTransactionComponent } from './popup/popup-transaction/popup-transaction.component';
 import { CreditListComponent } from './credit-list/credit-list.component';
 import { CreditRequestComponent } from './credit-request/credit-request.component';
@@ -104,7 +105,8 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
