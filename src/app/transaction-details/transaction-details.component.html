@@ -1,0 +1,38 @@
+<div class="myContainer">
+  <div class="formContainer">
+    <div style="width: 100%; margin: 1rem 0rem 1rem 0rem">
+      <span class="h3">Prikaz Transakcije</span>
+    </div>
+    <div style="margin: 0rem 0rem 0rem 0rem">
+      <div class="row">
+        <div class="col">
+          <p class="bold">Primalac:</p>
+          <p class="line">{{ transaction?.accountTo }}</p>
+        </div>
+        <div class="col">
+          <p class="bold">Posiljalac</p>
+          <p class="line">{{ transaction?.accountFrom }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p class="bold">Iznos:</p>
+          <p class="line">{{ transaction?.amount }} {{ transaction?.currencyMark }}</p>
+        </div>
+        <div class="col">
+          <p class="bold">Sifra placanja:</p>
+          <p class="line">{{ transaction?.sifraPlacanja }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p class="bold">Poziv na broj</p>
+          <p class="line">{{ transaction?.pozivNaBroj }}</p>
+        </div>
+      </div>
+      <button class="myButtonPrimary" (click)="goBack()">
+        Back
+      </button>
+    </div>
+  </div>
+</div>

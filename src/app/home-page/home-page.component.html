@@ -32,7 +32,7 @@
     <span style="text-align: center" class="h2">Pregled transakcija</span>
     <div class="transactionsWrapper" *ngFor="let transaction of transactions">
 
-        <div class="transactionCard">
+        <div (click)="redirectToTransaction(transaction)" class="transactionCard">
         <div class="transactionDetailsWrapper">
           <div class="transactionDate">
                         <!-- Display day -->

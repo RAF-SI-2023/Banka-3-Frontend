@@ -141,7 +141,6 @@ updateTransactions() {
     console.log(this.selectedAccount)
     this.accountService.getAllTransactionsByAccountId(this.selectedAccount.accountNumber).subscribe(res => {
       this.transactions = res;
-      console.log(res)
     })
   // this.transactions = this.selectedAccount;
 }
@@ -154,5 +153,9 @@ displayDetails() {
     window.location.reload();
   }
 
+  redirectToTransaction(transaction: TransactionDto): void {
+    this.router.navigate(['/transaction-details'], { queryParams: { transaction: JSON.stringify(transaction) } });
+  }
   protected readonly Date = Date;
+
 }

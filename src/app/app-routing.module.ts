@@ -36,6 +36,7 @@ import { CreditTransactionComponent } from './credit-transaction/credit-transact
 import {BankingOfficerGuard} from "./guards/banking-officer.guard";
 import {CreditOfficerGuard} from "./guards/credit-officer.guard";
 import {UserGuard} from "./guards/user.guard";
+import {TransactionDetailsComponent} from "./transaction-details/transaction-details.component";
 
 
 const routes: Routes = [
@@ -179,6 +180,11 @@ const routes: Routes = [
   {
     path: 'payment-recipients',
     component: PaymentRecipientComponent,
+    canActivate: [AuthGuard, UserGuard]
+  },
+  {
+    path: 'transaction-details',
+    component: TransactionDetailsComponent,
     canActivate: [AuthGuard, UserGuard]
   }
 ];
