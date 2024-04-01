@@ -29,6 +29,26 @@ export class CreditService {
     return this.httpClient.get<CreditRequestDto[]>(`${this.apiUrlCreditRequest}/getAll`,{headers} )
   }
 
+  getCreditDetails(userId: number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.get<CreditRequestDto>(`${this.apiUrlCreditRequest}/${userId}`,{headers} )
+
+  }
+  approveCredit(creditRequestId : number, approve: boolean){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    let obj = {
+      creditRequestId,
+      accepted: approve
+    }
+    return this.httpClient.put<CreditRequestDto>(`${this.apiUrlCreditRequest}`, obj,{headers} )
+
+  }
   // getCreditDetails(creditId: number): Observable<Credit | null> {
   //   const url = `some-url/api/v1/credit/${creditId}`;
   //   return this.http.get<Credit>(url);

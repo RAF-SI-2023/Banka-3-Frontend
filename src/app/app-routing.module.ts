@@ -173,10 +173,10 @@ const routes: Routes = [
     component: EditPaymentRecipientComponent,
     canActivate: [AuthGuard, UserGuard]
   },
-  // {
-  //   path: 'credit-transaction/:creditId',
-  //   component: CreditTransactionComponent,
-  // },
+  {
+    path: 'credit-transaction/:userId',
+    component: CreditTransactionComponent,
+  },
   {
     path: 'payment-recipients',
     component: PaymentRecipientComponent,
