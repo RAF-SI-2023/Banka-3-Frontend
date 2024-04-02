@@ -49,6 +49,7 @@ import { CreatePaymentRecipientComponent } from './create-payment-recipient/crea
 import { EditPaymentRecipientComponent } from './edit-payment-recipient/edit-payment-recipient.component';
 import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+import { CreditListUserComponent } from './credit-list-user/credit-list-user.component';
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
 
@@ -87,7 +88,8 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
     CreditTransactionComponent,
     CreditListComponent,
     CreditRequestComponent,
-    TransactionDetailsComponent
+    TransactionDetailsComponent,
+    CreditListUserComponent
 
 
   ],

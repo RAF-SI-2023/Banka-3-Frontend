@@ -7,27 +7,27 @@
       <div class="row">
         <div class="col">
           <p class="bold">Primalac:</p>
-          <p class="line">{{ transaction?.accountTo }}</p>
+          <p class="line">{{ transaction.accountTo }}</p>
         </div>
         <div class="col">
           <p class="bold">Posiljalac</p>
-          <p class="line">{{ transaction?.accountFrom }}</p>
+          <p class="line">{{ transaction.accountFrom }}</p>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <p class="bold">Iznos:</p>
-          <p class="line">{{ transaction?.amount }} {{ transaction?.currencyMark }}</p>
+          <p class="line">{{ transaction.amount }} {{ transaction.currencyMark }}</p>
         </div>
         <div class="col">
           <p class="bold">Sifra placanja:</p>
-          <p class="line">{{ transaction?.sifraPlacanja }}</p>
+          <p class="line">{{ transaction.sifraPlacanja }}</p>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <p class="bold">Poziv na broj</p>
-          <p class="line">{{ transaction?.pozivNaBroj }}</p>
+          <p class="line">{{ transaction.pozivNaBroj }}</p>
         </div>
       </div>
       <button class="myButtonPrimary" (click)="goBack()">

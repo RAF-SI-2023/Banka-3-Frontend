@@ -23,13 +23,13 @@ body{
   --white-text: #FFFFFF;
   --background-main: #F6F6F6;
   --background-elements: #FFFFFF;
-  --button-primary: #D22055;
+  --button-primary: #d22055;
   --color-primary: #D22055;
   --color-secondary: #A0D4F5;
   --button-secondary: #104D7B;
   --blue-dark: #071E2D;
-  --blue-medium: #104D7B;
-  --blue-light: #A0D4F5;
+  --blue-medium: #0f4b79;
+  --blue-light: #539ac7;
   --font-color: #071E2D;
   --h1-size: 4rem;
   --h2-size: 3rem;
