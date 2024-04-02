@@ -49,8 +49,10 @@ import { CreatePaymentRecipientComponent } from './create-payment-recipient/crea
 import { EditPaymentRecipientComponent } from './edit-payment-recipient/edit-payment-recipient.component';
 import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+import { CreditListUserComponent } from './credit-list-user/credit-list-user.component';
 import { ListingListComponent } from './hartije/listing-list/listing-list.component';
 import { SupervisorListsingListComponent } from './hartije/supervisor-listsing-list/supervisor-listsing-list.component';
+
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
 
@@ -90,8 +92,10 @@ import { SupervisorListsingListComponent } from './hartije/supervisor-listsing-l
     CreditListComponent,
     CreditRequestComponent,
     TransactionDetailsComponent,
+    CreditListUserComponen,
     ListingListComponent,
     SupervisorListsingListComponent
+
 
 
   ],
