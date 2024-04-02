@@ -24,6 +24,7 @@ export class CreditListComponent implements OnInit {
     this.creditService.getAllCredits().subscribe(
       credits => {
         this.credits = credits;
+        console.log(credits)
       },
       error => {
         console.error('Error fetching credits:', error);
@@ -39,8 +40,8 @@ export class CreditListComponent implements OnInit {
     }
   }
 
-  navigateToCreditDetails(creditId: number) {
-    this.router.navigate(['/credit-transaction', creditId]);
+  navigateToCreditDetails(userId: number) {
+    this.router.navigate(['/credit-transaction', userId]);
   }
 
   navigateToCreditRequest() {
