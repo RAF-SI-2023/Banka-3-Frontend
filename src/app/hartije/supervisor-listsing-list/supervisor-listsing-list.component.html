@@ -1,1 +1,30 @@
-<p>supervisor-listsing-list works!</p>
+<div class="page">
+  <div class="panel">
+    <div class="header-buttons">
+      <button class="recipients-button">
+        Zahtevi
+      </button>
+
+    </div>
+    <div class="table" style="width: 100%;">
+
+      <!--      Promeniti [dataSource] -->
+      <mat-table [dataSource]="MockRequests" matSort style="width: 100%;">
+        <!-- Kolona za request -->
+        <ng-container matColumnDef="request">
+          <mat-cell *matCellDef="let request"> <b> {{request.description}} {{request.amount}}</b> </mat-cell>
+        </ng-container>
+        <!-- Kolona za opcije (accept i reject) -->
+        <ng-container matColumnDef="opcije">
+          <mat-cell *matCellDef="let request">
+            <div class="options-container">
+              <img class="edit-button" (click)="acceptRequest()" [width]="24" [height]="24" src="assets/circle-check-svgrepo-com.svg">
+              <img class="delete-button" (click)="rejectRequest()" [width]="24" [height]="24" src="assets/circle-quarters-svgrepo-com.svg">
+            </div>
+          </mat-cell>
+        </ng-container>
+        <mat-row *matRowDef="let row; columns: ['request', 'opcije'];"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>

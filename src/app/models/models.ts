@@ -183,3 +183,11 @@ export interface CreditRequestCreateDto {
   paymentPeriod: number;
   currencyMark: string;
 }
+
+//izmeniti sa pravim podacima
+export interface Request {
+  requestId: number,
+  amount: number,
+  description: string,
+  status: string
+}
