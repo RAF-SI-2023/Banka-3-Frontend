@@ -91,7 +91,7 @@ import { SupervisorListsingListComponent } from './hartije/supervisor-listsing-l
     CreditListComponent,
     CreditRequestComponent,
     TransactionDetailsComponent,
-    CreditListUserComponen,
+    CreditListUserComponent,
     SupervisorListsingListComponent
 
 
