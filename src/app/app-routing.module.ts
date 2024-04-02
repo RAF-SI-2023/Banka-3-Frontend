@@ -38,6 +38,8 @@ import {CreditOfficerGuard} from "./guards/credit-officer.guard";
 import {UserGuard} from "./guards/user.guard";
 import {TransactionDetailsComponent} from "./transaction-details/transaction-details.component";
 import {SupervisorListsingListComponent} from "./hartije/supervisor-listsing-list/supervisor-listsing-list.component";
+import {CreditListUserComponent} from "./credit-list-user/credit-list-user.component";
+import {CreditListUserComponent} from "./credit-list-user/credit-list-user.component";
 
 
 const routes: Routes = [
@@ -193,6 +195,11 @@ const routes: Routes = [
     component: SupervisorListsingListComponent,
     canActivate: [AuthGuard, UserGuard] //treba postaviti gard za supervizora
   },
+  {
+    path : 'credit-list-user',
+    component: CreditListUserComponent,
+    canActivate:[AuthGuard, UserGuard]
+  }
 ];
 
 @NgModule({

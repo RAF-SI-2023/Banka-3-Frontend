@@ -1,0 +1,30 @@
+
+  <div class="creditView">
+    <div class="titleContainer">
+    <span style="text-align: center" class="h2 blueText">Pregled kredita</span>
+    </div>
+    <div class="myContainer">
+      <div class="mainContainer">
+      <div class="creditsWrapper">
+        <div *ngFor="let credit of credits">
+          <div *ngIf="credit.user.userId == currUser.userId" class="creditCard">
+            <div class="creditInfo" style="text-align: left;">
+              <div class="creditTitle">
+                <p class="p redText creditName" style="margin: 0;">{{ credit.name }}</p>
+              </div>
+              <div style="text-align: left;">
+                <p class="p blueText">Broj računa: {{ credit.accountNumber }}</p>
+                <p class="p blueText">Remaining Amount : {{ credit.remainingAmount }}</p>
+                <p class="p blueText">Monthly Fee: {{ credit.monthlyFee }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <button (click)="creditRequest()" class="myButtonPrimary" type="button" value="Novi zahtev za kredit">
+        Novi zahtev za kredit
+      </button>
+  </div>
+  </div>

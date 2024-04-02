@@ -14,7 +14,7 @@
           <a *ngIf="isEmployeeUser" [routerLink]="'/user-control'">Računi</a>
         </div>
         <div class="item">
-          <a *ngIf="isEmployeeUser" [routerLink]="'/credit-list'">Krediti</a>
+          <a *ngIf="isEmployeeUser" [routerLink]="'/credit-list-user'">Krediti</a>
         </div>
         <div class="item">
           <a *ngIf="!isEmployeeUser" [routerLink]="'/exchange'">Menjačnica</a>
@@ -23,7 +23,7 @@
           <a *ngIf="!isEmployeeUser" [routerLink]="'/payment'">Plaćanja</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/credit-request'">Krediti</a>
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/credit-list-user'">Krediti</a>
         </div>
         <div class="item">
           <a *ngIf="!isEmployeeUser" [routerLink]="'/payment-recipients'">Primaoci plaćanja</a>
