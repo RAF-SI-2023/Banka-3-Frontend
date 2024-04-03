@@ -16,6 +16,7 @@ export class UserloginComponent {
   showCheckAddress: boolean = true;
   userActivationDto = {} as UserActivationDto
   address: string = '';
+  isSubmitting: boolean = false;
 
   checkEmailForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -68,7 +69,12 @@ export class UserloginComponent {
   }
 
   submitLogin() {
+    if(this.isSubmitting) {
+      // console.log("Jedna forma je vec u procesu slanja!")
+      return;
+    }
     if(this.email?.valid && this.password?.valid){
+      this.isSubmitting = true;
       let email = this.loginForm.get("email")?.value
       let password = this.loginForm.get("password")?.value
       console.log(email, password)
@@ -82,13 +88,19 @@ export class UserloginComponent {
         },
         error => {
           this.openErrorSnackBar('Pogrešan email ili lozinka.');
-        })
+        },
+        () => {
+          setTimeout( ()=> {
+            this.isSubmitting = false;
+          }, 3000);
+        }
+        )
     }
   }
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 0, 
+      duration: 0,
     });
   }
 

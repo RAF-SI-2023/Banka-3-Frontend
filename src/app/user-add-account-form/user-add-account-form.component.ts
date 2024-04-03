@@ -18,6 +18,7 @@ export class UserAddAccountFormComponent implements OnInit{
   userId: number;
   employeeId: number;
   accountForm: FormGroup
+  isSubmitting: boolean = false;
 
   constructor(private fb: FormBuilder,private userService: UserService, private route : ActivatedRoute,private router: Router, private snackBar: MatSnackBar) {
     this.accountForm = this.fb.group({
@@ -32,6 +33,11 @@ export class UserAddAccountFormComponent implements OnInit{
     }
 
   save(){
+    if (this.isSubmitting){
+      // console.log("Jedna forma je vec u procesu slanja!")
+      return;
+    }
+    this.isSubmitting = true;
     this.account.accountType = this.accountForm.get('accountType')?.value;
     this.account.balance = this.accountForm.get('balance')?.value;
     this.account.mark = this.accountForm.get('mark')?.value;
@@ -55,7 +61,13 @@ export class UserAddAccountFormComponent implements OnInit{
         },
         error=>{
           this.openErrorSnackBar('Greška u kreiranju računa.');
-        });
+        },
+        () => {
+          setTimeout( ()=> {
+            this.isSubmitting = false;
+          }, 3000);
+        }
+        );
     }
 
   }
@@ -63,7 +75,7 @@ export class UserAddAccountFormComponent implements OnInit{
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 2000, 
+      duration: 2000,
     });
   }
 

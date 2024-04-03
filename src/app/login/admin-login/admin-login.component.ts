@@ -12,6 +12,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./admin-login.component.css']
 })
 export class AdminLoginComponent {
+
+  isSubmitting = false;
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
@@ -21,7 +24,12 @@ export class AdminLoginComponent {
   }
 
   submitLogin() {
+    if(this.isSubmitting) {
+      // console.log("Jedna forma je vec u procesu slanja!")
+      return;
+    }
     if(this.email?.valid && this.password?.valid){
+      this.isSubmitting = true
       let email = this.loginForm.get("email")?.value
       let password = this.loginForm.get("password")?.value
       console.log(email, password)
@@ -47,13 +55,20 @@ export class AdminLoginComponent {
         },
         error => {
           this.openErrorSnackBar('Pogrešan email ili lozinka.');
-        })
+        },
+        () => {
+          setTimeout( ()=> {
+            this.isSubmitting = false;
+            // console.log("Submitting setovan na false, moguce ponovno slanje forme.")
+          }, 3000);
+        }
+        )
     }
   }
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 0, 
+      duration: 0,
     });
   }
 
