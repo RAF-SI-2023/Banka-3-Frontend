@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm">
                     <div style="margin: 1rem 0rem 1rem 0rem">
-                        <span class="h2">AAPL</span>
+                        <span class="h2">{{ ticker }}</span>
                     </div>
                     <div style="margin: 1rem 0rem 1rem 0rem">
                         <span class="p blueText">Apple</span>
@@ -62,7 +62,7 @@
                     <div class="square" [ngClass]="{ 'selected': selectedButton === '5y' }" (click)="selectButton('5y')">5y</div>
                 </div>
                 <div>
-                    <app-chart></app-chart>
+                    <app-chart [options]="chartOptions"></app-chart>
                 </div>
             </div>
 

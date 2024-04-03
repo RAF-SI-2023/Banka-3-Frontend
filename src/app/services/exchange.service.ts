@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Future, Intraday, Stock} from "../models/models";
+import {Daily, Future, Intraday, Monthly, Stock, Weekly} from "../models/models";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExchangeService {
 
-  apiUrlExchangeService: string = "http://localhost:8083/api/v1/"
+  apiUrlExchangeService: string = "http://localhost:8083/api/v1"
   constructor(private httpClient : HttpClient) { }
 
   getAllStocks(){
@@ -48,7 +48,7 @@ export class ExchangeService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.get<Intraday[]>(`${this.apiUrlExchangeService}/history/daily/${ticker}`,{headers} )
+    return this.httpClient.get<Daily[]>(`${this.apiUrlExchangeService}/history/daily/${ticker}`,{headers} )
   }
 
   getWeekly(ticker: string){
@@ -56,7 +56,7 @@ export class ExchangeService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.get<Intraday[]>(`${this.apiUrlExchangeService}/history/weekly/${ticker}`,{headers} )
+    return this.httpClient.get<Weekly[]>(`${this.apiUrlExchangeService}/history/weekly/${ticker}`,{headers} )
   }
 
   getMonthly(ticker: string){
@@ -64,6 +64,6 @@ export class ExchangeService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.get<Intraday[]>(`${this.apiUrlExchangeService}/history/monthly/${ticker}`,{headers} )
+    return this.httpClient.get<Monthly[]>(`${this.apiUrlExchangeService}/history/monthly/${ticker}`,{headers} )
   }
 }
