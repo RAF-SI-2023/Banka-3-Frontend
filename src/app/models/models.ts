@@ -191,3 +191,42 @@ export interface Request {
   description: string,
   status: string
 }
+
+export interface Future{
+  futureId: number,
+  contractName: string,
+  contractSize: number,
+  contractUnit: string,
+  maintenanceMargin: number,
+  type: string
+}
+
+export interface Stock{
+  stockId: number,
+  name: string,
+  exchange: string,
+  lastRefresh: number,
+  ticker : string
+  price : number
+  ask : number
+  bid : number
+  change : number
+  volume : number
+}
+
+export interface Options{
+  optionsId: number,
+  ask: number,
+  bid: number,
+  change: number,
+  contractSymbol: string,
+  impliedVolatility: number,
+  lastRefresh: number,
+  openInterest: number,
+  optionType: string,
+  price: number,
+  settlementDate: number,
+  stockListing: string,
+  strikePrice: number,
+  volume: number,
+}
