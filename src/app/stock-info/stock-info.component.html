@@ -1,0 +1,111 @@
+<html lang="en">
+<body>
+    <div class="myContainer">
+        <div class="formContainer">
+            <div class="row">
+                <div class="col-sm">
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="h2">AAPL</span>
+                    </div>
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="p blueText">Apple</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="line"></p>
+
+
+            <div class="activity-indicator-container">
+                <div class="activity-indicator" [ngClass]="exchangeActive ? 'green-indicator' : 'red-indicator'">
+            
+                </div>
+                <div class="activity-text-container">
+                      <span *ngIf="exchangeActive">
+                        Berza aktivna
+                      </span>
+                  <span *ngIf="!exchangeActive">
+                        Berza nije aktivna
+                      </span>
+                </div>
+              </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <div >
+                        <span class="p">Cena</span>
+                    </div>
+                    <div>
+                        <span class="h4 bold blueText">$162</span>
+                    </div>
+                </div>
+                <div class="col-sm text-right">
+                    <div>
+                        <span class="p">Visoko |</span>
+                        <span class="p"> Nisko</span>
+                    </div>
+                    <div>
+                        <span class="h4 bold blueText">$162 |</span>
+                        <span class="h4 bold blueText"> $162</span>
+                    </div>
+                </div>
+            </div>
+
+    
+            <div class="rectangle">
+                
+                <div class="squares">
+                    <div class="square" [ngClass]="{ 'selected': selectedButton === '1d' }" (click)="selectButton('1d')">1d</div>
+                    <div class="square" [ngClass]="{ 'selected': selectedButton === '1w' }" (click)="selectButton('1w')">1w</div>
+                    <div class="square" [ngClass]="{ 'selected': selectedButton === '1m' }" (click)="selectButton('1m')">1m</div>
+                    <div class="square" [ngClass]="{ 'selected': selectedButton === '1y' }" (click)="selectButton('1y')">1y</div>
+                    <div class="square" [ngClass]="{ 'selected': selectedButton === '5y' }" (click)="selectButton('5y')">5y</div>
+                </div>
+                <div>
+                    <app-chart></app-chart>
+                </div>
+            </div>
+
+            <div class="rectangle">
+                
+                <div class="row">
+                    <div class="col text-center field">
+                        <p>Promena</p>
+                        <p class="bold">$162 </p>
+                    </div>
+                    <div class="col text-center field">
+                        <p>Dnevni opseg</p>
+                      <p class="bold">$162 </p>
+                    </div>
+                    <div class="col text-center field">
+                        <p>Otvoreno</p>
+                        <p class="bold">$162 </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col text-center field">
+                        <p>Obim</p>
+                        <p class="bold">$162 </p>
+                    </div>
+                    <div class="col text-center field">
+                        <p>Izuzetna akcija</p>
+                        <p class="bold">$162 </p>
+                    </div>
+                    <div class="col text-center field">
+                        <p>Prethodno zatvaranje</p>
+                        <p class="bold">$162 </p>
+                    </div>
+                </div>
+      
+            </div>
+            <div class="row mt-3">
+                <div class="col-sm">
+                    <input  class="myButtonPrimary" type="submit" value="Opcije">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
