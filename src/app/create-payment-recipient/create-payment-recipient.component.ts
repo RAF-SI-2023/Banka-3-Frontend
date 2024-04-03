@@ -13,6 +13,7 @@ import {Contact} from "../models/models";
 export class CreatePaymentRecipientComponent {
 
   contactData = {} as Contact;
+  isSubmitting: boolean = false;
 
   contactForm = new FormGroup({
     formName: new FormControl('', [Validators.required]),
@@ -25,6 +26,10 @@ export class CreatePaymentRecipientComponent {
 
   }
   saveContact() {
+    if (this.isSubmitting){
+      // console.log("Jedna forma je vec u procesu slanja!")
+      return;
+    }
     this.contactData.name = this.contactForm.get('formName')?.value as string;
     this.contactData.myName = this.contactForm.get('formMyName')?.value as string;
     this.contactData.accountNumber = this.contactForm.get('formContact')?.value as string;
@@ -36,7 +41,14 @@ export class CreatePaymentRecipientComponent {
         this.router.navigate(['/payment-recipients']);
       }, error => {
         alert("Greska pri dodavanju.");
-      });
+      },
+        () => {
+          setTimeout( ()=> {
+            this.isSubmitting = false;
+            // console.log("Submitting setovan na false, moguce ponovno slanje forme.")
+          }, 3000);
+        }
+        );
 
     }
   }

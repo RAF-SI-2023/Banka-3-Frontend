@@ -32,8 +32,10 @@ export class PayingComponent implements OnInit {
   transaction: TransactionDto = {} as TransactionDto;
   groupForm: FormGroup;
 
+  isSubmitting: boolean = false;
+
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
-    private accountService: AccountService,private userService: UserService, 
+    private accountService: AccountService,private userService: UserService,
     private router: Router, private http: HttpClient, private snackBar: MatSnackBar) {
 
     const navigation = this.router.getCurrentNavigation();
@@ -65,7 +67,7 @@ export class PayingComponent implements OnInit {
       this.paymentCodes.push(i);
     }
   }
-  
+
 
   //todo currency, account Number
   onSubmit() {
@@ -82,6 +84,9 @@ export class PayingComponent implements OnInit {
   }
 
   startTransaction():void {
+    if (this.isSubmitting){
+      return;
+    }
     //todo fali dto
     //this.transaction.currencyMark = this.account;
     this.transaction.accountFrom = this.accountNumber;
@@ -90,6 +95,7 @@ export class PayingComponent implements OnInit {
     this.transaction.pozivNaBroj = this.groupForm.get('referenceNumber')?.value;
     this.transaction.accountTo = this.groupForm.get('recipientAccount')?.value;
     this.transaction.currencyMark = this.selectedAccount.currency.mark
+    this.isSubmitting = true;
     this.accountService.sendTransaction(this.transaction).subscribe(
       (response) => {
         this.transactionId = response;
@@ -100,6 +106,11 @@ export class PayingComponent implements OnInit {
       (error) => {
         console.error('Nemate dovoljno sredstava:', error);
         this.openErrorSnackBar('Nemate dovoljno sredstava');
+      },
+      () => {
+        setTimeout( ()=> {
+          this.isSubmitting = false;
+        }, 3000);
       }
     );
   }
@@ -108,13 +119,13 @@ export class PayingComponent implements OnInit {
 
   openSuccessSnackBar() {
     this.snackBar.open('Transakcija uspešna', 'Zatvori', {
-      duration: 2000, 
+      duration: 2000,
     });
   }
-  
+
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 0, 
+      duration: 0,
     });
   }
 

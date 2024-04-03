@@ -83,6 +83,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class CreditTransactionComponent implements OnInit {
   transactions: any[] = [];
   selectedCredit: CreditRequestDto | null = null;
+  isSubmittingApproval: boolean = false;
+  isSubmittingRefusal: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -121,23 +123,41 @@ export class CreditTransactionComponent implements OnInit {
   }
 
   approveCredit(){
+    if (this.isSubmittingApproval){
+      return;
+    }
+    this.isSubmittingApproval = true;
     this.creditService.approveCredit(this.selectedCredit!.creditRequestId, true).subscribe(res => {
       console.log(res)
       this.openErrorSnackBar('Odobrili ste kredit korisniku: ' +  this.selectedCredit!.user!.firstName + " " + this.selectedCredit!.user!.lastName);
     }, error => {
       this.openErrorSnackBar('Doslo je do greske!');
       console.log(error)
-    })
+    },
+      () => {
+        setTimeout( ()=> {
+          this.isSubmittingApproval = false;
+        }, 3000);
+      })
   }
 
   declineCredit(){
+    if (this.isSubmittingRefusal){
+      return;
+    }
+    this.isSubmittingRefusal = true;
     this.creditService.approveCredit(this.selectedCredit!.creditRequestId, false).subscribe(res => {
       this.openErrorSnackBar('Odbili ste kredit korisniku: ' +  this.selectedCredit!.user!.firstName + " " + this.selectedCredit!.user!.lastName);
       console.log(res)
     }, error => {
       this.openErrorSnackBar('Doslo je do greske!');
       console.log(error)
-    })
+    },
+      () => {
+        setTimeout( ()=> {
+          this.isSubmittingRefusal = false;
+        }, 3000);
+      })
   }
 
 
