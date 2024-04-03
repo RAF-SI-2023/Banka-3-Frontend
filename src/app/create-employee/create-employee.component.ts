@@ -17,6 +17,7 @@ export class CreateEmployeeComponent implements OnInit{
   permissions: Permission[] | null = null;
   employeeForm: FormGroup;
   roles: Role[] | null = null;
+  isSubmitting: boolean = false;
 
 
   constructor(private fb: FormBuilder, private userService: UserService, private router : Router) {
@@ -43,6 +44,10 @@ export class CreateEmployeeComponent implements OnInit{
   }
 
   save(){
+    if (this.isSubmitting){
+      // console.log("Jedna forma je vec u procesu slanja!")
+      return;
+    }
     this.employee.firstName = this.employeeForm.get('firstName')?.value;
     this.employee.lastName = this.employeeForm.get('lastName')?.value;
     this.employee.username = this.employeeForm.get('username')?.value;
@@ -64,9 +69,20 @@ export class CreateEmployeeComponent implements OnInit{
     let dt = new Date(this.employeeForm.get('dateOfBirth')?.value).getTime();
     this.employee.dateOfBirth = dt;
 
+    this.isSubmitting = true;
+
     this.userService.createEmployee(this.employee).subscribe(res => {
       this.router.navigate(['user-list'])
-    });
+    }, error => {
+
+    },
+      () => {
+        setTimeout( ()=> {
+          this.isSubmitting = false;
+          // console.log("Submitting setovan na false, moguce ponovno slanje.")
+        }, 3000);
+      }
+      );
   }
   get firstName(){
     return this.employeeForm.get('firstName');

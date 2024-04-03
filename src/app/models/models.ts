@@ -230,3 +230,34 @@ export interface Options{
   strikePrice: number,
   volume: number,
 }
+export interface Forex{
+
+}
+
+export interface Daily{
+  stockDailyId:number,
+  date: number,
+  price: number,
+  ticker: string
+}
+
+export interface Weekly{
+  stockWeeklyId:number,
+  date: number,
+  price: number,
+  ticker: string
+}
+
+export interface Intraday{
+  stockIntradayId:number,
+  date: number,
+  price: number,
+  ticker: string
+}
+
+export interface Monthly{
+  stockMonthlyId:number,
+  date: number,
+  price: number,
+  ticker: string
+}
