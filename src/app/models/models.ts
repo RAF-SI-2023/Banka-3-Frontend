@@ -230,3 +230,6 @@ export interface Options{
   strikePrice: number,
   volume: number,
 }
+export interface Forex{
+
+}
