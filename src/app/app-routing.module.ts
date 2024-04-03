@@ -40,6 +40,7 @@ import {TransactionDetailsComponent} from "./transaction-details/transaction-det
 import {SupervisorListsingListComponent} from "./hartije/supervisor-listsing-list/supervisor-listsing-list.component";
 import {CreditListUserComponent} from "./credit-list-user/credit-list-user.component";
 import {ListingListComponent} from "./hartije/listing-list/listing-list.component";
+import { StockInfoComponent } from './stock-info/stock-info.component';
 
 
 const routes: Routes = [
@@ -204,7 +205,13 @@ const routes: Routes = [
     path : 'listing-list',
     component: ListingListComponent,
     // canActivate:[AuthGuard, UserGuard]
-  }
+  },
+  {
+    path : 'stock-info',
+    component: StockInfoComponent,
+    // canActivate:[AuthGuard, UserGuard]
+  },
+
 ];
 
 @NgModule({
