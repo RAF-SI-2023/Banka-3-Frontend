@@ -34,7 +34,7 @@ export class UserAddAccountFormComponent implements OnInit{
 
   save(){
     if (this.isSubmitting){
-      // console.log("Jedna forma je vec u procesu slanja!")
+      console.log("Jedna forma je vec u procesu slanja!")
       return;
     }
     this.isSubmitting = true;
@@ -51,7 +51,13 @@ export class UserAddAccountFormComponent implements OnInit{
         },
         error=>{
           this.openErrorSnackBar('Greška u kreiranju računa.');
-        });
+        },
+        () => {
+          setTimeout( ()=> {
+            this.isSubmitting = false;
+          }, 3000);
+        }
+        );
     }else{
       this.userService.saveForeignAccount(this.userId, this.account.balance, this.account.mark, this.employeeId)
       .subscribe(

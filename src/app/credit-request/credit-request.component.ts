@@ -16,6 +16,7 @@ export class CreditRequestComponent implements OnInit {
   userId: string = '';
   userAccounts: any[] = [];
   selectedCurrency: string = 'RSD';
+  isSubmitting: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private accountService: AccountService) {}
 
@@ -51,7 +52,11 @@ export class CreditRequestComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.isSubmitting){
+      return;
+    }
     if (this.formGroup.valid) {
+      this.isSubmitting = true;
       let creditRequest = {} as CreditRequestCreateDto
       creditRequest.currencyMark = this.formGroup.get("currencyMark")?.value
       creditRequest.name = this.formGroup.get("name")?.value
@@ -73,6 +78,11 @@ export class CreditRequestComponent implements OnInit {
         error => {
           alert("Failed to send credit request");
           console.error("Error sending credit request:", error);
+        },
+        () => {
+          setTimeout( ()=> {
+            this.isSubmitting = false;
+          }, 3000);
         }
       );
     } else {
