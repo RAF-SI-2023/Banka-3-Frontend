@@ -213,7 +213,7 @@ const routes: Routes = [
     // canActivate:[AuthGuard, UserGuard]
   },
   {
-    path : 'stock-info',
+    path : 'stock-info/:ticker',
     component: StockInfoComponent,
     // canActivate:[AuthGuard, UserGuard]
   },
