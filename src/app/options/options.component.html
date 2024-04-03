@@ -1,0 +1,36 @@
+<div class="page">
+
+      <div class="panel">
+        <div>  <span class="h1">{{ ticker }}</span> <br>
+          <span class="p">Datum</span></div>
+          <input type="date" (change)="onDateChange($event)">
+      <button class="users-button" (click)="switchToOptions('call')" [ngStyle]="{ 'opacity': !callsFlag ? '0.5' : '1'}">
+        Calls
+      </button>
+      <button class="employees-button" (click)="switchToOptions('put')" [ngStyle]="{ 'opacity': !putsFlag ? '0.5' : '1'}">
+        Puts
+      </button>
+  
+      <div class="table">
+        <mat-table [dataSource]="displayedOptions" matSort *ngIf="displayedOptions">
+  
+          <ng-container *ngFor="let column of optionColumns" [matColumnDef]="column">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ column | titlecase }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element[column] }}
+              <ng-container *ngIf="column === 'opcije'" style="width: 200px;"> <!-- Adjust width as needed -->
+                
+                <button (click)="buyOption(element['optionsId'])" [height]="34" class="optionsButton">Kupi</button>
+                <button (click)="sellOption(element)"  [height]="34" class="optionsButton">Prodaj</button>
+              </ng-container>
+            </mat-cell>
+          </ng-container>
+  
+          <mat-header-row *matHeaderRowDef="optionColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: optionColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </div>
+  </div>

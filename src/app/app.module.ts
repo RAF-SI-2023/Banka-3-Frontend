@@ -51,6 +51,7 @@ import { CreditTransactionComponent } from './credit-transaction/credit-transact
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
 import { CreditListUserComponent } from './credit-list-user/credit-list-user.component';
 import { SupervisorListsingListComponent } from './hartije/supervisor-listsing-list/supervisor-listsing-list.component';
+import { OptionsComponent } from './options/options.component';
 
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
@@ -92,7 +93,8 @@ import { SupervisorListsingListComponent } from './hartije/supervisor-listsing-l
     CreditRequestComponent,
     TransactionDetailsComponent,
     CreditListUserComponent,
-    SupervisorListsingListComponent
+    SupervisorListsingListComponent,
+    OptionsComponent
 
 
 
