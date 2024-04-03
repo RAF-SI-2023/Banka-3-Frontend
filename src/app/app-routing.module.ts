@@ -39,6 +39,7 @@ import {UserGuard} from "./guards/user.guard";
 import {TransactionDetailsComponent} from "./transaction-details/transaction-details.component";
 import {SupervisorListsingListComponent} from "./hartije/supervisor-listsing-list/supervisor-listsing-list.component";
 import {CreditListUserComponent} from "./credit-list-user/credit-list-user.component";
+import {ListingListComponent} from "./hartije/listing-list/listing-list.component";
 
 
 const routes: Routes = [
@@ -198,6 +199,11 @@ const routes: Routes = [
     path : 'credit-list-user',
     component: CreditListUserComponent,
     canActivate:[AuthGuard, UserGuard]
+  },
+  {
+    path : 'listing-list',
+    component: ListingListComponent,
+    // canActivate:[AuthGuard, UserGuard]
   }
 ];
 
