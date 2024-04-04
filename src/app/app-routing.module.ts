@@ -61,7 +61,7 @@ const routes: Routes = [
   {
     path: 'user-list',
     component: UserListComponent,
-    canActivate: [AuthGuard, AdminGuard]
+   // canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'user-login',
@@ -195,7 +195,7 @@ const routes: Routes = [
   {
     path: 'supervisor-listing',
     component: SupervisorListsingListComponent,
-    canActivate: [AuthGuard, UserGuard] //treba postaviti gard za supervizora
+    //canActivate: [AuthGuard, UserGuard] //treba postaviti gard za supervizora
   },
   {
     path : 'options/:ticker',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Daily, Future, Intraday, Monthly, Stock, Weekly} from "../models/models";
+import {Daily, Future, Intraday, Monthly, Options, Stock, Weekly} from "../models/models";
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,7 @@ import {Daily, Future, Intraday, Monthly, Stock, Weekly} from "../models/models"
 export class ExchangeService {
 
   apiUrlExchangeService: string = "http://localhost:8083/api/v1"
+  apiUrlOptions: string = "http://localhost:8083/api/v1/option"
   constructor(private httpClient : HttpClient) { }
 
   getAllStocks(){
@@ -72,7 +73,13 @@ export class ExchangeService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.get<Stock>(`${this.apiUrlExchangeService}/stock/${ticker}`,{headers} )
+    return this.httpClient.get<Options[]>(`${this.apiUrlOptions}/calls/${ticker}`,{headers} )
   }
-  
+  getAllPuts(ticker: string){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.get<Options[]>(`${this.apiUrlOptions}/puts/${ticker}`,{headers} )
+  }
 }
