@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute
 import { Options } from '../models/models';
 import {ExchangeService} from "../services/exchange.service";
+import {formatDate} from "@angular/common";
 
 
 @Component({
@@ -16,7 +17,7 @@ export class OptionsComponent implements OnInit {
   calls: Options[] = [];
   puts: Options[] = [];
   ticker: string = '';
-  optionColumns: string[] = ['optionsId', 'ask', 'bid', 'change', 'contractSymbol', 'impliedVolatility', 'lastRefresh', 'openInterest', 'optionType', 'price', 'settlementDate', 'stockListing', 'strikePrice', 'volume', 'opcije'];
+  optionColumns: string[] = ['contractSymbol','stockListing','ask', 'bid', 'change', 'impliedVolatility', 'lastRefresh', 'openInterest', 'optionType', 'strike', 'lastPrice', 'volume', 'opcije'];
   callsFlag = true;
   putsFlag = false;
   selectedDate: string | null = null;
@@ -127,22 +128,17 @@ export class OptionsComponent implements OnInit {
   }
 
   loadOptions(optionType: string): void {
-    let filteredOptions = this.options;
 
     if (optionType === 'call') {
-      filteredOptions = filteredOptions.filter(option => option.optionType === 'call');
       this.callsFlag = true;
       this.putsFlag = false;
     } else if (optionType === 'put') {
-      filteredOptions = filteredOptions.filter(option => option.optionType === 'put');
       this.callsFlag = false;
       this.putsFlag = true;
     }
-
+    this.refresh()
     // Apply date filter
 
-    this.calls = this.filterByDate(filteredOptions);
-    this.puts = this.filterByDate(filteredOptions);
   }
 
   filterByDate(options: Options[]): Options[] {
@@ -197,4 +193,6 @@ export class OptionsComponent implements OnInit {
         console.log(this.calls);
       });
   }
+
+  protected readonly formatDate = formatDate;
 }
