@@ -98,7 +98,7 @@ import { AgChartsAngularModule } from 'ag-charts-angular';
     TransactionDetailsComponent,
     CreditListUserComponent,
     SupervisorListsingListComponent,
-    OptionsComponent
+    OptionsComponent,
     ListingListComponent,
     StockInfoComponent,
     ChartComponent
