@@ -184,12 +184,19 @@ export interface CreditRequestCreateDto {
   currencyMark: string;
 }
 
-//izmeniti sa pravim podacima
+
 export interface Request {
-  requestId: number,
+ stockOrderId: number,
+  employeeId: number,
+  ticker: string,
+  status: string,
+  type: string,
+  limitValue: number,
+  stopValue: number,
   amount: number,
-  description: string,
-  status: string
+  amountLeft: number,
+  aon: boolean,
+  margine: boolean
 }
 
 export interface Future{
