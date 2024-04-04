@@ -9,6 +9,7 @@ export class ExchangeService {
 
   apiUrlExchangeService: string = "http://localhost:8083/api/v1"
   apiUrlOptions: string = "http://localhost:8083/api/v1/option"
+  apiUrlStocks: string = "http://localhost:8083/api/v1/stock"
   constructor(private httpClient : HttpClient) { }
 
   getAllStocks(){
@@ -89,4 +90,12 @@ export class ExchangeService {
     })
     return this.httpClient.get<Options[]>(`${this.apiUrlOptions}/puts/${ticker}`,{headers} )
   }
+  buyStock(employeeId: number, ticker:string, amount: number, limitValue:number, stopValue: number, aon: boolean){
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        })
+        const body = {employeeId, ticker, amount, limitValue, stopValue, aon};
+        return this.httpClient.post<any>(`${this.apiUrlStocks}/buyStock`,body,{ headers })
+      }
 }

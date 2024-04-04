@@ -56,6 +56,8 @@ import { ListingListComponent } from './hartije/listing-list/listing-list.compon
 import { StockInfoComponent } from './stock-info/stock-info.component';
 import { ChartComponent } from './chart/chart.component';
 import { AgChartsAngularModule } from 'ag-charts-angular';
+import { BuyHartijeComponent } from './buy-hartije/buy-hartije.component';
+import { BuyHartijePopupComponent } from './buy-hartije-popup/buy-hartije-popup.component';
 
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
@@ -101,7 +103,9 @@ import { AgChartsAngularModule } from 'ag-charts-angular';
     OptionsComponent,
     ListingListComponent,
     StockInfoComponent,
-    ChartComponent
+    ChartComponent,
+    BuyHartijeComponent,
+    BuyHartijePopupComponent
 
   ],
   imports: [

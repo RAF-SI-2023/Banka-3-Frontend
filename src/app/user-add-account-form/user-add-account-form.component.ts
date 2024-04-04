@@ -78,7 +78,6 @@ export class UserAddAccountFormComponent implements OnInit{
 
   }
 
-
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
       duration: 2000,

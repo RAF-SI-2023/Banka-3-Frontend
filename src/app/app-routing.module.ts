@@ -42,6 +42,8 @@ import {CreditListUserComponent} from "./credit-list-user/credit-list-user.compo
 import { OptionsComponent } from './options/options.component';
 import {ListingListComponent} from "./hartije/listing-list/listing-list.component";
 import { StockInfoComponent } from './stock-info/stock-info.component';
+import {BuyHartijeComponent} from "./buy-hartije/buy-hartije.component";
+import {BuyHartijePopupComponent} from "./buy-hartije-popup/buy-hartije-popup.component";
 
 
 const routes: Routes = [
@@ -61,7 +63,7 @@ const routes: Routes = [
   {
     path: 'user-list',
     component: UserListComponent,
-   // canActivate: [AuthGuard, AdminGuard]
+    canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'user-login',
@@ -190,7 +192,7 @@ const routes: Routes = [
   {
     path: 'transaction-details',
     component: TransactionDetailsComponent,
-    canActivate: [AuthGuard, UserGuard]
+//   canActivate: [AuthGuard, UserGuard]
   },
   {
     path: 'supervisor-listing',
@@ -205,7 +207,7 @@ const routes: Routes = [
   {
     path : 'credit-list-user',
     component: CreditListUserComponent,
-    canActivate:[AuthGuard, UserGuard]
+   // canActivate:[AuthGuard, UserGuard]
   },
   {
     path : 'listing-list',
@@ -217,7 +219,16 @@ const routes: Routes = [
     component: StockInfoComponent,
     // canActivate:[AuthGuard, UserGuard]
   },
-
+  {
+    path : 'buy-hartije/:ticker',
+    component: BuyHartijeComponent,
+    // canActivate:[AuthGuard, UserGuard]
+  },
+  {
+    path: 'buy-hartije-popup',
+    component:BuyHartijePopupComponent,
+    // canActivate:[AuthGuard, UserGuard]
+  }
 ];
 
 @NgModule({
