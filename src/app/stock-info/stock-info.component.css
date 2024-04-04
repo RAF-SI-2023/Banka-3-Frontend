@@ -119,12 +119,12 @@ body{
     display: inline-block;
 }
 
-.green-indicator {
-    background-color: #22b55d;
+.redText {
+    color: #e6393f;
 }
 
-.red-indicator {
-    background-color: #e6393f;
+.greenText {
+    color: #22b55d;
 }
 
 
