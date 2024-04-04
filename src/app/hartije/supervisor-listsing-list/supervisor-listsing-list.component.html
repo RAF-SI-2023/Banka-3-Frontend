@@ -1,30 +1,40 @@
 <div class="page">
   <div class="panel">
-    <div class="header-buttons">
-      <button class="recipients-button">
-        Zahtevi
-      </button>
+    <button class="request-button">
+      R e q u e s t s
+    </button>
 
-    </div>
-    <div class="table" style="width: 100%;">
+    <mat-table [dataSource]="MockRequests" matSort style="max-width: var(--max-screen-width)">
+      <ng-container *ngFor="let column of requestColumns" [matColumnDef]="column">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ column | uppercase }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element[column] }}
+        </mat-cell>
+      </ng-container>
+      <!-- Accept Button -->
+      <ng-container matColumnDef="accept">
+        <mat-header-cell *matHeaderCellDef> Accept </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button class="icon-button" (click)="acceptRequest(element.stockOr)">
+            <img src="assets/circle-check-svgrepo-com.svg" width="24" height="24">
+          </button>
+        </mat-cell>
+      </ng-container>
 
-      <!--      Promeniti [dataSource] -->
-      <mat-table [dataSource]="MockRequests" matSort style="width: 100%;">
-        <!-- Kolona za request -->
-        <ng-container matColumnDef="request">
-          <mat-cell *matCellDef="let request"> <b> {{request.description}} {{request.amount}}</b> </mat-cell>
-        </ng-container>
-        <!-- Kolona za opcije (accept i reject) -->
-        <ng-container matColumnDef="opcije">
-          <mat-cell *matCellDef="let request">
-            <div class="options-container">
-              <img class="edit-button" (click)="acceptRequest()" [width]="24" [height]="24" src="assets/circle-check-svgrepo-com.svg">
-              <img class="delete-button" (click)="rejectRequest()" [width]="24" [height]="24" src="assets/circle-quarters-svgrepo-com.svg">
-            </div>
-          </mat-cell>
-        </ng-container>
-        <mat-row *matRowDef="let row; columns: ['request', 'opcije'];"></mat-row>
-      </mat-table>
-    </div>
+      <!-- Reject Button -->
+      <ng-container matColumnDef="reject">
+        <mat-header-cell *matHeaderCellDef> Reject </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button class="icon-button" (click)="rejectRequest(element.stockOrderId)">
+            <img src="assets/circle-quarters-svgrepo-com.svg " width="24" height="24">
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="requestColumns.concat(['accept', 'reject'])"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: requestColumns.concat(['accept', 'reject'])"></mat-row>
+    </mat-table>
   </div>
 </div>

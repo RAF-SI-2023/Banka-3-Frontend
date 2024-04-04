@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Daily, Future, Intraday, Monthly, Options, Stock, Weekly} from "../models/models";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -88,5 +89,13 @@ export class ExchangeService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
     return this.httpClient.get<Options[]>(`${this.apiUrlOptions}/puts/${ticker}`,{headers} )
+  }
+
+
+  getAllOrdersToApprove(): Observable<any> {
+    return this.httpClient.get(`${this.apiUrlExchangeService}/ordersToApprove/getAll`);
+  }
+  approveStockOrder(id:number, approved: boolean): Observable<any> {
+    return this.httpClient.put(`${this.apiUrlExchangeService}/ordersToApprove/approve/${id}?approved=${approved}`, null);
   }
 }

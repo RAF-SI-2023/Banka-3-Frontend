@@ -82,7 +82,7 @@
   border-top-left-radius: var(--border-radius-standard);
 }
 
-.recipients-button{
+.request-button{
   background-color: var(--blue-medium);
   border: 0;
   height: var(--button-height-small);
@@ -125,6 +125,11 @@ img{
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {MockRequests} from "./mock-requests";
+import {Router} from "@angular/router";
+import {ExchangeService} from "../../services/exchange.service";
 
 
 @Component({
@@ -11,20 +13,34 @@ import {MockRequests} from "./mock-requests";
 Izlistavanje hartija koje je podneo zahtev agent... treba da ima dugme da odbije i prihvati
  */
 export class SupervisorListsingListComponent {
-  //TODO: Potrebno zameniti MockRequests u html-u kada se odradi bek
-  // protected readonly MockRequests  = MockRequests;
-  requests: Request[] = []
-  constructor() {
+  requests: Request[] = [];
+  requestColumns = ['stockOrderId', 'employeeId', 'ticker','status','type', 'limitValue', 'stopValue', 'amount','amountLeft','aon', 'margine'];
+  constructor(private exchangeService: ExchangeService, private router: Router) {
   }
   ngOnInit() {
+    this.exchangeService.getAllOrdersToApprove().subscribe( res => {
+      this.requests = res;
+    }, error => {
+      console.log(error)
+    }
+    );
 
   }
-  acceptRequest() {
-
+  acceptRequest(elementId: number){
+    this.exchangeService.approveStockOrder(elementId, true).subscribe( res => {
+      this.ngOnInit();
+      //treba da se doda neko obavestenje da je zahtev prihvacen
+    }
+    );
   }
-  rejectRequest() {
-
+  rejectRequest(elementId: number){
+    this.exchangeService.approveStockOrder(elementId, false).subscribe( res => {
+      this.ngOnInit();
+      //treba da se doda neko obavestenje da je zahtev odbijen
+    }
+    );
   }
 
   protected readonly MockRequests = MockRequests;
 }
+
