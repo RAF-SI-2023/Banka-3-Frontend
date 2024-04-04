@@ -16,7 +16,7 @@ export class ExchangeService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.get<Stock[]>(`${this.apiUrlExchangeService}/stock/getAll`,{headers} )
+    return this.httpClient.get<Stock[]>(`${this.apiUrlExchangeService}/stock`,{headers} )
   }
   getAllFutures(){
 
