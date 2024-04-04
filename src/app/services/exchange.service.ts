@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Daily, Future, Intraday, Monthly, Options, Stock, Weekly} from "../models/models";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -90,6 +91,7 @@ export class ExchangeService {
     })
     return this.httpClient.get<Options[]>(`${this.apiUrlOptions}/puts/${ticker}`,{headers} )
   }
+  
   buyStock(employeeId: number, ticker:string, amount: number, limitValue:number, stopValue: number, aon: boolean){
         const headers = new HttpHeaders({
           'Content-Type': 'application/json',
@@ -98,4 +100,11 @@ export class ExchangeService {
         const body = {employeeId, ticker, amount, limitValue, stopValue, aon};
         return this.httpClient.post<any>(`${this.apiUrlStocks}/buyStock`,body,{ headers })
       }
+
+  getAllOrdersToApprove(): Observable<any> {
+    return this.httpClient.get(`${this.apiUrlExchangeService}/ordersToApprove/getAll`);
+  }
+  approveStockOrder(id:number, approved: boolean): Observable<any> {
+    return this.httpClient.put(`${this.apiUrlExchangeService}/ordersToApprove/approve/${id}?approved=${approved}`, null);
+  }
 }
