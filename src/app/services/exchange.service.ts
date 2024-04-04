@@ -17,7 +17,7 @@ export class ExchangeService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.get<Stock[]>(`${this.apiUrlExchangeService}/stock/getAll`,{headers} )
+    return this.httpClient.get<Stock[]>(`${this.apiUrlExchangeService}/stock`,{headers} )
   }
   getAllFutures(){
 
@@ -68,7 +68,7 @@ export class ExchangeService {
     return this.httpClient.get<Monthly[]>(`${this.apiUrlExchangeService}/history/monthly/${ticker}`,{headers} )
   }
 
-  getAllCalls(ticker: string){
+  getByTicker(ticker: string){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
