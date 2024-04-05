@@ -42,7 +42,9 @@
               {{ element[column] }} <img [width]="16" [height]="16" src="assets/chart-line-down-svgrepo-com.svg" />
             </ng-container>
             <ng-container *ngIf="column === 'opcije'">
-              <img [width]="24" [height]="24" src="assets/arrow-down-arrow-up.svg" />
+              <button (click)="sell(element['ticker'])" class="button">Prodaj</button>
+
+              <button (click)="buy(element['ticker'])" class="button">Kupi</button>
             </ng-container>
           </mat-cell>
         </ng-container>

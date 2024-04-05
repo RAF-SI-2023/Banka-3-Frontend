@@ -1,0 +1,60 @@
+<div class="container" xmlns="http://www.w3.org/1999/html">
+  <div class="input-row">
+    <hr>
+    <h2 class="h4">&nbsp;</h2>
+    <h2 class="h4" style="text-align: center; font-weight: bold;">Kupovina hartije</h2>
+    <label> ticker: {{ ticker }}</label>
+    <hr>
+  </div>
+  <div class="input-row">
+    <div class="input-container">
+      <p class="bold">Unesite broj hartija: </p>
+      <input
+        type="text"
+        placeholder=""
+        class="input"
+        [(ngModel)]="amount"
+      />
+    </div>
+  </div>
+  <div class="input-row">
+    <div class="input-container">
+      <div class="col">
+        <p class="bold">Unesite Limit Value:</p>
+        <input
+          type="text"
+          placeholder=""
+          class="input-large"
+          [(ngModel)]="limitValue"
+        />
+      </div>
+    </div>
+  </div>
+      <div class="input-row">
+        <div class="input-container">
+          <div class="col">
+          <p class="bold">Unesite Stop Value:</p>
+            <input
+              type="text"
+              placeholder=""
+              class="input-large"
+              [(ngModel)]="stopValue"
+            />
+        </div>
+      </div>
+  </div>
+  <hr>
+  <div class="input-row">
+    <form>
+      <label for="checkbox">All or None: </label>
+      <input type="checkbox" id="checkbox" name="checkbox" [(ngModel)]="aon">
+    </form>
+  </div>
+  <hr>
+    <div class="input-row">
+      <div class="col">
+        <button (click)="buttonBuy()" class="myButtonPrimary">Buy</button>
+        <button (click)="buttonCancel()" class="myButtonSecondary">Cancel</button>
+      </div>
+    </div>
+</div>
