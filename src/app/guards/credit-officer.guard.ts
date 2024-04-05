@@ -23,7 +23,7 @@ export class CreditOfficerGuard implements CanActivate {
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const hasRole = "role" in payload;
-      if (hasRole && payload.role === 'ROLE_CREDIT_OFFICER') {
+      if (hasRole && payload.role === 'ROLE_CREDIT_OFFICER' || payload.role === 'ROLE_ADMIN') {
         return true;
       }
     }

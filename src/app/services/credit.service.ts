@@ -35,15 +35,16 @@ export class CreditService {
     return this.httpClient.get<CreditRequestDto>(`${this.apiUrlCreditRequest}/${userId}`,{headers} )
 
   }
-  approveCredit(creditRequestId : number, approve: boolean){
+  approveCredit(creditRequestId: number, approve: boolean){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
     let obj = {
-      creditRequestId,
+      creditRequestId: creditRequestId,
       accepted: approve
     }
+    console.log(obj)
     return this.httpClient.put<CreditRequestDto>(`${this.apiUrlCreditRequest}`, obj,{headers} )
 
   }

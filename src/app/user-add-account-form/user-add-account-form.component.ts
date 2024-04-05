@@ -43,7 +43,7 @@ export class UserAddAccountFormComponent implements OnInit{
     this.account.mark = this.accountForm.get('mark')?.value;
 
     if(this.account.accountType == 'Tekuci'){
-      this.userService.saveAccount(this.userId, this.account.balance, "DINAR", this.employeeId, this.account.accountType)
+      this.userService.saveAccount(this.userId, this.account.balance, "RSD", this.employeeId, this.account.accountType)
       .subscribe(
         res => {
           console.log(res);
@@ -59,7 +59,7 @@ export class UserAddAccountFormComponent implements OnInit{
         }
         );
     }else{
-      this.userService.saveForeignAccount(this.userId, this.account.balance, this.account.mark, this.employeeId)
+      this.userService.saveAccount(this.userId, this.account.balance, this.account.mark, this.employeeId, this.account.accountType)
       .subscribe(
         res => {
           console.log(res);
@@ -94,7 +94,10 @@ export class UserAddAccountFormComponent implements OnInit{
     this.employeeId = tk.id;
 
     this.userService.getAllCurrency().subscribe(res => {
-      this.currencies = res;
+      this.currencies = res.filter( curr => {
+        return curr.mark !== 'RSD';
+      })
+      // this.currencies = res;
     });
   }
 

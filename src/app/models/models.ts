@@ -116,7 +116,7 @@ export interface Contact{
 }
 
 export interface CreditRequestDto{
-  creditRequestId:number,
+  creditRequestId: number,
   user: User,
   name: string,
   amount: number,

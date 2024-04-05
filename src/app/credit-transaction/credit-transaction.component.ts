@@ -85,6 +85,7 @@ export class CreditTransactionComponent implements OnInit {
   selectedCredit: CreditRequestDto | null = null;
   isSubmittingApproval: boolean = false;
   isSubmittingRefusal: boolean = false;
+  creditRequestId = 0
 
   constructor(
     private route: ActivatedRoute,
@@ -96,12 +97,11 @@ export class CreditTransactionComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const userId = params['userId'];
-
-      if (userId) {
-        this.creditService.getCreditDetails(userId).subscribe(credit => {
-          this.selectedCredit = credit;
-        });
-      }
+      console.log(userId)
+      this.creditRequestId = userId
+      this.creditService.getCreditDetails(userId).subscribe(credit => {
+        this.selectedCredit = credit;
+      });
     });
   }
 
@@ -127,7 +127,7 @@ export class CreditTransactionComponent implements OnInit {
       return;
     }
     this.isSubmittingApproval = true;
-    this.creditService.approveCredit(this.selectedCredit!.creditRequestId, true).subscribe(res => {
+    this.creditService.approveCredit(this.creditRequestId, true).subscribe(res => {
       console.log(res)
       this.openErrorSnackBar('Odobrili ste kredit korisniku: ' +  this.selectedCredit!.user!.firstName + " " + this.selectedCredit!.user!.lastName);
     }, error => {

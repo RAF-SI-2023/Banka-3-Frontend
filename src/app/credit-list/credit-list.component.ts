@@ -40,8 +40,9 @@ export class CreditListComponent implements OnInit {
     }
   }
 
-  navigateToCreditDetails(userId: number) {
-    this.router.navigate(['/credit-transaction', userId]);
+  navigateToCreditDetails(creditId: number) {
+    console.log(creditId)
+    this.router.navigate(['/credit-transaction', creditId]);
   }
 
   navigateToCreditRequest() {

@@ -119,7 +119,7 @@ const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, UserGuard]
   },
   {
     path: 'user-account/:userId',

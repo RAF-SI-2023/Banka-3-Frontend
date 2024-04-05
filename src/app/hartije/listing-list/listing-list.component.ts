@@ -63,7 +63,7 @@ export class ListingListComponent implements OnInit{
   }
 
   tickerInfo(ticker: string){
-    this.router.navigate(['stocks-info', ticker])
+    this.router.navigate(['stock-info', ticker])
   }
 
   buy(ticker: string){

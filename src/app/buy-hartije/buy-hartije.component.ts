@@ -29,7 +29,9 @@ export class BuyHartijeComponent implements OnInit{
   buttonBuy() {
     this.router.navigate(['buy-hartije-popup']);
 
-    this.exchangeService.buyStock(this.employeeId, this.ticker, this.amount, this.limitValue, this.stopValue, this.aon)
+    this.exchangeService.buyStock(this.employeeId, this.ticker, this.amount, this.limitValue, this.stopValue, this.aon).subscribe(res => {
+      console.log(res)
+    })
 
   }
   ngOnInit(): void {
