@@ -44,6 +44,7 @@ import {ListingListComponent} from "./hartije/listing-list/listing-list.componen
 import { StockInfoComponent } from './stock-info/stock-info.component';
 import {BuyHartijeComponent} from "./buy-hartije/buy-hartije.component";
 import {BuyHartijePopupComponent} from "./buy-hartije-popup/buy-hartije-popup.component";
+import {CardViewComponent} from "./card-view/card-view.component";
 
 
 const routes: Routes = [
@@ -228,6 +229,11 @@ const routes: Routes = [
     path: 'buy-hartije-popup',
     component:BuyHartijePopupComponent,
     // canActivate:[AuthGuard, UserGuard]
+  },
+  {
+    path: 'card-view',
+    component: CardViewComponent,
+    canActivate: [AuthGuard, UserGuard]
   }
 ];
 

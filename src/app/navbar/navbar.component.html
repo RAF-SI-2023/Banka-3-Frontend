@@ -14,6 +14,9 @@
           <a *ngIf="isEmployeeUser" [routerLink]="'/user-control'">Računi</a>
         </div>
         <div class="item">
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/card-view'">Kartice</a>
+        </div>
+        <div class="item">
           <a *ngIf="isEmployeeUser" [routerLink]="'/credit-list'">Zahtevi za kredit</a>
         </div>
         <div class="item">
