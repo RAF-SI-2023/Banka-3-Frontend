@@ -4,21 +4,31 @@
       <span style="text-align: center" class="h2">Pregled kartica</span>
       <div class="selectCardWrapper">
         <!-- Display selected account details -->
-        <div class="accountCard">
+        <div class="accountCard" *ngFor="let card of cards" (click)="onCardClick(card)">
           <div class="cardLogoWrapper">
-            <div class="cardLogo">
-              <img height="48px" width="48px" class="arrow" src="assets/visa-blue-card-logo.svg" alt="Next">
+
+            <div class="cardLogo" *ngIf="card.cardNumber.toString().startsWith('4')">
+              <img height="64px" width="64px" class="arrow" src="assets/visa-blue-card-logo.svg" alt="Visa">
+            </div>
+            <div class="cardLogo" *ngIf="card.cardNumber.toString().startsWith('51') || card.cardNumber.toString().startsWith('52') || card.cardNumber.toString().startsWith('53') || card.cardNumber.toString().startsWith('54') || card.cardNumber.toString().startsWith('55')">
+              <img height="64px" width="64px" class="arrow" src="assets/mastercard-logo.svg" alt="MasterCard">
+            </div>
+            <div class="cardLogo" *ngIf="!(card.cardNumber.toString().startsWith('4') || card.cardNumber.toString().startsWith('51') || card.cardNumber.toString().startsWith('52') || card.cardNumber.toString().startsWith('53') || card.cardNumber.toString().startsWith('54') || card.cardNumber.toString().startsWith('55'))">
+              <img height="64px" width="64px" class="arrow" src="assets/credit-card-payment-round-svgrepo-com(1).svg" alt="Card">
             </div>
           </div>
           <div class="cardInfoWrapper">
-            <span class="p">Card number</span>
-            <p class="h4 blueText"> 4444 ... 1111 </p>
-            <span class="p">Datum isticanja</span>
-            <p class="h4 blueText">31/12/9999</p>
-            <span class="p">CVC</span>
-            <p class="h4 blueText">123</p>
+            <span class="p"><b>Card number</b></span>
+            <p class="h4 blueText"> {{ card.cardNumber.toString() | slice:0:4 }} ... {{ card.cardNumber.toString() | slice:-4 }} </p>
+            <span class="p"><b>Expire date</b></span>
+            <p class="h4 blueText">{{ card.expireDate.substring(0, 2) }} / {{ card.expireDate.substring(2) }}</p>
+            <span class="p"><b>CVC</b></span>
+            <p class="h4 blueText">{{ card.cvc }}</p>
           </div>
         </div>
+      </div>
+      <div class="buttonContainer">
+        <button type="button" value="Novi zahtev za kredit" class="myButtonSecondary" (click)="goToAtm()">Bankomat</button>
       </div>
     </div>
   </div>
