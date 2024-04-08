@@ -82,7 +82,7 @@ export class UserloginComponent {
         res => {
           sessionStorage.setItem("token", res.token);
           const token = JSON.parse(atob(res.token.split('.')[1]))
-          if("role" in token && token.role === 'ROLE_SUPERVISOR'){
+          if("role" in token && (token.role === 'ROLE_SUPERVISOR' || token.role === 'ROLE_AGNET' )){
             this.router.navigate(['listing-list'])
             .then(()=> {
               window.location.reload()
