@@ -20,5 +20,32 @@ export class CardService {
     return this.httpClient.get<Card[]>(`${this.apiUrlCard}/getAll/${userId}`, { headers });
   }
 
+  loginCard(userId: number, accountNumber: string, cvc: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    const body = { userId, accountNumber, cvc };
+    return this.httpClient.post<any>(`${this.apiUrlCard}/cardLogin`, body, { headers });
+  }
+
+  sendDepositRequest(accountNumber: string, amount: number): Observable<any> {
+    const body = { accountNumber, amount };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.post<any>(`${this.apiUrlCard}/deposit`, body, { headers });
+  }
+
+  sendWithdrawRequest(accountNumber: string, amount: number): Observable<any> {
+    const body = { accountNumber, amount };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.post<any>(`${this.apiUrlCard}/withdraw`, body, { headers });
+  }
+
 
 }

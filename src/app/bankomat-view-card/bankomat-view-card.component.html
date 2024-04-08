@@ -1,0 +1,25 @@
+<div class="page">
+    <div class="panel">
+      <div class="h2">Bankomat</div>
+    
+      <div class="table">
+        <div class="h3">Unos kartice</div>
+        <div class="input-container">
+          <p class="h4">Broj kartice</p>
+          <input type="text" class="input" [(ngModel)]="cardNumber" (input)="onInputChange()">
+        </div>
+  
+        <div class="input-container">
+          <p class="h4">CVC Kod</p>
+          <input type="text" class="input" [(ngModel)]="cvc" (input)="onInputChange()">
+        </div>
+        <div *ngIf="!validateInputs()" style="color: red;">Invalid input. Please check your card number and CVC.</div>
+
+        <button class="primary-button"  [ngClass]="{'faded': isButtonDisabled}" [disabled]="isButtonDisabled" (click)="onContinue() ">Nastavi</button>
+
+      </div>
+    </div>
+  </div>
+
+
+  

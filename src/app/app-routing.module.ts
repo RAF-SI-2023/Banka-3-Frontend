@@ -45,6 +45,8 @@ import { StockInfoComponent } from './stock-info/stock-info.component';
 import {BuyHartijeComponent} from "./buy-hartije/buy-hartije.component";
 import {BuyHartijePopupComponent} from "./buy-hartije-popup/buy-hartije-popup.component";
 import {CardViewComponent} from "./card-view/card-view.component";
+import { BankomatViewComponent } from './bankomat-view/bankomat-view.component';
+import { BankomatViewCardComponent } from './bankomat-view-card/bankomat-view-card.component';
 
 
 const routes: Routes = [
@@ -231,9 +233,19 @@ const routes: Routes = [
     // canActivate:[AuthGuard, UserGuard]
   },
   {
+    path: 'bankomat',
+    component:BankomatViewComponent,
+    // canActivate:[AuthGuard, UserGuard]
+  },
+  {
     path: 'card-view',
     component: CardViewComponent,
     canActivate: [AuthGuard, UserGuard]
+  },
+  {
+    path: 'bankomat-card',
+    component: BankomatViewCardComponent,
+    // canActivate: [AuthGuard, UserGuard]
   }
 ];
 
