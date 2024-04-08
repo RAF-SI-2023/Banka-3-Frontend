@@ -58,6 +58,8 @@ import { ChartComponent } from './chart/chart.component';
 import { AgChartsAngularModule } from 'ag-charts-angular';
 import { BuyHartijeComponent } from './buy-hartije/buy-hartije.component';
 import { BuyHartijePopupComponent } from './buy-hartije-popup/buy-hartije-popup.component';
+import { CardViewComponent } from './card-view/card-view.component';
+import { FormatdatePipe } from './card-view/date-pipe/formatdate.pipe';
 
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
@@ -105,7 +107,9 @@ import { BuyHartijePopupComponent } from './buy-hartije-popup/buy-hartije-popup.
     StockInfoComponent,
     ChartComponent,
     BuyHartijeComponent,
-    BuyHartijePopupComponent
+    BuyHartijePopupComponent,
+    CardViewComponent,
+    FormatdatePipe
 
   ],
   imports: [

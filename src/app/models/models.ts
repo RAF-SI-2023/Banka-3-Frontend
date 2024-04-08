@@ -268,3 +268,11 @@ export interface Monthly{
   price: number,
   ticker: string
 }
+
+export interface Card{
+  cvv: number,
+  expireDate: number,
+  cardNumber: number,
+  cardId: number,
+  accountNumber: number
+}
