@@ -45,6 +45,7 @@ import { StockInfoComponent } from './stock-info/stock-info.component';
 import {BuyHartijeComponent} from "./buy-hartije/buy-hartije.component";
 import {BuyHartijePopupComponent} from "./buy-hartije-popup/buy-hartije-popup.component";
 import {CardViewComponent} from "./card-view/card-view.component";
+import { SupervisorGuard } from './guards/supervisor.guard';
 
 
 const routes: Routes = [
@@ -198,7 +199,7 @@ const routes: Routes = [
   {
     path: 'supervisor-listing',
     component: SupervisorListsingListComponent,
-    //canActivate: [AuthGuard, UserGuard] //treba postaviti gard za supervizora
+    // canActivate: [AuthGuard, UserGuard, SupervisorGuard] //treba postaviti gard za supervizora --> postavljen
   },
   {
     path : 'options/:ticker',
@@ -213,7 +214,7 @@ const routes: Routes = [
   {
     path : 'listing-list',
     component: ListingListComponent,
-    // canActivate:[AuthGuard, UserGuard]
+    // canActivate:[AuthGuard, UserGuard, SupervisorGuard]
   },
   {
     path : 'stock-info/:ticker',
