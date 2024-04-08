@@ -8,16 +8,16 @@ import {Card} from "../models/models";
 })
 export class CardService {
 
-  apiUrlCard: string = "http://localhost:8080/api/v1/card"
+  apiUrlCard: string = "http://localhost:8082/api/v1/card"
 
   constructor(private httpClient: HttpClient) { }
 
-  getCardsByAccountNumber(accountNumber: number): Observable<Card[]>{
+  getCardsByUserId(userId: number): Observable<Card[]>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    return this.httpClient.get<Card[]>(`${this.apiUrlCard}/getAll/${accountNumber}`, { headers });
+    return this.httpClient.get<Card[]>(`${this.apiUrlCard}/getAll/${userId}`, { headers });
   }
 
 

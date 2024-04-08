@@ -16,44 +16,42 @@ export class CardViewComponent implements OnInit{
   cards: Card[] = []
   accounts: Account[] = []
 
-  constructor(private cardService: CardService, private accountService: AccountService, private router: Router) {
+  constructor(private cardService: CardService, private router: Router) {
   }
 
   ngOnInit() {
     //TODO: Testirati bek
     //Zameniti ovo kad se kreira bek
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-    this.accountService.getAccountsByUserId(tk.id).subscribe( data => {
-      const accounts = data
-      for (let acc of accounts){
-        this.cardService.getCardsByAccountNumber(+acc.accountNumber).subscribe( res => {
-          for (let card of res) {
-            this.cards.push(card);
-          }
-          console.log("Found a card.")
-        })
-      }
+    this.cardService.getCardsByUserId(tk.id).subscribe( data => {
+      this.cards = data;
+      // console.log("Dobio kartice: " + JSON.stringify(data));
     });
 
     //Zakomentarisati ovo
     this.cards = MOCK_CARDS;
+    this.cards.forEach(card => {
+      // @ts-ignore
+      card.shortCardNumber = card.cardNumber.toString().slice(0, 4) + ' ... ' + card.cardNumber.toString().slice(-4);
+    });
   }
-
-  isPopupVisible = false;
-  selectedCard: Card | null = null;
-
-  onCardClick(card: Card): void {
-    this.selectedCard = card;
-    this.isPopupVisible = true; // Ovo otvara popup
-  }
-
-  closePopup(): void {
-    this.isPopupVisible = false; // Ovo zatvara popup
-  }
-
   goToAtm(){
     //TODO: Zameniti kada se implementira Bankomat-View
     // this.router.navigate(['/atm'])
+  }
+
+  hoveredCardIndex: number = -1; // Indeks kartice koja je trenutno hoverovana
+
+  getCardNumberWithSpaces(cardNumber: number){
+    let cardNumberString = cardNumber.toString()
+    let formattedNumber = '';
+    for (let i = 0; i < cardNumberString.length; i++) {
+      if (i > 0 && i % 4 === 0) {
+        formattedNumber += ' ';
+      }
+      formattedNumber += cardNumberString[i];
+    }
+    return formattedNumber;
   }
 
 }

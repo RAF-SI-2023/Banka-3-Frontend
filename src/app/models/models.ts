@@ -270,8 +270,8 @@ export interface Monthly{
 }
 
 export interface Card{
-  cvc: number,
-  expireDate: string,
+  cvv: number,
+  expireDate: number,
   cardNumber: number,
   cardId: number,
   accountNumber: number

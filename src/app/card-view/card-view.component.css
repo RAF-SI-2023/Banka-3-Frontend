@@ -201,3 +201,7 @@
 body{
   background-color: var(--background-main);
 }
+.arrow{
+  background-color: var(--blue-medium);
+  border-radius: 100%;
+}
