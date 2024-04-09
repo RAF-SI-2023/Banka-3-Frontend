@@ -1,4 +1,4 @@
-.container {
+/* .container {
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
@@ -116,18 +116,68 @@ input[type="checkbox"] + label {
 .col {
   flex: 1;
   text-align:center;
-}
-.input-large {
-  width: 400px; /* Povećajte širinu input polja */
-  padding: 0.5rem; /* Dodajte padding po potrebi */
-  border: 1px solid #ccc; /* Dodajte ivicu */
-  border-radius: 0.3rem; /* Dodajte zaobljenost ivicama */
-  font-size: 1rem; /* Prilagodite veličinu fonta */
-  color: #333; /* Boja teksta */
+} */
+
+body{
+  background-color: var(--background-main);
+  background-size: cover;
 }
 
+.myContainer{
+  max-width: 52rem;
+  margin:auto;
+  height: 100%;
+}
+
+.bold {
+  font-weight: bold;
+  margin: 1rem 0rem 0rem 0rem;
+  color:var(--blue-dark);
+  color:var(--blue-medium);
+  margin-bottom: 1rem;
+}
+
+.inputField{
+  margin: 0rem 0rem 0rem 0rem;
+  width: 100%;
+  border:0px;
+  resize:none;
+  box-shadow: none;
+  /* background-color: gainsboro; */
+  border-radius: 2;
+  padding:0.3rem 0.3rem 0.3rem 0rem;
+  color:var(--blue-medium);
+  border-bottom: 1px solid var(--blue-medium);
+}
+
+input:focus, input:active, input:focus-visible{
+  border: 0 !important;
+}
 
 
+.input-container {
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 1rem; */
+}
 
+.input-container input[type="checkbox"] {
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; */
+  width: 25px; 
+  height: 25px; 
+  border-radius: 10%; 
+  cursor: pointer;
+  margin-left: 1rem;
+}
 
+.line {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem;
+  padding-bottom: 5px;
+}
 
+.wrong-input-span{
+  color: red
+}

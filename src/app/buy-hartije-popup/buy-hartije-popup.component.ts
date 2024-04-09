@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router} from "@angular/router";
+import { ExchangeService } from '../services/exchange.service';
 
 @Component({
   selector: 'app-buy-hartije-popup',
@@ -12,14 +15,45 @@ export class BuyHartijePopupComponent {
   selectedOrderType: string = '';
   estimatedPrice: number = 0;
 
-  constructor(private router: Router) { }
-
+  constructor(
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private dialog: MatDialogRef<any>,
+    private snackBar: MatSnackBar,
+    private exchangeService: ExchangeService
+) {
+    if (data && data.selectedOrderType && data.selectedQuantity && data.estimatedPrice) {
+      this.selectedOrderType = data.selectedOrderType;
+      this.selectedQuantity = data.selectedQuantity;
+      this.estimatedPrice = data.estimatedPrice;
+    }
+  }
   confirm() {
-    this.router.navigate(['listing-list']);
+    this.exchangeService.buyStock(this.data.employeeId, 
+      this.data.ticker, this.data.amount, this.data.limitValue, this.data.stopValue, this.data.aon, this.data.margin).subscribe(
+      (response) => {
+        this.openSuccessSnackBar("Uspešna kupovina.");
+        this.dialog.close();
+        this.router.navigate(['listing-list']);
+      },
+      (error) => {
+        console.error('Nemate dovoljno sredstava:', error);
+        this.openSuccessSnackBar("Neuspešna kupovina.");
+        this.dialog.close();
+        this.router.navigate(['listing-list']);
+      },
+    )
+   
   }
 
   cancel() {
-    this.router.navigate(['buy-hartije']);
+    this.dialog.close();
+  }
+  
+  openSuccessSnackBar(message:string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 2000, 
+    });
   }
 }
 
