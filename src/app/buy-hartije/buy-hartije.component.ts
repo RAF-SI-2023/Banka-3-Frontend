@@ -47,15 +47,20 @@ export class BuyHartijeComponent implements OnInit{
       const margin = this.groupForm.get('margin')?.value;
 
       let orderType = '';
+      let estimatedPrice = amount;
 
       if (stop && limit && limit!=0 && stop!=0) {
+        estimatedPrice = estimatedPrice*limit;
         orderType = "Stop-Limit";
       } else if (stop && stop!=0 && margin) {
         orderType = "Margin Stop";
+        estimatedPrice = estimatedPrice*stop;
       } else if (limit && limit!=0) {
         orderType = "Limit";
+        estimatedPrice = estimatedPrice*limit;
       } else if (stop && stop!=0) {
         orderType = "Stop";
+        estimatedPrice = estimatedPrice*stop;
       } else {
         orderType = "Market";
       }
@@ -74,10 +79,11 @@ export class BuyHartijeComponent implements OnInit{
 
       let amountLet = amount;
 
+
         
       // Open dialog and pass order details
       this.dialog.open(BuyHartijePopupComponent, {
-        data: { selectedOrderType: orderDetails, selectedQuantity: amountLet, estimatedPrice: 10, employeeId: this.employeeId, 
+        data: { selectedOrderType: orderDetails, selectedQuantity: amountLet, estimatedPrice: estimatedPrice, employeeId: this.employeeId, 
           ticker: this.ticker, amount: amount, limitValue: limit, stopValue: stop, aon: allOrNone, margin:margin}
       });
   
