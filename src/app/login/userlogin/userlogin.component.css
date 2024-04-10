@@ -38,6 +38,13 @@ body, html {
 .wrong-input-span{
     color: red
 }
+.email{
+    font-size: larger;
+    font-weight: 600;
+    font-family: 'Archivo', sans-serif;
+    padding: var(--padding-standard);
+
+}
 
 .background-container {
     display: flex;
