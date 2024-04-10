@@ -153,7 +153,7 @@ const routes: Routes = [
   {
     path: 'payment',
     component: PayingComponent,
-    canActivate: [AuthGuard, UserGuard]
+    // canActivate: [AuthGuard, UserGuard] com df
   },
   {
     path: 'form-add-firm',

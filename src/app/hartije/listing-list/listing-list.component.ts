@@ -71,7 +71,7 @@ export class ListingListComponent implements OnInit{
   }
 
   sell(stock: Stock){
-  //todo
+  this.router.navigate(['options', stock]);
 
   }
 

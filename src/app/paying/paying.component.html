@@ -11,6 +11,16 @@
                         <span class="p blueText">{{ accountNumber }}</span>
                     </div>
                 </div>
+                <div class="col-sm">
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <mat-form-field>
+                            <mat-label>Racuni</mat-label>
+                            <mat-select [(ngModel)]="selectedAccount" (ngModelChange)="onAccountChange($event)">
+                                <mat-option *ngFor="let account of userAccounts" [value]="account.accountNumber">{{account.accountNumber}}</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                    </div>
+                </div>
                 <div class="col-sm text-right">
                     <div style="margin: 1rem 0rem 1rem 0rem">
                         <span class="h2">Raspoloživo</span>
