@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {AccountDto, TransactionDto} from "../models/models";
-import { Observable } from 'rxjs';
+import {AccountDto, TransactionDto, } from "../models/models";
 
 
 @Injectable({

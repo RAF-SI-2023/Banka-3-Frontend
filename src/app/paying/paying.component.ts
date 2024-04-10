@@ -17,6 +17,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class PayingComponent implements OnInit {
 
+  userId: number = 0;
+
   accountNumber: string = '';
   accountType: string = '';
   accountBalance: number = 0;
@@ -26,6 +28,7 @@ export class PayingComponent implements OnInit {
   accountNumberPattern: RegExp = /^\d{16}$/;
   recipientAccountControl: FormControl = new FormControl();
   account = {} as AccountDto;
+  userAccounts: AccountDto[]= [];
 
   paymentCodes: number[] = [];
 
@@ -53,21 +56,39 @@ export class PayingComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    this.selectedAccount = history.state.account;
-    //console.log(this.selectedAccount);
+      this.getUserId();
 
-      //todo account number ide preko getAll
-      if (this.selectedAccount) {
+      this.accountService.getAccountsByUserId(this.userId).subscribe((response) =>{
+        this.userAccounts = response;
+        this.selectedAccount = response[0];
+        
+
+        for (let i = 1; i < response.length; i++) 
+        if (response[i].creationDate < this.account.creationDate)this.account = response[i]; 
+        
         this.accountNumber = this.selectedAccount.accountNumber;
         this.accountBalance = this.selectedAccount.availableBalance - this.selectedAccount.reservedAmount;
-        //this.accountMark = this.selectedAccount.currency;
-      }
+  },
+  (error) => {
+    console.error('Greska prilikom dohvatanja racuna:', error);
+  },)
+    
 
     for (let i: number = 120; i <= 290; i++) {
       this.paymentCodes.push(i);
     }
   }
 
+  getUserId(){
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const hasId = "id" in payload;
+      if (hasId) {
+        this.userId = payload.id;
+      }
+  }
+  }
 
   //todo currency, account Number
   onSubmit() {
@@ -147,6 +168,15 @@ export class PayingComponent implements OnInit {
     return control ? control.invalid && control.touched : false;
   }
   selectedAccount: any;
+
+  onAccountChange(event: any){
+    const acc = this.userAccounts.find((item) => item.accountNumber === event)
+    if(acc){
+      this.selectedAccount = acc;
+      this.accountNumber = this.selectedAccount.accountNumber;
+      this.accountBalance = this.selectedAccount.availableBalance - this.selectedAccount.reservedAmount;
+    } 
+  }
 
   get recipientName() {
     return this.groupForm.get('recipientName');
