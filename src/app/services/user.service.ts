@@ -14,7 +14,7 @@ import {
   CreditRequestCreateDto
 } from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {from, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
 import { Credit } from '../models/models';
 
@@ -53,7 +53,6 @@ export class UserService {
   }
 
   checkEmail(email: string | null | undefined){
-
     return this.httpClient.get<UserActivationDto>(`${this.apiUrlUser}/isUserActive/${email}`);
   }
 

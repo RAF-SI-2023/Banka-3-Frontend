@@ -81,7 +81,14 @@ export class UserloginComponent {
       this.userService.loginUser(email, password).subscribe(
         res => {
           sessionStorage.setItem("token", res.token);
-          this.router.navigate([''])
+          const token = JSON.parse(atob(res.token.split('.')[1]))
+          if("role" in token && (token.role === 'ROLE_SUPERVISOR' || token.role === 'ROLE_AGNET' )){
+            this.router.navigate(['listing-list'])
+            .then(()=> {
+              window.location.reload()
+            })
+          }
+          else this.router.navigate([''])
             .then(()=> {
               window.location.reload()
             })
