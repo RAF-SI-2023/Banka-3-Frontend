@@ -206,8 +206,8 @@ export interface Future{
   contractUnit: string,
   maintenanceMargin: number,
   type: string
-}
 
+}
 export interface Stock{
   stockId: number,
   name: string,
@@ -239,6 +239,12 @@ export interface Options{
 }
 export interface Forex{
 
+  ticker: string;
+  contractName: string;
+  contractSize: number;
+  contractUnit: string;
+  maintenanceMargin: number;
+  type: string;
 }
 
 export interface Daily{
@@ -276,3 +282,4 @@ export interface Card{
   cardId: number,
   accountNumber: number
 }
+

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Daily, Future, Intraday, Monthly, Options, Stock, Weekly} from "../models/models";
+import {Daily, Future, Intraday, Monthly, Options, Stock, Weekly, Forex} from "../models/models";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -11,6 +11,7 @@ export class ExchangeService {
   apiUrlExchangeService: string = "http://localhost:8083/api/v1"
   apiUrlOptions: string = "http://localhost:8083/api/v1/option"
   apiUrlStocks: string = "http://localhost:8083/api/v1/stock"
+  apiUrlForex: string = "http://localhost:8083/api/v1/forex"
   constructor(private httpClient : HttpClient) { }
 
   getAllStocks(){
@@ -28,6 +29,13 @@ export class ExchangeService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
     return this.httpClient.get<Future[]>(`${this.apiUrlExchangeService}/future/getAll`,{headers} )
+  }
+  getAllForex(): Observable<Forex[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<Forex[]>(`${this.apiUrlForex}/getAll`, { headers });
   }
   getAllOptions(){
 
@@ -102,9 +110,46 @@ export class ExchangeService {
       }
 
   getAllOrdersToApprove(): Observable<any> {
-    return this.httpClient.get(`${this.apiUrlExchangeService}/ordersToApprove/getAll`);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    return this.httpClient.get<any>(`${this.apiUrlExchangeService}/ordersToApprove/getAll`);
   }
+
   approveStockOrder(id:number, approved: boolean): Observable<any> {
-    return this.httpClient.put(`${this.apiUrlExchangeService}/ordersToApprove/approve/${id}?approved=${approved}`, null);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    return this.httpClient.put(`${this.apiUrlExchangeService}/ordersToApprove/approve/${id}`, approved, {headers});
   }
+    // Metoda za restartovanje iskorišćenog limita za korisnika
+    resetLimitUsed(id: number): Observable<any> {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+
+      return this.httpClient.post(`${this.apiUrlExchangeService}/actuary/restartLimitUsed/${id}`, { headers });
+    }
+
+    // Metoda za postavljanje novog limita za korisnika
+    setLimit(id: number, limit: number): Observable<any> {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+
+
+      return this.httpClient.post<any>(`${this.apiUrlExchangeService}/actuary/setLimit/${id}`,limit, { headers });
+    }
+
 }
+
+
+
+
+
