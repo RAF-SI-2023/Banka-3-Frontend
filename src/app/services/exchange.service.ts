@@ -92,12 +92,12 @@ export class ExchangeService {
     return this.httpClient.get<Options[]>(`${this.apiUrlOptions}/puts/${ticker}`,{headers} )
   }
 
-  buyStock(employeeId: number, ticker:string, amount: number, limitValue:number, stopValue: number, aon: boolean){
+  buyStock(employeeId: number, ticker:string, amount: number, limitValue:number, stopValue: number, aon: boolean, margine:boolean){
         const headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         })
-        const body = {employeeId, ticker, amount, limitValue, stopValue, aon, margin: false};
+        const body = {employeeId, ticker, amount, limitValue, stopValue, aon, margine};
         return this.httpClient.post<any>(`${this.apiUrlStocks}/buyStock`,body,{ headers })
       }
 
