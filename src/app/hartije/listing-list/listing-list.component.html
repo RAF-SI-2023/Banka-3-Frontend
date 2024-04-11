@@ -1,6 +1,7 @@
 <div class="page">
   <div class="panel">
 
+    <!-- Dugmad za filtriranje -->
     <button [ngStyle]="{ 'opacity': !stocksFlag ? '0.5' : '1'}" class="stock-button" (click)="switchToStocks()">
       S t o c k s
     </button>
@@ -11,6 +12,7 @@
       F o r e x
     </button>
 
+    <!-- Tabela za prikaz podataka -->
     <div class="table">
       <mat-table *ngIf="stocksFlag" [dataSource]="stocks" matSort>
 
@@ -106,5 +108,3 @@
     </div>
   </div>
 </div>
-
-

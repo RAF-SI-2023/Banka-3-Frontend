@@ -113,7 +113,7 @@ const routes: Routes = [
   {
     path: 'add-user',
     component: CreateUserComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'user-profile/:id',
@@ -138,7 +138,7 @@ const routes: Routes = [
   {
     path: 'user-control',
     component: UserControllComponent,
-    canActivate: [AuthGuard, BankingOfficerGuard]
+    //canActivate: [AuthGuard, BankingOfficerGuard]
   },
   {
     path: 'exchange',

@@ -42,25 +42,29 @@ export class ListingListComponent implements OnInit{
     this.stocksFlag = false;
     this.forexFlag = false;
     console.log(this.stocksFlag, this.futuresFlag, this.forexFlag)
-    // this.exchangeService.getAllFutures().subscribe( res => {
-    //   this.futures = res;
-    // }, error => {
-    //   console.log(error)
-    // })
+    this.exchangeService.getAllFutures().subscribe( res => {
+       this.futures = res;
+     }, error => {
+       console.log(error)
+     })
   }
-  switchToForex(){
-    if(this.forexFlag) return;
+
+  switchToForex() {
+    if (this.forexFlag) return;
     this.forexFlag = true;
     this.stocksFlag = false;
     this.futuresFlag = false;
-    console.log(this.stocksFlag, this.futuresFlag, this.forexFlag)
-    // this.exchangeService.getAllFutures().subscribe( res => {
-    //   this.futures = res;
-    // }, error => {
-    //   console.log(error)
-    // })
+    console.log(this.stocksFlag, this.futuresFlag, this.forexFlag);
+    this.exchangeService.getAllForex().subscribe(
+        res => {
+            this.forex = res;
+        },
+        error => {
+            console.log(error);
+        }
+    );
+}
 
-  }
 
   tickerInfo(ticker: string){
     this.router.navigate(['stock-info', ticker])
