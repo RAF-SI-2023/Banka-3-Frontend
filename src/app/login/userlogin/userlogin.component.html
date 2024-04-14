@@ -102,17 +102,10 @@
         class="opaque-panel d-flex flex-column align-items-center justify-content-center"
       >
         <h2 class="disable-opacity h2"><b>Prijava korisnika</b></h2>
-        <input
-          type="text"
-          placeholder="Email"
-          class="input-box"
-          formControlName="email"
-        />
         <span
-          *ngIf="email && email.invalid && email.touched"
-          class="wrong-input-span"
+          class="email"
         >
-          Adresa nije ispravna!</span
+          {{address}}</span
         >
         <input
           type="password"

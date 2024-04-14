@@ -6,6 +6,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {PopupTransactionComponent} from "../popup/popup-transaction/popup-transaction.component";
 import {Account, AccountDto} from "../models/models";
 import {AccountService} from "../services/account.service";
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-bill',
@@ -15,7 +17,7 @@ import {AccountService} from "../services/account.service";
 export class BillComponent {
 
   account = {} as AccountDto;
-  constructor(private router: Router, private userService: UserService, private dialog: MatDialog, private accountService: AccountService) {
+  constructor(private router: Router, private userService: UserService, private dialog: MatDialog, private accountService: AccountService, private snackBar: MatSnackBar) {
 
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
@@ -65,15 +67,22 @@ export class BillComponent {
       if (response.status === 200) {
         this.openDialog();
       } else if (response.status === 404) {
-        alert('Korisnik ne postoji.');
+        this.openErrorSnackBar('Korisnik ne postoji.');
       } else if (response.status === 403) {
-        alert('Nema dovoljno stanja na računu.');
+        this.openErrorSnackBar('Nema dovoljno stanja na računu.');
       } else {
-        alert('Neočekivani odgovor od servera.');
+        this.openErrorSnackBar('Neočekivani odgovor od servera.');
       }
     } catch (error) {
-      console.error('Greška prilikom slanja zahtjeva:', error);
+      this.openErrorSnackBar('Greška prilikom slanja zahtjeva:');
     }
   }
+
+  openErrorSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 0, 
+    });
+  }
+
 
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {AccountDto, TransactionDto} from "../models/models";
+import {AccountDto, TransactionDto, } from "../models/models";
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,10 +31,9 @@ export class AccountService {
 
     return this.httpClient.post<number>(`${this.apiUrlBank}/startTransaction`, transaction, {headers})
   }
-  confirmTransaction(transactionId: number, code: number | undefined){
+  confirmTransaction(transactionId: number, code: number | undefined)  {
 
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
     let obj = {
@@ -41,7 +41,12 @@ export class AccountService {
       code
     }
 
-    return this.httpClient.post<any>(`${this.apiUrlBank}/confirmTransaction`, obj, {headers})
+    // return this.httpClient.post<string>(`${this.apiUrlBank}/confirmTransaction`, obj, {headers})
+
+    return this.httpClient.post<string>(`${this.apiUrlBank}/confirmTransaction`, obj, {
+      headers,
+      responseType: 'text' as 'json' 
+    });
   }
 
   getAllTransactionsByAccountId(accountId: string){

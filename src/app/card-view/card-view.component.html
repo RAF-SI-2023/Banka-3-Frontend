@@ -1,0 +1,39 @@
+<div class="accountsView">
+  <div class="container">
+    <div class="accountsScroller">
+      <span style="text-align: center" class="h2">Pregled kartica</span>
+      <div class="selectCardWrapper">
+        <div class="accountCard" *ngFor="let card of cards; let i = index">
+          <div class="cardLogoWrapper">
+            <div class="cardLogo" *ngIf="card.cardNumber.toString().startsWith('4')">
+              <img height="64px" width="64px"  src="assets/visa-blue-card-logo.svg" alt="Visa">
+            </div>
+            <div class="cardLogo" *ngIf="card.cardNumber.toString().startsWith('51') || card.cardNumber.toString().startsWith('52') || card.cardNumber.toString().startsWith('53') || card.cardNumber.toString().startsWith('54') || card.cardNumber.toString().startsWith('55')">
+              <img height="64px" width="64px"  src="assets/mastercard-logo.svg" alt="MasterCard">
+            </div>
+            <div class="cardLogo" *ngIf="!(card.cardNumber.toString().startsWith('4') || card.cardNumber.toString().startsWith('51') || card.cardNumber.toString().startsWith('52') || card.cardNumber.toString().startsWith('53') || card.cardNumber.toString().startsWith('54') || card.cardNumber.toString().startsWith('55'))">
+              <img height="64px" width="64px" class="arrow" src="assets/credit-card-payment-round-svgrepo-com(1).svg" alt="Card">
+            </div>
+          </div>
+          <div class="cardInfoWrapper">
+            <span class="p"><b>Card number</b></span>
+            <p class="h4 blueText" [ngClass]="{'hovered': hoveredCardIndex === i}"
+               (mouseover)="hoveredCardIndex = i"
+               (mouseout)="hoveredCardIndex = -1">
+              {{ hoveredCardIndex === i ? getCardNumberWithSpaces(card.cardNumber) : card.cardNumber.toString().slice(0, 4) + ' ... ' + card.cardNumber.toString().slice(-4) }}
+            </p>
+<!--            <p class="h4 blueText"> {{ card.cardNumber.toString() | slice:0:4 }} ... {{ card.cardNumber.toString() | slice:-4 }} </p>-->
+            <span class="p"><b>Expire date</b></span>
+            <p class="h4 blueText">{{ card.expireDate | formatdate }}</p>
+            <span class="p"><b>CVV</b></span>
+            <p class="h4 blueText">{{ card.cvv }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="buttonContainer">
+        <button type="button" value="Novi zahtev za kredit" class="myButtonSecondary" (click)="goToAtm()">Bankomat</button>
+      </div>
+    </div>
+  </div>
+</div>
+

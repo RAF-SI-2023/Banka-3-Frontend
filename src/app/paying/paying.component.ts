@@ -7,6 +7,8 @@ import {HttpClient} from "@angular/common/http";
 import {AccountService} from "../services/account.service";
 import {PopupTransactionComponent} from "../popup/popup-transaction/popup-transaction.component";
 import {MatDialog} from "@angular/material/dialog";
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-paying',
@@ -14,6 +16,8 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['./paying.component.css']
 })
 export class PayingComponent implements OnInit {
+
+  userId: number = 0;
 
   accountNumber: string = '';
   accountType: string = '';
@@ -24,13 +28,18 @@ export class PayingComponent implements OnInit {
   accountNumberPattern: RegExp = /^\d{16}$/;
   recipientAccountControl: FormControl = new FormControl();
   account = {} as AccountDto;
+  userAccounts: AccountDto[]= [];
 
   paymentCodes: number[] = [];
 
   transaction: TransactionDto = {} as TransactionDto;
   groupForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private dialog: MatDialog,private accountService: AccountService,private userService: UserService, private router: Router, private http: HttpClient) {
+  isSubmitting: boolean = false;
+
+  constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
+    private accountService: AccountService,private userService: UserService,
+    private router: Router, private http: HttpClient, private snackBar: MatSnackBar) {
 
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
@@ -47,37 +56,58 @@ export class PayingComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    this.selectedAccount = history.state.account;
-    //console.log(this.selectedAccount);
+      this.getUserId();
 
-      //todo account number ide preko getAll
-      if (this.selectedAccount) {
+      this.accountService.getAccountsByUserId(this.userId).subscribe((response) =>{
+        this.userAccounts = response;
+        this.selectedAccount = response[0];
+        
+
+        for (let i = 1; i < response.length; i++) 
+        if (response[i].creationDate < this.account.creationDate)this.account = response[i]; 
+        
         this.accountNumber = this.selectedAccount.accountNumber;
         this.accountBalance = this.selectedAccount.availableBalance - this.selectedAccount.reservedAmount;
-        //this.accountMark = this.selectedAccount.currency;
-      }
+  },
+  (error) => {
+    console.error('Greska prilikom dohvatanja racuna:', error);
+  },)
+    
 
     for (let i: number = 120; i <= 290; i++) {
       this.paymentCodes.push(i);
     }
   }
 
+  getUserId(){
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const hasId = "id" in payload;
+      if (hasId) {
+        this.userId = payload.id;
+      }
+  }
+  }
+
   //todo currency, account Number
   onSubmit() {
     if (this.groupForm && this.groupForm.valid) {
       if (this.groupForm.get('amount')?.value > this.accountBalance) {
-
-        alert('Nemate dovoljno sredstava na računu za izvršenje ove transakcije.');
+        this.openErrorSnackBar('Nemate dovoljno sredstava na računu za izvršenje ove transakcije.');
 
       } else {
         this.startTransaction();
       }
     } else {
-      alert("Fields not filled correctly.")
+      this.openErrorSnackBar("Polja nisu dobro popunjena.");
     }
   }
 
   startTransaction():void {
+    if (this.isSubmitting){
+      return;
+    }
     //todo fali dto
     //this.transaction.currencyMark = this.account;
     this.transaction.accountFrom = this.accountNumber;
@@ -86,20 +116,38 @@ export class PayingComponent implements OnInit {
     this.transaction.pozivNaBroj = this.groupForm.get('referenceNumber')?.value;
     this.transaction.accountTo = this.groupForm.get('recipientAccount')?.value;
     this.transaction.currencyMark = this.selectedAccount.currency.mark
+    this.isSubmitting = true;
     this.accountService.sendTransaction(this.transaction).subscribe(
       (response) => {
-          this.transactionId = response
-            this.dialog.open(PopupTransactionComponent,{
-              data: { inputValue: this.transactionId }
-            });
-
-        // this.router.navigate(['/validateTransaction'], {state: {transactionId : this.transactionId }});
+        this.transactionId = response;
+        this.dialog.open(PopupTransactionComponent, {
+          data: { successful: true, inputValue: this.transactionId }
+        });
       },
       (error) => {
         console.error('Nemate dovoljno sredstava:', error);
-        alert('Nemate dovoljno sredstava');
+        this.openErrorSnackBar('Nemate dovoljno sredstava');
+      },
+      () => {
+        setTimeout( ()=> {
+          this.isSubmitting = false;
+        }, 3000);
       }
     );
+  }
+
+
+
+  openSuccessSnackBar() {
+    this.snackBar.open('Transakcija uspešna', 'Zatvori', {
+      duration: 2000,
+    });
+  }
+
+  openErrorSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 0,
+    });
   }
 
   formatRecipientAccount(value: string): void {
@@ -120,6 +168,15 @@ export class PayingComponent implements OnInit {
     return control ? control.invalid && control.touched : false;
   }
   selectedAccount: any;
+
+  onAccountChange(event: any){
+    const acc = this.userAccounts.find((item) => item.accountNumber === event)
+    if(acc){
+      this.selectedAccount = acc;
+      this.accountNumber = this.selectedAccount.accountNumber;
+      this.accountBalance = this.selectedAccount.availableBalance - this.selectedAccount.reservedAmount;
+    } 
+  }
 
   get recipientName() {
     return this.groupForm.get('recipientName');

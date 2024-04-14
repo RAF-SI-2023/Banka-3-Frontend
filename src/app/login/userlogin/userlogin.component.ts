@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {UserActivationDto} from "../../models/models";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class UserloginComponent {
   showCheckAddress: boolean = true;
   userActivationDto = {} as UserActivationDto
   address: string = '';
+  isSubmitting: boolean = false;
 
   checkEmailForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -31,7 +33,7 @@ export class UserloginComponent {
     confirmPassword: new FormControl('', Validators.required)
   })
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) {
   }
 
   //  Proverava da li postoji korisnik sa datim mejlom
@@ -67,19 +69,48 @@ export class UserloginComponent {
   }
 
   submitLogin() {
+    if(this.isSubmitting) {
+      // console.log("Jedna forma je vec u procesu slanja!")
+      return;
+    }
     if(this.email?.valid && this.password?.valid){
+      this.isSubmitting = true;
       let email = this.loginForm.get("email")?.value
       let password = this.loginForm.get("password")?.value
       console.log(email, password)
-      this.userService.loginUser(email, password).subscribe(res => {
-        sessionStorage.setItem("token", res.token);
-        this.router.navigate([''])
-          .then(()=> {
-            window.location.reload()
-          })
-      })
+      this.userService.loginUser(email, password).subscribe(
+        res => {
+          sessionStorage.setItem("token", res.token);
+          const token = JSON.parse(atob(res.token.split('.')[1]))
+          if("role" in token && (token.role === 'ROLE_SUPERVISOR' || token.role === 'ROLE_AGNET' )){
+            this.router.navigate(['listing-list'])
+            .then(()=> {
+              window.location.reload()
+            })
+          }
+          else this.router.navigate([''])
+            .then(()=> {
+              window.location.reload()
+            })
+        },
+        error => {
+          this.openErrorSnackBar('Pogrešan email ili lozinka.');
+        },
+        () => {
+          setTimeout( ()=> {
+            this.isSubmitting = false;
+          }, 3000);
+        }
+        )
     }
   }
+
+  openErrorSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 0,
+    });
+  }
+
 
   get email() {
     return this.loginForm.get('email');

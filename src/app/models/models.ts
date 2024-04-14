@@ -116,7 +116,7 @@ export interface Contact{
 }
 
 export interface CreditRequestDto{
-  creditRequestId:number,
+  creditRequestId: number,
   user: User,
   name: string,
   amount: number,
@@ -183,3 +183,103 @@ export interface CreditRequestCreateDto {
   paymentPeriod: number;
   currencyMark: string;
 }
+
+
+export interface Request {
+ stockOrderId: number,
+  employeeId: number,
+  ticker: string,
+  status: string,
+  type: string,
+  limitValue: number,
+  stopValue: number,
+  amount: number,
+  amountLeft: number,
+  aon: boolean,
+  margine: boolean
+}
+
+export interface Future{
+  futureId: number,
+  contractName: string,
+  contractSize: number,
+  contractUnit: string,
+  maintenanceMargin: number,
+  type: string
+
+}
+export interface Stock{
+  stockId: number,
+  name: string,
+  exchange: string,
+  lastRefresh: number,
+  ticker : string
+  price : number
+  ask : number
+  bid : number
+  change : number
+  volume : number
+}
+
+export interface Options{
+  optionsId: number,
+  ask: number,
+  bid: number,
+  change: number,
+  contractSymbol: string,
+  impliedVolatility: number,
+  lastRefresh: number,
+  openInterest: number,
+  optionType: string,
+  price: number,
+  settlementDate: number,
+  stockListing: string,
+  strikePrice: number,
+  volume: number,
+}
+export interface Forex{
+
+  ticker: string;
+  contractName: string;
+  contractSize: number;
+  contractUnit: string;
+  maintenanceMargin: number;
+  type: string;
+}
+
+export interface Daily{
+  stockDailyId:number,
+  date: number,
+  price: number,
+  ticker: string
+}
+
+export interface Weekly{
+  stockWeeklyId:number,
+  date: number,
+  price: number,
+  ticker: string
+}
+
+export interface Intraday{
+  stockIntradayId:number,
+  date: number,
+  price: number,
+  ticker: string
+}
+
+export interface Monthly{
+  stockMonthlyId:number,
+  date: number,
+  price: number,
+  ticker: string
+}
+
+export interface Card{
+  cvv: number,
+  expireDate: number,
+  cardNumber: number,
+  cardId: number,
+  accountNumber: number
+}
+

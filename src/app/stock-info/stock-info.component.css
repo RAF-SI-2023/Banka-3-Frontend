@@ -1,0 +1,130 @@
+body{
+    background-color: var(--background-main);
+    background-size: cover;
+}
+
+.myContainer{
+    max-width: 52rem;
+    margin:auto;
+    height: 100%;
+}
+
+.blueText{
+    color:var(--blue-medium)
+}
+
+
+.bold {
+    font-weight: bold;
+}
+
+.line {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 40px; 
+    padding-bottom: 5px; 
+}
+
+.squares {
+    max-width: 350px; 
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: center; 
+    border-radius: 5px; 
+    overflow: hidden; 
+    margin-bottom: 1rem;
+}
+
+.square {
+    flex: 1;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 10px;
+    cursor: pointer;
+    border: 0.5px solid darkgrey;
+    background-color: white;
+}
+
+.square:not(:last-child) {
+    margin-right: -1px; 
+}
+
+.square:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.square:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.square:hover {
+    background-color: darkgray;
+}
+
+.square.selected {
+    background-color: var(--button-primary);
+    color: white;
+}
+
+.rectangle{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    overflow: hidden; 
+    padding: 2rem;
+    padding-bottom: 0;
+    background-color: white;
+}
+
+.field{
+    margin-bottom: 2rem;
+}
+
+.field p {
+    margin-bottom: 0.2rem; 
+}
+
+.activity-text-container > span {
+    white-space: nowrap;
+    color: #3d3d3d;
+    /* display: none;  */
+    margin-left: 5px;
+    cursor: default;
+    margin-bottom: 2px;
+    font-weight: 500;
+}
+  
+
+.activity-indicator-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 12px;
+    height: 30px;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    width: fit-content;
+    margin: 8px auto;
+    background-color: white;
+}
+  
+.activity-indicator {
+    margin-right: 8px;
+    border-radius: 100%;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+}
+
+.redText {
+    color: #e6393f;
+}
+
+.greenText {
+    color: #22b55d;
+}
+
+

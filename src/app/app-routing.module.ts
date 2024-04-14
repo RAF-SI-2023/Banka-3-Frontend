@@ -36,6 +36,18 @@ import { CreditTransactionComponent } from './credit-transaction/credit-transact
 import {BankingOfficerGuard} from "./guards/banking-officer.guard";
 import {CreditOfficerGuard} from "./guards/credit-officer.guard";
 import {UserGuard} from "./guards/user.guard";
+import {TransactionDetailsComponent} from "./transaction-details/transaction-details.component";
+import {SupervisorListsingListComponent} from "./hartije/supervisor-listsing-list/supervisor-listsing-list.component";
+import {CreditListUserComponent} from "./credit-list-user/credit-list-user.component";
+import { OptionsComponent } from './options/options.component';
+import {ListingListComponent} from "./hartije/listing-list/listing-list.component";
+import { StockInfoComponent } from './stock-info/stock-info.component';
+import {BuyHartijeComponent} from "./buy-hartije/buy-hartije.component";
+import {BuyHartijePopupComponent} from "./buy-hartije-popup/buy-hartije-popup.component";
+import {CardViewComponent} from "./card-view/card-view.component";
+import { BankomatViewComponent } from './bankomat-view/bankomat-view.component';
+import { BankomatViewCardComponent } from './bankomat-view-card/bankomat-view-card.component';
+import { SupervisorGuard } from './guards/supervisor.guard';
 
 
 const routes: Routes = [
@@ -101,7 +113,7 @@ const routes: Routes = [
   {
     path: 'add-user',
     component: CreateUserComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'user-profile/:id',
@@ -109,9 +121,9 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-  path: '',
-  component: HomePageComponent,
-  canActivate: [AuthGuard]
+    path: '',
+    component: HomePageComponent,
+    canActivate: [AuthGuard, UserGuard]
   },
   {
     path: 'user-account/:userId',
@@ -126,7 +138,7 @@ const routes: Routes = [
   {
     path: 'user-control',
     component: UserControllComponent,
-    canActivate: [AuthGuard, BankingOfficerGuard]
+    //canActivate: [AuthGuard, BankingOfficerGuard]
   },
   {
     path: 'exchange',
@@ -134,14 +146,14 @@ const routes: Routes = [
     canActivate: [AuthGuard, UserGuard]
   },
   {
-  path: 'bill',
-  component: BillComponent,
-  canActivate: [AuthGuard, UserGuard]
-},
+    path: 'bill',
+    component: BillComponent,
+    canActivate: [AuthGuard, UserGuard]
+  },
   {
-  path: 'payment',
-  component: PayingComponent,
-  canActivate: [AuthGuard, UserGuard]
+    path: 'payment',
+    component: PayingComponent,
+    canActivate: [AuthGuard, UserGuard]
   },
   {
     path: 'form-add-firm',
@@ -172,14 +184,69 @@ const routes: Routes = [
     component: EditPaymentRecipientComponent,
     canActivate: [AuthGuard, UserGuard]
   },
-  // {
-  //   path: 'credit-transaction/:creditId',
-  //   component: CreditTransactionComponent,
-  // },
+  {
+    path: 'credit-transaction/:userId',
+    component: CreditTransactionComponent,
+  },
   {
     path: 'payment-recipients',
     component: PaymentRecipientComponent,
     canActivate: [AuthGuard, UserGuard]
+  },
+  {
+    path: 'transaction-details',
+    component: TransactionDetailsComponent,
+//   canActivate: [AuthGuard, UserGuard]
+  },
+  {
+    path: 'supervisor-listing',
+    component: SupervisorListsingListComponent,
+    // canActivate: [AuthGuard, UserGuard, SupervisorGuard] //treba postaviti gard za supervizora --> postavljen
+  },
+  {
+    path : 'options/:ticker',
+    component: OptionsComponent,
+    // canActivate:[AuthGuard, UserGuard]
+  },
+  {
+    path : 'credit-list-user',
+    component: CreditListUserComponent,
+   // canActivate:[AuthGuard, UserGuard]
+  },
+  {
+    path : 'listing-list',
+    component: ListingListComponent,
+    // canActivate:[AuthGuard, UserGuard, SupervisorGuard]
+  },
+  {
+    path : 'stock-info/:ticker',
+    component: StockInfoComponent,
+    // canActivate:[AuthGuard, UserGuard]
+  },
+  {
+    path : 'buy-hartije/:ticker',
+    component: BuyHartijeComponent,
+    // canActivate:[AuthGuard, UserGuard]
+  },
+  {
+    path: 'buy-hartije-popup',
+    component:BuyHartijePopupComponent,
+    // canActivate:[AuthGuard, UserGuard]
+  },
+  {
+    path: 'bankomat',
+    component:BankomatViewComponent,
+    // canActivate:[AuthGuard, UserGuard]
+  },
+  {
+    path: 'card-view',
+    component: CardViewComponent,
+    canActivate: [AuthGuard, UserGuard]
+  },
+  {
+    path: 'bankomat-card',
+    component: BankomatViewCardComponent,
+    // canActivate: [AuthGuard, UserGuard]
   }
 ];
 

@@ -1,0 +1,88 @@
+<html lang="en">
+<body>
+    <div class="myContainer">
+        <div class="formContainer">
+            <div class="row">
+                <div class="col-sm">
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="h2">{{ ticker }}</span>
+                    </div>
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="p blueText">{{ stock.name }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="line"></p>
+
+            <div class="row">
+                <div class="col-sm">
+                    <div >
+                        <span class="p">Cena</span>
+                    </div>
+                    <div>
+                        <span class="h4 bold blueText">${{ stock.price }}</span>
+                    </div>
+                </div>
+                <div class="col-sm text-right">
+                    <div>
+                        <span class="p">Ask |</span>
+                        <span class="p"> Bid</span>
+                    </div>
+                    <div>
+                        <span class="h4 bold blueText">${{ stock.ask }} |</span>
+                        <span class="h4 bold blueText"> ${{ stock.bid }}</span>
+                    </div>
+                </div>
+            </div>
+
+    
+            <div class="rectangle">
+                
+                <div class="squares">
+                    <div class="square" [ngClass]="{ 'selected': selectedButton === '1d' }" (click)="selectButton('1d')">1d</div>
+                    <div class="square" [ngClass]="{ 'selected': selectedButton === '1w' }" (click)="selectButton('1w')">1w</div>
+                    <div class="square" [ngClass]="{ 'selected': selectedButton === '1m' }" (click)="selectButton('1m')">1m</div>
+                    <div class="square" [ngClass]="{ 'selected': selectedButton === '1y' }" (click)="selectButton('1y')">1y</div>
+                    <div class="square" [ngClass]="{ 'selected': selectedButton === '5y' }" (click)="selectButton('5y')">5y</div>
+                </div>
+                <div>
+                    <app-chart [options]="chartOptions"></app-chart>
+                </div>
+            </div>
+
+            <div class="rectangle">
+                <div class="row">
+                    <div class="col text-center field">
+                        <p>Promena</p>
+                        <p class="bold" [ngClass]="{ 'redText': stock.change < 0, 'greenText': stock.change >= 0 }">{{ stock.change }}$</p>
+                    </div>
+                    <div class="col text-center field">
+                        <p>Dnevni opseg</p>
+                        <p class="bold">{{ stock.ask }}$ - {{ stock.bid }}$</p>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col text-center field">
+                        <p>Volume</p>
+                        <p class="bold">{{ stock.volume }}</p>
+                    </div>
+                    <div class="col text-center field">
+                        <p>Poslednji refresh</p>
+                        <p class="bold">{{ formatDate(stock.lastRefresh) }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-3">
+                <div class="col-sm">
+                    <input class="myButtonPrimary" type="button" value="Nazad" (click)="goBack()">
+                    <input class="myButtonSecondary" type="button" value="Opcije" (click)="goToOptions()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

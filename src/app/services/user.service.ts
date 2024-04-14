@@ -14,7 +14,7 @@ import {
   CreditRequestCreateDto
 } from "../models/models";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {from, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
 import { Credit } from '../models/models';
 
@@ -53,7 +53,6 @@ export class UserService {
   }
 
   checkEmail(email: string | null | undefined){
-
     return this.httpClient.get<UserActivationDto>(`${this.apiUrlUser}/isUserActive/${email}`);
   }
 
@@ -174,7 +173,7 @@ export class UserService {
        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
      })
      const body = {userId, balance: balance, currency: mark, employeeId, accountType: "ZA_MLADE"};
-     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/${userId}`,body,{ headers })
+     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createAccount`,body,{ headers })
    }
    saveForeignAccount(userId: number, balance:number, mark:string, employeeId:number){
      const headers = new HttpHeaders({

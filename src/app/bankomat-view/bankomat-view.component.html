@@ -1,0 +1,37 @@
+<div class="page">
+  <div class="panel">
+    <div class="h2">Bankomat</div>
+    <button class="users-button" (click)="switchToOptions('call')" [ngStyle]="{ 'opacity': !uplata ? '0.5' : '1'}">
+      Uplata
+    </button>
+    <button class="employees-button" (click)="switchToOptions('put')" [ngStyle]="{ 'opacity': !isplata ? '0.5' : '1'}">
+      Isplata
+    </button>
+
+    <div *ngIf="uplata" class="table">
+      <div>
+        <div class="h3">Uplata sredstava</div>
+        <div class="h4">Broj računa: {{ accountNumber }}</div>
+        <p class="h4">Iznos</p>
+        <input type="text" class="input" [(ngModel)]="amount">
+      </div>
+
+      <div style="width: 100%">
+        <button class="primary-button" (click)="sendTransactionRequest()" [disabled]="!amount" [ngStyle]="{'opacity': !amount ? '0.5' : '1'}">Realizuj</button>
+      </div>
+    </div>
+
+    <div *ngIf="isplata" class="table">
+      <div>
+        <div class="h3">Isplata sredstava</div>
+        <div class="h4">Broj računa: {{ accountNumber }}</div>
+        <p class="h4">Iznos</p>
+        <input type="text" class="input" [(ngModel)]="amount">
+      </div>
+
+      <div style="width: 100%">
+        <button class="primary-button" (click)="sendTransactionRequest()" [disabled]="!amount" [ngStyle]="{'opacity': !amount ? '0.5' : '1'}">Realizuj</button>
+      </div>
+    </div>
+  </div>
+</div>

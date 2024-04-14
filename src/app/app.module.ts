@@ -39,6 +39,7 @@ import { ExchangeComponent } from './exchange/exchange.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PasswordConfirmationComponent } from './reset-password/password-confirmation/password-confirmation.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { PopupTransactionComponent } from './popup/popup-transaction/popup-transaction.component';
 import { CreditListComponent } from './credit-list/credit-list.component';
 import { CreditRequestComponent } from './credit-request/credit-request.component';
@@ -47,6 +48,21 @@ import { PaymentRecipientComponent } from './payment-recipient/payment-recipient
 import { CreatePaymentRecipientComponent } from './create-payment-recipient/create-payment-recipient.component';
 import { EditPaymentRecipientComponent } from './edit-payment-recipient/edit-payment-recipient.component';
 import { CreditTransactionComponent } from './credit-transaction/credit-transaction.component';
+import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+import { CreditListUserComponent } from './credit-list-user/credit-list-user.component';
+import { SupervisorListsingListComponent } from './hartije/supervisor-listsing-list/supervisor-listsing-list.component';
+import { OptionsComponent } from './options/options.component';
+import { ListingListComponent } from './hartije/listing-list/listing-list.component';
+import { StockInfoComponent } from './stock-info/stock-info.component';
+import { ChartComponent } from './chart/chart.component';
+import { AgChartsAngularModule } from 'ag-charts-angular';
+import { BuyHartijeComponent } from './buy-hartije/buy-hartije.component';
+import { BuyHartijePopupComponent } from './buy-hartije-popup/buy-hartije-popup.component';
+import { CardViewComponent } from './card-view/card-view.component';
+import { FormatdatePipe } from './card-view/date-pipe/formatdate.pipe';
+import { BankomatViewComponent } from './bankomat-view/bankomat-view.component';
+import { BankomatViewCardComponent } from './bankomat-view-card/bankomat-view-card.component';
+
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
 
@@ -84,8 +100,20 @@ import { CreditTransactionComponent } from './credit-transaction/credit-transact
     EditPaymentRecipientComponent,
     CreditTransactionComponent,
     CreditListComponent,
-    CreditRequestComponent
-
+    CreditRequestComponent,
+    TransactionDetailsComponent,
+    CreditListUserComponent,
+    SupervisorListsingListComponent,
+    OptionsComponent,
+    ListingListComponent,
+    StockInfoComponent,
+    ChartComponent,
+    BuyHartijeComponent,
+    BuyHartijePopupComponent,
+    CardViewComponent,
+    FormatdatePipe,
+    BankomatViewComponent,
+    BankomatViewCardComponent
 
   ],
   imports: [
@@ -102,7 +130,9 @@ import { CreditTransactionComponent } from './credit-transaction/credit-transact
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
+    AgChartsAngularModule
   ],
   providers: [],
   bootstrap: [AppComponent],
