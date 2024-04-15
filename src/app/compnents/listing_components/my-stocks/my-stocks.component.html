@@ -22,8 +22,11 @@
                   'cursor': column === 'ticker' ? 'pointer' : 'default'
 
                 }">
-            <ng-container>
+            <ng-container *ngIf="column !== 'opcije'">
               {{ element[column] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'opcije'">
+              <button (click)="sellStock(element['ticker'])" class="button">Prodaj</button>
             </ng-container>
           </mat-cell>
         </ng-container>
@@ -44,6 +47,12 @@
                   'cursor': column === 'ticker' ? 'pointer' : 'default'
 
                 }">
+            <ng-container *ngIf="column !== 'opcije'">
+              {{ element[column] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'opcije'">
+              <button (click)="sellFuture(element['myFutureId'])" class="button">Prodaj</button>
+            </ng-container>
           </mat-cell>
         </ng-container>
 

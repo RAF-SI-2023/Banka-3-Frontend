@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../../services/user.service';
-import {CreditRequestCreateDto} from '../../../models/models';
-import {AccountService} from "../../../services/account.service";
+import {UserService} from '../services/user.service';
+import {CreditRequestCreateDto} from '../models/models';
+import {AccountService} from "../services/account.service";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -19,7 +19,7 @@ export class CreditRequestComponent implements OnInit {
   selectedCurrency: string = 'RSD';
   isSubmitting: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private accountService: AccountService, private snackBar: MatSnackBar) {}
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private accountService: AccountService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
@@ -71,7 +71,7 @@ export class CreditRequestComponent implements OnInit {
       creditRequest.dateOfEmployment = new Date(dt).getTime()
 
       console.log(creditRequest)
-      this.accountService.sendCreditRequest(creditRequest).subscribe(
+      this.userService.sendCreditRequest(creditRequest).subscribe(
         response => {
 
           this.openErrorSnackBar("Uspesno poslat zahtev za kredit")
@@ -94,7 +94,7 @@ export class CreditRequestComponent implements OnInit {
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 3000,
+      duration: 5,
     });
   }
   //TODO Zameni mock podatke, sa pravim

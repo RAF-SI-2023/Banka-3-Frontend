@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
+import {ExchangeService} from "../../services/exchange.service";
+import {MyFuture, MyStock} from "../../models/models";
 import {Router} from "@angular/router";
 import {Dialog} from "@angular/cdk/dialog";
-import {BuyFuturePopupComponent} from "../sell-future-popup/buy-future-popup.component";
-import {MyFuture, MyStock} from "../../../models/models";
-import {ExchangeService} from "../../../services/exchange.service";
+import {SellFuturePopup} from "../../sell-future-popup/buy-future-popup.component";
 
 @Component({
   selector: 'app-my-stocks',
@@ -43,7 +43,6 @@ export class MyStocksComponent implements OnInit{
   ngOnInit(): void {
     this.service.getMyStocks().subscribe( res => {
       this.myStocks = res
-      this.myStocks.sort((a, b) => a.myStockId - b.myStockId)
     })
     this.service.getMyFutures().subscribe( res => {
       this.myFutures = res
@@ -56,7 +55,7 @@ export class MyStocksComponent implements OnInit{
   //TODO sell future
   sellFuture(id: number){
 
-    this.dialog.open(BuyFuturePopupComponent, {
+    this.dialog.open(SellFuturePopup, {
       data: { selectedFutureId: id}
     });
   }
