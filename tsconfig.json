@@ -10,6 +10,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
@@ -30,7 +31,7 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "exclude": [
+"exclude": [
     "cypress/**/*.ts",
     "cypress.config.ts"
   ]

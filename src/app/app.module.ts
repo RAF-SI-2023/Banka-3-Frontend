@@ -65,7 +65,7 @@ import { BankomatViewCardComponent } from './bankomat-view-card/bankomat-view-ca
 import { MyStocksComponent } from './hartije/my-stocks/my-stocks.component';
 import { SellHartijeComponent } from './sell-hartije/sell-hartije.component';
 import { SellHartijePopupComponent } from './sell-hartije-popup/sell-hartije-popup.component';
-import { SellFuturePopup } from './sell-future-popup/buy-future-popup.component';
+import { BuyFuturePopupComponent } from './sell-future-popup/buy-future-popup.component';
 
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
@@ -121,7 +121,7 @@ import { SellFuturePopup } from './sell-future-popup/buy-future-popup.component'
     MyStocksComponent,
     SellHartijeComponent,
     SellHartijePopupComponent,
-    SellFuturePopup
+    BuyFuturePopupComponent
 
   ],
   imports: [

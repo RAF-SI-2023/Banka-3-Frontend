@@ -11,7 +11,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
   templateUrl: './buy-future-popup.component.html',
   styleUrls: ['./buy-future-popup.component.css']
 })
-export class SellFuturePopup {
+export class BuyFuturePopupComponent {
 
   selectedFutureId : number = 0
   estimatedPrice: number = 0;
