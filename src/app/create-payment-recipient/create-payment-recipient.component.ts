@@ -18,7 +18,7 @@ export class CreatePaymentRecipientComponent {
   contactForm = new FormGroup({
     formName: new FormControl('', [Validators.required]),
     formMyName: new FormControl('', [Validators.required]),
-    formContact: new FormControl('', [Validators.required]),
+    formContact: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{16}$/)]),
   })
 
 
@@ -30,6 +30,8 @@ export class CreatePaymentRecipientComponent {
       // console.log("Jedna forma je vec u procesu slanja!")
       return;
     }
+    // this.contactData.id = 0;
+
     this.contactData.name = this.contactForm.get('formName')?.value as string;
     this.contactData.myName = this.contactForm.get('formMyName')?.value as string;
     this.contactData.accountNumber = this.contactForm.get('formContact')?.value as string;
@@ -37,6 +39,7 @@ export class CreatePaymentRecipientComponent {
     const token = sessionStorage.getItem("token");
     if (token) {
       const decoded: any = jwtDecode(token);
+      this.contactData.userId = decoded.id;
       this.userService.addContact(decoded.id,this.contactData).subscribe(data => {
         this.router.navigate(['/payment-recipients']);
       }, error => {
@@ -56,12 +59,12 @@ export class CreatePaymentRecipientComponent {
     this.router.navigate(['/payment-recipients']);
   }
   get formName() {
-    return this.contactForm.get('FormName');
+    return this.contactForm.get('formName');
   }
   get formContact() {
-    return this.contactForm.get('FormContact');
+    return this.contactForm.get('formContact');
   }
   get formMyName() {
-    return this.contactForm.get('FormMyName');
+    return this.contactForm.get('formMyName');
   }
 }

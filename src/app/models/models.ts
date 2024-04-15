@@ -108,7 +108,7 @@ export interface Token {
 
 
 export interface Contact{
-  contactId: number,
+  id: number,
   userId: number,
   myName: string,
   name: string,

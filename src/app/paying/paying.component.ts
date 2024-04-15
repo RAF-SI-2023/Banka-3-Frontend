@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Route, Router} from '@angular/router';
-import {Account, AccountDto, TransactionDto} from "../models/models";
+import {Account, AccountDto, Contact, TransactionDto} from "../models/models";
 import {UserService} from "../services/user.service";
 import {HttpClient} from "@angular/common/http";
 import {AccountService} from "../services/account.service";
@@ -37,6 +37,11 @@ export class PayingComponent implements OnInit {
 
   isSubmitting: boolean = false;
 
+  existingRecipients: Contact[] = []; 
+  selectedRecipient: string = ''; 
+  customAccountNumber: string = ''; 
+
+
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
     private accountService: AccountService,private userService: UserService,
     private router: Router, private http: HttpClient, private snackBar: MatSnackBar) {
@@ -58,6 +63,8 @@ export class PayingComponent implements OnInit {
 
       this.getUserId();
 
+      this.getContacts();
+
       this.accountService.getAccountsByUserId(this.userId).subscribe((response) =>{
         this.userAccounts = response;
         this.selectedAccount = response[0];
@@ -78,6 +85,28 @@ export class PayingComponent implements OnInit {
       this.paymentCodes.push(i);
     }
   }
+
+  getContacts(){
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      this.userService.getUsersContactsById(this.userId).subscribe( data => {
+        this.existingRecipients = data;
+      });
+    }
+  }
+
+  onRecipientSelectionChange() {
+    // Pronalazimo izabranog primaoca
+    const selectedRecipient = this.existingRecipients.find(recipient => recipient.name === this.selectedRecipient);
+    
+    // Ako je izabrani primaoc pronađen, popunjavamo polja sa njegovim detaljima
+    if (selectedRecipient) {
+      this.groupForm.patchValue({
+        recipientName: selectedRecipient.name,
+        recipientAccount: selectedRecipient.accountNumber
+      });
+    }
+  }  
 
   getUserId(){
     const token = sessionStorage.getItem('token');

@@ -360,12 +360,12 @@ export class UserService {
     return this.httpClient.get<Contact[]>(`${this.apiUrlContact}/${userId}`, { headers });
   }
 
-  deleteUsersContact(userId: number, contactId: number){
+  deleteUsersContact(contactId: number){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
     //Proveriti sa bekom koja ce putanja biti za brisanje.
-    return this.httpClient.delete(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
+    return this.httpClient.delete(`${this.apiUrlContact}/${contactId}`, { headers });
   }
 
   //Funkcija za dodavanje kontakta korisniku
@@ -378,21 +378,13 @@ export class UserService {
   }
 
   //Funkcija za izmenu kontakta
-  editContact(userId: number, contactId: number){
+  editContact(contactData: Contact, contactId: number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
+    return this.httpClient.put<any>(`${this.apiUrlContact}/${contactId}`, contactData, { headers });
   }
 
-  getUsersContactByContactId(userId: number, contactId: number){
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-    return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
-
-  }
 }
 

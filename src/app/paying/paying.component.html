@@ -14,13 +14,14 @@
                 <div class="col-sm">
                     <div style="margin: 1rem 0rem 1rem 0rem">
                         <mat-form-field>
-                            <mat-label>Racuni</mat-label>
+                            <mat-label>Računi</mat-label>
                             <mat-select [(ngModel)]="selectedAccount" (ngModelChange)="onAccountChange($event)">
                                 <mat-option *ngFor="let account of userAccounts" [value]="account.accountNumber">{{account.accountNumber}}</mat-option>
                               </mat-select>
                           </mat-form-field>
                     </div>
                 </div>
+                                    
                 <div class="col-sm text-right">
                     <div style="margin: 1rem 0rem 1rem 0rem">
                         <span class="h2">Raspoloživo</span>
@@ -30,11 +31,28 @@
                     </div>
                 </div>
             </div>
-            <hr>
+          
+            <p class="line"></p>
+
+            <div class="container" >
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Postojeći kontakti</mat-label>
+                                <mat-select [(ngModel)]="selectedRecipient" (selectionChange)="onRecipientSelectionChange()">
+                                    <mat-option *ngFor="let recipient of existingRecipients" [value]="recipient.name">{{recipient.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <form [formGroup]="groupForm" (ngSubmit)="onSubmit()" >
                 <div class="container" >
                     <div class="row">
                         <div class="col-sm">
+                            
                             <div class="input-container">
                                 <p class="bold">Naziv primaoca</p>
                                 <input class="inputField" type="text" formControlName="recipientName" placeholder="Naziv primaoca"required>

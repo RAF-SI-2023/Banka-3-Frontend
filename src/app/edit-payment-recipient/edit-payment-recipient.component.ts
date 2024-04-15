@@ -16,25 +16,38 @@ export class EditPaymentRecipientComponent {
 
   contactId: number;
   userId: number = 0
+  contacts: Contact[] = [];
+  contactData = {} as Contact;
+
 
 
   contactForm = new FormGroup({
     formName: new FormControl('', [Validators.required]),
     formMyName: new FormControl('', [Validators.required]),
-    formContact: new FormControl('', [Validators.required]),
+    formContact: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{16}$/)]),
+
   })
 
   constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) {
     //@ts-ignore
-    this.contactId = this.route.snapshot.paramMap.get('contactId');
+    this.contactId = parseInt(this.route.snapshot.paramMap.get('contactId') || '0');
     const token = sessionStorage.getItem("token");
     if (token){
       const decoded: any = jwtDecode(token)
       this.userId = decoded.id
-      this.userService.getUsersContactByContactId(decoded.id, this.contactId).subscribe( data => {
-        this.contactForm.get('formName')?.setValue(data.name);
-        this.contactForm.get('formMyName')?.setValue(data.myName);
-        this.contactForm.get('formContact')?.setValue(data.accountNumber);
+      this.userService.getUsersContactsById(this.userId).subscribe( data => {
+        console.log(data)
+        this.contacts = data;
+
+        const contact = this.contacts.find(contact => contact.id === this.contactId);
+
+        if (contact) {
+          this.contactForm.patchValue({
+            formName: contact.name,
+            formMyName: contact.myName,
+            formContact: contact.accountNumber
+          });
+        }
       })
     }
   }
@@ -53,27 +66,32 @@ export class EditPaymentRecipientComponent {
 
   saveContact() {
     // Save contact to database
-    //Nije testirano jer nemaju gotov bek, proveriti
+
+    this.contactData.name = this.contactForm.get('formName')?.value as string;
+    this.contactData.myName = this.contactForm.get('formMyName')?.value as string;
+    this.contactData.accountNumber = this.contactForm.get('formContact')?.value as string;
 
     // @ts-ignore
-    this.userService.editContact(this.userId, this.contactId, this.formName, this.formMyName, this.formContact).subscribe( data => {
-      this.router.navigate(['/payment-recipient'])
+    this.userService.editContact(this.contactData, this.contactId)
+    .subscribe( 
+      data => {
+        this.router.navigate(['/payment-recipients'])
     })
   }
   delete() {
-    this.userService.deleteUsersContact(this.userId, this.contactId).subscribe( data => {
-      this.router.navigate(['/payment-recipient'])
+    this.userService.deleteUsersContact(this.contactId).subscribe( data => {
+      this.router.navigate(['/payment-recipients'])
     })
   }
 
   get formName() {
-    return this.contactForm.get('FormName');
+    return this.contactForm.get('formName');
   }
   get formContact() {
-    return this.contactForm.get('FormContact');
+    return this.contactForm.get('formContact');
   }
   get formMyName() {
-    return this.contactForm.get('FormMyName');
+    return this.contactForm.get('formMyName');
   }
 
 }

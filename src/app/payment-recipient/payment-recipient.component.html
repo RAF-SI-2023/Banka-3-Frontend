@@ -11,21 +11,27 @@
     <div class="table" style="width: 100%;">
 
 <!--      Promeniti [dataSource] -->
-      <mat-table [dataSource]="MOCK_RECIPIENTS" matSort style="width: 100%;">
+      <mat-table [dataSource]="recipients" matSort style="width: 100%;">
         <!-- Kolona za myName -->
         <ng-container matColumnDef="myName">
-          <mat-cell *matCellDef="let contact"> <b> {{contact.myName}} </b> </mat-cell>
+          <mat-cell *matCellDef="let contact"> <b> {{contact.myName}}  </b> </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="account">
+          <mat-cell *matCellDef="let contact"> <b> {{contact.accountNumber}} </b> </mat-cell>
         </ng-container>
         <!-- Kolona za opcije (izmena i brisanje) -->
         <ng-container matColumnDef="opcije">
           <mat-cell *matCellDef="let contact">
             <div class="options-container">
               <img class="edit-button" (click)="editContact(contact)" [width]="24" [height]="24" src="assets/pen-square-svgrepo-com.svg">
-              <img class="delete-button" (click)="deleteContact(contact['contactId'])" [width]="24" [height]="24" src="assets/trash-svgrepo-com.svg">
+              <!-- Dodajte interpolaciju za prosleđivanje contact.contactId -->
+              <img class="delete-button" (click)="deleteContact(contact.id)" [width]="24" [height]="24" src="assets/trash-svgrepo-com.svg">
             </div>
           </mat-cell>
         </ng-container>
-        <mat-row *matRowDef="let row; columns: ['myName', 'opcije'];"></mat-row>
+
+        <mat-row *matRowDef="let row; columns: ['myName', 'account', 'opcije'];"></mat-row>
       </mat-table>
     </div>
   </div>
