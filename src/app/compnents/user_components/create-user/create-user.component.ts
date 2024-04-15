@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Employee, User} from "../../../models/models";
-import { UserService } from "../../../services/user.service";
+import {Employee, User} from "../models/models";
+import { UserService } from "../services/user.service";
 import {Router} from "@angular/router";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -50,14 +50,8 @@ export class CreateUserComponent {
     this.userService.createUser(this.user).subscribe(res => {
       this.user = res;
       console.log(res);
-      let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-      this.openErrorSnackBar("Uspeno kreiran korisnik")
-      if(tk.role === "ROLE_ADMIN"){
-        this.router.navigate(['user-list']);
-      }
-      if(tk.role === "ROLE_BAKING_OFFICER"){
-        this.router.navigate(['user-control']);
-      }
+
+      this.router.navigate(['user-control']);
     }, error => {
         this.openErrorSnackBar("Doslo je do greske kod kreiranja korisnika.")
       },
@@ -73,7 +67,7 @@ export class CreateUserComponent {
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 3000,
+      duration: 5,
     });
   }
   get firstName(){

@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Account, Currency, Employee, Role, User} from "../../../models/models";
-import {UserService} from "../../../services/user.service";
+import {Account, Currency, Employee, Role, User} from "../models/models";
+import {UserService} from "../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {AccountService} from "../../../services/account.service";
 
 @Component({
   selector: 'app-user-add-account-form',
@@ -21,7 +20,7 @@ export class UserAddAccountFormComponent implements OnInit{
   accountForm: FormGroup
   isSubmitting: boolean = false;
 
-  constructor(private fb: FormBuilder,private accountService: AccountService, private route : ActivatedRoute,private router: Router, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder,private userService: UserService, private route : ActivatedRoute,private router: Router, private snackBar: MatSnackBar) {
     this.accountForm = this.fb.group({
       accountType: new FormControl('', Validators.required),
       balance: new FormControl('', Validators.required),
@@ -40,11 +39,11 @@ export class UserAddAccountFormComponent implements OnInit{
     }
     this.isSubmitting = true;
     this.account.accountType = this.accountForm.get('accountType')?.value;
-    this.account.availableBalance = this.accountForm.get('balance')?.value;
+    this.account.balance = this.accountForm.get('balance')?.value;
     this.account.mark = this.accountForm.get('mark')?.value;
 
     if(this.account.accountType == 'Tekuci'){
-      this.accountService.saveAccount(this.userId, this.account.availableBalance, "RSD", this.employeeId, this.account.accountType)
+      this.userService.saveAccount(this.userId, this.account.balance, "DINAR", this.employeeId, this.account.accountType)
       .subscribe(
         res => {
           console.log(res);
@@ -60,7 +59,7 @@ export class UserAddAccountFormComponent implements OnInit{
         }
         );
     }else{
-      this.accountService.saveAccount(this.userId, this.account.availableBalance, this.account.mark, this.employeeId, this.account.accountType)
+      this.userService.saveAccount(this.userId, this.account.balance, this.account.mark, this.employeeId, this.account.accountType)
       .subscribe(
         res => {
           console.log(res);
@@ -81,7 +80,7 @@ export class UserAddAccountFormComponent implements OnInit{
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 3000,
+      duration: 2000,
     });
   }
 
@@ -94,7 +93,7 @@ export class UserAddAccountFormComponent implements OnInit{
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
     this.employeeId = tk.id;
 
-    this.accountService.getAllCurrency().subscribe(res => {
+    this.userService.getAllCurrency().subscribe(res => {
       this.currencies = res.filter( curr => {
         return curr.mark !== 'RSD';
       })

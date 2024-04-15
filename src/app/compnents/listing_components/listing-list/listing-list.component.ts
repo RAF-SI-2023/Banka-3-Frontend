@@ -1,11 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {Employee, Forex, Future, Stock, User} from "../../models/models";
+import {ExchangeService} from "../../services/exchange.service";
 import {Router} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
-import {error} from "@angular/compiler-cli/src/transformers/util";
-import {parseJson} from "@angular/cli/src/utilities/json-file";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {ExchangeService} from "../../../services/exchange.service";
-import {Forex, Future, Stock} from "../../../models/models";
 
 @Component({
   selector: 'app-listing-list',
@@ -25,7 +21,7 @@ export class ListingListComponent implements OnInit{
   forexColumns: string[] = [ "baseCurrency" ,"quoteCurrency", "conversionRate", "lastRefresh"]
 
 
-  constructor(private exchangeService: ExchangeService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private exchangeService: ExchangeService, private router: Router) {
 
   }
   switchToStocks(){
@@ -78,19 +74,7 @@ export class ListingListComponent implements OnInit{
     this.router.navigate(['buy-hartije', ticker]);
   }
   buyFuture(id: number){
-
-    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-    this.exchangeService.buyFuture(id, tk.id).subscribe(res => {
-      console.log(res)
-      this.openErrorSnackBar("Uspesno ste kupili future!")
-
-    }, error => {
-      this.openErrorSnackBar("Doslo je do greske kod kupovanja future-a!")
-      console.log(error)
-    })
-    // this.dialog.open(BuyFuturePopupComponent, {
-    //   data: { selectedFutureId: id}
-    // });
+    this.router.navigate(['buy-hartije', id]);
   }
 
   sell(stock: Stock){
@@ -98,11 +82,6 @@ export class ListingListComponent implements OnInit{
 
   }
 
-  openErrorSnackBar(message: string) {
-    this.snackBar.open(message, 'Zatvori', {
-      duration: 3000,
-    });
-  }
   ngOnInit(){
     this.exchangeService.getAllStocks().subscribe( res => {
       this.stocks = res;

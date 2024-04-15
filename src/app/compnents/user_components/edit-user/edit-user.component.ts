@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../../models/models";
-import {UserService} from "../../../services/user.service";
+import {User} from "../models/models";
+import {UserService} from "../services/user.service";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
@@ -19,24 +19,23 @@ export class EditUserComponent implements OnInit{
 
   save(){
     this.userService.saveUser(this.user).subscribe(res => {
-      let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-      if(tk.role === 'ROLE_ADMIN'){
-        this.router.navigate(['user-list'])
-      }
-      if(tk.role === 'ROLE_BANKING_OFFICER'){
-        this.router.navigate(['user-control'])
-      }
       console.log(res)
     })
   }
 
   ngOnInit(): void {
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
     this.route.paramMap.subscribe(params => {
       const userId = Number(params.get('id'));
       console.log(userId)
       this.userService.getUserById(userId).subscribe(res => {
         this.user = res
-        console.log(res)
+        if(tk.role === 'ROLE_ADMIN'){
+          this.router.navigate(['user-list'])
+        }
+        if(tk.role === 'ROLE_BANKING_OFFICER'){
+          this.router.navigate(['user-control'])
+        }
       });
     });
   }
