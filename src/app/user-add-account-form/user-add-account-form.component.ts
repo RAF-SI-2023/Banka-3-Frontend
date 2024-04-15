@@ -43,7 +43,7 @@ export class UserAddAccountFormComponent implements OnInit{
     this.account.mark = this.accountForm.get('mark')?.value;
 
     if(this.account.accountType == 'Tekuci'){
-      this.userService.saveAccount(this.userId, this.account.balance, "RSD", this.employeeId, this.account.accountType)
+      this.userService.saveAccount(this.userId, this.account.balance, "DINAR", this.employeeId, this.account.accountType)
       .subscribe(
         res => {
           console.log(res);

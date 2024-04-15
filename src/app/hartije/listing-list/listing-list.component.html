@@ -64,15 +64,11 @@
             </ng-container>
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <ng-container *ngIf="column === 'dateOfBirth'">
-              {{ element[column] | date: 'dd-MM-yyyy' }}
-            </ng-container>
-
-            <ng-container *ngIf="column !== 'dateOfBirth'">
+            <ng-container *ngIf="column !== 'opcije'">
               {{ element[column] }}
             </ng-container>
-            <ng-container *ngIf="column === 'roleName'">
-              {{ element["role"]?.roleName }}
+            <ng-container *ngIf="column === 'opcije'">
+              <button (click)="buyFuture(element['futureId'])" class="button">Kupi</button>
             </ng-container>
           </mat-cell>
         </ng-container>
@@ -89,19 +85,15 @@
             </ng-container>
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <ng-container *ngIf="column === 'dateOfBirth'">
+            <ng-container *ngIf="column === 'lastRefresh'">
               {{ element[column] | date: 'dd-MM-yyyy' }}
             </ng-container>
-
-            <ng-container *ngIf="column !== 'dateOfBirth'">
+            <ng-container *ngIf="column !== 'lastRefresh'">
               {{ element[column] }}
             </ng-container>
-            <ng-container *ngIf="column === 'roleName'">
-              {{ element["role"]?.roleName }}
-            </ng-container>
+
           </mat-cell>
         </ng-container>
-
         <mat-header-row *matHeaderRowDef="forexColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: forexColumns;"></mat-row>
       </mat-table>

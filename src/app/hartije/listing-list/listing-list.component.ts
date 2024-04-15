@@ -15,10 +15,10 @@ export class ListingListComponent implements OnInit{
 
   stocks: Stock[] = [];
   futures: Future[] = [];
-  forex: Forex[] = []; //Jos nema
+  forex: Forex[] = [];
   stockColumns: string[] = [ "ticker" ,"name", "exchange", "lastRefresh", "price", "ask","bid", "change", "volume", "opcije"]
-  futureColumns: string[] = [ "contractName" ,"contractSize", "contractUnit", "maintenanceMargin", "type"]
-  forexColumns: string[] = [ "contractName" ,"contractSize", "contractUnit", "maintenanceMargin", "type"]
+  futureColumns: string[] = [ "contractName" ,"contractSize", "contractUnit", "maintenanceMargin", "type", "opcije"]
+  forexColumns: string[] = [ "baseCurrency" ,"quoteCurrency", "conversionRate", "lastRefresh"]
 
 
   constructor(private exchangeService: ExchangeService, private router: Router) {
@@ -72,6 +72,9 @@ export class ListingListComponent implements OnInit{
 
   buy(ticker: string){
     this.router.navigate(['buy-hartije', ticker]);
+  }
+  buyFuture(id: number){
+    this.router.navigate(['buy-hartije', id]);
   }
 
   sell(stock: Stock){

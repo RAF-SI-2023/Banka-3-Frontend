@@ -48,7 +48,7 @@
           <label *ngFor="let item of permissions; let i = index">
             <input type="checkbox" id="permission{{i}}" [checked]="isPermissionSelected(item)"
                    (change)="togglePermission(item)" >
-            {{ item.authority }}
+            {{ item.permissionName }}
           </label>
         </div>
       </div>

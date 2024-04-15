@@ -51,7 +51,7 @@ export class CreateUserComponent {
       this.user = res;
       console.log(res);
 
-      this.router.navigate(['user-account', this.user.userId]);
+      this.router.navigate(['user-control']);
     }, error => {
         this.openErrorSnackBar("Doslo je do greske kod kreiranja korisnika.")
       },

@@ -81,7 +81,7 @@ export interface TransactionDto{
 
 export interface Permission {
   permissionId: number
-  authority: string
+  permissionName: string
 }
 
 export interface Account{
@@ -252,12 +252,12 @@ export interface Options{
 }
 export interface Forex{
 
-  ticker: string;
-  contractName: string;
-  contractSize: number;
-  contractUnit: string;
-  maintenanceMargin: number;
-  type: string;
+  forexId: number,
+  baseCurrency: string,
+  quoteCurrency: string,
+  conversionRate: number,
+  lastRefresh: number
+
 }
 
 export interface Daily{

@@ -36,7 +36,7 @@ export class FormAddFirmComponent{
     this.firm.sifraDelatnosti = this.firmForm.get('industryCode')?.value;
     this.firmService.createFirm(this.firm).subscribe(res => {
       this.firm = res;
-      this.router.navigate(['firm-account', this.firm.companyId]);
+      this.router.navigate(['user-control']);
       console.log(res);
 
     })

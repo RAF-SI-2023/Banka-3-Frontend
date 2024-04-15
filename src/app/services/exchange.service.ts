@@ -28,14 +28,14 @@ export class ExchangeService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.get<Future[]>(`${this.apiUrlExchangeService}/future/getAll`,{headers} )
+    return this.httpClient.get<Future[]>(`${this.apiUrlExchangeService}/future`,{headers} )
   }
   getAllForex(): Observable<Forex[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    return this.httpClient.get<Forex[]>(`${this.apiUrlForex}/getAll`, { headers });
+    return this.httpClient.get<Forex[]>(`${this.apiUrlExchangeService}/forex`, { headers });
   }
   getAllOptions(){
 

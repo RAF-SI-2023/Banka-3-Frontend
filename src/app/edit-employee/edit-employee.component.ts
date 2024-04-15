@@ -39,10 +39,10 @@ export class EditEmployeeComponent implements OnInit{
     });
   }
   isPermissionSelected(permission: Permission): boolean |undefined {
-    return this.employee?.permissions.some(userPermission => userPermission.authority === permission.authority);
+    return this.employee?.permissions.some(userPermission => userPermission.permissionName === permission.permissionName);
   }
   togglePermission(permission: any): void {
-    const index = this.employee?.permissions.findIndex(userPermission => userPermission.authority === permission.authority);
+    const index = this.employee?.permissions.findIndex(userPermission => userPermission.permissionName === permission.authority);
     if (index !== -1) {
       // Permission already exists, remove it
       this.employee?.permissions.splice(index!, 1);

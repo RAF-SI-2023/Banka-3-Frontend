@@ -155,7 +155,7 @@ export class UserService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    return this.httpClient.get<Employee>(`${this.apiUrlEmployee}/${id}`, { headers })
+    return this.httpClient.get<Employee>(`${this.apiUrlEmployee}/findById/${id}`, { headers })
   }
 
   getAllRoles(){
