@@ -45,7 +45,6 @@ export class CreateEmployeeComponent implements OnInit{
   }
 
   save(){
-    console.log("aaaaaaaaaaaaaaaa");
     if (this.isSubmitting){
       // console.log("Jedna forma je vec u procesu slanja!")
       return;
@@ -74,7 +73,7 @@ export class CreateEmployeeComponent implements OnInit{
     this.isSubmitting = true;
 
     this.userService.createEmployee(this.employee).subscribe(res => {
-      console.log("usaooooooooooo");
+      this.openErrorSnackBar("Uspeno kreiran zaposleni")
       this.router.navigate(['user-list'])
     }, error => {
      this.openErrorSnackBar("Doslo je do greske kod kreiranja zaposlenog.")

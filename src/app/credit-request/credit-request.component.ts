@@ -4,6 +4,7 @@ import {UserService} from '../services/user.service';
 import {CreditRequestCreateDto} from '../models/models';
 import {AccountService} from "../services/account.service";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-credit-request',
@@ -18,7 +19,7 @@ export class CreditRequestComponent implements OnInit {
   selectedCurrency: string = 'RSD';
   isSubmitting: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private accountService: AccountService) {}
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private accountService: AccountService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
@@ -72,11 +73,12 @@ export class CreditRequestComponent implements OnInit {
       console.log(creditRequest)
       this.userService.sendCreditRequest(creditRequest).subscribe(
         response => {
-          alert("Credit request sent successfully");
+
+          this.openErrorSnackBar("Uspesno poslat zahtev za kredit")
           console.log("Credit request sent successfully:", response);
         },
         error => {
-          alert("Failed to send credit request");
+          this.openErrorSnackBar("Doslo je do greske kod slanja zahteva za kredit")
           console.error("Error sending credit request:", error);
         },
         () => {
@@ -86,10 +88,15 @@ export class CreditRequestComponent implements OnInit {
         }
       );
     } else {
-      console.error("Form is not valid. Please fill in all required fields.");
+      this.openErrorSnackBar("Pogresno ste popunili polja")
     }
   }
 
+  openErrorSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 5,
+    });
+  }
   //TODO Zameni mock podatke, sa pravim
   // preloadUserAccounts(): void {
   //   this.userAccounts = [

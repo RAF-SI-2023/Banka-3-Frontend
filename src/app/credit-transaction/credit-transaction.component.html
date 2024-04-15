@@ -44,8 +44,9 @@
             </div>
             <div class="row">
               <div class="col">
-                <button (click)="approveCredit()" class="myButtonPrimary">Odobri kredit</button>
-                <button (click)="declineCredit()" class="myButtonSecondary">Odbij</button>
+                <button *ngIf="selectedCredit?.status === 'PROCESSING'" (click)="approveCredit()" class="myButtonPrimary">Odobri kredit</button>
+                <button *ngIf="selectedCredit?.status === 'PROCESSING'" (click)="declineCredit()" class="myButtonSecondary">Odbij</button>
+                <button (click)="goBack()" class="myButtonSecondary">Nazad</button>
               </div>
             </div>
         </div>

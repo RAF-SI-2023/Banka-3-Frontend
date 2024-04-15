@@ -2,6 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Employee, Forex, Future, Stock, User} from "../../models/models";
 import {ExchangeService} from "../../services/exchange.service";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {SellFuturePopup} from "../../sell-future-popup/buy-future-popup.component";
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {parseJson} from "@angular/cli/src/utilities/json-file";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-listing-list',
@@ -21,7 +26,7 @@ export class ListingListComponent implements OnInit{
   forexColumns: string[] = [ "baseCurrency" ,"quoteCurrency", "conversionRate", "lastRefresh"]
 
 
-  constructor(private exchangeService: ExchangeService, private router: Router) {
+  constructor(private exchangeService: ExchangeService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) {
 
   }
   switchToStocks(){
@@ -74,7 +79,19 @@ export class ListingListComponent implements OnInit{
     this.router.navigate(['buy-hartije', ticker]);
   }
   buyFuture(id: number){
-    this.router.navigate(['buy-hartije', id]);
+
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    this.exchangeService.buyFuture(id, tk.id).subscribe(res => {
+      console.log(res)
+      this.openErrorSnackBar("Uspesno ste kupili future!")
+
+    }, error => {
+      this.openErrorSnackBar("Doslo je do greske kod kupovanja future-a!")
+      console.log(error)
+    })
+    // this.dialog.open(BuyFuturePopupComponent, {
+    //   data: { selectedFutureId: id}
+    // });
   }
 
   sell(stock: Stock){
@@ -82,6 +99,11 @@ export class ListingListComponent implements OnInit{
 
   }
 
+  openErrorSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 0,
+    });
+  }
   ngOnInit(){
     this.exchangeService.getAllStocks().subscribe( res => {
       this.stocks = res;

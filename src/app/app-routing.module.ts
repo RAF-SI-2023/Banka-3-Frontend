@@ -49,6 +49,7 @@ import { BankomatViewComponent } from './bankomat-view/bankomat-view.component';
 import { BankomatViewCardComponent } from './bankomat-view-card/bankomat-view-card.component';
 import { SupervisorGuard } from './guards/supervisor.guard';
 import {MyStocksComponent} from "./hartije/my-stocks/my-stocks.component";
+import {SellHartijeComponent} from "./sell-hartije/sell-hartije.component";
 
 
 const routes: Routes = [
@@ -227,6 +228,11 @@ const routes: Routes = [
   {
     path : 'buy-hartije/:ticker',
     component: BuyHartijeComponent,
+    // canActivate:[AuthGuard, UserGuard]
+  },
+  {
+    path : 'sell-hartije/:ticker',
+    component: SellHartijeComponent,
     // canActivate:[AuthGuard, UserGuard]
   },
   {

@@ -69,7 +69,6 @@ export class UserloginComponent {
 
   submitLogin() {
 
-    console.log("AAAAAAAAAAAA");
     if(this.isSubmitting) {
       // console.log("Jedna forma je vec u procesu slanja!")
       return;

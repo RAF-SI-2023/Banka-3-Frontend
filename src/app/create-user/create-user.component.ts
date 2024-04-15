@@ -50,8 +50,14 @@ export class CreateUserComponent {
     this.userService.createUser(this.user).subscribe(res => {
       this.user = res;
       console.log(res);
-
-      this.router.navigate(['user-control']);
+      let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+      this.openErrorSnackBar("Uspeno kreiran korisnik")
+      if(tk.role === "ROLE_ADMIN"){
+        this.router.navigate(['user-list']);
+      }
+      if(tk.role === "ROLE_BAKING_OFFICER"){
+        this.router.navigate(['user-control']);
+      }
     }, error => {
         this.openErrorSnackBar("Doslo je do greske kod kreiranja korisnika.")
       },

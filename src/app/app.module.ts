@@ -63,6 +63,9 @@ import { FormatdatePipe } from './card-view/date-pipe/formatdate.pipe';
 import { BankomatViewComponent } from './bankomat-view/bankomat-view.component';
 import { BankomatViewCardComponent } from './bankomat-view-card/bankomat-view-card.component';
 import { MyStocksComponent } from './hartije/my-stocks/my-stocks.component';
+import { SellHartijeComponent } from './sell-hartije/sell-hartije.component';
+import { SellHartijePopupComponent } from './sell-hartije-popup/sell-hartije-popup.component';
+import { SellFuturePopup } from './sell-future-popup/buy-future-popup.component';
 
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
@@ -115,7 +118,10 @@ import { MyStocksComponent } from './hartije/my-stocks/my-stocks.component';
     FormatdatePipe,
     BankomatViewComponent,
     BankomatViewCardComponent,
-    MyStocksComponent
+    MyStocksComponent,
+    SellHartijeComponent,
+    SellHartijePopupComponent,
+    SellFuturePopup
 
   ],
   imports: [

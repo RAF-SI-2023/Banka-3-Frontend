@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ExchangeService} from "../../services/exchange.service";
 import {MyFuture, MyStock} from "../../models/models";
+import {Router} from "@angular/router";
+import {Dialog} from "@angular/cdk/dialog";
+import {SellFuturePopup} from "../../sell-future-popup/buy-future-popup.component";
 
 @Component({
   selector: 'app-my-stocks',
@@ -11,11 +14,11 @@ export class MyStocksComponent implements OnInit{
 
   myStocks = [] as MyStock[]
   myFutures = [] as MyFuture[]
-  myStockColumns = ['myStockId', 'ticker', 'amount'];
-  myFutureColumns = ['myFutureId', 'contractName', 'amount'];
+  myStockColumns = ['myStockId', 'ticker', 'amount', 'opcije'];
+  myFutureColumns = ['myFutureId', 'contractName', 'amount', 'opcije'];
   stocksFlag = true
   futuresFlag = false
-  constructor(private service: ExchangeService) {
+  constructor(private service: ExchangeService, private router: Router, private dialog: Dialog) {
 
   }
 
@@ -44,6 +47,17 @@ export class MyStocksComponent implements OnInit{
     this.service.getMyFutures().subscribe( res => {
       this.myFutures = res
     })
+  }
+
+  sellStock(ticker: string){
+    this.router.navigate(['sell-hartije', ticker]);
+  }
+  //TODO sell future
+  sellFuture(id: number){
+
+    this.dialog.open(SellFuturePopup, {
+      data: { selectedFutureId: id}
+    });
   }
 
 
