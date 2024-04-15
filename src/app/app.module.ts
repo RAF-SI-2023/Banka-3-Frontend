@@ -62,6 +62,7 @@ import { CardViewComponent } from './card-view/card-view.component';
 import { FormatdatePipe } from './card-view/date-pipe/formatdate.pipe';
 import { BankomatViewComponent } from './bankomat-view/bankomat-view.component';
 import { BankomatViewCardComponent } from './bankomat-view-card/bankomat-view-card.component';
+import { MyStocksComponent } from './hartije/my-stocks/my-stocks.component';
 
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
@@ -113,7 +114,8 @@ import { BankomatViewCardComponent } from './bankomat-view-card/bankomat-view-ca
     CardViewComponent,
     FormatdatePipe,
     BankomatViewComponent,
-    BankomatViewCardComponent
+    BankomatViewCardComponent,
+    MyStocksComponent
 
   ],
   imports: [

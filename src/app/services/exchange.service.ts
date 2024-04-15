@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Daily, Future, Intraday, Monthly, Options, Stock, Weekly, Forex} from "../models/models";
+import {Daily, Future, Intraday, Monthly, Options, Stock, Weekly, Forex, MyStock, MyFuture} from "../models/models";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -145,6 +145,24 @@ export class ExchangeService {
 
 
       return this.httpClient.post<any>(`${this.apiUrlExchangeService}/actuary/setLimit/${id}`,limit, { headers });
+    }
+    getMyStocks(){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+
+
+      return this.httpClient.get<MyStock[]>(`${this.apiUrlExchangeService}/myStock/getAll`, { headers });
+    }
+    getMyFutures(){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+
+
+      return this.httpClient.get<MyFuture[]>(`${this.apiUrlExchangeService}/myFuture/getAll`, { headers });
     }
 
 }

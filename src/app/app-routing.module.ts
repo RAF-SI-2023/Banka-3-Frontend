@@ -48,6 +48,7 @@ import {CardViewComponent} from "./card-view/card-view.component";
 import { BankomatViewComponent } from './bankomat-view/bankomat-view.component';
 import { BankomatViewCardComponent } from './bankomat-view-card/bankomat-view-card.component';
 import { SupervisorGuard } from './guards/supervisor.guard';
+import {MyStocksComponent} from "./hartije/my-stocks/my-stocks.component";
 
 
 const routes: Routes = [
@@ -247,6 +248,11 @@ const routes: Routes = [
     path: 'bankomat-card',
     component: BankomatViewCardComponent,
     // canActivate: [AuthGuard, UserGuard]
+  },
+  {
+    path: 'my-listings',
+    component: MyStocksComponent,
+    // canActivate: [AuthGuard, AgentGuard]
   }
 ];
 

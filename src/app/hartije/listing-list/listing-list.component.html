@@ -44,7 +44,7 @@
               {{ element[column] }} <img [width]="16" [height]="16" src="assets/chart-line-down-svgrepo-com.svg" />
             </ng-container>
             <ng-container *ngIf="column === 'opcije'">
-              <button (click)="sell(element['ticker'])" class="button">Prodaj</button>
+              <button (click)="sell(element['ticker'])" class="button">Options</button>
 
               <button (click)="buy(element['ticker'])" class="button">Kupi</button>
             </ng-container>
