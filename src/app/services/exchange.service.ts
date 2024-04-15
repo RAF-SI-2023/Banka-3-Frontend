@@ -124,7 +124,7 @@ export class ExchangeService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    return this.httpClient.get<RequestDto>(`${this.apiUrlExchangeService}/stock/ordersToApprove/approve/${id}?approved=${approved}`, {headers});
+    return this.httpClient.put<RequestDto>(`${this.apiUrlExchangeService}/ordersToApprove/approve/${id}?approved=${approved}`, {headers});
   }
 
   resetLimitUsed(id: number){
@@ -133,7 +133,7 @@ export class ExchangeService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
 
-    return this.httpClient.get<Actuary>(`${this.apiUrlExchangeService}/actuary/restartLimitUsed/${id}`, { headers });
+    return this.httpClient.post<Actuary>(`${this.apiUrlExchangeService}/actuary/restartLimitUsed/${id}`, { headers });
   }
 
   getAllAgents(){
@@ -150,18 +150,17 @@ export class ExchangeService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    console.log(id)
-    console.log(limit)
-    return this.httpClient.get<Actuary>(`${this.apiUrlExchangeService}/actuary/setLimit/${id}?limit=${limit}`, { headers });
+    return this.httpClient.post<Actuary>(`${this.apiUrlExchangeService}/actuary/setLimit/${id}?limit=${limit}`, { headers });
   }
-
+    
     getMyStocks(){
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       });
 
-      return this.httpClient.get<MyStock[]>(`${this.apiUrlExchangeService}/stock/myStock/getAll`, { headers });
+
+      return this.httpClient.get<MyStock[]>(`${this.apiUrlExchangeService}/myStock/getAll`, { headers });
     }
     getMyFutures(){
       const headers = new HttpHeaders({
@@ -170,34 +169,7 @@ export class ExchangeService {
       });
 
 
-      return this.httpClient.get<MyFuture[]>(`${this.apiUrlExchangeService}/future/myFuture/getAll`, { headers });
-    }
-    sellStock(employeeId: number, ticker:string, amount: number, limitValue:number, stopValue: number, aon: boolean, margine:boolean){
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-      });
-
-      const body = {employeeId, ticker, amount, limitValue, stopValue, aon, margine};
-      return this.httpClient.post<any>(`${this.apiUrlExchangeService}/stock/sellStock`, body, { headers });
-    }
-    buyFuture(futureId: number, employeeId: number){
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-      });
-
-      const body = {futureId, employeeId};
-      return this.httpClient.post<any>(`${this.apiUrlExchangeService}/future/buyFuture`, body, { headers });
-    }
-    sellFuture(futureId: number, employeeId: number, amount: number){
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-      });
-
-      const body = {futureId, employeeId, amount};
-      return this.httpClient.post<any>(`${this.apiUrlExchangeService}/future/sellFuture`, body, { headers });
+      return this.httpClient.get<MyFuture[]>(`${this.apiUrlExchangeService}/myFuture/getAll`, { headers });
     }
 
 }

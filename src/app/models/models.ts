@@ -32,7 +32,7 @@ export interface FirmCreateDto {
   title: string,
   email: string,
   number: number,
-  maticniBroj: number,
+  matBr: number,
   pib: number,
   sifraDelatnosti: number,
 
@@ -42,15 +42,15 @@ export interface Firm {
   title: string,
   email: string,
   number: number,
-  maticniBroj: number,
-  PIB: number,
+  maticnibroj: number,
+  pib: number,
   sifraDelatnosti: number,
   companyAccounts: CompanyAccount[]
 
 }
 export interface UserActivationDto{
   email: string,
-  codeActive: boolean
+  active: boolean
 }
 export interface CompanyAccount{
   companyAccountId: number,
@@ -77,7 +77,6 @@ export interface TransactionDto{
   currencyMark: string,
   sifraPlacanja: number,
   pozivNaBroj: string
-  date: number
 }
 
 export interface Permission {
@@ -86,7 +85,7 @@ export interface Permission {
 }
 
 export interface Account{
-  availableBalance: number,
+  balance: number,
   accountType: string,
   mark: string,
   employeeId: number,
@@ -109,7 +108,7 @@ export interface Token {
 
 
 export interface Contact{
-  id: number,
+  contactId: number,
   userId: number,
   myName: string,
   name: string,
@@ -128,8 +127,7 @@ export interface CreditRequestDto{
 }
 export interface Credit{
   creditId:number,
-  employeeId: number,
-  userId: number,
+  user: User,
   name: string,
   accountNumber: string,
   amount: number,
@@ -145,13 +143,13 @@ export interface Credit{
 export interface AccountDto{
   accountId: number,
   accountNumber: string,
-  userId: number,
+  user: User,
   availableBalance: number,
   reservedAmount: number,
   creationDate: number,
   expirationDate: number,
   active: boolean,
-  employeeId: number,
+  employee: Employee,
   currency: Currency,
   accountType: any,
 }
@@ -293,10 +291,6 @@ export interface Actuary{
   orderRequest: boolean
 }
 
-export interface ConfirmTransactionDto{
-  transactionId: number
-}
-
 export interface RequestDto {
   stockOrderId: number,
   employeeId: number,
@@ -310,10 +304,4 @@ export interface RequestDto {
   aon: boolean,
   margine: boolean,
   currencyMark: string
-}
-
-export interface CurrencyExchangeDto {
-  accountFrom: string,
-  accountTo: string
-  amount: number
 }
