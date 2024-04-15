@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {UserService} from "../../../services/user.service";
+import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
-import {UserActivationDto} from "../../../models/models";
+import {UserActivationDto} from "../../models/models";
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
@@ -41,7 +41,7 @@ export class UserloginComponent {
     this.userService.checkEmail(this.emailCheck?.value)
       .subscribe(response => {
         this.userActivationDto = response;
-        this.codeActivate = this.userActivationDto.codeActive
+        this.codeActivate = this.userActivationDto.active
         this.address = this.userActivationDto.email
         this.showCheckAddress = false;
       }, error => {
@@ -58,7 +58,8 @@ export class UserloginComponent {
 
     this.userService.setPassword(this.address, Number(this.activationCode?.value), this.newPassword?.value)
       .subscribe(response => {
-        this.codeActivate = true;
+        // Handle response as needed
+        this.codeActivate = false;
         this.showCheckAddress = false;
         console.log(response)
       }, error => {
@@ -68,6 +69,7 @@ export class UserloginComponent {
 
   submitLogin() {
 
+    console.log("AAAAAAAAAAAA");
     if(this.isSubmitting) {
       // console.log("Jedna forma je vec u procesu slanja!")
       return;
@@ -101,7 +103,7 @@ export class UserloginComponent {
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 3000,
+      duration: 0,
     });
   }
 
