@@ -152,15 +152,14 @@ export class ExchangeService {
     });
     return this.httpClient.post<Actuary>(`${this.apiUrlExchangeService}/actuary/setLimit/${id}?limit=${limit}`, { headers });
   }
-    
+
     getMyStocks(){
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       });
 
-
-      return this.httpClient.get<MyStock[]>(`${this.apiUrlExchangeService}/myStock/getAll`, { headers });
+      return this.httpClient.get<MyStock[]>(`${this.apiUrlExchangeService}/stock/myStock/getAll`, { headers });
     }
     getMyFutures(){
       const headers = new HttpHeaders({
@@ -169,7 +168,7 @@ export class ExchangeService {
       });
 
 
-      return this.httpClient.get<MyFuture[]>(`${this.apiUrlExchangeService}/myFuture/getAll`, { headers });
+      return this.httpClient.get<MyFuture[]>(`${this.apiUrlExchangeService}/future/myFuture/getAll`, { headers });
     }
 
 }

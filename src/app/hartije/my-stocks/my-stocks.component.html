@@ -22,6 +22,9 @@
                   'cursor': column === 'ticker' ? 'pointer' : 'default'
 
                 }">
+            <ng-container>
+              {{ element[column] }}
+            </ng-container>
           </mat-cell>
         </ng-container>
 
