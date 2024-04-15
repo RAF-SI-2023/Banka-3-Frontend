@@ -3,7 +3,6 @@ import {Employee, Forex, Future, Stock, User} from "../../models/models";
 import {ExchangeService} from "../../services/exchange.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {SellFuturePopup} from "../../sell-future-popup/buy-future-popup.component";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {MatSnackBar} from "@angular/material/snack-bar";

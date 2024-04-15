@@ -3,7 +3,7 @@ import {ExchangeService} from "../../services/exchange.service";
 import {MyFuture, MyStock} from "../../models/models";
 import {Router} from "@angular/router";
 import {Dialog} from "@angular/cdk/dialog";
-import {SellFuturePopup} from "../../sell-future-popup/buy-future-popup.component";
+import {BuyFuturePopupComponent} from "../../sell-future-popup/buy-future-popup.component";
 
 @Component({
   selector: 'app-my-stocks',
@@ -55,7 +55,7 @@ export class MyStocksComponent implements OnInit{
   //TODO sell future
   sellFuture(id: number){
 
-    this.dialog.open(SellFuturePopup, {
+    this.dialog.open(BuyFuturePopupComponent, {
       data: { selectedFutureId: id}
     });
   }
