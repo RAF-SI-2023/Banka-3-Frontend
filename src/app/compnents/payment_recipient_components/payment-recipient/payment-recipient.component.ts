@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import { MOCK_RECIPIENTS} from "./mock-recipients";
-import {Contact} from "../../../models/models";
-import {UserService} from "../../../services/user.service";
+import {Contact} from "../models/models";
+import {UserService} from "../services/user.service";
 import {jwtDecode} from "jwt-decode";
 import {Router} from "@angular/router";
-import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-payment-recipient',
@@ -15,7 +14,7 @@ export class PaymentRecipientComponent implements OnInit{
   //TODO: Potrebno zameniti MOCK_RECIPIENTS u html-u kada se odradi bek
   // protected readonly MOCK_RECIPIENTS = MOCK_RECIPIENTS;
   recipients: Contact[] = []
-  constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -40,16 +39,11 @@ export class PaymentRecipientComponent implements OnInit{
         })
       });
     } else {
-      this.openSuccessSnackBar("Doslo je do greske pri prisanju")
+      alert("Greska pri brisanju.");
     }
   }
   editContact(contact: Contact) {
 
     this.router.navigate([`/edit-payment-recipient/${contact.id}`], { state: { contact } });
-  }
-  openSuccessSnackBar(message:string) {
-    this.snackBar.open(message, 'Zatvori', {
-      duration: 3000,
-    });
   }
 }

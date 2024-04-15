@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Route, Router} from '@angular/router';
-import {Account, AccountDto, Contact, TransactionDto} from "../../../models/models";
-import {UserService} from "../../../services/user.service";
+import {Account, AccountDto, Contact, TransactionDto} from "../models/models";
+import {UserService} from "../services/user.service";
 import {HttpClient} from "@angular/common/http";
-import {AccountService} from "../../../services/account.service";
-import {PopupTransactionComponent} from "../popup-transaction/popup-transaction.component";
+import {AccountService} from "../services/account.service";
+import {PopupTransactionComponent} from "../popup/popup-transaction/popup-transaction.component";
 import {MatDialog} from "@angular/material/dialog";
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -37,9 +37,9 @@ export class PayingComponent implements OnInit {
 
   isSubmitting: boolean = false;
 
-  existingRecipients: Contact[] = [];
-  selectedRecipient: string = '';
-  customAccountNumber: string = '';
+  existingRecipients: Contact[] = []; 
+  selectedRecipient: string = ''; 
+  customAccountNumber: string = ''; 
 
 
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
@@ -68,18 +68,18 @@ export class PayingComponent implements OnInit {
       this.accountService.getAccountsByUserId(this.userId).subscribe((response) =>{
         this.userAccounts = response;
         this.selectedAccount = response[0];
+        
 
-
-        for (let i = 1; i < response.length; i++)
-        if (response[i].creationDate < this.account.creationDate)this.account = response[i];
-
+        for (let i = 1; i < response.length; i++) 
+        if (response[i].creationDate < this.account.creationDate)this.account = response[i]; 
+        
         this.accountNumber = this.selectedAccount.accountNumber;
         this.accountBalance = this.selectedAccount.availableBalance - this.selectedAccount.reservedAmount;
   },
   (error) => {
     console.error('Greska prilikom dohvatanja racuna:', error);
   },)
-
+    
 
     for (let i: number = 120; i <= 290; i++) {
       this.paymentCodes.push(i);
@@ -98,7 +98,7 @@ export class PayingComponent implements OnInit {
   onRecipientSelectionChange() {
     // Pronalazimo izabranog primaoca
     const selectedRecipient = this.existingRecipients.find(recipient => recipient.name === this.selectedRecipient);
-
+    
     // Ako je izabrani primaoc pronađen, popunjavamo polja sa njegovim detaljima
     if (selectedRecipient) {
       this.groupForm.patchValue({
@@ -106,7 +106,7 @@ export class PayingComponent implements OnInit {
         recipientAccount: selectedRecipient.accountNumber
       });
     }
-  }
+  }  
 
   getUserId(){
     const token = sessionStorage.getItem('token');
@@ -148,7 +148,7 @@ export class PayingComponent implements OnInit {
     this.isSubmitting = true;
     this.accountService.sendTransaction(this.transaction).subscribe(
       (response) => {
-        this.transactionId = response.transactionId;
+        this.transactionId = response;
         this.dialog.open(PopupTransactionComponent, {
           data: { successful: true, inputValue: this.transactionId }
         });
@@ -169,13 +169,13 @@ export class PayingComponent implements OnInit {
 
   openSuccessSnackBar() {
     this.snackBar.open('Transakcija uspešna', 'Zatvori', {
-      duration: 3000,
+      duration: 2000,
     });
   }
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 3000,
+      duration: 0,
     });
   }
 
@@ -204,7 +204,7 @@ export class PayingComponent implements OnInit {
       this.selectedAccount = acc;
       this.accountNumber = this.selectedAccount.accountNumber;
       this.accountBalance = this.selectedAccount.availableBalance - this.selectedAccount.reservedAmount;
-    }
+    } 
   }
 
   get recipientName() {
