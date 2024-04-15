@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Employee, Permission, Role} from "../../../models/models";
-import {UserService} from "../../../services/user.service";
+import {Employee, Permission, Role} from "../models/models";
+import {UserService} from "../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatLegacyNavList} from "@angular/material/legacy-list";
@@ -45,6 +45,7 @@ export class CreateEmployeeComponent implements OnInit{
   }
 
   save(){
+    console.log("aaaaaaaaaaaaaaaa");
     if (this.isSubmitting){
       // console.log("Jedna forma je vec u procesu slanja!")
       return;
@@ -73,7 +74,7 @@ export class CreateEmployeeComponent implements OnInit{
     this.isSubmitting = true;
 
     this.userService.createEmployee(this.employee).subscribe(res => {
-      this.openErrorSnackBar("Uspeno kreiran zaposleni")
+      console.log("usaooooooooooo");
       this.router.navigate(['user-list'])
     }, error => {
      this.openErrorSnackBar("Doslo je do greske kod kreiranja zaposlenog.")
@@ -89,7 +90,7 @@ export class CreateEmployeeComponent implements OnInit{
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 3000,
+      duration: 5,
     });
   }
   get firstName(){
