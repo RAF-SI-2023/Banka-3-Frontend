@@ -23,7 +23,6 @@ export class UserloginComponent {
   })
 
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   })
 
@@ -69,26 +68,23 @@ export class UserloginComponent {
   }
 
   submitLogin() {
+
+    console.log("AAAAAAAAAAAA");
     if(this.isSubmitting) {
       // console.log("Jedna forma je vec u procesu slanja!")
       return;
     }
-    if(this.email?.valid && this.password?.valid){
+
+    if(this.password?.valid){
       this.isSubmitting = true;
-      let email = this.loginForm.get("email")?.value
+      let email = this.address
       let password = this.loginForm.get("password")?.value
       console.log(email, password)
       this.userService.loginUser(email, password).subscribe(
         res => {
           sessionStorage.setItem("token", res.token);
           const token = JSON.parse(atob(res.token.split('.')[1]))
-          if("role" in token && (token.role === 'ROLE_SUPERVISOR' || token.role === 'ROLE_AGNET' )){
-            this.router.navigate(['listing-list'])
-            .then(()=> {
-              window.location.reload()
-            })
-          }
-          else this.router.navigate([''])
+           this.router.navigate([''])
             .then(()=> {
               window.location.reload()
             })
