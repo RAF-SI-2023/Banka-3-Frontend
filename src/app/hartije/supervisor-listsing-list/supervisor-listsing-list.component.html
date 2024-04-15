@@ -1,14 +1,14 @@
 <div class="page">
   <div class="panel">
-    <button class="request-button" [class.active]="showRequests" (click)="switchToRequests()">
-      Requests
+    <button [ngStyle]="{ 'opacity': !stocksFlag ? '0.5' : '1'}" class="stock-button" (click)="switchToRequests()">
+      R e q u e s t s
     </button>
-    <button class="limit-button" [class.active]="showLimits" (click)="switchToLimits()">
-      Limits
+    <button [ngStyle]="{ 'opacity': !limitFlag ? '0.5' : '1'}" class="limit-button" (click)="switchToLimits()">
+      L i m i t s
     </button>
 
     <div *ngIf = 'showRequests'>
-    <mat-table [dataSource]="MockRequests" matSort style="max-width: var(--max-screen-width)">
+    <mat-table [dataSource]="requests" matSort style="max-width: var(--max-screen-width)">
       <ng-container *ngFor="let column of requestColumns" [matColumnDef]="column">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ column | uppercase }}
@@ -21,7 +21,7 @@
       <ng-container matColumnDef="accept">
         <mat-header-cell *matHeaderCellDef> Accept </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button class="icon-button" (click)="acceptRequest(element.stockOr)">
+          <button class="icon-button" (click)="acceptRequest(element.stockOrderId)">
             <img src="assets/circle-check-svgrepo-com.svg" width="24" height="24">
           </button>
         </mat-cell>
@@ -47,7 +47,7 @@
 
     <div *ngIf = 'showLimits'>
     <div *ngIf="showLimits">
-      <mat-table [dataSource]="MockRequests" matSort style="max-width: var(--max-screen-width)">
+      <mat-table [dataSource]="actuaries" matSort style="max-width: var(--max-screen-width)">
         <ng-container matColumnDef="employeeId">
           <mat-header-cell *matHeaderCellDef> Employee ID </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ element.employeeId }} </mat-cell>
@@ -62,14 +62,14 @@
           <mat-header-cell *matHeaderCellDef> Set New Limit </mat-header-cell>
           <mat-cell *matCellDef="let element">
             <input type="text" [(ngModel)]="element.newValue" placeholder="Enter new limit">
-            <button (click)="setUserLimit(element.employeeId, element.newValue)">Set</button>
+            <button class="button" (click)="setUserLimit(element.actuaryId, element.newValue)">Set</button>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="resetLimit">
           <mat-header-cell *matHeaderCellDef> Reset Limit </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button (click)="resetUserLimit(element.employeeId)">Reset</button>
+            <button class="button" (click)="resetUserLimit(element.employeeId)">Reset</button>
           </mat-cell>
         </ng-container>
 

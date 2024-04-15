@@ -184,21 +184,6 @@ export interface CreditRequestCreateDto {
   currencyMark: string;
 }
 
-
-export interface Request {
- stockOrderId: number,
-  employeeId: number,
-  ticker: string,
-  status: string,
-  type: string,
-  limitValue: number,
-  stopValue: number,
-  amount: number,
-  amountLeft: number,
-  aon: boolean,
-  margine: boolean
-}
-
 export interface Future{
   futureId: number,
   contractName: string,
@@ -296,3 +281,27 @@ export interface Card{
   accountNumber: number
 }
 
+export interface Actuary{
+  actuaryId: number
+  employeeId: number,
+  email: string,
+  role: string,
+  limitValue: number,
+  limitUsed: number,
+  orderRequest: boolean
+}
+
+export interface RequestDto {
+  stockOrderId: number,
+  employeeId: number,
+  ticker: string,
+  status: string,
+  type: string,
+  limitValue: number,
+  stopValue: number,
+  amount: number,
+  amountLeft: number,
+  aon: boolean,
+  margine: boolean,
+  currencyMark: string
+}
