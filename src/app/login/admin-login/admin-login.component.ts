@@ -52,6 +52,16 @@ export class AdminLoginComponent {
               .then(()=> {
                 window.location.reload()
               })
+          if(tk.role === 'ROLE_SUPERVISOR')
+            this.router.navigate(['supervisor-listing'])
+              .then(()=> {
+                window.location.reload()
+              })
+          if(tk.role === 'ROLE_AGENT')
+            this.router.navigate(['listing-list'])
+              .then(()=> {
+                window.location.reload()
+              })
         },
         error => {
           this.openErrorSnackBar('Pogrešan email ili lozinka.');
