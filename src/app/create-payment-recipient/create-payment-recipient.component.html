@@ -1,5 +1,5 @@
 <div class = "extra-padding">
-  <form [formGroup]="contactForm" (ngSubmit)="saveContact()">
+  <form [formGroup]="contactForm">
   <div class="container">
     <div class="card details">
       <h2 class="h4">&nbsp;</h2>
@@ -49,9 +49,13 @@
           formControlName="formContact"
         />
         <span
-          *ngIf="formContact && formContact.invalid && formContact.touched" class="wrong-input-span">
-            Polje mora da bude popunjeno!</span>
+          *ngIf="formContact && formContact.invalid && formContact.touched"
+          class="wrong-input-span"
+        >
+          Polje mora da bude popunjeno i sadržati 16 cifara!
+        </span>
       </div>
+      
 
 
       <div class="buttons">

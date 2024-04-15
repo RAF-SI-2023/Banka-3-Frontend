@@ -22,3 +22,9 @@ body{
 .blueText{
     color:var(--blue-medium)
 }
+
+.line {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 40px; 
+    padding-bottom: 5px; 
+}  

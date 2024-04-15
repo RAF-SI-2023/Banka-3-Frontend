@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
 })
 export class PaymentRecipientComponent implements OnInit{
   //TODO: Potrebno zameniti MOCK_RECIPIENTS u html-u kada se odradi bek
-  protected readonly MOCK_RECIPIENTS = MOCK_RECIPIENTS;
+  // protected readonly MOCK_RECIPIENTS = MOCK_RECIPIENTS;
   recipients: Contact[] = []
   constructor(private userService: UserService, private router: Router) {
   }
@@ -29,10 +29,11 @@ export class PaymentRecipientComponent implements OnInit{
 
   deleteContact(contactId: number){
     //Pozvati deleteUsersContact iz userService-a
+    console.log(contactId);
     const token = sessionStorage.getItem("token");
     if (token){
       const  decoded : any = jwtDecode(token);
-      this.userService.deleteUsersContact(decoded.id, contactId).subscribe( data => {
+      this.userService.deleteUsersContact(contactId).subscribe( data => {
         this.userService.getUsersContactsById(decoded.id).subscribe( res => {
           this.recipients = res;
         })
@@ -43,6 +44,6 @@ export class PaymentRecipientComponent implements OnInit{
   }
   editContact(contact: Contact) {
 
-    this.router.navigate([`/edit-payment-recipient/${contact.contactId}`], { state: { contact } });
+    this.router.navigate([`/edit-payment-recipient/${contact.id}`], { state: { contact } });
   }
 }
