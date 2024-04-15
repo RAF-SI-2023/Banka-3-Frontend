@@ -4,6 +4,7 @@ import {UserService} from "../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatLegacyNavList} from "@angular/material/legacy-list";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-create-employee',
@@ -20,7 +21,7 @@ export class CreateEmployeeComponent implements OnInit{
   isSubmitting: boolean = false;
 
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router : Router) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router : Router, private snackBar: MatSnackBar) {
     this.employeeForm = this.fb.group({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -74,7 +75,7 @@ export class CreateEmployeeComponent implements OnInit{
     this.userService.createEmployee(this.employee).subscribe(res => {
       this.router.navigate(['user-list'])
     }, error => {
-
+     this.openErrorSnackBar("Doslo je do greske kod kreiranja zaposlenog.")
     },
       () => {
         setTimeout( ()=> {
@@ -83,6 +84,12 @@ export class CreateEmployeeComponent implements OnInit{
         }, 3000);
       }
       );
+  }
+
+  openErrorSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 5,
+    });
   }
   get firstName(){
     return this.employeeForm.get('firstName');

@@ -221,6 +221,19 @@ export interface Stock{
   volume : number
 }
 
+export interface MyStock{
+  myStockId: number,
+  ticker: string,
+  amount: number,
+  version: number
+}
+export interface MyFuture{
+  myFutureId: number,
+  contractName: string,
+  amount: number,
+  version: number
+}
+
 export interface Options{
   optionsId: number,
   ask: number,

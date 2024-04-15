@@ -4,6 +4,7 @@ import {Employee, User} from "../models/models";
 import { UserService } from "../services/user.service";
 import {Router} from "@angular/router";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-create-user',
@@ -14,9 +15,10 @@ export class CreateUserComponent {
   user: User = {} as User;
   dtUser: string = '';
   userForm: FormGroup;
+  isSubmitting = false
 
 
-  constructor(private fb: FormBuilder,private userService: UserService, private router: Router) {
+  constructor(private fb: FormBuilder,private userService: UserService, private router: Router, private snackBar: MatSnackBar) {
 
       this.userForm = this.fb.group({
         firstName: new FormControl('', Validators.required),
@@ -44,15 +46,30 @@ export class CreateUserComponent {
     let dt = new Date(this.userForm.get('dateOfBirth')?.value).getTime();
     this.user.dateOfBirth = dt;
 
+    this.isSubmitting = true;
     this.userService.createUser(this.user).subscribe(res => {
       this.user = res;
       console.log(res);
 
       this.router.navigate(['user-account', this.user.userId]);
-    });
+    }, error => {
+        this.openErrorSnackBar("Doslo je do greske kod kreiranja korisnika.")
+      },
+      () => {
+        setTimeout( ()=> {
+          this.isSubmitting = false;
+          // console.log("Submitting setovan na false, moguce ponovno slanje.")
+        }, 3000);
+      }
+    );
   }
 
 
+  openErrorSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 5,
+    });
+  }
   get firstName(){
     return this.userForm.get('firstName');
   }
