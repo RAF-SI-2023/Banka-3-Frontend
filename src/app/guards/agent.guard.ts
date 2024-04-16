@@ -23,7 +23,7 @@ export class AgentGuard implements CanActivate {
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const hasRole = "role" in payload;
-      if (hasRole && payload.role === 'ROLE_AGENT' || payload.role === 'ROLE_ADMIN') {
+      if (hasRole && payload.role === 'ROLE_AGENT' || payload.role === 'ROLE_ADMIN' || payload.role === 'ROLE_SUPERVISOR') {
         return true;
       }
     }
