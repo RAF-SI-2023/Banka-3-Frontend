@@ -102,7 +102,7 @@ export class PasswordActivationComponent implements OnInit{
 
   openSuccessSnackBar(message:string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 2000,
+      duration: 3000,
     });
   }
 }

@@ -17,7 +17,7 @@ export class BuyHartijePopupComponent {
 
   constructor(
     private router: Router,
-    @Inject(MAT_DIALOG_DATA) public data: any, 
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialogRef<any>,
     private snackBar: MatSnackBar,
     private exchangeService: ExchangeService
@@ -29,7 +29,7 @@ export class BuyHartijePopupComponent {
     }
   }
   confirm() {
-    this.exchangeService.buyStock(this.data.employeeId, 
+    this.exchangeService.buyStock(this.data.employeeId,
       this.data.ticker, this.data.amount, this.data.limitValue, this.data.stopValue, this.data.aon, this.data.margin).subscribe(
       (response) => {
         this.openSuccessSnackBar("Uspešna kupovina.");
@@ -43,16 +43,16 @@ export class BuyHartijePopupComponent {
         this.router.navigate(['listing-list']);
       },
     )
-   
+
   }
 
   cancel() {
     this.dialog.close();
   }
-  
+
   openSuccessSnackBar(message:string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 2000, 
+      duration: 3000,
     });
   }
 }

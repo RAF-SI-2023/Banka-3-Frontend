@@ -94,7 +94,7 @@ export class CreditRequestComponent implements OnInit {
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 5,
+      duration: 3000,
     });
   }
   //TODO Zameni mock podatke, sa pravim

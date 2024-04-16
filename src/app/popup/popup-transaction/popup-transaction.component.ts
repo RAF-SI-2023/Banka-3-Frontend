@@ -14,7 +14,7 @@ import { Router } from '@angular/router'; // Importovanje Router servisa
 })
 export class PopupTransactionComponent {
   code : number | undefined;
-  
+
 
   constructor(
     private dialog: MatDialogRef<any>,
@@ -32,26 +32,26 @@ export class PopupTransactionComponent {
         console.log("Odgovor servera:", response);
         this.openSuccessSnackBar();
         this.dialog.close();
-        this.router.navigate(['/']); 
+        this.router.navigate(['/']);
       },
       error => {
         console.error("Greška pri potvrđivanju transakcije:", error);
         this.openErrorSnackBar();
         this.dialog.close();
       }
-    );    
-  
+    );
+
   }
 
   openSuccessSnackBar() {
     this.snackBar.open('Transakcija uspešna', 'Zatvori', {
-      duration: 2000, 
+      duration: 3000,
     });
   }
-  
+
   openErrorSnackBar() {
     this.snackBar.open('Transakcija neuspešna', 'Zatvori', {
-      duration: 0, 
+      duration: 3000,
     });
   }
 }

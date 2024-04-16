@@ -102,7 +102,7 @@ export class UserloginComponent {
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 0,
+      duration: 3000,
     });
   }
 

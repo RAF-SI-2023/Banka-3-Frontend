@@ -89,7 +89,7 @@ export class CreateEmployeeComponent implements OnInit{
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 5,
+      duration: 3000,
     });
   }
   get firstName(){
