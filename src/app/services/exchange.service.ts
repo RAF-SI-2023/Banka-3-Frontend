@@ -177,7 +177,7 @@ export class ExchangeService {
       });
 
       const body = {employeeId, ticker, amount, limitValue, stopValue, aon, margine};
-      return this.httpClient.post<any>(`${this.apiUrlExchangeService}/stock/sellStock`, { headers });
+      return this.httpClient.post<any>(`${this.apiUrlExchangeService}/stock/sellStock`, body, { headers });
     }
     buyFuture(futureId: number, employeeId: number){
       const headers = new HttpHeaders({

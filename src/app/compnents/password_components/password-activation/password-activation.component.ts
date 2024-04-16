@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {UserService} from "../services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-password-activation',
@@ -102,7 +102,7 @@ export class PasswordActivationComponent implements OnInit{
 
   openSuccessSnackBar(message:string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 3000,
+      duration: 2000,
     });
   }
 }
