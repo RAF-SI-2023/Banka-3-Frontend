@@ -50,6 +50,7 @@ import { BankomatViewCardComponent } from './bankomat-view-card/bankomat-view-ca
 import { SupervisorGuard } from './guards/supervisor.guard';
 import {MyStocksComponent} from "./hartije/my-stocks/my-stocks.component";
 import {SellHartijeComponent} from "./sell-hartije/sell-hartije.component";
+import {AgentGuard} from "./guards/agent.guard";
 
 
 const routes: Routes = [
@@ -115,7 +116,7 @@ const routes: Routes = [
   {
     path: 'add-user',
     component: CreateUserComponent,
-    //canActivate: [AuthGuard, AdminGuard]
+    canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'user-profile/:id',
@@ -140,7 +141,7 @@ const routes: Routes = [
   {
     path: 'user-control',
     component: UserControllComponent,
-    //canActivate: [AuthGuard, BankingOfficerGuard]
+    canActivate: [AuthGuard, BankingOfficerGuard]
   },
   {
     path: 'exchange',
@@ -203,47 +204,47 @@ const routes: Routes = [
   {
     path: 'supervisor-listing',
     component: SupervisorListsingListComponent,
-    // canActivate: [AuthGuard, UserGuard, SupervisorGuard] //treba postaviti gard za supervizora --> postavljen
+    canActivate: [AuthGuard, UserGuard, SupervisorGuard] //treba postaviti gard za supervizora --> postavljen
   },
   {
     path : 'options/:ticker',
     component: OptionsComponent,
-    // canActivate:[AuthGuard, UserGuard]
+    canActivate:[AuthGuard, AgentGuard]
   },
   {
     path : 'credit-list-user',
     component: CreditListUserComponent,
-   // canActivate:[AuthGuard, UserGuard]
+   canActivate:[AuthGuard, UserGuard]
   },
   {
     path : 'listing-list',
     component: ListingListComponent,
-    // canActivate:[AuthGuard, UserGuard, SupervisorGuard]
+    canActivate:[AuthGuard, UserGuard, AgentGuard]
   },
   {
     path : 'stock-info/:ticker',
     component: StockInfoComponent,
-    // canActivate:[AuthGuard, UserGuard]
+    canActivate:[AuthGuard, AgentGuard]
   },
   {
     path : 'buy-hartije/:ticker',
     component: BuyHartijeComponent,
-    // canActivate:[AuthGuard, UserGuard]
+    canActivate:[AuthGuard, AgentGuard]
   },
   {
     path : 'sell-hartije/:ticker',
     component: SellHartijeComponent,
-    // canActivate:[AuthGuard, UserGuard]
+    canActivate:[AuthGuard, AgentGuard]
   },
   {
     path: 'buy-hartije-popup',
     component:BuyHartijePopupComponent,
-    // canActivate:[AuthGuard, UserGuard]
+    // canActivate:[AuthGuard, AgentGuard]
   },
   {
     path: 'bankomat',
     component:BankomatViewComponent,
-    // canActivate:[AuthGuard, UserGuard]
+    canActivate:[AuthGuard, UserGuard]
   },
   {
     path: 'card-view',
@@ -253,12 +254,12 @@ const routes: Routes = [
   {
     path: 'bankomat-card',
     component: BankomatViewCardComponent,
-    // canActivate: [AuthGuard, UserGuard]
+    canActivate: [AuthGuard, UserGuard]
   },
   {
     path: 'my-listings',
     component: MyStocksComponent,
-    // canActivate: [AuthGuard, AgentGuard]
+    canActivate: [AuthGuard, AgentGuard]
   }
 ];
 
