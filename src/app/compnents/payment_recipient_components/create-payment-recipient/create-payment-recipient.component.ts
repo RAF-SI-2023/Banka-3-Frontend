@@ -42,6 +42,7 @@ export class CreatePaymentRecipientComponent {
       const decoded: any = jwtDecode(token);
       this.contactData.userId = decoded.id;
       this.userService.addContact(decoded.id,this.contactData).subscribe(data => {
+          this.openSuccessSnackBar("Uspesno ste dodali novi kontakt")
         this.router.navigate(['/payment-recipients']);
       }, error => {
         this.openSuccessSnackBar("Doslo je do greske")
@@ -58,7 +59,7 @@ export class CreatePaymentRecipientComponent {
   }
   openSuccessSnackBar(message:string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 2000,
+      duration: 3000,
     });
   }
   cancel() {

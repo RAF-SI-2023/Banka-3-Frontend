@@ -95,16 +95,16 @@ export class SupervisorListsingListComponent implements OnInit {
     );
   }
   acceptRequest(elementId: number){
-    this.exchangeService.approveStockOrder(elementId, true).subscribe( 
+    this.exchangeService.approveStockOrder(elementId, true).subscribe(
       res => {
         this.openSnackBar("Zahtev je prihvaćen.")
       },err=>{
         this.openSnackBar("Greška u prihvatanju zahteva.")
       });
   }
-  
+
   rejectRequest(elementId: number){
-    this.exchangeService.approveStockOrder(elementId, false).subscribe( 
+    this.exchangeService.approveStockOrder(elementId, false).subscribe(
       res => {
       this.openSnackBar("Zahtev je odbijen.")
     },err=>{
@@ -113,7 +113,7 @@ export class SupervisorListsingListComponent implements OnInit {
   }
 
   setUserLimit(id: number, limitValue: number): void {
-     this.exchangeService.setLimit(id, limitValue).subscribe( 
+     this.exchangeService.setLimit(id, limitValue).subscribe(
       res => {
         const updatedActuaryIndex = this.actuaries.findIndex(actuary => actuary.actuaryId === id);
         if (updatedActuaryIndex !== -1) {
@@ -126,7 +126,7 @@ export class SupervisorListsingListComponent implements OnInit {
   }
 
   resetUserLimit(id: number): void {
-    this.exchangeService.resetLimitUsed(id).subscribe( 
+    this.exchangeService.resetLimitUsed(id).subscribe(
       res => {
       this.openSnackBar("Limit je resetovan.")
     },err=>{
@@ -136,7 +136,7 @@ export class SupervisorListsingListComponent implements OnInit {
 
   openSnackBar(message:string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 2000, 
+      duration: 3000,
     });
   }
 

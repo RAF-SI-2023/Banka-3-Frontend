@@ -100,7 +100,7 @@ export class ListingListComponent implements OnInit{
 
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
-      duration: 0,
+      duration: 3000,
     });
   }
   ngOnInit(){
