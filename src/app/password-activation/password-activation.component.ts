@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-password-activation',
@@ -11,7 +12,7 @@ import {UserService} from "../services/user.service";
 export class PasswordActivationComponent implements OnInit{
   passwordForm: FormGroup;
   code: string;
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private userService: UserService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private userService: UserService, private router: Router, private snackBar: MatSnackBar) {
     // Dohvatanje parametra 'code' iz URL-a
     //@ts-ignore
     this.code = this.route.snapshot.paramMap.get('code');
@@ -91,11 +92,17 @@ export class PasswordActivationComponent implements OnInit{
     this.userService.setEmployeePassword(this.code, this.passwordForm.get('password')?.value).subscribe( data => {
       console.log("Poslat POST zahtev, potreban redirect na sledecu stranicu.");
       if ( data === 'Password successfully changed'){
+        this.openSuccessSnackBar("Uspesno postavljena nova sifra!")
         this.router.navigate(['/admin-login']); //Potrebno promeniti kada se napravi employee-view
       } else {
-        alert("Neuspesno postavljanje sifre. Proverite mail i pokusajte opet.");
+        this.openSuccessSnackBar("Neuspesno postavljanje sifre. Proverite mail i pokusajte opet.")
       }
     })
   }
 
+  openSuccessSnackBar(message:string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 2000,
+    });
+  }
 }

@@ -4,6 +4,7 @@ import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 import {jwtDecode} from "jwt-decode";
 import {Contact} from "../models/models";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-create-payment-recipient',
@@ -22,7 +23,7 @@ export class CreatePaymentRecipientComponent {
   })
 
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) {
 
   }
   saveContact() {
@@ -43,7 +44,7 @@ export class CreatePaymentRecipientComponent {
       this.userService.addContact(decoded.id,this.contactData).subscribe(data => {
         this.router.navigate(['/payment-recipients']);
       }, error => {
-        alert("Greska pri dodavanju.");
+        this.openSuccessSnackBar("Doslo je do greske")
       },
         () => {
           setTimeout( ()=> {
@@ -54,6 +55,11 @@ export class CreatePaymentRecipientComponent {
         );
 
     }
+  }
+  openSuccessSnackBar(message:string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 2000,
+    });
   }
   cancel() {
     this.router.navigate(['/payment-recipients']);
