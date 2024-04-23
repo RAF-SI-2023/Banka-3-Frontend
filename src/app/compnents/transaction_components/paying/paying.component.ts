@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Route, Router} from '@angular/router';
-import {Account, AccountDto, Contact, TransactionDto} from "../models/models";
-import {UserService} from "../services/user.service";
+import {Account, AccountDto, Contact, TransactionDto} from "../../../models/models";
+import {UserService} from "../../../services/user.service";
 import {HttpClient} from "@angular/common/http";
-import {AccountService} from "../services/account.service";
-import {PopupTransactionComponent} from "../popup/popup-transaction/popup-transaction.component";
+import {AccountService} from "../../../services/account.service";
+import {PopupTransactionComponent} from "../popup-transaction/popup-transaction.component";
 import {MatDialog} from "@angular/material/dialog";
 import { MatSnackBar } from '@angular/material/snack-bar';
 

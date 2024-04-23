@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {AccountDto, Credit, User} from "../../../models/models";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {AccountService} from "../../../services/account.service";
+import {CreditService} from "../../../services/credit.service";
 import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs";
 
@@ -14,9 +15,8 @@ import {Observable} from "rxjs";
 export class CreditListUserComponent implements OnInit{
   currUser = {} as User;
   credits: Credit[] = [];
-  currUserId = 0;
 
-  constructor(private router: Router, private userService: UserService, private accountService: AccountService) {
+  constructor(private router: Router, private userService: UserService, private accountService: AccountService, private creditService: CreditService) {
 
   }
 
@@ -31,11 +31,13 @@ export class CreditListUserComponent implements OnInit{
 
   ngOnInit(): void {
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-    this.currUserId = tk.id
-    this.accountService.getAllCreditsByUserId(tk.id).subscribe(res => {
-      this.credits = res;
-      console.log(res)
+    this.userService.getUserById(tk.id).subscribe(res => {
+      this.currUser = res;
 
+      this.creditService.getAllCreditsByUserId(this.currUser.userId).subscribe(res => {
+        this.credits = res;
+
+      });
     });
   }
 }

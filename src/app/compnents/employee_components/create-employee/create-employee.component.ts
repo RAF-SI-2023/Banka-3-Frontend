@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Employee, Permission, Role} from "../models/models";
-import {UserService} from "../services/user.service";
+import {Employee, Permission, Role} from "../../../models/models";
+import {UserService} from "../../../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatLegacyNavList} from "@angular/material/legacy-list";

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../services/user.service";
+import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
-import {Contact} from "../models/models";
+import {Contact} from "../../../models/models";
 import { ActivatedRoute } from '@angular/router';
 import {jwtDecode} from "jwt-decode";
 
@@ -73,7 +73,7 @@ export class EditPaymentRecipientComponent {
 
     // @ts-ignore
     this.userService.editContact(this.contactData, this.contactId)
-    .subscribe( 
+    .subscribe(
       data => {
         this.router.navigate(['/payment-recipients'])
     })

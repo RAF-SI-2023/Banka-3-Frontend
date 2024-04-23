@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../models/models";
-import {UserService} from "../services/user.service";
+import {User} from "../../../models/models";
+import {UserService} from "../../../services/user.service";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {parseJson} from "@angular/cli/src/utilities/json-file";

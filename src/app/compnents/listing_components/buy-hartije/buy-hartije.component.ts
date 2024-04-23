@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {Account, Employee, Stock} from "../../models/models";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {HttpHeaders} from "@angular/common/http";
+import {ExchangeService} from "../../services/exchange.service";
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BuyHartijePopupComponent } from '../buy-hartije-popup/buy-hartije-popup.component';
-import {ExchangeService} from "../../../services/exchange.service";
 
 @Component({
   selector: 'app-buy-hartije',

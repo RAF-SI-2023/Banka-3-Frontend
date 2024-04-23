@@ -38,15 +38,13 @@ export class BuyFuturePopupComponent {
       (response) => {
         this.openSuccessSnackBar("Uspešna kupovina.");
         this.dialog.close();
-        this.router.navigate(['listing-list'])
-          .then(window.location.reload);
+        this.router.navigate(['listing-list']);
       },
       (error) => {
         console.error('Nemate dovoljno sredstava:', error);
         this.openSuccessSnackBar("Neuspešna kupovina.");
         this.dialog.close();
-        this.router.navigate(['listing-list'])
-        .then(window.location.reload);
+        this.router.navigate(['listing-list']);
       },
     )
 

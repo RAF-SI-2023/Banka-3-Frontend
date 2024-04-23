@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ExchangeService} from "../../services/exchange.service";
 import {BuyHartijePopupComponent} from "../buy-hartije-popup/buy-hartije-popup.component";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {SellHartijePopupComponent} from "../sell-hartije-popup/sell-hartije-popup.component";
-import {ExchangeService} from "../../../services/exchange.service";
 
 @Component({
   selector: 'app-sell-hartije',

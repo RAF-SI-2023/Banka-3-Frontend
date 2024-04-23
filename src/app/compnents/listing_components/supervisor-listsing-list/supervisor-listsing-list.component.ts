@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {MockRequests} from "./mock-requests";
 import {Router} from "@angular/router";
+import {ExchangeService} from "../../services/exchange.service";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
 import { Actuary, RequestDto, Stock } from 'src/app/models/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {ExchangeService} from "../../../services/exchange.service";
 
 @Component({
   selector: 'app-supervisor-listsing-list',
@@ -98,7 +98,6 @@ export class SupervisorListsingListComponent implements OnInit {
     this.exchangeService.approveStockOrder(elementId, true).subscribe(
       res => {
         this.openSnackBar("Zahtev je prihvaćen.")
-        window.location.reload()
       },err=>{
         this.openSnackBar("Greška u prihvatanju zahteva.")
       });
@@ -108,7 +107,6 @@ export class SupervisorListsingListComponent implements OnInit {
     this.exchangeService.approveStockOrder(elementId, false).subscribe(
       res => {
       this.openSnackBar("Zahtev je odbijen.")
-        window.location.reload()
     },err=>{
       this.openSnackBar("Greška u odbijanju zahteva.")
     });

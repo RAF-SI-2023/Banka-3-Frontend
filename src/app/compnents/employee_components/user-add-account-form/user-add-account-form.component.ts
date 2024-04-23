@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Account, Currency, Employee, Role, User} from "../models/models";
-import {UserService} from "../services/user.service";
+import {Account, Currency, Employee, Role, User} from "../../../models/models";
+import {UserService} from "../../../services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {parseJson} from "@angular/cli/src/utilities/json-file";

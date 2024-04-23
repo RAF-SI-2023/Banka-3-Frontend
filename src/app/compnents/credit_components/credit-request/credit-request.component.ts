@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../services/user.service';
-import {CreditRequestCreateDto} from '../models/models';
-import {AccountService} from "../services/account.service";
+import {UserService} from '../../../services/user.service';
+import {CreditRequestCreateDto} from '../../../models/models';
+import {AccountService} from "../../../services/account.service";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {MatSnackBar} from "@angular/material/snack-bar";
 

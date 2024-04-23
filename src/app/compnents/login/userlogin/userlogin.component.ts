@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {UserService} from "../../services/user.service";
+import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
-import {UserActivationDto} from "../../models/models";
+import {UserActivationDto} from "../../../models/models";
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 

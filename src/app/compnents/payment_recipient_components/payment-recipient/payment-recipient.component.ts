@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { MOCK_RECIPIENTS} from "./mock-recipients";
-import {Contact} from "../models/models";
-import {UserService} from "../services/user.service";
+import {Contact} from "../../../models/models";
+import {UserService} from "../../../services/user.service";
 import {jwtDecode} from "jwt-decode";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";

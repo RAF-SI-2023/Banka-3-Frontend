@@ -27,14 +27,20 @@ import { Credit } from '../models/models';
 })
 export class UserService {
   apiUrlUser : string = "http://localhost:8080/api/v1/user"
-  apiUrlCompany : string = "http://localhost:8080/api/v1/company"
   apiUrlEmployee : string = "http://localhost:8080/api/v1/employee"
   apiUrlEmailUser : string = "http://localhost:8081/api/v1/user"
-  apiUrlEmailCompany : string = "http://localhost:8081/api/v1/company"
   apiUrlEmailEmployee : string = "http://localhost:8081/api/v1/employee"
   apiUrlPermission : string = "http://localhost:8080/api/v1/permission"
   apiUrlRole : string = "http://localhost:8080/api/v1/role"
+  apiUrlCompany: string = "http://localhost:8080/api/v1/company"
+  apiUrlAccount : string = "http://localhost:8080/api/v1/account"
+  apiUrlForeignAccount : string = "http://localhost:8080/api/v1/foreignAccount"
+  apiUrlCompanyAccount : string = "http://localhost:8080/api/v1/companyAccount"
+  apiUrlCurrency : string = "http://localhost:8080/api/v1/currency"
   apiUrlContact : string = "http://localhost:8080/api/v1/contact"
+  apiUrlCredit : string = "http://localhost:8080/api/v1/credit"
+  apiUrlCreditRequest : string = "http://localhost:8080/api/v1/credit-request"
+  apiUrlTransaction: string = "http://localhost:8080/api/v2/transaction"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -50,8 +56,12 @@ export class UserService {
     return this.httpClient.get<UserActivationDto>(`${this.apiUrlUser}/isUserActive/${email}`);
   }
 
-  checkEmailCompany(email: string | null | undefined){
-    return this.httpClient.get<UserActivationDto>(`${this.apiUrlCompany}/isCompanyActive/${email}`);
+  startTransaction(transactionDto: TransactionDto | number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+    return this.httpClient.post<any>(`${this.apiUrlTransaction}/startTransaction`,transactionDto,{headers} )
   }
 
 
@@ -61,14 +71,6 @@ export class UserService {
       password: password
     }
     return this.httpClient.post<Token>(`${this.apiUrlUser}/auth/login`, obj)
-  }
-
-  loginCompany(email: string | null | undefined, password: string | null | undefined) {
-    let obj = {
-      email: email,
-      password: password
-    }
-    return this.httpClient.post<Token>(`${this.apiUrlCompany}/auth/login`, obj)
   }
 
   setPassword(email:string, activationCode:number, password:string | null | undefined){
@@ -83,34 +85,36 @@ export class UserService {
     console.log(obj)
     return this.httpClient.post<any>(`${this.apiUrlEmailUser}/activateUser`, obj, {headers})
   }
-  setPasswordCompany(email:string, activationCode:number, password:string | null | undefined){
+
+  getAllCredits(): Observable<Credit[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-    })
-    let obj = {
-      email: email,
-      code: activationCode,
-      password: password,
-    }
-    console.log(obj)
-    return this.httpClient.post<any>(`${this.apiUrlEmailCompany}/activateCompany`, obj, {headers})
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<Credit[]>(`${this.apiUrlCredit}`, { headers });
+}
+
+  sendCreditRequest(creditRequestData: CreditRequestCreateDto) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.post<any>(`${this.apiUrlCreditRequest}`, creditRequestData, { headers });
   }
 
-//   getAllCredits(): Observable<Credit[]> {
-//     const headers = new HttpHeaders({
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-//     });
-//     return this.httpClient.get<Credit[]>(`${this.apiUrlCredit}`, { headers });
-// }
+  registerUser(firstName: string, lastName: string, jmbg: string, dateOfBirth: string, gender: string, phoneNumber: string, email: string){
+    let obj = {
+      firstName: firstName,
+      lastName: lastName,
+      jmbg: jmbg,
+      dateOfBirth: dateOfBirth,
+      gender: gender,
+      phoneNumber: phoneNumber,
+      email: email
+    }
 
-  // sendCreditRequest(creditRequestData: CreditRequestCreateDto) {
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-  //   });
-  //   return this.httpClient.post<any>(`${this.apiUrlCreditRequest}`, creditRequestData, { headers });
-  // }
+    return this.httpClient.post<Token>(`${this.apiUrlUser}/register`, obj)
+  }
 
   getAllUsers(){
     const headers = new HttpHeaders({
@@ -129,14 +133,14 @@ export class UserService {
 
     return this.httpClient.get<Employee[]>(`${this.apiUrlEmployee}/getAll`, { headers })
   }
-  // getAllCurrency(){
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-  //   })
-  //
-  //   return this.httpClient.get<Currency[]>(`${this.apiUrlCurrency}/getAll`, { headers })
-  // }
+  getAllCurrency(){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    return this.httpClient.get<Currency[]>(`${this.apiUrlCurrency}/getAll`, { headers })
+  }
   getUserById(id : number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -161,6 +165,32 @@ export class UserService {
     })
     return this.httpClient.get<Role[]>(`${this.apiUrlRole}/getAll`, { headers })
   }
+
+  //SAVE ACCOUNT
+   saveAccount(userId: number, balance:number, mark:string, employeeId:number, accountType: string){
+     const headers = new HttpHeaders({
+       'Content-Type': 'application/json',
+       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+     })
+     const body = {userId, balance: balance, currency: mark, employeeId, accountType: "ZA_MLADE"};
+     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createAccount`,body,{ headers })
+   }
+   saveCompanyAccount(companyId: number, balance:number, mark:string, employeeId:number, accountType: string){
+     const headers = new HttpHeaders({
+       'Content-Type': 'application/json',
+       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+     })
+
+     const body = {
+       companyId : companyId ,
+       balance : balance ,
+       currency: mark ,
+       employeeId: employeeId,
+       accountType: accountType
+
+     };
+     return this.httpClient.post<Account[]>(`${this.apiUrlCompanyAccount}/${companyId}`, body,{ headers })
+   }
 
   saveUser(user: User | null){
     const headers = new HttpHeaders({
@@ -196,6 +226,14 @@ export class UserService {
     return this.httpClient.post<any>(`${this.apiUrlEmployee}`, employee, { headers })
   }
 
+  createFirm(firm: Firm | undefined){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    return this.httpClient.post<any>(`${this.apiUrlCompany}`, firm, { headers })
+  }
   deleteUser(id: number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
