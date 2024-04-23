@@ -19,7 +19,7 @@ export class CreditRequestComponent implements OnInit {
   selectedCurrency: string = 'RSD';
   isSubmitting: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private accountService: AccountService, private snackBar: MatSnackBar) {}
+  constructor(private formBuilder: FormBuilder, private accountService: AccountService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
@@ -71,7 +71,7 @@ export class CreditRequestComponent implements OnInit {
       creditRequest.dateOfEmployment = new Date(dt).getTime()
 
       console.log(creditRequest)
-      this.userService.sendCreditRequest(creditRequest).subscribe(
+      this.accountService.sendCreditRequest(creditRequest).subscribe(
         response => {
 
           this.openErrorSnackBar("Uspesno poslat zahtev za kredit")

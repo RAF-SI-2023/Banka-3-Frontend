@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router'; // Import Router
-import { CardService } from '../../../services/card.service';
-import { MatSnackBar } from '@angular/material/snack-bar'; // Importujemo MatSnackBar
+import { MatSnackBar } from '@angular/material/snack-bar';
+import {AccountService} from "../../../services/account.service"; // Importujemo MatSnackBar
 
 
 @Component({
@@ -16,7 +16,7 @@ export class BankomatViewCardComponent {
 
   constructor(
     private router: Router,
-    private cardService: CardService,
+    private accountService: AccountService,
     private snackBar: MatSnackBar // Inject MatSnackBar
   ) {}
 
@@ -36,7 +36,7 @@ export class BankomatViewCardComponent {
       this.showSnackbar('Invalid input. Please check your card number and CVC.');
       return; // Stop further execution
     }
-    this.cardService.loginCard(userId, this.cardNumber, this.cvc)
+    this.accountService.loginCard(userId, this.cardNumber, this.cvc)
       .subscribe(response => {
         if (response.status === 200) {
           this.router.navigate(['/bankomat'], { queryParams: { accountNumber: this.cardNumber } });

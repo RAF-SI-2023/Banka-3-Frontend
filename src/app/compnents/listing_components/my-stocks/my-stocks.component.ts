@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ExchangeService} from "../../services/exchange.service";
-import {MyFuture, MyStock} from "../../models/models";
 import {Router} from "@angular/router";
 import {Dialog} from "@angular/cdk/dialog";
 import {BuyFuturePopupComponent} from "../sell-future-popup/buy-future-popup.component";
+import {MyFuture, MyStock} from "../../../models/models";
+import {ExchangeService} from "../../../services/exchange.service";
 
 @Component({
   selector: 'app-my-stocks',

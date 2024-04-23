@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExchangeService } from '../../services/exchange.service';
-import { Daily, Intraday, Monthly, Stock, Weekly } from '../../models/models';
 import { AgAreaSeriesOptions} from "ag-charts-community";
+import {ExchangeService} from "../../../services/exchange.service";
+import {Daily, Intraday, Monthly, Stock, Weekly} from "../../../models/models";
 
 
 @Component({

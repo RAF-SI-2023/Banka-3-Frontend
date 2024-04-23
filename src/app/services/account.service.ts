@@ -3,9 +3,9 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {
   Account,
   AccountDto,
-  Card, ConfirmTransactionDto, Credit, CreditRequestCreateDto,
+  Card, Credit, CreditRequestCreateDto,
   CreditRequestDto,
-  Currency, CurrencyExchangeDto,
+  Currency,
   Firm,
   FirmCreateDto,
   TransactionDto,
@@ -19,16 +19,13 @@ import {Observable} from "rxjs";
 export class AccountService {
 
   apiUrlAccount: string = "http://localhost:8082/api/v1/account"
-  apiUrlEmailTransaction: string = "http://localhost:8081/api/v1/transaction"
   apiUrlBank: string = "http://localhost:8082/api/v1/transaction"
-  apiUrlCompany: string = "http://localhost:8080/api/v1/company"
+  apiUrlCompany: string = "http://localhost:8082/api/v1/company"
   apiUrlCompanyAccount: string = "http://localhost:8082/api/v1/companyAccount"
   apiUrlCurrency: string = "http://localhost:8082/api/v1/currency"
   apiUrlCard: string = "http://localhost:8082/api/v1/card"
-  apiUrlCreditRequest: string = "http://localhost:8082/api/v1/credit-request"
-  apiUrlCredit: string = "http://localhost:8082/api/v1/credit"
-  apiUrlCurrencyExchange: string = "http://localhost:8082/api/v1/currencyExchange"
-
+  apiUrlCreditRequest: string = "http://localhost:8080/api/v1/credit-request"
+  apiUrlCredit: string = "http://localhost:8080/api/v1/credit"
   constructor(private httpClient : HttpClient) { }
 
   getAccountsByUserId(userId: number){
@@ -41,16 +38,6 @@ export class AccountService {
     return this.httpClient.get<AccountDto[]>(`${this.apiUrlAccount}/getByUser/${userId}`, {headers})
 
   }
-  getCompanyAccountsByCompanyId(companyId: number){
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-
-    return this.httpClient.get<AccountDto[]>(`${this.apiUrlCompanyAccount}/getByCompany/${companyId}`, {headers})
-
-  }
 
   sendTransaction(transaction: TransactionDto){
     const headers = new HttpHeaders({
@@ -58,7 +45,7 @@ export class AccountService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    return this.httpClient.post<ConfirmTransactionDto>(`${this.apiUrlBank}/startPaymentTransaction`, transaction, {headers})
+    return this.httpClient.post<number>(`${this.apiUrlBank}/startTransaction`, transaction, {headers})
   }
   confirmTransaction(transactionId: number, code: number | undefined)  {
 
@@ -70,7 +57,9 @@ export class AccountService {
       code
     }
 
-    return this.httpClient.post<string>(`${this.apiUrlEmailTransaction}/confirm`, obj, {
+    // return this.httpClient.post<string>(`${this.apiUrlBank}/confirmTransaction`, obj, {headers})
+
+    return this.httpClient.post<string>(`${this.apiUrlBank}/confirmTransaction`, obj, {
       headers,
       responseType: 'text' as 'json'
     });
@@ -83,7 +72,7 @@ export class AccountService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    return this.httpClient.get<TransactionDto[]>(`${this.apiUrlBank}/getAllPaymentTransactions/${accountId}`, {headers})
+    return this.httpClient.get<TransactionDto[]>(`${this.apiUrlBank}/getAllTransactions/${accountId}`, {headers})
   }
 
   saveAccount(userId: number, balance:number, mark:string, employeeId:number, accountType: string){
@@ -91,7 +80,7 @@ export class AccountService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    const body = {userId, availableBalance: balance, currencyMark: mark, employeeId, accountType: "DINARSKI"};
+    const body = {userId, balance: balance, currency: mark, employeeId, accountType: "ZA_MLADE"};
     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createAccount`,body,{ headers })
   }
 
@@ -103,14 +92,14 @@ export class AccountService {
     })
 
     const body = {
-      companyId : companyId,
-      balance : balance,
-      currencyMark: mark,
+      companyId : companyId ,
+      balance : balance ,
+      currency: mark ,
       employeeId: employeeId,
       accountType: accountType
 
     };
-    return this.httpClient.post<Account[]>(`${this.apiUrlCompanyAccount}/createAccount`, body,{ headers })
+    return this.httpClient.post<Account[]>(`${this.apiUrlCompanyAccount}/${companyId}`, body,{ headers })
   }
 
   //FIRMA
@@ -175,7 +164,7 @@ export class AccountService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    return this.httpClient.get<Card[]>(`${this.apiUrlCard}/getAllByUser/${userId}`, { headers });
+    return this.httpClient.get<Card[]>(`${this.apiUrlCard}/getAll/${userId}`, { headers });
   }
 
   loginCard(userId: number, accountNumber: string, cvc: string): Observable<any> {
@@ -183,7 +172,7 @@ export class AccountService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    const body = { userId, accountNumber, cvv: cvc };
+    const body = { userId, accountNumber, cvc };
     return this.httpClient.post<any>(`${this.apiUrlCard}/cardLogin`, body, { headers });
   }
 
@@ -204,14 +193,13 @@ export class AccountService {
     });
     return this.httpClient.post<any>(`${this.apiUrlCard}/withdraw`, body, { headers });
   }
-
   getAllCreditRequests(): Observable<CreditRequestDto[]> {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.get<CreditRequestDto[]>(`${this.apiUrlCreditRequest}`, {headers})
+    return this.httpClient.get<CreditRequestDto[]>(`${this.apiUrlCreditRequest}/getAll`, {headers})
   }
 
   getCreditDetails(userId: number) {
@@ -233,10 +221,7 @@ export class AccountService {
       accepted: approve
     }
     console.log(obj)
-    return this.httpClient.put<CreditRequestDto>(`${this.apiUrlCreditRequest}`, obj, {
-      headers,
-      responseType: 'text' as 'json'
-    })
+    return this.httpClient.put<CreditRequestDto>(`${this.apiUrlCreditRequest}`, obj, {headers})
 
   }
 
@@ -267,20 +252,7 @@ export class AccountService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    return this.httpClient.post<any>(`${this.apiUrlCreditRequest}`, creditRequestData, {
-      headers,
-      responseType: 'text' as 'json'
-    });
-  }
-  sendCurrencyExchange(currencyExchangeDto: CurrencyExchangeDto) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    });
-    return this.httpClient.post<any>(`${this.apiUrlCurrencyExchange}`, currencyExchangeDto, {
-      headers,
-      responseType: 'text' as 'json'
-    });
+    return this.httpClient.post<any>(`${this.apiUrlCreditRequest}`, creditRequestData, { headers });
   }
 
 }

@@ -3,7 +3,7 @@ import {Firm, FirmCreateDto} from "../../../models/models";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
-import {FirmService} from "../../../services/firm.service";
+import {AccountService} from "../../../services/account.service";
 
 @Component({
   selector: 'app-form-add-firm',
@@ -16,7 +16,7 @@ export class FormAddFirmComponent{
   firmForm: FormGroup;
 
 
-  constructor(private firmService : FirmService, private fb: FormBuilder, private router : Router) {
+  constructor(private accountService : AccountService, private fb: FormBuilder, private router : Router) {
     this.firmForm = this.fb.group({
       firmName: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -34,7 +34,7 @@ export class FormAddFirmComponent{
     this.firm.matBr = this.firmForm.get('matNumberFirm')?.value;
     this.firm.pib = this.firmForm.get('pib')?.value;
     this.firm.sifraDelatnosti = this.firmForm.get('industryCode')?.value;
-    this.firmService.createFirm(this.firm).subscribe(res => {
+    this.accountService.createFirm(this.firm).subscribe(res => {
       this.firm = res;
       this.router.navigate(['user-control']);
       console.log(res);

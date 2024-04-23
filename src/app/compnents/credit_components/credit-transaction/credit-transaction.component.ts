@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { CreditService } from '../../../services/credit.service';
 import {Credit, CreditRequestDto} from '../../../models/models';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {AccountService} from "../../../services/account.service";
 
 @Component({
   selector: 'app-credit-transaction',
@@ -18,7 +18,7 @@ export class CreditTransactionComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private creditService: CreditService,
+    private accountService: AccountService,
     private snackBar: MatSnackBar,
     private router: Router
   ) {}
@@ -29,7 +29,7 @@ export class CreditTransactionComponent implements OnInit {
       const userId = params['userId'];
       console.log(userId)
       this.creditRequestId = userId
-      this.creditService.getCreditDetails(userId).subscribe(credit => {
+      this.accountService.getCreditDetails(userId).subscribe(credit => {
         this.selectedCredit = credit;
       });
     });
@@ -57,7 +57,7 @@ export class CreditTransactionComponent implements OnInit {
       return;
     }
     this.isSubmittingApproval = true;
-    this.creditService.approveCredit(this.creditRequestId, true).subscribe(res => {
+    this.accountService.approveCredit(this.creditRequestId, true).subscribe(res => {
       console.log(res)
       this.openErrorSnackBar('Odobrili ste kredit korisniku: ' +  this.selectedCredit!.user!.firstName + " " + this.selectedCredit!.user!.lastName);
       this.router.navigate(['credit-list']);
@@ -77,7 +77,7 @@ export class CreditTransactionComponent implements OnInit {
       return;
     }
     this.isSubmittingRefusal = true;
-    this.creditService.approveCredit(this.selectedCredit!.creditRequestId, false).subscribe(res => {
+    this.accountService.approveCredit(this.selectedCredit!.creditRequestId, false).subscribe(res => {
       this.openErrorSnackBar('Odbili ste kredit korisniku: ' +  this.selectedCredit!.user!.firstName + " " + this.selectedCredit!.user!.lastName);
       console.log(res)
     }, error => {

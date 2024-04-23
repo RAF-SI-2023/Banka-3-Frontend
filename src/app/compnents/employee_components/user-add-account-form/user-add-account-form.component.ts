@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {AccountService} from "../../../services/account.service";
 
 @Component({
   selector: 'app-user-add-account-form',
@@ -20,7 +21,7 @@ export class UserAddAccountFormComponent implements OnInit{
   accountForm: FormGroup
   isSubmitting: boolean = false;
 
-  constructor(private fb: FormBuilder,private userService: UserService, private route : ActivatedRoute,private router: Router, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder,private accountService: AccountService, private route : ActivatedRoute,private router: Router, private snackBar: MatSnackBar) {
     this.accountForm = this.fb.group({
       accountType: new FormControl('', Validators.required),
       balance: new FormControl('', Validators.required),
@@ -43,7 +44,7 @@ export class UserAddAccountFormComponent implements OnInit{
     this.account.mark = this.accountForm.get('mark')?.value;
 
     if(this.account.accountType == 'Tekuci'){
-      this.userService.saveAccount(this.userId, this.account.balance, "DINAR", this.employeeId, this.account.accountType)
+      this.accountService.saveAccount(this.userId, this.account.balance, "DINAR", this.employeeId, this.account.accountType)
       .subscribe(
         res => {
           console.log(res);
@@ -59,7 +60,7 @@ export class UserAddAccountFormComponent implements OnInit{
         }
         );
     }else{
-      this.userService.saveAccount(this.userId, this.account.balance, this.account.mark, this.employeeId, this.account.accountType)
+      this.accountService.saveAccount(this.userId, this.account.balance, this.account.mark, this.employeeId, this.account.accountType)
       .subscribe(
         res => {
           console.log(res);
@@ -93,7 +94,7 @@ export class UserAddAccountFormComponent implements OnInit{
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
     this.employeeId = tk.id;
 
-    this.userService.getAllCurrency().subscribe(res => {
+    this.accountService.getAllCurrency().subscribe(res => {
       this.currencies = res.filter( curr => {
         return curr.mark !== 'RSD';
       })
