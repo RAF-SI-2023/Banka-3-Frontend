@@ -175,14 +175,6 @@ export class UserService {
      const body = {userId, balance: balance, currency: mark, employeeId, accountType: "ZA_MLADE"};
      return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createAccount`,body,{ headers })
    }
-   saveForeignAccount(userId: number, balance:number, mark:string, employeeId:number){
-     const headers = new HttpHeaders({
-       'Content-Type': 'application/json',
-       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-     })
-     const body = {userId, balance, currency: mark, employeeId, accountType: "ZA_MLADE"};
-     return this.httpClient.post<Account[]>(`${this.apiUrlForeignAccount}/${userId}`,body, { headers })
-   }
    saveCompanyAccount(companyId: number, balance:number, mark:string, employeeId:number, accountType: string){
      const headers = new HttpHeaders({
        'Content-Type': 'application/json',
@@ -293,13 +285,8 @@ export class UserService {
       'Content-Type': 'application/json',
       responseType: 'text'
     });
-    let sendToUrl = "http://localhost:8081/api/v1/employee";  //PORT: 8081 jer user-service zauzme 8080 na beku
-    return this.httpClient.post(`${sendToUrl}/setPassword/${identifier}`, password, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      responseType: 'text'
-    });
+    // let sendToUrl = "http://localhost:8081/api/v1/employee";  //PORT: 8081 jer user-service zauzme 8080 na beku
+    return this.httpClient.post<any>(`${this.apiUrlEmailEmployee}/setPassword/${identifier}`, password, {headers});
   }
 
   // Funkcija koja salje jedan ili drugi POST poziv
