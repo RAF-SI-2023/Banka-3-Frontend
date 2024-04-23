@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router} from "@angular/router";
-import { ExchangeService } from '../../services/exchange.service';
+import {ExchangeService} from "../../../services/exchange.service";
 
 @Component({
   selector: 'app-buy-hartije-popup',

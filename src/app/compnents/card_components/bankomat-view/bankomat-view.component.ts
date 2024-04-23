@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ExchangeService } from "../../../services/exchange.service";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CardService } from "../../../services/card.service";
 import { switchMap } from 'rxjs/operators'; //
 import { Observable } from 'rxjs';
+import {AccountService} from "../../../services/account.service";
 
 
 @Component({
@@ -22,7 +22,7 @@ export class BankomatViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private exchange: ExchangeService,
-    private cardService: CardService,
+    private accountService: AccountService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -50,9 +50,9 @@ export class BankomatViewComponent implements OnInit {
     let requestObservable: Observable<any> | null = null;
 
     if (this.uplata) {
-      requestObservable = this.cardService.sendDepositRequest(this.accountNumber, this.amount);
+      requestObservable = this.accountService.sendDepositRequest(this.accountNumber, this.amount);
     } else if (this.isplata) {
-      requestObservable = this.cardService.sendWithdrawRequest(this.accountNumber, this.amount);
+      requestObservable = this.accountService.sendWithdrawRequest(this.accountNumber, this.amount);
     }
 
     if (requestObservable) {

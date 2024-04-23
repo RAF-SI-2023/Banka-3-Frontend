@@ -9,13 +9,11 @@ import { NavbarComponent } from './compnents/navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserListComponent } from './compnents/employee_components/user-list/user-list.component';
-import { RegisterCodeComponent } from './register-code/register-code.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserProfileComponent } from './compnents/user_components/user-profile/user-profile.component';
 import { UserloginComponent } from './compnents/login/userlogin/userlogin.component';
 import { AdminLoginComponent } from './compnents/login/admin-login/admin-login.component';
 import {MatSortModule} from "@angular/material/sort";
-import {PaswordPopupComponent} from "./pasword-popup/pasword-popup.component";
 import { EditUserComponent } from './compnents/user_components/edit-user/edit-user.component';
 import {HttpClientModule} from "@angular/common/http";
 import { EditEmployeeComponent } from './compnents/employee_components/edit-employee/edit-employee.component';
@@ -27,15 +25,12 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {UserAddAccountFormComponent} from './compnents/employee_components/user-add-account-form/user-add-account-form.component';
 import { FirmAddAccountFormComponent } from './compnents/firm_components/firm-add-account-form/firm-add-account-form.component';
-import { PasswordActivationComponent } from './password-activation/password-activation.component';
 import { UserControllComponent } from './compnents/employee_components/user-controll/user-controll.component';
 import { FormAddFirmComponent } from './compnents/firm_components/form-add-firm/form-add-firm.component';
 import { HomePageComponent } from './compnents/home-page/home-page.component';
 import { BillComponent } from './compnents/transaction_components/bill/bill.component';
 import { PayingComponent } from './compnents/transaction_components/paying/paying.component';
 import { ExchangeComponent } from './compnents/menjacnica/exchange/exchange.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { PasswordConfirmationComponent } from './reset-password/password-confirmation/password-confirmation.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { PopupTransactionComponent } from './compnents/transaction_components/popup-transaction/popup-transaction.component';
@@ -63,6 +58,15 @@ import {MyStocksComponent} from "./compnents/listing_components/my-stocks/my-sto
 import {SellHartijeComponent} from "./compnents/listing_components/sell-hartije/sell-hartije.component";
 import { SellHartijePopupComponent } from "./compnents/listing_components/sell-hartije-popup/sell-hartije-popup.component";
 import {BuyFuturePopupComponent} from "./compnents/listing_components/sell-future-popup/buy-future-popup.component";
+import {PaswordPopupComponent} from "./compnents/password_components/pasword-popup/pasword-popup.component";
+import {ResetPasswordComponent} from "./compnents/password_components/reset-password/reset-password.component";
+import {
+  PasswordActivationComponent
+} from "./compnents/password_components/password-activation/password-activation.component";
+import {
+  PasswordConfirmationComponent
+} from "./compnents/password_components/reset-password/password-confirmation/password-confirmation.component";
+import {RegisterCodeComponent} from "./compnents/password_components/register-code/register-code.component";
 
 
 @NgModule({
@@ -114,7 +118,8 @@ import {BuyFuturePopupComponent} from "./compnents/listing_components/sell-futur
     MyStocksComponent,
     SellHartijeComponent,
     SellHartijePopupComponent,
-    BuyFuturePopupComponent
+    BuyFuturePopupComponent,
+    PaswordPopupComponent
 
   ],
   imports: [

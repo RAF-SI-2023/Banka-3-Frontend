@@ -41,7 +41,7 @@ export class UserloginComponent {
     this.userService.checkEmail(this.emailCheck?.value)
       .subscribe(response => {
         this.userActivationDto = response;
-        this.codeActivate = this.userActivationDto.active
+        this.codeActivate = this.userActivationDto.codeActive
         this.address = this.userActivationDto.email
         this.showCheckAddress = false;
       }, error => {
@@ -58,8 +58,7 @@ export class UserloginComponent {
 
     this.userService.setPassword(this.address, Number(this.activationCode?.value), this.newPassword?.value)
       .subscribe(response => {
-        // Handle response as needed
-        this.codeActivate = false;
+        this.codeActivate = true;
         this.showCheckAddress = false;
         console.log(response)
       }, error => {

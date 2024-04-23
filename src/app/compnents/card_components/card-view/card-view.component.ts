@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Account, Card} from "../../../models/models";
-import {CardService} from "../../../services/card.service";
 import { MOCK_CARDS } from './mock-cards';
 import {AccountService} from "../../../services/account.service";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
@@ -16,14 +15,14 @@ export class CardViewComponent implements OnInit{
   cards: Card[] = []
   accounts: Account[] = []
 
-  constructor(private cardService: CardService, private router: Router) {
+  constructor(private accountService: AccountService, private router: Router) {
   }
 
   ngOnInit() {
     //TODO: Testirati bek
     //Zameniti ovo kad se kreira bek
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-    this.cardService.getCardsByUserId(tk.id).subscribe( data => {
+    this.accountService.getCardsByUserId(tk.id).subscribe( data => {
       this.cards = data;
       // console.log("Dobio kartice: " + JSON.stringify(data));
     });

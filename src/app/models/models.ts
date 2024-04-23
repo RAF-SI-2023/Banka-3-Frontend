@@ -50,7 +50,7 @@ export interface Firm {
 }
 export interface UserActivationDto{
   email: string,
-  active: boolean
+  codeActive: boolean
 }
 export interface CompanyAccount{
   companyAccountId: number,

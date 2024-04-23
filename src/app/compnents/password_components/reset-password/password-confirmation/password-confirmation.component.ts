@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import {UserService} from "../../../../services/user.service";
 @Component({
   selector: 'app-password-confirmation',
   templateUrl: './password-confirmation.component.html',

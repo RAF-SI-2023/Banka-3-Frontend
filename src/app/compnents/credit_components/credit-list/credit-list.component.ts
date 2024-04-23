@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {Credit, CreditRequestDto} from '../../../models/models';
-import { CreditService } from '../../../services/credit.service';
 import { UserService } from '../../../services/user.service';
 import {parseJson} from "@angular/cli/src/utilities/json-file";
+import {AccountService} from "../../../services/account.service";
 @Component({
   selector: 'app-credit-list',
   templateUrl: './credit-list.component.html',
@@ -12,7 +12,7 @@ import {parseJson} from "@angular/cli/src/utilities/json-file";
 export class CreditListComponent implements OnInit {
   credits: CreditRequestDto[] = [];
 
-  constructor(private router: Router, private creditService: CreditService, private userService: UserService) {}
+  constructor(private router: Router, private accountService: AccountService, private userService: UserService) {}
 
   ngOnInit() {
     this.fetchCredits();
@@ -21,7 +21,7 @@ export class CreditListComponent implements OnInit {
   //TODO Promeni na prave podatke
   fetchCredits() {
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-    this.creditService.getAllCredits().subscribe(
+    this.accountService.getAllCreditRequests().subscribe(
       credits => {
         this.credits = credits;
         console.log(credits)

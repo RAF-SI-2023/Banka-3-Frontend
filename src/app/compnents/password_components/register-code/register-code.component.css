@@ -1,8 +1,8 @@
 .formContainer {
-    background-color: rgba(230, 230, 230, 0.747); 
-    border-radius: 3px; 
+    background-color: rgba(230, 230, 230, 0.747);
+    border-radius: 3px;
     padding: 2rem 3rem 4rem 3rem;
-    margin: 0 auto; 
+    margin: 0 auto;
     text-align: center;
     width:60%;
 }
@@ -33,7 +33,7 @@ img{
     object-fit: cover;
 }
 body{
-    background-image: url('../../assets/bg2.jpg');
+    background-image: url('../../../../assets/bg2.jpg');
     height:100%;
     object-fit: cover;
     padding: 3rem;

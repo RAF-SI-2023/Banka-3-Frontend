@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Employee, Firm, User} from "../../../models/models";
 import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
-import {FirmService} from "../../../services/firm.service";
+import {AccountService} from "../../../services/account.service";
 
 @Component({
   selector: 'app-user-controll',
@@ -27,14 +27,14 @@ export class UserControllComponent implements OnInit{
   firmColumns: string[] = [ "companyId","title", "email","number", "maticniBroj", "pib","sifraDelatnosti", "opcije"]
 
 
-  constructor(private firmService : FirmService, private userService : UserService, private router: Router) {
+  constructor(private accountService : AccountService, private userService : UserService, private router: Router) {
   }
 
   switchToFirm(){
     if(this.firmaFlag) return;
     this.usersFlag = !this.usersFlag;
     this.firmaFlag = !this.firmaFlag;
-    this.firmService.getAllFirm().subscribe( res=> {
+    this.accountService.getAllFirm().subscribe( res=> {
       this.firm = res;
     })
   }
@@ -48,7 +48,7 @@ export class UserControllComponent implements OnInit{
 
   }
   searchFirm(){
-    this.firmService.searchFirm(this.frstName, this.eml).subscribe(res => {
+    this.accountService.searchFirm(this.frstName, this.eml).subscribe(res => {
       this.firm = res
     })
   }
@@ -58,7 +58,7 @@ export class UserControllComponent implements OnInit{
     })
   }
   deleteFirm(id: number){
-    this.firmService.deleteFirm(id).subscribe(res => {
+    this.accountService.deleteFirm(id).subscribe(res => {
       console.log(res)
     })
     console.log(id)
@@ -86,7 +86,7 @@ export class UserControllComponent implements OnInit{
         return user.isActive
       })
     })
-    this.firmService.getAllFirm().subscribe( res=> {
+    this.accountService.getAllFirm().subscribe( res=> {
       this.firm = res;
     })
   }

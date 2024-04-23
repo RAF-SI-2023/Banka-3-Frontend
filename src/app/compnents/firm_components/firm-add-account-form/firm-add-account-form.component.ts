@@ -4,6 +4,7 @@ import {UserService} from "../../../services/user.service";
 import {ActivatedRoute} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
+import {AccountService} from "../../../services/account.service";
 
 @Component({
   selector: 'app-firm-add-account-form',
@@ -17,7 +18,7 @@ export class FirmAddAccountFormComponent implements OnInit {
   companyId: number;
   employeeId: number;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private route : ActivatedRoute) {
+  constructor(private fb: FormBuilder, private accountService: AccountService, private route : ActivatedRoute) {
     this.firmForm = this.fb.group({
       accountType: new FormControl('', Validators.required),
       balance: new FormControl('', Validators.required),
@@ -31,7 +32,7 @@ export class FirmAddAccountFormComponent implements OnInit {
     this.account.balance = this.firmForm.get('balance')?.value;
     this.account.mark = this.firmForm.get('mark')?.value;
 
-    this.userService.saveCompanyAccount(this.companyId, this.account.balance, "DINAR", this.employeeId, this.account.accountType).subscribe(res => {
+    this.accountService.saveCompanyAccount(this.companyId, this.account.balance, "DINAR", this.employeeId, this.account.accountType).subscribe(res => {
       console.log(res);
     });
   }

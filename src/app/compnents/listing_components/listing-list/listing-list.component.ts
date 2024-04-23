@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Employee, Forex, Future, Stock, User} from "../../models/models";
-import {ExchangeService} from "../../services/exchange.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {ExchangeService} from "../../../services/exchange.service";
+import {Forex, Future, Stock} from "../../../models/models";
 
 @Component({
   selector: 'app-listing-list',
