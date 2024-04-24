@@ -28,8 +28,9 @@ presubmits:
               # start-docker.sh
 
               # docker compose up -d
-      
-              cd "../Banka-3-Frontend"
+
+              cd ..
+              cd ./Banka-3-Frontend
               
               sleep 120
 
