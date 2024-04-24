@@ -1,6 +1,6 @@
 describe('home page test', () => {
   before('open page', () => {
-    cy.visit('http://localhost:4200');
+    cy.visit('http://localhost:80');
   });
 
   it('moving to admin user page - user-list', () => {
