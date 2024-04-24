@@ -14,6 +14,7 @@ import {Observable} from "rxjs";
 export class CreditListUserComponent implements OnInit{
   currUser = {} as User;
   credits: Credit[] = [];
+  currUserId = 0;
 
   constructor(private router: Router, private userService: UserService, private accountService: AccountService) {
 
@@ -30,13 +31,11 @@ export class CreditListUserComponent implements OnInit{
 
   ngOnInit(): void {
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-    this.userService.getUserById(tk.id).subscribe(res => {
-      this.currUser = res;
+    this.currUserId = tk.id
+    this.accountService.getAllCreditsByUserId(tk.id).subscribe(res => {
+      this.credits = res;
+      console.log(res)
 
-      this.accountService.getAllCreditsByUserId(this.currUser.userId).subscribe(res => {
-        this.credits = res;
-
-      });
     });
   }
 }

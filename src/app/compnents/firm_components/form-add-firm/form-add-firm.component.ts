@@ -21,9 +21,9 @@ export class FormAddFirmComponent{
       firmName: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       phoneNumber: new FormControl('', [Validators.required, Validators.pattern(/^06\d{7,8}$/)]),
-      matNumberFirm: new FormControl('', [Validators.required, Validators.pattern(/\d{8}$/)]),
-      pib: new FormControl('', [Validators.required, Validators.pattern(/\d{9}$/)]),
-      industryCode: new FormControl('', [Validators.required, Validators.pattern(/\d{4}$/)]),
+      matNumberFirm: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+      pib: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)]),
+      industryCode: new FormControl('', [Validators.required, Validators.pattern(/^\d{4}$/)]),
       isActive: new FormControl(true),
     })
   }
@@ -31,7 +31,7 @@ export class FormAddFirmComponent{
     this.firm.title = this.firmForm.get('firmName')?.value;
     this.firm.email = this.firmForm.get('email')?.value;
     this.firm.number = this.firmForm.get('phoneNumber')?.value;
-    this.firm.matBr = this.firmForm.get('matNumberFirm')?.value;
+    this.firm.maticniBroj = this.firmForm.get('matNumberFirm')?.value;
     this.firm.pib = this.firmForm.get('pib')?.value;
     this.firm.sifraDelatnosti = this.firmForm.get('industryCode')?.value;
     this.accountService.createFirm(this.firm).subscribe(res => {
