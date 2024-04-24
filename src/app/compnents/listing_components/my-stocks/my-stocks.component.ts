@@ -18,7 +18,7 @@ export class MyStocksComponent implements OnInit{
   myFutureColumns = ['myFutureId', 'contractName', 'amount', 'opcije'];
   stocksFlag = true
   futuresFlag = false
-  constructor(private service: ExchangeService, private router: Router, private dialog: Dialog) {
+  constructor(private service: ExchangeService, private router: Router, private dialog: Dialog, private webSocket: WebSocket) {
 
   }
 

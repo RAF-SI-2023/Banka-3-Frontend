@@ -53,6 +53,12 @@ body{
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
 }
+.h2-secondary{
+  font-size: 2rem;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
 
 .h3{
   font-size: var(--h3-size);

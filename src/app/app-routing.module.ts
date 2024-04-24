@@ -47,6 +47,8 @@ import {BuyHartijeComponent} from "./compnents/listing_components/buy-hartije/bu
 import {SellHartijeComponent} from "./compnents/listing_components/sell-hartije/sell-hartije.component";
 import {BuyHartijePopupComponent} from "./compnents/listing_components/buy-hartije-popup/buy-hartije-popup.component";
 import {MyStocksComponent} from "./compnents/listing_components/my-stocks/my-stocks.component";
+import {CompanyLoginComponent} from "./compnents/login/company-login/company-login.component";
+import {CompanyHomePageComponent} from "./compnents/company-home-page/company-home-page.component";
 
 
 const routes: Routes = [
@@ -73,6 +75,10 @@ const routes: Routes = [
     component: AdminLoginComponent,
   },
   {
+    path: 'company-login',
+    component: CompanyLoginComponent,
+  },
+  {
     path: 'user-profile',
     component: UserProfileComponent,
     canActivate: [AuthGuard, UserGuard]
@@ -80,7 +86,7 @@ const routes: Routes = [
   {
     path: 'edit-user/:id',
     component: EditUserComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    // canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'edit-employee/:id',
@@ -105,6 +111,11 @@ const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
+    canActivate: [AuthGuard, UserGuard]
+  },
+  {
+    path: 'company-home',
+    component: CompanyHomePageComponent,
     canActivate: [AuthGuard, UserGuard]
   },
   {

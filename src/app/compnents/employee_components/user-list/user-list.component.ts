@@ -83,21 +83,24 @@ export class UserListComponent implements OnInit{
     })
   }
   editUser(user: User){
+    console.log("USAOOO")
+    console.log(user)
+
     this.router.navigate(['edit-user', user.userId])
   }
 
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe( res=> {
       this.users = res;
-      this.users.filter(user => {
-        return user.isActive
-      })
+      // this.users = this.users.filter(user => {
+      //   return user.isActive
+      // })
     })
     this.userService.getAllEmployees().subscribe( res=> {
       this.employees = res;
-      this.employees.filter( employee => {
-        return employee.isActive
-      })
+      // this.employees = this.employees.filter( employee => {
+      //   return employee.isActive
+      // })
     })
   }
 

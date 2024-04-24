@@ -145,7 +145,8 @@ updateTransactions() {
   // this.transactions = this.selectedAccount;
 }
 displayDetails() {
-  const account=this.selectedAccount;
+  const account= this.selectedAccount;
+  console.log(account)
   this.router.navigate(['/bill'], { state: { account: account } });
 }
 

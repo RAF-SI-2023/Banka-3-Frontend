@@ -1,36 +1,3 @@
-/* <app-navbar></app-navbar>
-<div class="accountsView">
-    <div class="accountsScroller">
-        <h2>Pregled racuna</h2>
-        <div class="accountCard">
-            <div class="cardLogoWrapper">
-                <div class="cardLogo">
-                    
-                </div>
-            </div>
-            <div class="cardInfoWrapper">
-                <h3>Tekuci</h3>
-                <p> 340-000100000003632-87</p>
-                <h3>Raspolozivo stanje</h3>
-                <p> 123,456.00 RSD</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="transactionView">
-        <h2>Pregled transakcija</h2>
-        <div class="transactionsWrapper">
-            <div class="transactionCard">
-                <div class="transactionDate">
-                    <p> 01 Mart 2024</p>
-                </div>
-                <p>Broj tekuceg racuna na koji je poslat</p>
-                <h3>1,512.00 RSD</h3>
-            </div>
-        </div>
-    </div>
-</div>*/
-
 .blueText{
     color:var(--blue-medium)
 }
@@ -42,6 +9,11 @@
 .myContainer{
     max-width: 50rem;
     margin: auto;
+}
+.status{
+  height: 4rem;
+  color: var(--blue-medium);
+  font-weight: 600;
 }
 .accountsView{
     background-color:var(--blue-light);
@@ -177,11 +149,13 @@ width: 80%;
     padding:0.6rem;
     background-color:var(--blue-dark);
     color:white;
-} 
+}
 .buttonWrapper {
     display: flex;
     flex-direction: column-reverse;
-}  
+    justify-content: space-between;
+    align-items: flex-end;
+}
 .transactionDetails{
     padding:0.7rem 0.7rem 0.7rem 1rem;
 }

@@ -67,6 +67,8 @@ import {
   PasswordConfirmationComponent
 } from "./compnents/password_components/reset-password/password-confirmation/password-confirmation.component";
 import {RegisterCodeComponent} from "./compnents/password_components/register-code/register-code.component";
+import { CompanyLoginComponent } from './compnents/login/company-login/company-login.component';
+import { CompanyHomePageComponent } from './compnents/company-home-page/company-home-page.component';
 
 
 @NgModule({
@@ -119,7 +121,9 @@ import {RegisterCodeComponent} from "./compnents/password_components/register-co
     SellHartijeComponent,
     SellHartijePopupComponent,
     BuyFuturePopupComponent,
-    PaswordPopupComponent
+    PaswordPopupComponent,
+    CompanyLoginComponent,
+    CompanyHomePageComponent
 
   ],
   imports: [

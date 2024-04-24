@@ -7,7 +7,7 @@
       <div class="creditsWrapper">
         <div *ngFor="let credit of credits">
           <div>
-            <div *ngIf="credit.user.userId == currUser.userId" class="creditCard">
+            <div  *ngIf="credit.userId == currUserId" class="creditCard">
               <div class="creditInfo" style="text-align: left;">
                 <div class="creditTitle">
                   <p class="p redText creditName" style="margin: 0;">{{ credit.name }}</p>

@@ -21,10 +21,10 @@
             <p class="h3">{{ credit.name }}</p>
             <p class="h4 blueText">{{ credit.accountNumber }}</p>
             <span style="text-align: center" class="h2">{{ credit.amount }} {{ credit.currencyMark }}</span>
-            <span style="text-align: center" class="h2">{{ credit.status }}</span>
           </div>
           <div class="buttonWrapper">
             <input class="myButtonPrimary" type="submit" value="Detalji transakcija" (click)="navigateToCreditDetails(credit.creditRequestId)">
+            <span style="text-align: center" class="status">{{ credit.status }}</span>
           </div>
         </div>
       </div>

@@ -32,7 +32,7 @@ export interface FirmCreateDto {
   title: string,
   email: string,
   number: number,
-  matBr: number,
+  maticniBroj: number,
   pib: number,
   sifraDelatnosti: number,
 
@@ -42,8 +42,8 @@ export interface Firm {
   title: string,
   email: string,
   number: number,
-  maticnibroj: number,
-  pib: number,
+  maticniBroj: number,
+  PIB: number,
   sifraDelatnosti: number,
   companyAccounts: CompanyAccount[]
 
@@ -127,7 +127,8 @@ export interface CreditRequestDto{
 }
 export interface Credit{
   creditId:number,
-  user: User,
+  employeeId: number,
+  userId: number,
   name: string,
   accountNumber: string,
   amount: number,
@@ -143,7 +144,7 @@ export interface Credit{
 export interface AccountDto{
   accountId: number,
   accountNumber: string,
-  user: User,
+  userId: number,
   availableBalance: number,
   reservedAmount: number,
   creationDate: number,
