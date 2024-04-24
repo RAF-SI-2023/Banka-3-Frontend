@@ -12,11 +12,8 @@ presubmits:
               set -euo pipefail
 
               cd ..
-              pwd
-              ls
               git clone https://github.com/RAF-SI-2023/Banka-3-Backend.git ./Banka-3-Backend
               
-              cd ..
               git clone https://github.com/RAF-SI-2023/Banka-3-Infrastructure.git ./Banka-3-Infrastructure
               
               cd ./Banka-3-Infrastructure
