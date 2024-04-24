@@ -15,7 +15,7 @@ presubmits:
               git clone https://github.com/RAF-SI-2023/Banka-3-Backend.git ./Banka-3-Backend
               
               git clone https://github.com/RAF-SI-2023/Banka-3-Infrastructure.git ./Banka-3-Infrastructure
-              
+              ls
               cd ./Banka-3-Infrastructure
               
               echo "BACKEND_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Backend" > .env 
