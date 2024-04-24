@@ -12,6 +12,8 @@ presubmits:
               set -euo pipefail
 
               cd ..
+              pwd
+              ls
               git clone https://github.com/RAF-SI-2023/Banka-3-Backend.git ./Banka-3-Backend
               
               cd ..
@@ -23,9 +25,9 @@ presubmits:
               echo "INFRA_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Infrastructure" >> .env
               echo "FRONTEND_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Frontend" >> .env
 
-              start-docker.sh
+              # start-docker.sh
 
-              docker compose up -d
+              # docker compose up -d
       
               cd "../Banka-3-Frontend"
               
