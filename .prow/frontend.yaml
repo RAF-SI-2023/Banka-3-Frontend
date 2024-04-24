@@ -1,0 +1,43 @@
+presubmits:
+  - name: pull-banka-3-backend-email-service
+    always_run: true
+    decorate: true
+    spec:
+      containers:
+        - image: harbor.k8s.elab.rs/base-images/base:java-17-node-18-docker
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -euo pipefail
+              
+              cd ..
+              
+              git clone https://github.com/RAF-SI-2023/Banka-3-Infrastructure.git ./Banka-3-Infrastructure
+              
+              cd ./Banka-3-Infrastructure
+              
+              
+              echo "BACKEND_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Backend" > .env 
+              echo "INFRA_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Infrastructure" >> .env
+              echo "FRONTEND_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Frontend" >> .env
+
+              start-docker.sh
+
+              docker compose up -d
+      
+              cd "../Banka-3-Frontend"
+              
+              sleep 120
+
+              npm i
+
+              npx cypress run
+
+              cp -r ./cypress/screenshots /logs/artifacts
+              
+              echo "${GCSWEB_URL}/prow-logs/pr-logs/pull/${REPO_OWNER}_${REPO_NAME}/${PULL_NUMBER}/${JOB_NAME}/${BUILD_NUMBER}/artifacts/screenshots" > /logs/artifacts/screenshots.link.txt
+
+          securityContext:
+            privileged: true
+          imagePullPolicy: Always
