@@ -1,5 +1,5 @@
 presubmits:
-  - name: pull-banka-3-backend-email-service
+  - name: pull-banka-3-frontend-e2e
     always_run: true
     decorate: true
     spec:
@@ -10,13 +10,14 @@ presubmits:
             - -c
             - |
               set -euo pipefail
+
+              cd ..
+              git clone https://github.com/RAF-SI-2023/Banka-3-Backend.git ./Banka-3-Backend
               
               cd ..
-              
               git clone https://github.com/RAF-SI-2023/Banka-3-Infrastructure.git ./Banka-3-Infrastructure
               
               cd ./Banka-3-Infrastructure
-              
               
               echo "BACKEND_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Backend" > .env 
               echo "INFRA_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Infrastructure" >> .env
