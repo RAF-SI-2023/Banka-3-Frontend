@@ -31,7 +31,7 @@ presubmits:
               
               sleep 120
 
-              npm i
+              npm install cypress --save-dev
 
               npx cypress run
 
