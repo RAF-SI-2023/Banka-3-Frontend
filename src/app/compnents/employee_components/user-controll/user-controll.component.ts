@@ -78,6 +78,9 @@ export class UserControllComponent implements OnInit{
   createAccount(user: User){
     this.router.navigate(['user-account', user.userId])
   }
+  createCompanyAccount(company: Firm){
+    this.router.navigate(['firm-account', company.companyId])
+  }
 
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe( res=> {

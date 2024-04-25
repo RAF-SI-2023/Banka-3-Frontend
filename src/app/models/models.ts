@@ -86,7 +86,7 @@ export interface Permission {
 }
 
 export interface Account{
-  balance: number,
+  availableBalance: number,
   accountType: string,
   mark: string,
   employeeId: number,

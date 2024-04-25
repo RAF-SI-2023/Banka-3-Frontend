@@ -91,7 +91,7 @@ export class AccountService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    const body = {userId, balance: balance, currency: mark, employeeId, accountType: "ZA_MLADE"};
+    const body = {userId, availableBalance: balance, currencyMark: mark, employeeId, accountType: "DINARSKI"};
     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createAccount`,body,{ headers })
   }
 
@@ -103,14 +103,14 @@ export class AccountService {
     })
 
     const body = {
-      companyId : companyId ,
-      balance : balance ,
-      currency: mark ,
+      companyId : companyId,
+      balance : balance,
+      currencyMark: mark,
       employeeId: employeeId,
       accountType: accountType
 
     };
-    return this.httpClient.post<Account[]>(`${this.apiUrlCompanyAccount}/${companyId}`, body,{ headers })
+    return this.httpClient.post<Account[]>(`${this.apiUrlCompanyAccount}/createAccount`, body,{ headers })
   }
 
   //FIRMA

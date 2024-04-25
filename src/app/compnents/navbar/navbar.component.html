@@ -28,6 +28,9 @@
         <div class="item">
           <a *ngIf="!isEmployeeUser" [routerLink]="'/credit-list-user'">Krediti</a>
         </div>
+<!--        <div class="item">-->
+<!--          <a *ngIf="!isEmployeeUser" [routerLink]="'/bankomat'">Bankomat</a>-->
+<!--        </div>-->
         <div class="item">
           <a *ngIf="!isEmployeeUser" [routerLink]="'/payment-recipients'">Primaoci plaćanja</a>
         </div>
@@ -36,6 +39,9 @@
         </div>
         <div class="item">
           <a *ngIf="isEmployeeUser" [routerLink]="'/my-listings'">Moje hartije</a>
+        </div>
+        <div class="item">
+          <a *ngIf="isEmployeeUser" [routerLink]="'/supervisor-listing'">Lista agenata</a>
         </div>
       </div>
       <div class="right">
