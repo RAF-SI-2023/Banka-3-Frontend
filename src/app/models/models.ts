@@ -77,6 +77,7 @@ export interface TransactionDto{
   currencyMark: string,
   sifraPlacanja: number,
   pozivNaBroj: string
+  date: number
 }
 
 export interface Permission {
@@ -150,7 +151,7 @@ export interface AccountDto{
   creationDate: number,
   expirationDate: number,
   active: boolean,
-  employee: Employee,
+  employeeId: number,
   currency: Currency,
   accountType: any,
 }
@@ -292,6 +293,10 @@ export interface Actuary{
   orderRequest: boolean
 }
 
+export interface ConfirmTransactionDto{
+  transactionId: number
+}
+
 export interface RequestDto {
   stockOrderId: number,
   employeeId: number,
@@ -305,4 +310,10 @@ export interface RequestDto {
   aon: boolean,
   margine: boolean,
   currencyMark: string
+}
+
+export interface CurrencyExchangeDto {
+  accountFrom: string,
+  accountTo: string
+  amount: number
 }

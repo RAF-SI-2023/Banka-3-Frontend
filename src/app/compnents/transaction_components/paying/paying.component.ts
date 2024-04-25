@@ -148,7 +148,7 @@ export class PayingComponent implements OnInit {
     this.isSubmitting = true;
     this.accountService.sendTransaction(this.transaction).subscribe(
       (response) => {
-        this.transactionId = response;
+        this.transactionId = response.transactionId;
         this.dialog.open(PopupTransactionComponent, {
           data: { successful: true, inputValue: this.transactionId }
         });
