@@ -40,11 +40,11 @@ export class UserAddAccountFormComponent implements OnInit{
     }
     this.isSubmitting = true;
     this.account.accountType = this.accountForm.get('accountType')?.value;
-    this.account.balance = this.accountForm.get('balance')?.value;
+    this.account.availableBalance = this.accountForm.get('balance')?.value;
     this.account.mark = this.accountForm.get('mark')?.value;
 
     if(this.account.accountType == 'Tekuci'){
-      this.accountService.saveAccount(this.userId, this.account.balance, "DINAR", this.employeeId, this.account.accountType)
+      this.accountService.saveAccount(this.userId, this.account.availableBalance, "RSD", this.employeeId, this.account.accountType)
       .subscribe(
         res => {
           console.log(res);
@@ -60,7 +60,7 @@ export class UserAddAccountFormComponent implements OnInit{
         }
         );
     }else{
-      this.accountService.saveAccount(this.userId, this.account.balance, this.account.mark, this.employeeId, this.account.accountType)
+      this.accountService.saveAccount(this.userId, this.account.availableBalance, this.account.mark, this.employeeId, this.account.accountType)
       .subscribe(
         res => {
           console.log(res);

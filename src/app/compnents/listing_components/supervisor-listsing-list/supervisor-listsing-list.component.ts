@@ -98,6 +98,7 @@ export class SupervisorListsingListComponent implements OnInit {
     this.exchangeService.approveStockOrder(elementId, true).subscribe(
       res => {
         this.openSnackBar("Zahtev je prihvaćen.")
+        window.location.reload()
       },err=>{
         this.openSnackBar("Greška u prihvatanju zahteva.")
       });
@@ -107,6 +108,7 @@ export class SupervisorListsingListComponent implements OnInit {
     this.exchangeService.approveStockOrder(elementId, false).subscribe(
       res => {
       this.openSnackBar("Zahtev je odbijen.")
+        window.location.reload()
     },err=>{
       this.openSnackBar("Greška u odbijanju zahteva.")
     });

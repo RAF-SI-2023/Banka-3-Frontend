@@ -18,7 +18,7 @@ export class MyStocksComponent implements OnInit{
   myFutureColumns = ['myFutureId', 'contractName', 'amount', 'opcije'];
   stocksFlag = true
   futuresFlag = false
-  constructor(private service: ExchangeService, private router: Router, private dialog: Dialog, private webSocket: WebSocket) {
+  constructor(private service: ExchangeService, private router: Router, private dialog: Dialog) {
 
   }
 
@@ -43,6 +43,7 @@ export class MyStocksComponent implements OnInit{
   ngOnInit(): void {
     this.service.getMyStocks().subscribe( res => {
       this.myStocks = res
+      this.myStocks.sort((a, b) => a.myStockId - b.myStockId)
     })
     this.service.getMyFutures().subscribe( res => {
       this.myFutures = res

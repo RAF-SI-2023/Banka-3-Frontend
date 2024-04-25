@@ -29,10 +29,10 @@ export class FirmAddAccountFormComponent implements OnInit {
   }
   save(){
     this.account.accountType = this.firmForm.get('accountType')?.value;
-    this.account.balance = this.firmForm.get('balance')?.value;
+    this.account.availableBalance = this.firmForm.get('balance')?.value;
     this.account.mark = this.firmForm.get('mark')?.value;
 
-    this.accountService.saveCompanyAccount(this.companyId, this.account.balance, "DINAR", this.employeeId, this.account.accountType).subscribe(res => {
+    this.accountService.saveCompanyAccount(this.companyId, this.account.availableBalance, "DINAR", this.employeeId, this.account.accountType).subscribe(res => {
       console.log(res);
     });
   }
