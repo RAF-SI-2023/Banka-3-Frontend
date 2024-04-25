@@ -32,7 +32,7 @@ export interface FirmCreateDto {
   title: string,
   email: string,
   number: number,
-  matBr: number,
+  maticniBroj: number,
   pib: number,
   sifraDelatnosti: number,
 
@@ -42,15 +42,15 @@ export interface Firm {
   title: string,
   email: string,
   number: number,
-  maticnibroj: number,
-  pib: number,
+  maticniBroj: number,
+  PIB: number,
   sifraDelatnosti: number,
   companyAccounts: CompanyAccount[]
 
 }
 export interface UserActivationDto{
   email: string,
-  active: boolean
+  codeActive: boolean
 }
 export interface CompanyAccount{
   companyAccountId: number,
@@ -77,15 +77,16 @@ export interface TransactionDto{
   currencyMark: string,
   sifraPlacanja: number,
   pozivNaBroj: string
+  date: number
 }
 
 export interface Permission {
   permissionId: number
-  authority: string
+  permissionName: string
 }
 
 export interface Account{
-  balance: number,
+  availableBalance: number,
   accountType: string,
   mark: string,
   employeeId: number,
@@ -108,7 +109,7 @@ export interface Token {
 
 
 export interface Contact{
-  contactId: number,
+  id: number,
   userId: number,
   myName: string,
   name: string,
@@ -127,7 +128,8 @@ export interface CreditRequestDto{
 }
 export interface Credit{
   creditId:number,
-  user: User,
+  employeeId: number,
+  userId: number,
   name: string,
   accountNumber: string,
   amount: number,
@@ -143,13 +145,13 @@ export interface Credit{
 export interface AccountDto{
   accountId: number,
   accountNumber: string,
-  user: User,
+  userId: number,
   availableBalance: number,
   reservedAmount: number,
   creationDate: number,
   expirationDate: number,
   active: boolean,
-  employee: Employee,
+  employeeId: number,
   currency: Currency,
   accountType: any,
 }
@@ -182,21 +184,6 @@ export interface CreditRequestCreateDto {
   dateOfEmployment: number;
   paymentPeriod: number;
   currencyMark: string;
-}
-
-
-export interface Request {
- stockOrderId: number,
-  employeeId: number,
-  ticker: string,
-  status: string,
-  type: string,
-  limitValue: number,
-  stopValue: number,
-  amount: number,
-  amountLeft: number,
-  aon: boolean,
-  margine: boolean
 }
 
 export interface Future{
@@ -252,12 +239,12 @@ export interface Options{
 }
 export interface Forex{
 
-  ticker: string;
-  contractName: string;
-  contractSize: number;
-  contractUnit: string;
-  maintenanceMargin: number;
-  type: string;
+  forexId: number,
+  baseCurrency: string,
+  quoteCurrency: string,
+  conversionRate: number,
+  lastRefresh: number
+
 }
 
 export interface Daily{
@@ -296,3 +283,37 @@ export interface Card{
   accountNumber: number
 }
 
+export interface Actuary{
+  actuaryId: number
+  employeeId: number,
+  email: string,
+  role: string,
+  limitValue: number,
+  limitUsed: number,
+  orderRequest: boolean
+}
+
+export interface ConfirmTransactionDto{
+  transactionId: number
+}
+
+export interface RequestDto {
+  stockOrderId: number,
+  employeeId: number,
+  ticker: string,
+  status: string,
+  type: string,
+  limitValue: number,
+  stopValue: number,
+  amount: number,
+  amountLeft: number,
+  aon: boolean,
+  margine: boolean,
+  currencyMark: string
+}
+
+export interface CurrencyExchangeDto {
+  accountFrom: string,
+  accountTo: string
+  amount: number
+}

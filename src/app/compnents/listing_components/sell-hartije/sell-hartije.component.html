@@ -1,0 +1,83 @@
+<html lang="en">
+<body>
+<div class="myContainer" >
+  <div class="formContainer">
+    <div class="row">
+      <div class="col-sm">
+        <div style="margin: 1rem 0rem 1rem 0rem">
+          <span class="h2">Kupovina hartije</span>
+        </div>
+        <div style="margin: 1rem 0rem 1rem 0rem">
+          <span class="p blueText"> ticker: {{ ticker }}</span>
+        </div>
+      </div>
+    </div>
+    <p class="line"></p>
+    <form [formGroup]="groupForm">
+      <div class="container" >
+        <div class="row">
+          <div class="col">
+            <p class="bold">Unesite broj hartija:</p>
+            <input
+              type="number"
+              class="inputField"
+              formControlName="amount"
+              min="1"
+            />
+            <span
+              *ngIf="amount && amount.invalid && amount.touched"
+              class="wrong-input-span"
+            >
+                Minimalan broj hartija je 1.</span>
+          </div>
+          <div class="col">
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p class="bold">Unesite limit value:</p>
+            <input
+              type="number"
+              class="inputField"
+              formControlName="limit"
+              min="0"
+            />
+          </div>
+          <div class="col">
+            <p class="bold">Unesite stop value:</p>
+            <input type="number"
+                   class="inputField"
+                   formControlName="stop"
+                   min="0"
+            />
+          </div>
+        </div>
+
+        <div class="input-container">
+          <label class="bold" for="allOrNone">All or None: </label>
+          <input type="checkbox" formControlName="allOrNone">
+        </div>
+
+        <div class="input-container">
+          <label class="bold" for="margin">Margin: </label>
+          <input type="checkbox" formControlName="margin">
+        </div>
+
+
+
+      </div>
+      <div class="row mt-3">
+        <div class="col-sm">
+          <input (click)="buttonCancel()" class="myButtonPrimary" type="submit" value="Odustani">
+          <input (click)="buttonSell()" class="myButtonSecondary" type="submit" value="Prodaj">
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
+

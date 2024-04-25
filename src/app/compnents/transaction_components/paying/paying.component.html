@@ -1,0 +1,130 @@
+<html lang="en">
+<body>
+    <div class="myContainer" >
+        <div class="formContainer">
+            <div class="row">
+                <div class="col-sm">
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="h2">Broj računa</span>
+                    </div>
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="p blueText">{{ accountNumber }}</span>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <mat-form-field>
+                            <mat-label>Računi</mat-label>
+                            <mat-select [(ngModel)]="selectedAccount" (ngModelChange)="onAccountChange($event)">
+                                <mat-option *ngFor="let account of userAccounts" [value]="account.accountNumber">{{account.accountNumber}}</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                    </div>
+                </div>
+                                    
+                <div class="col-sm text-right">
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="h2">Raspoloživo</span>
+                    </div>
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="p blueText">{{ accountBalance }}</span>
+                    </div>
+                </div>
+            </div>
+          
+            <p class="line"></p>
+
+            <div class="container" >
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Postojeći kontakti</mat-label>
+                                <mat-select [(ngModel)]="selectedRecipient" (selectionChange)="onRecipientSelectionChange()">
+                                    <mat-option *ngFor="let recipient of existingRecipients" [value]="recipient.name">{{recipient.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form [formGroup]="groupForm" (ngSubmit)="onSubmit()" >
+                <div class="container" >
+                    <div class="row">
+                        <div class="col-sm">
+                            
+                            <div class="input-container">
+                                <p class="bold">Naziv primaoca</p>
+                                <input class="inputField" type="text" formControlName="recipientName" placeholder="Naziv primaoca"required>
+                                <div *ngIf="recipientName && recipientName.invalid && recipientName.touched" class="error-message">
+                                Obavezno polje.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="input-container">
+                                <p class="bold">Poziv na broj</p>
+                                <input class="inputField" type="text" id="referenceNumber" name="referenceNumber" formControlName="referenceNumber" placeholder="Poziv na broj" required>
+                                <div *ngIf="referenceNumber && referenceNumber.invalid && referenceNumber.touched" class="error-message">
+                                    Obavezno polje.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="input-container">
+                                <p class="bold">Račun primaoca</p>
+                                <input class="inputField" type="text" id="racunPrimaoca" name="racunPrimaoca" placeholder="Račun primaoca" formControlName ="recipientAccount">
+                            </div>
+                          <div *ngIf="recipientAccount && recipientAccount.invalid && recipientAccount.touched" class="error-message">
+                                Molimo Vas da unesete ispravan format računa (npr. 1230000000456781).
+                          </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="input-container">
+                                <p class="bold">Svrha plaćanja</p>
+                                <input class="inputField" type="text" id="svrhaPlacanja" name="paymentPurpose" placeholder="Svrha plaćanja" formControlName="paymentPurpose" required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="input-container">
+                                <p class="bold">Iznos</p>
+                                <div class="input-with-addon">
+                                    <input class="inputField" type="text" id="iznos" name="iznos" placeholder="0,00" formControlName="amount">
+                                    <span class="addon">RSD</span>
+                                    <div *ngIf="amount && amount.invalid && amount.touched" class="error-message">
+                                        Obavezno polje.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="input-container">
+                                <p class="bold">Šifra plaćanja</p>
+                                <select class="inputField" id="sifraPlacanja" name="sifraPlacanja" formControlName="selectedPaymentCode"required>
+                                  <option *ngFor="let code of paymentCodes" [value]="code">{{ code }}</option>
+                                </select>
+                              <div *ngIf="groupForm.get('selectedPaymentCode') && groupForm.get('selectedPaymentCode')?.invalid && groupForm.get('selectedPaymentCode')?.touched" class="error-message">
+                                Obavezno polje.
+                              </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Button Row -->
+                <div class="row mt-3">
+                    <div class="col-sm">
+                        <input  class="myButtonSecondary" type="submit" [disabled]="!groupForm.valid" value="Nastavi">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -27,20 +27,14 @@ import { Credit } from '../models/models';
 })
 export class UserService {
   apiUrlUser : string = "http://localhost:8080/api/v1/user"
+  apiUrlCompany : string = "http://localhost:8080/api/v1/company"
   apiUrlEmployee : string = "http://localhost:8080/api/v1/employee"
   apiUrlEmailUser : string = "http://localhost:8081/api/v1/user"
+  apiUrlEmailCompany : string = "http://localhost:8081/api/v1/company"
   apiUrlEmailEmployee : string = "http://localhost:8081/api/v1/employee"
   apiUrlPermission : string = "http://localhost:8080/api/v1/permission"
   apiUrlRole : string = "http://localhost:8080/api/v1/role"
-  apiUrlCompany: string = "http://localhost:8080/api/v1/company"
-  apiUrlAccount : string = "http://localhost:8080/api/v1/account"
-  apiUrlForeignAccount : string = "http://localhost:8080/api/v1/foreignAccount"
-  apiUrlCompanyAccount : string = "http://localhost:8080/api/v1/companyAccount"
-  apiUrlCurrency : string = "http://localhost:8080/api/v1/currency"
   apiUrlContact : string = "http://localhost:8080/api/v1/contact"
-  apiUrlCredit : string = "http://localhost:8080/api/v1/credit"
-  apiUrlCreditRequest : string = "http://localhost:8080/api/v1/credit-request"
-  apiUrlTransaction: string = "http://localhost:8080/api/v2/transaction"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -56,12 +50,8 @@ export class UserService {
     return this.httpClient.get<UserActivationDto>(`${this.apiUrlUser}/isUserActive/${email}`);
   }
 
-  startTransaction(transactionDto: TransactionDto | number){
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-    return this.httpClient.post<any>(`${this.apiUrlTransaction}/startTransaction`,transactionDto,{headers} )
+  checkEmailCompany(email: string | null | undefined){
+    return this.httpClient.get<UserActivationDto>(`${this.apiUrlCompany}/isCompanyActive/${email}`);
   }
 
 
@@ -71,6 +61,14 @@ export class UserService {
       password: password
     }
     return this.httpClient.post<Token>(`${this.apiUrlUser}/auth/login`, obj)
+  }
+
+  loginCompany(email: string | null | undefined, password: string | null | undefined) {
+    let obj = {
+      email: email,
+      password: password
+    }
+    return this.httpClient.post<Token>(`${this.apiUrlCompany}/auth/login`, obj)
   }
 
   setPassword(email:string, activationCode:number, password:string | null | undefined){
@@ -85,36 +83,34 @@ export class UserService {
     console.log(obj)
     return this.httpClient.post<any>(`${this.apiUrlEmailUser}/activateUser`, obj, {headers})
   }
-
-  getAllCredits(): Observable<Credit[]> {
+  setPasswordCompany(email:string, activationCode:number, password:string | null | undefined){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    });
-    return this.httpClient.get<Credit[]>(`${this.apiUrlCredit}`, { headers });
-}
-
-  sendCreditRequest(creditRequestData: CreditRequestCreateDto) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    });
-    return this.httpClient.post<any>(`${this.apiUrlCreditRequest}`, creditRequestData, { headers });
-  }
-
-  registerUser(firstName: string, lastName: string, jmbg: string, dateOfBirth: string, gender: string, phoneNumber: string, email: string){
+    })
     let obj = {
-      firstName: firstName,
-      lastName: lastName,
-      jmbg: jmbg,
-      dateOfBirth: dateOfBirth,
-      gender: gender,
-      phoneNumber: phoneNumber,
-      email: email
+      email: email,
+      code: activationCode,
+      password: password,
     }
-
-    return this.httpClient.post<Token>(`${this.apiUrlUser}/register`, obj)
+    console.log(obj)
+    return this.httpClient.post<any>(`${this.apiUrlEmailCompany}/activateCompany`, obj, {headers})
   }
+
+//   getAllCredits(): Observable<Credit[]> {
+//     const headers = new HttpHeaders({
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+//     });
+//     return this.httpClient.get<Credit[]>(`${this.apiUrlCredit}`, { headers });
+// }
+
+  // sendCreditRequest(creditRequestData: CreditRequestCreateDto) {
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+  //   });
+  //   return this.httpClient.post<any>(`${this.apiUrlCreditRequest}`, creditRequestData, { headers });
+  // }
 
   getAllUsers(){
     const headers = new HttpHeaders({
@@ -133,14 +129,14 @@ export class UserService {
 
     return this.httpClient.get<Employee[]>(`${this.apiUrlEmployee}/getAll`, { headers })
   }
-  getAllCurrency(){
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-
-    return this.httpClient.get<Currency[]>(`${this.apiUrlCurrency}/getAll`, { headers })
-  }
+  // getAllCurrency(){
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+  //   })
+  //
+  //   return this.httpClient.get<Currency[]>(`${this.apiUrlCurrency}/getAll`, { headers })
+  // }
   getUserById(id : number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -155,7 +151,7 @@ export class UserService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    return this.httpClient.get<Employee>(`${this.apiUrlEmployee}/${id}`, { headers })
+    return this.httpClient.get<Employee>(`${this.apiUrlEmployee}/findById/${id}`, { headers })
   }
 
   getAllRoles(){
@@ -165,40 +161,6 @@ export class UserService {
     })
     return this.httpClient.get<Role[]>(`${this.apiUrlRole}/getAll`, { headers })
   }
-
-  //SAVE ACCOUNT
-   saveAccount(userId: number, balance:number, mark:string, employeeId:number, accountType: string){
-     const headers = new HttpHeaders({
-       'Content-Type': 'application/json',
-       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-     })
-     const body = {userId, balance: balance, currency: mark, employeeId, accountType: "ZA_MLADE"};
-     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createAccount`,body,{ headers })
-   }
-   saveForeignAccount(userId: number, balance:number, mark:string, employeeId:number){
-     const headers = new HttpHeaders({
-       'Content-Type': 'application/json',
-       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-     })
-     const body = {userId, balance, currency: mark, employeeId, accountType: "ZA_MLADE"};
-     return this.httpClient.post<Account[]>(`${this.apiUrlForeignAccount}/${userId}`,body, { headers })
-   }
-   saveCompanyAccount(companyId: number, balance:number, mark:string, employeeId:number, accountType: string){
-     const headers = new HttpHeaders({
-       'Content-Type': 'application/json',
-       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-     })
-
-     const body = {
-       companyId : companyId ,
-       balance : balance ,
-       currency: mark ,
-       employeeId: employeeId,
-       accountType: accountType
-
-     };
-     return this.httpClient.post<Account[]>(`${this.apiUrlCompanyAccount}/${companyId}`, body,{ headers })
-   }
 
   saveUser(user: User | null){
     const headers = new HttpHeaders({
@@ -234,14 +196,6 @@ export class UserService {
     return this.httpClient.post<any>(`${this.apiUrlEmployee}`, employee, { headers })
   }
 
-  createFirm(firm: Firm | undefined){
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-
-    return this.httpClient.post<any>(`${this.apiUrlCompany}`, firm, { headers })
-  }
   deleteUser(id: number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -293,13 +247,8 @@ export class UserService {
       'Content-Type': 'application/json',
       responseType: 'text'
     });
-    let sendToUrl = "http://localhost:8081/api/v1/employee";  //PORT: 8081 jer user-service zauzme 8080 na beku
-    return this.httpClient.post(`${sendToUrl}/setPassword/${identifier}`, password, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      responseType: 'text'
-    });
+    // let sendToUrl = "http://localhost:8081/api/v1/employee";  //PORT: 8081 jer user-service zauzme 8080 na beku
+    return this.httpClient.post<any>(`${this.apiUrlEmailEmployee}/setPassword/${identifier}`, password, {headers});
   }
 
   // Funkcija koja salje jedan ili drugi POST poziv
@@ -360,12 +309,12 @@ export class UserService {
     return this.httpClient.get<Contact[]>(`${this.apiUrlContact}/${userId}`, { headers });
   }
 
-  deleteUsersContact(userId: number, contactId: number){
+  deleteUsersContact(contactId: number){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
     //Proveriti sa bekom koja ce putanja biti za brisanje.
-    return this.httpClient.delete(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
+    return this.httpClient.delete(`${this.apiUrlContact}/${contactId}`, { headers });
   }
 
   //Funkcija za dodavanje kontakta korisniku
@@ -378,21 +327,13 @@ export class UserService {
   }
 
   //Funkcija za izmenu kontakta
-  editContact(userId: number, contactId: number){
+  editContact(contactData: Contact, contactId: number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
+    return this.httpClient.put<any>(`${this.apiUrlContact}/${contactId}`, contactData, { headers });
   }
 
-  getUsersContactByContactId(userId: number, contactId: number){
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    })
-    return this.httpClient.put<any>(`${this.apiUrlContact}/${userId}/${contactId}`, { headers });
-
-  }
 }
 

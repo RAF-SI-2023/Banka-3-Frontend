@@ -1,0 +1,181 @@
+:host{
+  --button-height-small: 2.5rem;
+  --button-width-small: 12rem;
+  --font-size-sm: 1rem;
+  --button-height: 3.5rem;
+  --button-width: 13rem;
+  --font-size-lg: 1.2rem;
+  --margin-standard: 0.5rem;
+  --padding-standard: 0.75rem;
+  --border-radius-standard: 0.5rem;
+}
+
+.page{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 96vh;
+  background-color: #F6F6F6;
+}
+
+.panel{
+  max-width: var(--max-screen-width);
+  width: 80%;
+  margin-top: 50px;
+}
+
+.table{
+  flex-direction: column;
+  align-items:flex-start;
+  height: 60vh !important;
+  display: flex;
+  background-color: #ffffff;
+
+  border-bottom-right-radius: var(--border-radius-standard);
+  border-top-right-radius: var(--border-radius-standard);
+  border-bottom-left-radius: var(--border-radius-standard);
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+.header{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+
+.primary-button2{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 30px;
+  background-color: var(--button-primary);
+  color: #F6F6F6;
+  border-radius:  var(--border-radius-standard);
+  border: 0;
+  height: var(--button-height-small);
+  width:calc(1.5rem + var(--button-width));
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  font-family: 'Archivo', sans-serif;
+  cursor: pointer;
+}
+.primary-button{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 30px;
+  background-color: var(--button-primary);
+  color: #F6F6F6;
+  /*border-radius:  var(--border-radius-standard);*/
+  border: 0;
+  height: var(--button-height-small);
+  width: var(--button-width);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  font-family: 'Archivo', sans-serif;
+  cursor: pointer;
+  border-top-right-radius: var(--border-radius-standard);
+  border-top-left-radius: var(--border-radius-standard);
+}
+
+.request-button{
+  background-color: var(--blue-medium);
+  border: 0;
+  height: var(--button-height-small);
+  color: #F6F6F6;
+  width: var(--button-width);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  font-family: 'Archivo', sans-serif;
+  cursor: default;
+  border-top-right-radius: var(--border-radius-standard);
+  border-top-left-radius: var(--border-radius-standard);
+
+}
+.limit-button{
+  background-color: var(--blue-medium);
+  border: 0;
+  height: var(--button-height-small);
+  color: #F6F6F6;
+  width: var(--button-width);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  font-family: 'Archivo', sans-serif;
+  cursor: default;
+  border-top-right-radius: var(--border-radius-standard);
+  border-top-left-radius: var(--border-radius-standard);
+
+}
+.disabled-button{
+  opacity: 0.5%;
+}
+
+img{
+  cursor: pointer;
+}
+
+.plus-image{
+  padding: 0;
+  background-color: var(--button-primary);
+}
+
+.options-container {
+  display: flex;
+  justify-content: flex-end; /* Ovo će opcije staviti skroz desno */
+  width: 100%; /* Ovo osigurava da se prostire kroz celu širinu roditeljskog elementa */
+}
+
+.edit-button, .delete-button {
+  cursor: pointer;
+  margin-left: var(--margin-standard);
+}
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.stock-button{
+  background-color: var(--blue-medium);
+  border: 0;
+  height: var(--button-height-small);
+  color: #F6F6F6;
+  width: var(--button-width);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  font-family: 'Archivo', sans-serif;
+  cursor: pointer;
+  border-top-right-radius: var(--border-radius-standard);
+  border-top-left-radius: var(--border-radius-standard);
+}
+
+.limit-button{
+  background-color: var(--blue-medium);
+  border: 0;
+  height: var(--button-height-small);
+  color: #F6F6F6;
+  width: var(--button-width);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  font-family: 'Archivo', sans-serif;
+  cursor: pointer;
+  border-top-right-radius: var(--border-radius-standard);
+  border-top-left-radius: var(--border-radius-standard);
+  margin-left: 5px;
+}
+
+.button {
+  background-color: #104D7B;
+  color: white;
+  /* margin-right: 1rem; */
+}

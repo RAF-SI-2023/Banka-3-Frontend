@@ -1,0 +1,227 @@
+.blueText{
+    color:var(--blue-medium)
+}
+.actionWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start
+}
+.myContainer{
+    max-width: 50rem;
+    margin: auto;
+}
+.status{
+  height: 4rem;
+  color: var(--blue-medium);
+  font-weight: 600;
+}
+.accountsView{
+    background-color:var(--blue-light);
+    width:100%;
+    padding:1rem;
+}
+.accountsScroller{
+    margin:auto;
+    display:flex;
+    flex-direction: column;
+    border-radius:1rem;
+    -ms-flex-item-align: center;
+}
+.accountCard{
+    display:flex;
+    border-radius: 1rem;
+    background-color:white;
+    margin:1rem 1rem 1rem 1rem;
+    -ms-flex-item-align: center;
+    flex-direction: row;
+    padding:2rem 3rem 3rem 2rem;
+}
+.cardLogoWrapper{
+    height:100%;
+}
+body,html{
+    height: 100%;
+}
+.sortSelect{
+    margin: 0rem 0rem 1rem 0rem;
+    border:0px;
+    box-shadow: none;
+    border-radius: 0;
+    background-color: transparent;
+    padding:0.3rem 0.3rem 0.3rem 0rem;
+    color:var(--blue-medium);
+    border-bottom: 1px solid var(--blue-medium);
+}
+.myModalWrapper{
+position: fixed;
+z-index: 5;
+background-color: rgba(0, 0, 0, 0.5);
+height: 100%;
+width: 100%;
+display:none;
+justify-content: center;
+align-items: center;
+}
+.sortWrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.formGroup {
+    margin-bottom: 1rem;
+}
+
+.h2,.h3,.h4{
+    margin:0rem 0rem 0.1rem;
+}
+
+html, body {
+    min-height: 100vh;
+    height: auto;
+    margin: 0;
+  }
+
+.formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.myModal{
+padding:2rem 3rem 2rem 3rem;
+background-color: white;
+border-radius: 1rem;
+width: 80%;
+}
+
+.formWrapper{
+    display:flex;
+    max-width: 35rem;
+    flex-wrap: wrap;
+}
+.cardLogo{
+    height:3rem;
+    width:3rem;
+    border-radius: 100%;
+    background-color: black;
+}
+.converterWrapper{
+    align-items: center;
+    display: flex;
+}
+.currencyWrapper{
+    display: flex;
+    flex-direction: column;
+}
+.currencyConverter{
+    display: flex;
+}
+.transactionView{
+    /* background-color: var(--background-main); */
+    background-color: var(--background-main);
+
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    padding-top:1rem;
+}
+.cardInfoWrapper{
+    margin-left:2rem;
+}
+.transactionsWrapper{
+    /* padding:1rem;
+    margin:0;
+    border:black 2px solid; */
+
+}
+.transactionCard{
+    display: flex;
+    flex-direction: row;
+    background-color: #D6E4ED;
+    margin-top: 1rem;
+    justify-content: space-between;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    /* -webkit-box-shadow: 1px 8px 9px 0px rgba(209,209,209,1);
+    -moz-box-shadow: 1px 8px 9px 0px rgba(209,209,209,1);
+    box-shadow: 1px 8px 9px 0px rgba(209,209,209,1); */
+}
+.transactionDate{
+    width:7rem;
+    padding:0.6rem;
+    background-color:var(--blue-dark);
+    color:white;
+}
+.buttonWrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.transactionDetails{
+    padding:0.7rem 0.7rem 0.7rem 1rem;
+}
+.transactionDetailsWrapper{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.convertArrow{
+height: 100%;
+display: flex;
+align-items: center;
+}
+.incoming{
+    transform: rotate(-45deg);
+    fill:green !important;
+    background-color: green;
+    border-radius: 100%;
+}
+.outgoing{
+    transform: rotate(135deg);
+    background-color: red;
+    fill:red !important;
+    border-radius: 100%;
+}
+
+.arrow{
+    width: 4rem;
+    height:4rem;
+}
+.myButtonPrimary{
+    box-shadow: none;
+    margin:0rem 0.4rem 0.4rem 0rem;
+    width: auto;
+}
+.day{
+font-size: 2rem;
+font-family: 'Archivo', sans-serif;
+font-weight: 700;
+margin-bottom: 0;
+line-height: 2.1rem;
+}
+.month{
+    font-family: 'Archivo', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1rem;
+}
+.year{
+    font-family: 'Archivo', sans-serif;
+    font-weight: 400;
+}
+.transactionIconWrapper{
+    margin:1rem 1rem 0rem 0rem;
+}
+.selectCardWrapper{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+.accountDetailsWrapper{
+    margin:2rem 0rem 2rem 0rem;
+}
+.rightMargin{
+    margin-right: 2rem;
+}

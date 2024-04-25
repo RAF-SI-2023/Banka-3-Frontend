@@ -1,0 +1,64 @@
+<div class="page">
+  <div class="panel">
+    <!-- Dugmad za filtriranje -->
+    <button [ngStyle]="{ 'opacity': !stocksFlag ? '0.5' : '1'}" (click)="switchToStocks()" class="stock-button">
+      M y  S t o c k s
+    </button>
+    <button [ngStyle]="{ 'opacity': !futuresFlag ? '0.5' : '1'}" (click)="switchToFutures()" class="future-button">
+      M y  F u t u r e s
+    </button>
+    <!-- Tabela za prikaz podataka -->
+    <div class="table">
+      <mat-table *ngIf="stocksFlag" [dataSource]="myStocks" matSort>
+
+        <ng-container *ngFor="let column of myStockColumns" [matColumnDef]="column">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ column | uppercase }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"
+                    [ngStyle]="{
+                  'color': column === 'change' ? (element[column] > 0 ? '#33d17a' : '#ed333b') : 'inherit',
+                  'font-weight': column === 'ticker' ? 'bold' : 'normal',
+                  'cursor': column === 'ticker' ? 'pointer' : 'default'
+
+                }">
+            <ng-container *ngIf="column !== 'opcije'">
+              {{ element[column] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'opcije'">
+              <button (click)="sellStock(element['ticker'])" class="button">Prodaj</button>
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="myStockColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: myStockColumns;"></mat-row>
+      </mat-table>
+      <mat-table *ngIf="futuresFlag" [dataSource]="myFutures" matSort>
+
+        <ng-container *ngFor="let column of myFutureColumns" [matColumnDef]="column">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ column | uppercase }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"
+                    [ngStyle]="{
+                  'color': column === 'change' ? (element[column] > 0 ? '#33d17a' : '#ed333b') : 'inherit',
+                  'font-weight': column === 'ticker' ? 'bold' : 'normal',
+                  'cursor': column === 'ticker' ? 'pointer' : 'default'
+
+                }">
+            <ng-container *ngIf="column !== 'opcije'">
+              {{ element[column] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'opcije'">
+              <button (click)="sellFuture(element['myFutureId'])" class="button">Prodaj</button>
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="myFutureColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: myFutureColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>

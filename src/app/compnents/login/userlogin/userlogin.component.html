@@ -1,0 +1,143 @@
+<div class="background-container">
+  <!-- <img src="assets/logo_2.svg" alt="Banka 3" class="logo-img" /> -->
+  <div
+    class="d-flex align-items-center justify-content-center vh-100 vw-100 "
+  >
+    <form *ngIf="showCheckAddress" [formGroup]="checkEmailForm" (ngSubmit)="checkAddr()">
+      <div
+        class="opaque-panel d-flex flex-column align-items-center justify-content-center"
+      >
+        <h2 class="disable-opacity h2"><b>Prijava korisnika</b></h2>
+        <input
+          type="text"
+          placeholder="Email"
+          class="input-box"
+          formControlName="email"
+        />
+        <span
+          *ngIf="emailCheck && emailCheck.invalid && emailCheck.touched"
+          class="wrong-input-span"
+        >
+          Unesite ispravnu adresu!</span
+        >
+
+        <div
+          class="button-container d-flex flex-column align-items-center justify-content-center"
+        >
+          <button
+            class="primary-button"
+            type="submit"
+            [disabled]="checkEmailForm.invalid"
+            [ngClass]="{ disabled: checkEmailForm.invalid }"
+          >
+            Proveri
+          </button>
+        </div>
+        <a routerLink="/admin-login" class="admin-link">Prijava zaposlenog</a>
+        <a routerLink="/company-login" class="admin-link">Prijava kompanije</a>
+      </div>
+    </form>
+
+
+    <form *ngIf="(!codeActivate && !showCheckAddress)" [formGroup]="passwordForm" (ngSubmit)="createPassword()">
+      <div class="opaque-panel d-flex flex-column align-items-center justify-content-center">
+        <h2 class="disable-opacity h2"><b>Kreiranje naloga</b></h2>
+
+        <p>Unesite aktivacioni kod koji
+          vam je poslat na adresu</p>
+        <input
+          type="text"
+          placeholder="Activation Code"
+          class="input-box"
+          formControlName="activationCode"
+        />
+        <span
+          *ngIf="activationCode && activationCode.invalid && activationCode.touched"
+          class="wrong-input-span"
+        >
+      Aktivacioni kod ne valja.</span
+        >
+
+        <input
+          type="password"
+          placeholder="Password"
+          class="input-box"
+          formControlName="password"
+        />
+        <span
+          *ngIf="newPassword && newPassword.invalid && newPassword.touched"
+          class="wrong-input-span"
+        >
+        Lozinka je obavezna.</span
+        >
+
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          class="input-box"
+          formControlName="confirmPassword"
+        />
+        <span
+          *ngIf="passwordForm.get('password')?.value !== passwordForm.get('confirmPassword')?.value"
+          class="wrong-input-span"
+        >
+      Lozinke se ne podudaraju.</span
+        >
+
+        <div class="button-container d-flex flex-column align-items-center justify-content-center">
+          <button
+            class="primary-button"
+            type="submit"
+            [disabled]="passwordForm.invalid"
+            [ngClass]="{ disabled: passwordForm.invalid }"
+          >
+            Kreiraj nalog
+          </button>
+        </div>
+      </div>
+    </form>
+
+
+    <form *ngIf="codeActivate" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+      <div
+        class="opaque-panel d-flex flex-column align-items-center justify-content-center"
+      >
+        <h2 class="disable-opacity h2"><b>Prijava korisnika</b></h2>
+        <span
+          class="email"
+        >
+          {{address}}</span
+        >
+        <input
+          type="password"
+          placeholder="Password"
+          class="input-box"
+          formControlName="password"
+        />
+        <span
+          *ngIf="password && password.invalid && password.touched"
+          class="wrong-input-span"
+        >
+          Lozinka je obavezna.</span
+        >
+        <a class="forgot-link" routerLink="/forgot-password/user"
+          ><u>Zaboravili ste email ili lozinku?</u></a
+        >
+        <div
+          class="button-container d-flex flex-column align-items-center justify-content-center"
+        >
+          <button
+            class="primary-button"
+            type="submit"
+            [disabled]="loginForm.invalid"
+            [ngClass]="{ disabled: loginForm.invalid }"
+          >
+            Log in
+          </button>
+
+        </div>
+        <a routerLink="/admin-login" class="admin-link">Prijava zaposlenog</a>
+      </div>
+    </form>
+  </div>
+</div>

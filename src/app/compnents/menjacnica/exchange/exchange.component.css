@@ -1,0 +1,19 @@
+.arrow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -40px;
+    padding: 0;
+}
+
+body{
+    background-color: var(--background-main);
+}
+
+.myContainer{
+    max-width: 52rem;
+    margin:auto;
+}
+.wrong-input-span{
+  color: red
+}

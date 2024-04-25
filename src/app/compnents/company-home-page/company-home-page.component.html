@@ -1,0 +1,29 @@
+<div class="accountsView">
+  <div class="container">
+    <div class="accountsScroller">
+      <span style="text-align: center" class="h2-secondary">Pregled računa</span>
+      <div class="selectCardWrapper">
+        <div class="arrowWrapper" (click)="previousAccount()">
+          <img height="48px" width="48px" class="arrow" src="../../../assets/left-chevron-svgrepo-com.svg" alt="Next" class="arrow-svg">            </div>
+
+        <!-- Display selected account details -->
+        <div class="accountCard">
+          <div class="cardLogoWrapper">
+            <div class="cardLogo">
+              <img class="logo" src="assets/logo-full.svg" alt="logo">
+            </div>
+          </div>
+          <div class="cardInfoWrapper">
+            <span class="p">Broj računa</span>
+            <p class="h4 blueText">{{ selectedAccount.accountNumber }}</p>
+            <span class="p">Raspoloživo stanje</span>
+            <p class="h4 blueText">{{ selectedAccount.availableBalance - selectedAccount.reservedAmount }} {{selectedAccount.currency.mark}}</p>
+          </div>
+        </div>
+
+        <div class="arrowWrapper" (click)="nextAccount()">
+          <img height="48px" width="48px" class="arrow" src="../../../assets/right-chevron-svgrepo-com.svg" alt="Next" class="arrow-svg">        </div>
+      </div>
+    </div>
+  </div>
+</div>

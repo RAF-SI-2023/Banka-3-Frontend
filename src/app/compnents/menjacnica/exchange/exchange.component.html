@@ -1,0 +1,60 @@
+<div class="myContainer">
+    <div class="formContainer">
+        <div style="width: 100%; text-align: center; margin: 1rem 0rem 1rem 0rem">
+            <span class="h2">Menjačnica</span>
+        </div>
+        <hr>
+        <form [formGroup]="form">
+            <div class="container" style="text-align: center;">
+                <div class="row align-items-center">
+                  <div class="col-sm">
+                    <div class="input-container">
+                      <select formControlName="selectedAccount1" class="inputField" name="account1">
+                        <option *ngFor="let account of accounts" [value]="account.accountNumber">{{ account.accountNumber }}</option>
+                      </select>
+                    </div>
+                    <span
+                      *ngIf="selectedAccount1 && selectedAccount1.invalid && selectedAccount1.touched"
+                      class="wrong-input-span"
+                    >
+                   You didn't select the first account!</span
+                    >
+                  </div>
+                  <div class="col-sm">
+                    <div class="input-container">
+                      <select formControlName="selectedAccount2" class="inputField" name="account2" >
+                        <option *ngFor="let account of accounts" [value]="account.accountNumber">{{ account.accountNumber }}</option>
+                      </select>
+                    </div>
+                    <span
+                      *ngIf="selectedAccount2 && selectedAccount2.invalid && selectedAccount2.touched"
+                      class="wrong-input-span"
+                    >
+                   You didn't select the second account!</span
+                    >
+                  </div>
+
+
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <input class="inputField" type="text" id="moneyValue1" name="moneyValue1" formControlName="amount">
+                        </div>
+                    </div>
+                  <span
+                    *ngIf="amount && amount.invalid && amount.touched"
+                    class="wrong-input-span"
+                  >
+                   You didn't put in the amount</span
+                  >
+                </div>
+              </div>
+            <div class="row mt-3">
+                <div class="col-sm text-center">
+                    <input  [disabled]="form.invalid" [ngClass]="{ disabled: form.invalid }" class="myButtonSecondary" type="submit" value="Izvrši konverziju" (click)="onConvert()">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
