@@ -124,7 +124,7 @@ export class ExchangeService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    return this.httpClient.put<RequestDto>(`${this.apiUrlExchangeService}/ordersToApprove/approve/${id}?approved=${approved}`, {headers});
+    return this.httpClient.get<RequestDto>(`${this.apiUrlExchangeService}/stock/ordersToApprove/approve/${id}?approved=${approved}`, {headers});
   }
 
   resetLimitUsed(id: number){
@@ -133,7 +133,7 @@ export class ExchangeService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
 
-    return this.httpClient.post<Actuary>(`${this.apiUrlExchangeService}/actuary/restartLimitUsed/${id}`, { headers });
+    return this.httpClient.get<Actuary>(`${this.apiUrlExchangeService}/actuary/restartLimitUsed/${id}`, { headers });
   }
 
   getAllAgents(){
@@ -150,7 +150,9 @@ export class ExchangeService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    return this.httpClient.post<Actuary>(`${this.apiUrlExchangeService}/actuary/setLimit/${id}?limit=${limit}`, { headers });
+    console.log(id)
+    console.log(limit)
+    return this.httpClient.get<Actuary>(`${this.apiUrlExchangeService}/actuary/setLimit/${id}?limit=${limit}`, { headers });
   }
 
     getMyStocks(){
