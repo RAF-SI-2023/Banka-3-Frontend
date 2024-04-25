@@ -26,8 +26,8 @@ export class PopupTransactionComponent {
 
 
   closePopup() {
-
-    this.accountService.confirmTransaction(this.data.inputValue, this.data.code).subscribe(
+    console.log(this.data.code)
+    this.accountService.confirmTransaction(this.data.inputValue, this.code).subscribe(
       response => {
         console.log("Odgovor servera:", response);
         this.openSuccessSnackBar();

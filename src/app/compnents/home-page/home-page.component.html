@@ -34,12 +34,10 @@
         <div class="transactionDetailsWrapper">
           <div class="transactionDate">
                         <!-- Display day -->
-<!--                        <div class="day">{{ getDayFromDate(new Date()) }}</div>-->
-<!--                        &lt;!&ndash; Display month &ndash;&gt;-->
-<!--                        <div class="month">{{ getMonthFromDate(transaction.date) }}</div>-->
-<!--                        &lt;!&ndash; Display year &ndash;&gt;-->
-<!--
-                  <div class="year">{{ getYearFromDate(transaction.date) }}</div>-->
+                        <div class="day">{{ getDayFromDate(transaction.date) }}</div>
+                        <div class="month">{{ getMonthFromDate(transaction.date) }}</div>
+
+                  <div class="year">{{ getYearFromDate(transaction.date) }}</div>
           </div>
 
           <div *ngIf="transaction.accountFrom === selectedAccount.accountNumber" class="transactionDetails">

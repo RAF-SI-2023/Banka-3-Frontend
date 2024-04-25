@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {AccountService} from "../../../services/account.service";
+import {parseJson} from "@angular/cli/src/utilities/json-file";
+import {Account, AccountDto} from "../../../models/models";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-exchange',
@@ -7,25 +11,50 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExchangeComponent implements OnInit{
 
-  selectedCurrency1: string = '';
-  selectedCurrency2: string = ''; 
-  money1: string = '';
-  money2: number = 0;
+  // selectedAccount1= {} as AccountDto;
+  // selectedAccount2= {} as AccountDto;
+  accounts = [] as AccountDto[]
 
-  ngOnInit(): void {
-    this.selectedCurrency1 = 'RSD';
-    this.selectedCurrency2 = 'EUR';
+  form = new FormGroup({
+    selectedAccount1: new FormControl('', Validators.required),
+    selectedAccount2: new FormControl('', Validators.required),
+    amount: new FormControl('', Validators.required)
+  })
+
+  constructor(private accountService: AccountService) {
   }
 
-  onConvert(currency1: string, currency2: string, money1: string): void {
-    console.log('Selected Currency 1:', currency1);
-    console.log('Selected Currency 2:', currency2);
-    console.log('Money 1:', money1);
+  ngOnInit(): void {
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    this.accountService.getAccountsByUserId(tk.id).subscribe( res => {
+      this.accounts = res
+    })
+  }
 
-    //menjanje polja u novu vrednost
-    this.money2 =  parseFloat(money1 || '0') + 5; 
-    console.log(this.money2)
+  onConvert(): void {
+    let acc1 = this.form.get('selectedAccount1')?.value
+    let acc2 = this.form.get('selectedAccount2')?.value
+    let a = this.form.get('amount')?.value
+    let amount= 0
+    if(a !== null && a !== undefined){
+      amount = parseInt(a)
+    }
+    console.log(acc1)
+    console.log(acc2)
+    this.accountService.sendCurrencyExchange({accountFrom: acc1!, accountTo: acc2!, amount: amount }).subscribe(res => {
+      console.log(res)
+    })
+  }
 
-    //pozvati metodu za menjanje u drugu valutu
+
+
+  get selectedAccount1() {
+    return this.form.get('selectedAccount1');
+  }
+  get selectedAccount2() {
+    return this.form.get('selectedAccount2');
+  }
+  get amount() {
+    return this.form.get('selectedAccount2');
   }
 }

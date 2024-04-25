@@ -42,35 +42,6 @@ export class HomePageComponent implements OnInit{
     })
   }
 
-
-  //  accounts = [
-  //   { id: '1', ownerName: 'John Doe', accountNumber: '340-000100003632-87', availableBalance: 1000, type: 'Savings', accountState: 'Active', reservedFunds: 0,     transactions: [
-  //     { id: '1', date: '2024-03-18', description: 'Payment received', amount: 500, tradeAccount:"340-000100003632-87" },
-  //     { id: '2', date: '2024-03-17', description: 'Utility bill payment', amount: -100, tradeAccount:"340-000100003632-87"  },
-  //     { id: '3', date: '2024-03-16', description: 'Withdrawal', amount: -200, tradeAccount:"340-000100003632-87"  },
-  //     { id: '4', date: '2024-03-15', description: 'Deposit', amount: 1000, tradeAccount:"340-000100003632-87"  }
-  //   ] },
-  //   { id: '2', ownerName: 'Jane Smith', accountNumber: '340-000100003632-87', availableBalance: 500, type: 'Checking', accountState: 'Active', reservedFunds: 0,     transactions: [
-  //     { id: '1', date: '2024-03-21', description: 'Payment', amount: -500, tradeAccount:"340-000100003632-87" },
-  //     { id: '2', date: '2024-03-11', description: 'Utility bill payment', amount: -100, tradeAccount:"11123142142"  },
-  //     { id: '3', date: '2024-02-21', description: 'Withdrawal', amount: -200, tradeAccount:"11123142142"  },
-  //     { id: '4', date: '2024-02-13', description: 'Deposit', amount: 1000, tradeAccount:"11123142142"  }
-  //   ] },
-  //   { id: '3', ownerName: 'Alice Johnson', accountNumber: '340-000100003632-87', availableBalance: 1500, type: 'Savings', accountState: 'Active', reservedFunds: 0,     transactions: [
-  //     { id: '1', date: '2024-04-18', description: 'Payment received', amount: 500, tradeAccount:"11123142142" },
-  //     { id: '2', date: '2023-03-17', description: 'Utility bill payment', amount: -100, tradeAccount:"11123142142"  },
-  //     { id: '3', date: '2023-05-16', description: 'Withdrawal', amount: -200, tradeAccount:"11123142142"  },
-  //     { id: '4', date: '2022-03-15', description: 'Deposit', amount: 1000, tradeAccount:"11123142142"  }
-  //   ] }
-  // ];
-
-  // transactions = [
-  //   { id: '1', date: '2024-03-18', description: 'Payment received', amount: 500 },
-  //   { id: '2', date: '2024-03-17', description: 'Utility bill payment', amount: -100 },
-  //   { id: '3', date: '2024-03-16', description: 'Withdrawal', amount: -200 },
-  //   { id: '4', date: '2024-03-15', description: 'Deposit', amount: 1000 }
-  // ];
-
   getIconClass(transactionAmount: number): string {
     return transactionAmount > 0 ? 'incoming' : 'outgoing';
   }
@@ -87,13 +58,6 @@ export class HomePageComponent implements OnInit{
         console.error('Modal wrapper element not found.');
     }
 }
-getAccounts() {
-  // this.accountService.getAccounts().subscribe(accounts => {
-  //   this.accounts = accounts;
-  //   this.selectedAccount = this.accounts[0]; // Assigning the first account
-  //   this.updateTransactions();
-  // });
-}
 
 
 nextAccount() {
@@ -103,20 +67,20 @@ nextAccount() {
  this.updateTransactions();
 }
 
-getDayFromDate(dateString: string): number {
+getDayFromDate(dateString: number): number {
   const date = new Date(dateString);
   return date.getDate();
 }
 
 // Method to get the month from the date string (textual representation)
-getMonthFromDate(dateString: string): string {
+getMonthFromDate(dateString: number): string {
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const date = new Date(dateString);
   return months[date.getMonth()];
 }
 
 // Method to get the year from the date string
-getYearFromDate(dateString: string): number {
+getYearFromDate(dateString: number): number {
   const date = new Date(dateString);
   return date.getFullYear();
 }

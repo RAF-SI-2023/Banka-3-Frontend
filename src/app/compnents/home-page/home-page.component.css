@@ -110,8 +110,8 @@
 .transactionDate{
     width:7rem;
     padding:0.6rem;
-    background-color:var(--blue-dark);
-    color:white;
+    background-color: whitesmoke;
+    color: var(--blue-dark);
 }
 .transactionDetails{
     padding:0.7rem 0.7rem 0.7rem 1rem;
