@@ -91,7 +91,20 @@ export class AccountService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    const body = {userId, availableBalance: balance, currencyMark: mark, employeeId, accountType: "DINARSKI"};
+    let newMark = ''
+    switch (mark){
+      case "JEN":
+        newMark = "JEN"
+        break;
+      case "FUNTA":
+        newMark = "GBR"
+        break;
+      case "EURO":
+        newMark = "EUR"
+        break;
+    }
+
+    const body = {userId, availableBalance: balance, currencyMark: newMark, employeeId, accountType: accountType};
     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createAccount`,body,{ headers })
   }
 
