@@ -11,7 +11,7 @@ describe('home page test', () => {
     cy.get('input[placeholder="Email"]').type('sljubicic7120rn@raf.rs');
     cy.get('.primary-button').contains('Proveri').should('be.enabled').click();
     cy.contains('sljubicic7120rn@raf.rs').should('be.visible');
-    cy.get('input.input-box[placeholder="Password"]').type('strahinja1234');
+    cy.get('input.input-box[placeholder="Password"]').type('user1234');
     cy.get('.primary-button').contains('Log in').should('be.enabled').click();
   });
 });
