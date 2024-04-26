@@ -24,8 +24,6 @@ postsubmits:
               echo "BACKEND_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Backend" > .env 
               echo "INFRA_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Infrastructure" >> .env
               echo "FRONTEND_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Frontend" >> .env
-              
-              cd ../Banka-3-Frontend
 
               TEAM_NAME="banka-3"
 
@@ -37,7 +35,7 @@ postsubmits:
               
               SERVICE_NAME="frontend"
               
-              docker build -f "../Banka-3-Infrastructure/images/${SERVICE_NAME}.Dockerfile" -t harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:latest "$SERVICE_NAME"
+              docker build -f "./images/${SERVICE_NAME}.Dockerfile" -t harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:latest "$SERVICE_NAME"
             
               docker tag harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:latest harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:${commit_hash}
             
