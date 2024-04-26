@@ -46,6 +46,7 @@ export class UserloginComponent {
         this.showCheckAddress = false;
       }, error => {
         console.error('Error occurred:', error);
+        this.isSubmitting = false;
       });
   }
 
@@ -63,6 +64,7 @@ export class UserloginComponent {
         console.log(response)
       }, error => {
         console.error('Error occurred:', error);
+        this.isSubmitting = false;
       });
   }
 
@@ -82,6 +84,7 @@ export class UserloginComponent {
         res => {
           sessionStorage.setItem("token", res.token);
           const token = JSON.parse(atob(res.token.split('.')[1]))
+          this.isSubmitting = false;
            this.router.navigate([''])
             .then(()=> {
               window.location.reload()
@@ -89,6 +92,7 @@ export class UserloginComponent {
         },
         error => {
           this.openErrorSnackBar('Pogrešan email ili lozinka.');
+          this.isSubmitting = false;
         },
         () => {
           setTimeout( ()=> {

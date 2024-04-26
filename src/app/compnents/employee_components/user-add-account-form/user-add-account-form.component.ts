@@ -44,14 +44,16 @@ export class UserAddAccountFormComponent implements OnInit{
     this.account.mark = this.accountForm.get('mark')?.value;
 
     if(this.account.accountType == 'Tekuci'){
-      this.accountService.saveAccount(this.userId, this.account.availableBalance, "RSD", this.employeeId, this.account.accountType)
+      this.accountService.saveAccount(this.userId, this.account.availableBalance, "RSD", this.employeeId, "DINARSKI")
       .subscribe(
         res => {
           console.log(res);
           this.openErrorSnackBar('Uspešno kreiran račun.');
+          this.router.navigate(['user-control'])
         },
         error=>{
           this.openErrorSnackBar('Greška u kreiranju računa.');
+          this.router.navigate(['user-control'])
         },
         () => {
           setTimeout( ()=> {
@@ -60,14 +62,16 @@ export class UserAddAccountFormComponent implements OnInit{
         }
         );
     }else{
-      this.accountService.saveAccount(this.userId, this.account.availableBalance, this.account.mark, this.employeeId, this.account.accountType)
+      this.accountService.saveAccount(this.userId, this.account.availableBalance, this.account.mark, this.employeeId, "DEVIZNI")
       .subscribe(
         res => {
           console.log(res);
           this.openErrorSnackBar('Uspešno kreiran račun.');
+          this.router.navigate(['user-control'])
         },
         error=>{
           this.openErrorSnackBar('Greška u kreiranju računa.');
+          this.router.navigate(['user-control'])
         },
         () => {
           setTimeout( ()=> {

@@ -21,17 +21,17 @@
                           </mat-form-field>
                     </div>
                 </div>
-                                    
+
                 <div class="col-sm text-right">
                     <div style="margin: 1rem 0rem 1rem 0rem">
                         <span class="h2">Raspoloživo</span>
                     </div>
                     <div style="margin: 1rem 0rem 1rem 0rem">
-                        <span class="p blueText">{{ accountBalance }}</span>
+                        <span class="p blueText">{{ accountBalance }} {{accountMark}}</span>
                     </div>
                 </div>
             </div>
-          
+
             <p class="line"></p>
 
             <div class="container" >
@@ -52,7 +52,7 @@
                 <div class="container" >
                     <div class="row">
                         <div class="col-sm">
-                            
+
                             <div class="input-container">
                                 <p class="bold">Naziv primaoca</p>
                                 <input class="inputField" type="text" formControlName="recipientName" placeholder="Naziv primaoca"required>

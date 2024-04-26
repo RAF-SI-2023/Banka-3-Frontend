@@ -75,6 +75,7 @@ export class PayingComponent implements OnInit {
 
         this.accountNumber = this.selectedAccount.accountNumber;
         this.accountBalance = this.selectedAccount.availableBalance - this.selectedAccount.reservedAmount;
+        this.accountMark = this.selectedAccount.currency.mark
   },
   (error) => {
     console.error('Greska prilikom dohvatanja racuna:', error);
@@ -204,6 +205,7 @@ export class PayingComponent implements OnInit {
       this.selectedAccount = acc;
       this.accountNumber = this.selectedAccount.accountNumber;
       this.accountBalance = this.selectedAccount.availableBalance - this.selectedAccount.reservedAmount;
+      this.accountMark = this.selectedAccount.currency.currencyMark
     }
   }
 
