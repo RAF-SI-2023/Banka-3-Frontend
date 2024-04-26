@@ -1,6 +1,6 @@
 describe('home page test', () => {
   beforeEach('open page', () => {
-    cy.visit('http://localhost:4200')
+    cy.visit('http://localhost:80')
   })
   it('should display the user login title', () => {
     cy.contains('Prijava korisnika');
