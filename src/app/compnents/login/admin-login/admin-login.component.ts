@@ -65,6 +65,7 @@ export class AdminLoginComponent {
         },
         error => {
           this.openErrorSnackBar('Pogrešan email ili lozinka.');
+          this.isSubmitting = false
         },
         () => {
           setTimeout( ()=> {

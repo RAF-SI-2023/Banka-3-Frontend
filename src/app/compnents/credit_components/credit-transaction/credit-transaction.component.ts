@@ -58,9 +58,9 @@ export class CreditTransactionComponent implements OnInit {
     }
     this.isSubmittingApproval = true;
     this.accountService.approveCredit(this.creditRequestId, true).subscribe(res => {
-      console.log(res)
-      this.openErrorSnackBar('Odobrili ste kredit korisniku: ' +  this.selectedCredit!.user!.firstName + " " + this.selectedCredit!.user!.lastName);
-      this.router.navigate(['credit-list']);
+        console.log(res)
+        this.router.navigate(['credit-list']);
+      this.openErrorSnackBar('Odobrili ste kredit korisniku');
     }, error => {
       this.openErrorSnackBar('Doslo je do greske!');
       console.log(error)
@@ -78,8 +78,9 @@ export class CreditTransactionComponent implements OnInit {
     }
     this.isSubmittingRefusal = true;
     this.accountService.approveCredit(this.selectedCredit!.creditRequestId, false).subscribe(res => {
-      this.openErrorSnackBar('Odbili ste kredit korisniku: ' +  this.selectedCredit!.user!.firstName + " " + this.selectedCredit!.user!.lastName);
-      console.log(res)
+        console.log(res)
+        this.router.navigate(['credit-list']);
+      this.openErrorSnackBar('Odbili ste kredit korisniku');
     }, error => {
       this.openErrorSnackBar('Doslo je do greske!');
       console.log(error)

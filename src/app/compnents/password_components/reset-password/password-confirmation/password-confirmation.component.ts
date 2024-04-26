@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import {UserService} from "../../../../services/user.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 @Component({
   selector: 'app-password-confirmation',
   templateUrl: './password-confirmation.component.html',
@@ -19,7 +20,8 @@ export class PasswordConfirmationComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     // Kreiramo formu direktno koristeći FormGroup i FormControl
     this.passwordForm = new FormGroup({
@@ -55,13 +57,21 @@ export class PasswordConfirmationComponent implements OnInit {
       this.userService.tryResetPassword(this.code, newPassword, this.tip).subscribe({
         next: (response) => {
           console.log(response);
-          this.router.navigate(['/admin-login']);
+          this.router.navigate(['admin-login']);
+          this.openSuccessSnackBar("Uspesno ste postavili sifru!")
+
         },
         error: (error) => {
           console.error(error);
+          this.openSuccessSnackBar("Doslo je do greske kod postavljanje sifre.")
         }
       });
     }
 
+  }
+  openSuccessSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 3000,
+    });
   }
 }

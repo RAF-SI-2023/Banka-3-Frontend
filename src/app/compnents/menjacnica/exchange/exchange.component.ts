@@ -3,6 +3,8 @@ import {AccountService} from "../../../services/account.service";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {Account, AccountDto} from "../../../models/models";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-exchange',
@@ -21,7 +23,7 @@ export class ExchangeComponent implements OnInit{
     amount: new FormControl('', Validators.required)
   })
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService, private snackBar: MatSnackBar, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -42,10 +44,20 @@ export class ExchangeComponent implements OnInit{
     console.log(acc1)
     console.log(acc2)
     this.accountService.sendCurrencyExchange({accountFrom: acc1!, accountTo: acc2!, amount: amount }).subscribe(res => {
+      this.router.navigate([''])
+      this.openSuccessSnackBar("Uspesno ste uradili konverziju novca sa racuna: "+ acc1 + " na " + acc2)
       console.log(res)
+    }, error => {
+      console.log(error)
+      this.openSuccessSnackBar("Doslo je do greske kod konverzije novca.")
     })
   }
 
+  openSuccessSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 3000,
+    });
+  }
 
 
   get selectedAccount1() {

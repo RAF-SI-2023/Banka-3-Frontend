@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {UserService} from "../../../services/user.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-reset-password',
@@ -15,7 +16,7 @@ export class ResetPasswordComponent implements OnInit{
   })
     isUser = false;
 
-    constructor(private userService : UserService, private route : ActivatedRoute, private router : Router) {}
+    constructor(private userService : UserService, private route : ActivatedRoute, private router : Router, private snackBar: MatSnackBar) {}
 
     // iz rute vadi informaciju o tome da li je ulogovan user ili employee
   ngOnInit(): void {
@@ -26,8 +27,14 @@ export class ResetPasswordComponent implements OnInit{
 
 
   submit(){
-    this.userService.resetPassword(String(this.email?.value),this.isUser).subscribe( res =>
-      console.log('res', res));
+    this.userService.resetPassword(String(this.email?.value),this.isUser).subscribe( res =>{
+        this.openSuccessSnackBar("Uspesno ste resetovali sifru")
+        console.log(res)
+    }
+    , error => {
+        console.log(error)
+        this.openSuccessSnackBar("Doslo je do greske kod resetovanje sifre.")
+    });
   }
 
   goBack(){
@@ -39,4 +46,9 @@ export class ResetPasswordComponent implements OnInit{
     return  this.emailForm.get('emailControl');
   }
 
+  openSuccessSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 3000,
+    });
+  }
 }
