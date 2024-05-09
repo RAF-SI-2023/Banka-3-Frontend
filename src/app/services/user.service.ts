@@ -46,14 +46,32 @@ export class UserService {
     return this.httpClient.post<Token>(`${this.apiUrlEmployee}/auth/login`, obj)
   }
 
+  /**
+    *   Check Email User
+    *   @param email Email korisnika koji proverava da li postoji email usera i da li je aktiviran.
+    *
+    */
+
   checkEmail(email: string | null | undefined){
     return this.httpClient.get<UserActivationDto>(`${this.apiUrlUser}/isUserActive/${email}`);
   }
+
+  /**
+    *   Check Email Company
+    *   @param email Email korisnika koji proverava da li postoji email kompanije i da li je aktiviran.
+    *
+    */
 
   checkEmailCompany(email: string | null | undefined){
     return this.httpClient.get<UserActivationDto>(`${this.apiUrlCompany}/isCompanyActive/${email}`);
   }
 
+  /**
+    *   Login korisnika
+    *   @param email Email korisnika
+    *   @param password Sifra korisnika
+    *
+    */
 
   loginUser(email: string | null | undefined, password: string | null | undefined) {
     let obj = {
@@ -63,6 +81,13 @@ export class UserService {
     return this.httpClient.post<Token>(`${this.apiUrlUser}/auth/login`, obj)
   }
 
+  /**
+    *   Login company
+    *   @param email Email kompanije
+    *   @param password Sifra kompanije
+    *
+    */
+
   loginCompany(email: string | null | undefined, password: string | null | undefined) {
     let obj = {
       email: email,
@@ -70,6 +95,14 @@ export class UserService {
     }
     return this.httpClient.post<Token>(`${this.apiUrlCompany}/auth/login`, obj)
   }
+
+  /**
+    *   Set password user
+    *   @param email Email korisnika
+    *   @param activationCodeSifra Kod za postavljanje sifre
+    *   @param password Sifra koja se postavlja
+    *
+    */
 
   setPassword(email:string, activationCode:number, password:string | null | undefined){
     const headers = new HttpHeaders({
@@ -83,6 +116,15 @@ export class UserService {
     console.log(obj)
     return this.httpClient.post<any>(`${this.apiUrlEmailUser}/activateUser`, obj, {headers})
   }
+
+  /**
+    *   Set password company
+    *   @param email Email kompanije
+    *   @param activationCodeSifra Kod za postavljanje sifre
+    *   @param password Sifra koja se postavlja
+    *
+    */
+
   setPasswordCompany(email:string, activationCode:number, password:string | null | undefined){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -92,25 +134,13 @@ export class UserService {
       code: activationCode,
       password: password,
     }
-    console.log(obj)
     return this.httpClient.post<any>(`${this.apiUrlEmailCompany}/activateCompany`, obj, {headers})
   }
 
-//   getAllCredits(): Observable<Credit[]> {
-//     const headers = new HttpHeaders({
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-//     });
-//     return this.httpClient.get<Credit[]>(`${this.apiUrlCredit}`, { headers });
-// }
-
-  // sendCreditRequest(creditRequestData: CreditRequestCreateDto) {
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-  //   });
-  //   return this.httpClient.post<any>(`${this.apiUrlCreditRequest}`, creditRequestData, { headers });
-  // }
+  /**
+    *   Get all users
+    *   Dohvatanje svih korisnika
+    */
 
   getAllUsers(){
     const headers = new HttpHeaders({
@@ -120,7 +150,12 @@ export class UserService {
 
     return this.httpClient.get<User[]>(`${this.apiUrlUser}/getAll`, { headers })
   }
-  //dodaj /getAll
+
+  /**
+    *   Get all employees
+    *   Dohvatanje svih zaposlenih.
+    */
+
   getAllEmployees(){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -129,14 +164,12 @@ export class UserService {
 
     return this.httpClient.get<Employee[]>(`${this.apiUrlEmployee}/getAll`, { headers })
   }
-  // getAllCurrency(){
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-  //   })
-  //
-  //   return this.httpClient.get<Currency[]>(`${this.apiUrlCurrency}/getAll`, { headers })
-  // }
+
+  /**
+    *   Get user by id
+    *   Dohvatanje korisnika po id-u
+    */
+
   getUserById(id : number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -145,6 +178,12 @@ export class UserService {
 
     return this.httpClient.get<User>(`${this.apiUrlUser}/${id}`, { headers })
   }
+
+  /**
+    *   Get employee by id
+    *   Dohvatanje zaposlenog po id-u.
+    */
+
   getEmployeeById(id : number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -154,6 +193,11 @@ export class UserService {
     return this.httpClient.get<Employee>(`${this.apiUrlEmployee}/findById/${id}`, { headers })
   }
 
+  /**
+    *   Get all roles
+    *   Dohvatanje svih rolova.
+    */
+
   getAllRoles(){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -161,6 +205,11 @@ export class UserService {
     })
     return this.httpClient.get<Role[]>(`${this.apiUrlRole}/getAll`, { headers })
   }
+
+  /**
+    *   Save user
+    *   Sacuvanje korisnika odn 'put' na backu.
+    */
 
   saveUser(user: User | null){
     const headers = new HttpHeaders({
@@ -170,6 +219,12 @@ export class UserService {
 
     return this.httpClient.put<any>(`${this.apiUrlUser}/${user?.userId}`, user, { headers })
   }
+
+  /**
+    *   Save employee
+    *   Sacuvanje zaposlenog odn 'put' na backu.
+    */
+
   saveEmployee(employee: Employee | null){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -179,6 +234,7 @@ export class UserService {
 
     return this.httpClient.put<any>(`${this.apiUrlEmployee}/${employee?.employeeId}`, employee, { headers })
   }
+
   createUser(user: User | undefined){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
