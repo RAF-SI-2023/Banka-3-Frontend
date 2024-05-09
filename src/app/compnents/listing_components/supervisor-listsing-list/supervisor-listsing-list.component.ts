@@ -36,7 +36,10 @@ export class SupervisorListsingListComponent implements OnInit {
     this.loadAllOrdersToApprove();
     this.loadAgents();
     this.getEmployeeId();
+    // this.insertMockActuaries();
+
   }
+  
 
 
   switchToRequests() {
@@ -55,6 +58,22 @@ export class SupervisorListsingListComponent implements OnInit {
 
     this.showRequests = false;
     this.showLimits = true;
+  }
+  setOrderRequestForActuary(id: number, orderRequest: boolean) {
+    const actuaryIndex = this.actuaries.findIndex(actuary => actuary.actuaryId === id);
+    if (actuaryIndex !== -1) {
+      // this.actuaries[actuaryIndex].orderRequest = orderRequest;
+      this.exchangeService.setOrderRequest(id, orderRequest).subscribe(
+        res => {
+          const actuaryIndex = this.actuaries.findIndex(actuary => actuary.actuaryId === id);
+          this.actuaries[actuaryIndex].orderRequest = orderRequest;
+          console.log('Order request set successfully:', res);
+        },
+        err => {
+          console.error('Error setting order request:', err);
+        }
+      );
+    }
   }
 
   getEmployeeId(){
@@ -141,6 +160,16 @@ export class SupervisorListsingListComponent implements OnInit {
       duration: 3000,
     });
   }
+
+
+  //   insertMockActuaries(): void {
+  //   // Mock Actuaries
+  //   this.actuaries = [
+  //     { actuaryId: 1, employeeId: 101, email: 'actuary1@example.com', role: 'Actuary', limitValue: 1000, limitUsed: 500, orderRequest: true },
+  //     { actuaryId: 2, employeeId: 102, email: 'actuary2@example.com', role: 'Actuary', limitValue: 800, limitUsed: 300, orderRequest: false },
+  //     { actuaryId: 3, employeeId: 103, email: 'actuary3@example.com', role: 'Actuary', limitValue: 1200, limitUsed: 700, orderRequest: true },
+  //   ];
+  // }
 
   // protected readonly MockRequests = MockRequests;
 
