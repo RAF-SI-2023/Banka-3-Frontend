@@ -36,7 +36,7 @@ export class CardViewComponent implements OnInit{
   }
   goToAtm(){
     //TODO: Zameniti kada se implementira Bankomat-View
-    // this.router.navigate(['/atm'])
+    this.router.navigate(['/bankomat'])
   }
 
   hoveredCardIndex: number = -1; // Indeks kartice koja je trenutno hoverovana
