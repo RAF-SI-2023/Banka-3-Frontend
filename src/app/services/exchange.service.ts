@@ -62,6 +62,17 @@ export class ExchangeService {
     return this.httpClient.get<Daily[]>(`${this.apiUrlExchangeService}/history/daily/${ticker}`,{headers} )
   }
 
+  setOrderRequest(id: number, orderRequest: boolean): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    
+    // const body = { orderRequest };
+  
+    return this.httpClient.post<any>(`${this.apiUrlExchangeService}/actuary/setOrderRequest/${id}?orderRequest=${orderRequest}`, { headers });
+  }
+
   getWeekly(ticker: string){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

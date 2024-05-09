@@ -60,21 +60,29 @@
 
         <ng-container matColumnDef="setNewLimit">
           <mat-header-cell *matHeaderCellDef> Set New Limit </mat-header-cell>
-          <mat-cell *matCellDef="let element">
+          <mat-cell *matCellDef="let element " style="padding-right: 3em;">
             <input type="text" [(ngModel)]="element.newValue" placeholder="Enter new limit">
-            <button class="button" (click)="setUserLimit(element.actuaryId, element.newValue)">Set</button>
+            <button class="button miniButton" (click)="setUserLimit(element.actuaryId, element.newValue)">Set</button>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="resetLimit">
           <mat-header-cell *matHeaderCellDef> Reset Limit </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button class="button" (click)="resetUserLimit(element.employeeId)">Reset</button>
+            <button class="button miniButton" (click)="resetUserLimit(element.employeeId)">Reset</button>
           </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="['employeeId', 'limitValue', 'setNewLimit', 'resetLimit']"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: ['employeeId', 'limitValue', 'setNewLimit', 'resetLimit']"></mat-row>
+        <ng-container matColumnDef="orderRequest">
+          <mat-header-cell *matHeaderCellDef> Order Request </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button class="button miniButton" [ngStyle]="{ 'opacity': this.element.orderRequest ? '1' : '0.5' }" (click)="setOrderRequestForActuary(element.actuaryId, true)" [disabled]="this.element.orderRequest">True</button>
+            <button class="button miniButton" [ngStyle]="{ 'opacity': !this.element.orderRequest ? '1' : '0.5' }" (click)="setOrderRequestForActuary(element.actuaryId, false)" [disabled]="!this.element.orderRequest">False</button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="['employeeId', 'limitValue', 'setNewLimit', 'resetLimit','orderRequest']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['employeeId', 'limitValue', 'setNewLimit', 'resetLimit','orderRequest']"></mat-row>
       </mat-table>
     </div>
   </div>
