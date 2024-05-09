@@ -60,59 +60,59 @@ export class HomePageComponent implements OnInit{
 }
 
 
-nextAccount() {
-  const currentIndex = this.accounts2.indexOf(this.selectedAccount);
-  const nextIndex = (currentIndex + 1) % this.accounts2.length;
-  this.selectedAccount = this.accounts2[nextIndex];
- this.updateTransactions();
-}
+  nextAccount() {
+    const currentIndex = this.accounts2.indexOf(this.selectedAccount);
+    const nextIndex = (currentIndex + 1) % this.accounts2.length;
+    this.selectedAccount = this.accounts2[nextIndex];
+   this.updateTransactions();
+  }
 
-getDayFromDate(dateString: number): number {
-  const date = new Date(dateString);
-  return date.getDate();
-}
+  getDayFromDate(dateString: number): number {
+    const date = new Date(dateString);
+    return date.getDate();
+  }
 
-// Method to get the month from the date string (textual representation)
-getMonthFromDate(dateString: number): string {
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const date = new Date(dateString);
-  return months[date.getMonth()];
-}
+  // Method to get the month from the date string (textual representation)
+  getMonthFromDate(dateString: number): string {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const date = new Date(dateString);
+    return months[date.getMonth()];
+  }
 
-// Method to get the year from the date string
-getYearFromDate(dateString: number): number {
-  const date = new Date(dateString);
-  return date.getFullYear();
-}
+  // Method to get the year from the date string
+  getYearFromDate(dateString: number): number {
+    const date = new Date(dateString);
+    return date.getFullYear();
+  }
 
-previousAccount() {
-  const currentIndex = this.accounts2.indexOf(this.selectedAccount);
-  const previousIndex = (currentIndex - 1 + this.accounts2.length) % this.accounts2.length;
-  this.selectedAccount = this.accounts2[previousIndex];
+  previousAccount() {
+    const currentIndex = this.accounts2.indexOf(this.selectedAccount);
+    const previousIndex = (currentIndex - 1 + this.accounts2.length) % this.accounts2.length;
+    this.selectedAccount = this.accounts2[previousIndex];
 
- this.updateTransactions();
-}
+   this.updateTransactions();
+  }
 
 
-// updateTransactions() {
-//   // this.accountService.getTransactions(this.selectedAccount.id).subscribe(transactions => {
-//   //   this.transactions = transactions;
-//   // });
-//   // this.transactions=this.selectedAccount.transactions;
-// }
+  // updateTransactions() {
+  //   // this.accountService.getTransactions(this.selectedAccount.id).subscribe(transactions => {
+  //   //   this.transactions = transactions;
+  //   // });
+  //   // this.transactions=this.selectedAccount.transactions;
+  // }
 
-updateTransactions() {
-    console.log(this.selectedAccount)
-    this.accountService.getAllTransactionsByAccountId(this.selectedAccount.accountNumber).subscribe(res => {
-      this.transactions = res;
-    })
-  // this.transactions = this.selectedAccount;
-}
-displayDetails() {
-  const account= this.selectedAccount;
-  console.log(account)
-  this.router.navigate(['/bill'], { state: { account: account } });
-}
+  updateTransactions() {
+      console.log(this.selectedAccount)
+      this.accountService.getAllTransactionsByAccountId(this.selectedAccount.accountNumber).subscribe(res => {
+        this.transactions = res;
+      })
+    // this.transactions = this.selectedAccount;
+  }
+  displayDetails() {
+    const account= this.selectedAccount;
+    console.log(account)
+    this.router.navigate(['/bill'], { state: { account: account } });
+  }
 
   newPayment() {
     window.location.reload();

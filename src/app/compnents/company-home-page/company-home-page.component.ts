@@ -14,6 +14,7 @@ export class CompanyHomePageComponent implements OnInit{
   availableBalance: string = ''; // Variable for available balance
   type: string = ''; // Variable for account type
   selectedAccount = {} as AccountDto;
+  transactions = [] as TransactionDto[]
 
   accounts2 = [] as AccountDto[]
 
@@ -26,6 +27,7 @@ export class CompanyHomePageComponent implements OnInit{
       this.accounts2 = res;
       this.selectedAccount = this.accounts2[0];
       // console.log(this.accounts2)
+      this.updateTransactions()
     })
   }
 
@@ -33,13 +35,47 @@ export class CompanyHomePageComponent implements OnInit{
     const currentIndex = this.accounts2.indexOf(this.selectedAccount);
     const nextIndex = (currentIndex + 1) % this.accounts2.length;
     this.selectedAccount = this.accounts2[nextIndex];
+    this.updateTransactions()
   }
 
   previousAccount() {
     const currentIndex = this.accounts2.indexOf(this.selectedAccount);
     const previousIndex = (currentIndex - 1 + this.accounts2.length) % this.accounts2.length;
     this.selectedAccount = this.accounts2[previousIndex];
+    this.updateTransactions()
 
+  }
+
+  //TODO mozda ce trebati da se promeni u zavisnosti kako backend odluci da odradi ovo
+  redirectToTransaction(transaction: TransactionDto){
+    this.router.navigate(['/transaction-details'], { queryParams: { transaction: JSON.stringify(transaction) } });
+  }
+
+  getDayFromDate(dateString: number): number {
+    const date = new Date(dateString);
+    return date.getDate();
+  }
+
+  // Method to get the month from the date string (textual representation)
+  getMonthFromDate(dateString: number): string {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const date = new Date(dateString);
+    return months[date.getMonth()];
+  }
+
+  // Method to get the year from the date string
+  getYearFromDate(dateString: number): number {
+    const date = new Date(dateString);
+    return date.getFullYear();
+  }
+
+  //TODO Treba da se promeni putanja u servisu za dohvatanje transakcija kompanije (mozda?)
+  updateTransactions() {
+      console.log(this.selectedAccount)
+      this.accountService.getAllTransactionsByAccountId(this.selectedAccount.accountNumber).subscribe(res => {
+        this.transactions = res;
+      })
+    // this.transactions = this.selectedAccount;
   }
 
   // displayDetails() {
