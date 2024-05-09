@@ -1,6 +1,25 @@
+<!-- <div class=""></div> -->
 <div class="page">
   <div class="panel">
-    <div class="h2">Bankomat</div>
+    <div class="h2 text-center">Bankomat</div>
+    <div class="input-container text-center">
+      <select
+      class="inputField"
+      name="account1"
+      [(ngModel)]="selectedAccount"
+      (ngModelChange)="onAccountChange($event)"
+    >
+      <option
+        *ngFor="let account of accounts"
+        [ngValue]="account"
+      >
+        {{ account.accountNumber }}
+      </option>
+    </select>
+    
+    
+    </div>
+    
     <button class="users-button" (click)="switchToOptions('call')" [ngStyle]="{ 'opacity': !uplata ? '0.5' : '1'}">
       Uplata
     </button>
@@ -8,29 +27,56 @@
       Isplata
     </button>
 
-    <div *ngIf="uplata" class="table">
+
+    <div *ngIf="uplata" class="table text-center">
       <div>
         <div class="h3">Uplata sredstava</div>
-        <div class="h4">Broj računa: {{ accountNumber }}</div>
-        <p class="h4">Iznos</p>
-        <input type="text" class="input" [(ngModel)]="amount">
+        <div class="p blueText">Broj računa: {{ selectedAccount.accountNumber }}</div>
+        
+        <div style="text-align: center;">
+          <input
+            type="number"
+            class="input"
+            [(ngModel)]="amount"
+            style="display: inline-block; width: 100px;"
+            min="0"
+          >
+          <span style="display: inline-block; margin-left: 8px;">{{ selectedAccount.currency.mark }}</span>
+        </div>
       </div>
-
-      <div style="width: 100%">
-        <button class="primary-button" (click)="sendTransactionRequest()" [disabled]="!amount" [ngStyle]="{'opacity': !amount ? '0.5' : '1'}">Realizuj</button>
+    
+      <div class="text-center">
+        <button
+          class="myButtonPrimary"
+          (click)="sendTransactionRequest()"
+          [disabled]="!isValidAmount()"
+          [ngStyle]="{'opacity': !amount || amount == 0 ? '0.5' : '1'}"
+        >
+          Realizuj
+        </button>
       </div>
     </div>
+    
 
-    <div *ngIf="isplata" class="table">
+    <div *ngIf="isplata" class="table text-center">
       <div>
         <div class="h3">Isplata sredstava</div>
-        <div class="h4">Broj računa: {{ accountNumber }}</div>
-        <p class="h4">Iznos</p>
-        <input type="text" class="input" [(ngModel)]="amount">
+        <div class="p blueText">Broj računa: {{ selectedAccount.accountNumber }}</div>
+        <!-- <p class="h4">Iznos</p> -->
+      <div style="text-align: center;">
+        <input type="number" class="input" [(ngModel)]="amount" style="display: inline-block; width: 100px;" min="0">
+        <span style="display: inline-block; margin-left: 8px;">{{ selectedAccount.currency.mark }}</span>
       </div>
-
-      <div style="width: 100%">
-        <button class="primary-button" (click)="sendTransactionRequest()" [disabled]="!amount" [ngStyle]="{'opacity': !amount ? '0.5' : '1'}">Realizuj</button>
+      </div>
+      <div class="text-center">
+        <button
+          class="myButtonPrimary"
+          (click)="sendTransactionRequest()"
+          [disabled]="!isValidAmount()"
+          [ngStyle]="{'opacity': !amount || amount == 0 ? '0.5' : '1'}"
+        >
+          Realizuj
+        </button>
       </div>
     </div>
   </div>
