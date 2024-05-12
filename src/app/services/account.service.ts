@@ -11,6 +11,7 @@ import {
   TransactionDto,
 } from "../models/models";
 import {Observable} from "rxjs";
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -18,16 +19,16 @@ import {Observable} from "rxjs";
 })
 export class AccountService {
 
-  apiUrlAccount: string = "http://localhost:8082/api/v1/account"
-  apiUrlEmailTransaction: string = "http://localhost:8081/api/v1/transaction"
-  apiUrlBank: string = "http://localhost:8082/api/v1/transaction"
-  apiUrlCompany: string = "http://localhost:8080/api/v1/company"
-  apiUrlCompanyAccount: string = "http://localhost:8082/api/v1/companyAccount"
-  apiUrlCurrency: string = "http://localhost:8082/api/v1/currency"
-  apiUrlCard: string = "http://localhost:8082/api/v1/card"
-  apiUrlCreditRequest: string = "http://localhost:8082/api/v1/credit-request"
-  apiUrlCredit: string = "http://localhost:8082/api/v1/credit"
-  apiUrlCurrencyExchange: string = "http://localhost:8082/api/v1/currencyExchange"
+  apiUrlAccount: string = "http://" + environment.bankServiceUrl + "/api/v1/account"
+  apiUrlEmailTransaction: string = "http://" + environment.emailServiceUrl + "/api/v1/transaction"
+  apiUrlBank: string = "http://" + environment.bankServiceUrl + "/api/v1/transaction"
+  apiUrlCompany: string = "http://" + environment.userServiceUrl + "/api/v1/company"
+  apiUrlCompanyAccount: string = "http://" + environment.bankServiceUrl + "/api/v1/companyAccount"
+  apiUrlCurrency: string = "http://" + environment.bankServiceUrl + "/api/v1/currency"
+  apiUrlCard: string = "http://" + environment.bankServiceUrl + "/api/v1/card"
+  apiUrlCreditRequest: string = "http://" + environment.bankServiceUrl + "/api/v1/credit-request"
+  apiUrlCredit: string = "http://" + environment.bankServiceUrl + "/api/v1/credit"
+  apiUrlCurrencyExchange: string = "http://" + environment.bankServiceUrl + "/api/v1/currencyExchange"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -171,7 +172,7 @@ export class AccountService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
 
-    return this.httpClient.get<Firm[]>(`http://localhost:8080/api/v1/search?firstName=${firmName}&email=${email}`, { headers })
+    return this.httpClient.get<Firm[]>(`http://" + environment.userServiceUrl + "/api/v1/search?firstName=${firmName}&email=${email}`, { headers })
   }
 
   getAllCurrency(){

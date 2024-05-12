@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Daily, Future, Intraday, Monthly, Options, Stock, Weekly, Forex, MyStock, MyFuture, RequestDto, Actuary} from "../models/models";
 import {Observable} from "rxjs";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExchangeService {
 
-  apiUrlExchangeService: string = "http://localhost:8083/api/v1"
-  apiUrlOptions: string = "http://localhost:8083/api/v1/option"
-  apiUrlStocks: string = "http://localhost:8083/api/v1/stock"
-  apiUrlForex: string = "http://localhost:8083/api/v1/forex"
+  apiUrlExchangeService: string = "http://" + environment.exchangeServiceUrl + "/api/v1"
+  apiUrlOptions: string = "http://" + environment.exchangeServiceUrl + "/api/v1/option"
+  apiUrlStocks: string = "http://" + environment.exchangeServiceUrl + "/api/v1/stock"
+  apiUrlForex: string = "http://" + environment.exchangeServiceUrl + "/api/v1/forex"
   constructor(private httpClient : HttpClient) { }
 
   getAllStocks(){
