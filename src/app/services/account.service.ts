@@ -19,16 +19,16 @@ import { environment } from 'src/environments/environment';
 })
 export class AccountService {
 
-  apiUrlAccount: string = "http://" + environment.bankServiceUrl + "/api/v1/account"
-  apiUrlEmailTransaction: string = "http://" + environment.emailServiceUrl + "/api/v1/transaction"
-  apiUrlBank: string = "http://" + environment.bankServiceUrl + "/api/v1/transaction"
-  apiUrlCompany: string = "http://" + environment.userServiceUrl + "/api/v1/company"
-  apiUrlCompanyAccount: string = "http://" + environment.bankServiceUrl + "/api/v1/companyAccount"
-  apiUrlCurrency: string = "http://" + environment.bankServiceUrl + "/api/v1/currency"
-  apiUrlCard: string = "http://" + environment.bankServiceUrl + "/api/v1/card"
-  apiUrlCreditRequest: string = "http://" + environment.bankServiceUrl + "/api/v1/credit-request"
-  apiUrlCredit: string = "http://" + environment.bankServiceUrl + "/api/v1/credit"
-  apiUrlCurrencyExchange: string = "http://" + environment.bankServiceUrl + "/api/v1/currencyExchange"
+  apiUrlAccount: string = environment.bankServiceUrl + "/api/v1/account"
+  apiUrlEmailTransaction: string = environment.emailServiceUrl + "/api/v1/transaction"
+  apiUrlBank: string = environment.bankServiceUrl + "/api/v1/transaction"
+  apiUrlCompany: string = environment.userServiceUrl + "/api/v1/company"
+  apiUrlCompanyAccount: string = environment.bankServiceUrl + "/api/v1/companyAccount"
+  apiUrlCurrency: string = environment.bankServiceUrl + "/api/v1/currency"
+  apiUrlCard: string = environment.bankServiceUrl + "/api/v1/card"
+  apiUrlCreditRequest: string = environment.bankServiceUrl + "/api/v1/credit-request"
+  apiUrlCredit: string = environment.bankServiceUrl + "/api/v1/credit"
+  apiUrlCurrencyExchange: string = environment.bankServiceUrl + "/api/v1/currencyExchange"
 
   constructor(private httpClient : HttpClient) { }
 

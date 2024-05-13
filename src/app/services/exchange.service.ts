@@ -9,10 +9,10 @@ import { environment } from 'src/environments/environment';
 })
 export class ExchangeService {
 
-  apiUrlExchangeService: string = "http://" + environment.exchangeServiceUrl + "/api/v1"
-  apiUrlOptions: string = "http://" + environment.exchangeServiceUrl + "/api/v1/option"
-  apiUrlStocks: string = "http://" + environment.exchangeServiceUrl + "/api/v1/stock"
-  apiUrlForex: string = "http://" + environment.exchangeServiceUrl + "/api/v1/forex"
+  apiUrlExchangeService: string = environment.exchangeServiceUrl + "/api/v1"
+  apiUrlOptions: string = environment.exchangeServiceUrl + "/api/v1/option"
+  apiUrlStocks: string = environment.exchangeServiceUrl + "/api/v1/stock"
+  apiUrlForex: string = environment.exchangeServiceUrl + "/api/v1/forex"
   constructor(private httpClient : HttpClient) { }
 
   getAllStocks(){

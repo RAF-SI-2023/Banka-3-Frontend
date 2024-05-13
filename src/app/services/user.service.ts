@@ -27,15 +27,15 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  apiUrlUser : string = "http://" + environment.userServiceUrl + "/api/v1/user"
-  apiUrlCompany : string = "http://" + environment.userServiceUrl + "/api/v1/company"
-  apiUrlEmployee : string = "http://" + environment.userServiceUrl + "/api/v1/employee"
-  apiUrlEmailUser : string = "http://" + environment.emailServiceUrl + "/api/v1/user"
-  apiUrlEmailCompany : string = "http://" + environment.emailServiceUrl + "/api/v1/company"
-  apiUrlEmailEmployee : string = "http://" + environment.emailServiceUrl + "/api/v1/employee"
-  apiUrlPermission : string = "http://" + environment.userServiceUrl + "/api/v1/permission"
-  apiUrlRole : string = "http://" + environment.userServiceUrl + "/api/v1/role"
-  apiUrlContact : string = "http://" + environment.userServiceUrl + "/api/v1/contact"
+  apiUrlUser : string = environment.userServiceUrl + "/api/v1/user"
+  apiUrlCompany : string = environment.userServiceUrl + "/api/v1/company"
+  apiUrlEmployee : string = environment.userServiceUrl + "/api/v1/employee"
+  apiUrlEmailUser : string = environment.emailServiceUrl + "/api/v1/user"
+  apiUrlEmailCompany : string = environment.emailServiceUrl + "/api/v1/company"
+  apiUrlEmailEmployee : string = environment.emailServiceUrl + "/api/v1/employee"
+  apiUrlPermission : string = environment.userServiceUrl + "/api/v1/permission"
+  apiUrlRole : string = environment.userServiceUrl + "/api/v1/role"
+  apiUrlContact : string = environment.userServiceUrl + "/api/v1/contact"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -304,7 +304,7 @@ export class UserService {
       'Content-Type': 'application/json',
       responseType: 'text'
     });
-    // let sendToUrl = "http://" + environment.emailServiceUrl + "/api/v1/employee";  //PORT: 8081 jer user-service zauzme 8080 na beku
+    // let sendToUrl = environment.emailServiceUrl + "/api/v1/employee";  //PORT: 8081 jer user-service zauzme 8080 na beku
     return this.httpClient.post<any>(`${this.apiUrlEmailEmployee}/setPassword/${identifier}`, password, {headers});
   }
 
