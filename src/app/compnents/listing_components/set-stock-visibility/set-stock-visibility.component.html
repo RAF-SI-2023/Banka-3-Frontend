@@ -15,22 +15,8 @@
           style="display: inline-block; width: 100px;"
           min="0"
           max={{amount}}
-          (ngModelChange)="changeAmountPublic($event)"
         >
       </div>
-      <p class="text-center"><strong>Stavi private</strong></p>
-      <div style="text-align: center;">
-        <input
-          type="number"
-          class="input"
-          [(ngModel)]="privateAmount"
-          style="display: inline-block; width: 100px;"
-          min="0"
-          max={{amount}}
-          (ngModelChange)="changeAmountPrivate($event)"
-        >
-      </div>
-
     </div>
     <div class="text-center">
       <button class="myButtonPrimary" (click)="cancel()">Odustani</button>

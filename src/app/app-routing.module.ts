@@ -51,6 +51,7 @@ import {CompanyLoginComponent} from "./compnents/login/company-login/company-log
 import {CompanyHomePageComponent} from "./compnents/company-home-page/company-home-page.component";
 import { OtcViewComponent } from './compnents/otc/otc-view/otc-view.component';
 import { SetStockVisibilityComponent } from './compnents/listing_components/set-stock-visibility/set-stock-visibility.component';
+import { CompanyGuard } from './guards/company.guard';
 
 
 const routes: Routes = [
@@ -118,7 +119,7 @@ const routes: Routes = [
   {
     path: 'company-home',
     component: CompanyHomePageComponent,
-    canActivate: [AuthGuard, UserGuard]
+    canActivate: [AuthGuard, CompanyGuard]
   },
   {
     path: 'user-account/:userId',
