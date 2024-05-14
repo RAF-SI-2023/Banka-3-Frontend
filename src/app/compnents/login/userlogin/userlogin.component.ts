@@ -90,6 +90,7 @@ export class UserloginComponent {
               window.location.reload()
             })
         },
+
         error => {
           this.openErrorSnackBar('Pogrešan email ili lozinka.');
           this.isSubmitting = false;
