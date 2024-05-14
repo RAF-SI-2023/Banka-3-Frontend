@@ -202,7 +202,7 @@ const routes: Routes = [
   {
     path : 'options/:ticker',
     component: OptionsComponent,
-    canActivate:[AuthGuard]
+    canActivate:[AuthGuard, AgentGuard]
   },
   {
     path : 'credit-list-user',
