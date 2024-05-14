@@ -212,6 +212,10 @@ export interface MyStock{
   myStockId: number,
   ticker: string,
   amount: number,
+  publicAmount: number,
+  privateAmount: number,
+  userId: number,
+  companyId: number,
   version: number
 }
 export interface MyFuture{
