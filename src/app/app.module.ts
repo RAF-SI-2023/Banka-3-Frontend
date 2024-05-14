@@ -71,6 +71,7 @@ import { CompanyLoginComponent } from './compnents/login/company-login/company-l
 import { CompanyHomePageComponent } from './compnents/company-home-page/company-home-page.component';
 import { OtcViewComponent } from './compnents/otc/otc-view/otc-view.component';
 import { OtcBuyPopupComponent } from './compnents/otc/otc-buy-popup/otc-buy-popup.component';
+import { SetStockVisibilityComponent } from './compnents/listing_components/set-stock-visibility/set-stock-visibility.component';
 
 
 @NgModule({
@@ -127,7 +128,8 @@ import { OtcBuyPopupComponent } from './compnents/otc/otc-buy-popup/otc-buy-popu
     CompanyLoginComponent,
     CompanyHomePageComponent,
     OtcViewComponent,
-    OtcBuyPopupComponent
+    OtcBuyPopupComponent,
+    SetStockVisibilityComponent
 
   ],
   imports: [

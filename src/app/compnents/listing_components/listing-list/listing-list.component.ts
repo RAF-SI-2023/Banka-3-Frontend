@@ -16,6 +16,7 @@ export class ListingListComponent implements OnInit{
   stocksFlag: boolean = true
   futuresFlag: boolean = false
   forexFlag: boolean = false
+  role: string = ''
 
   stocks: Stock[] = [];
   futures: Future[] = [];
@@ -104,6 +105,12 @@ export class ListingListComponent implements OnInit{
     });
   }
   ngOnInit(){
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    if("role" in tk){
+      this.role = tk.role
+    }else{
+      this.role = "ROLE_USER"
+    }
     this.exchangeService.getAllStocks().subscribe( res => {
       this.stocks = res;
     }, error => {
