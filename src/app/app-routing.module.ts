@@ -49,6 +49,7 @@ import {BuyHartijePopupComponent} from "./compnents/listing_components/buy-harti
 import {MyStocksComponent} from "./compnents/listing_components/my-stocks/my-stocks.component";
 import {CompanyLoginComponent} from "./compnents/login/company-login/company-login.component";
 import {CompanyHomePageComponent} from "./compnents/company-home-page/company-home-page.component";
+import { OtcViewComponent } from './compnents/otc/otc-view/otc-view.component';
 
 
 const routes: Routes = [
@@ -250,6 +251,11 @@ const routes: Routes = [
     path: 'my-listings',
     component: MyStocksComponent,
     canActivate: [AuthGuard, AgentGuard]
+  },
+  {
+    path: 'otc',
+    component: OtcViewComponent,
+    // canActivate: [AuthGuard, UserGuard]
   }
 ];
 
