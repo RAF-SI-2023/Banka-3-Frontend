@@ -28,6 +28,12 @@
         <div class="item">
           <a *ngIf="!isEmployeeUser" [routerLink]="'/credit-list-user'">Krediti</a>
         </div>
+        <div class="item">
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/credit-list-user'">Krediti</a>
+        </div>
+        <div class="item">
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/otc'">OTC</a>
+        </div>
 <!--        <div class="item">-->
 <!--          <a *ngIf="!isEmployeeUser" [routerLink]="'/bankomat'">Bankomat</a>-->
 <!--        </div>-->
@@ -41,7 +47,13 @@
           <a *ngIf="isEmployeeUser" [routerLink]="'/listing-list'">Hartije</a>
         </div>
         <div class="item">
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/listing-list'">Hartije</a>
+        </div>
+        <div class="item">
           <a *ngIf="isEmployeeUser" [routerLink]="'/my-listings'">Moje hartije</a>
+        </div>
+        <div class="item">
+          <a *ngIf="!isEmployeeUser" [routerLink]="'/my-listings'">Moje hartije</a>
         </div>
         <div class="item">
           <a *ngIf="isEmployeeUser" [routerLink]="'/supervisor-listing'">Lista agenata</a>

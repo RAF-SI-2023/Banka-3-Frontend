@@ -5,10 +5,10 @@
     <button [ngStyle]="{ 'opacity': !stocksFlag ? '0.5' : '1'}" class="stock-button" (click)="switchToStocks()">
       S t o c k s
     </button>
-    <button [ngStyle]="{ 'opacity': !futuresFlag ? '0.5' : '1'}" class="future-button" (click)="switchToFutures()">
+    <button *ngIf="role !== 'ROLE_USER'" [ngStyle]="{ 'opacity': !futuresFlag ? '0.5' : '1'}" class="future-button" (click)="switchToFutures()">
       F u t u r e s
     </button>
-    <button [ngStyle]="{ 'opacity': !forexFlag ? '0.5' : '1'}" class="forex-button" (click)="switchToForex()">
+    <button *ngIf="role !== 'ROLE_USER'" [ngStyle]="{ 'opacity': !forexFlag ? '0.5' : '1'}" class="forex-button" (click)="switchToForex()">
       F o r e x
     </button>
 

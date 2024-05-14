@@ -50,6 +50,7 @@ import {MyStocksComponent} from "./compnents/listing_components/my-stocks/my-sto
 import {CompanyLoginComponent} from "./compnents/login/company-login/company-login.component";
 import {CompanyHomePageComponent} from "./compnents/company-home-page/company-home-page.component";
 import { OtcViewComponent } from './compnents/otc/otc-view/otc-view.component';
+import { SetStockVisibilityComponent } from './compnents/listing_components/set-stock-visibility/set-stock-visibility.component';
 
 
 const routes: Routes = [
@@ -200,7 +201,7 @@ const routes: Routes = [
   {
     path : 'options/:ticker',
     component: OptionsComponent,
-    canActivate:[AuthGuard, AgentGuard]
+    canActivate:[AuthGuard]
   },
   {
     path : 'credit-list-user',
@@ -210,22 +211,22 @@ const routes: Routes = [
   {
     path : 'listing-list',
     component: ListingListComponent,
-    canActivate:[AuthGuard, AgentGuard]
+    canActivate:[AuthGuard]
   },
   {
     path : 'stock-info/:ticker',
     component: StockInfoComponent,
-    canActivate:[AuthGuard, AgentGuard]
+    canActivate:[AuthGuard]
   },
   {
     path : 'buy-hartije/:ticker',
     component: BuyHartijeComponent,
-    canActivate:[AuthGuard, AgentGuard]
+    canActivate:[AuthGuard]
   },
   {
     path : 'sell-hartije/:ticker',
     component: SellHartijeComponent,
-    canActivate:[AuthGuard, AgentGuard]
+    canActivate:[AuthGuard]
   },
   {
     path: 'buy-hartije-popup',
@@ -250,7 +251,7 @@ const routes: Routes = [
   {
     path: 'my-listings',
     component: MyStocksComponent,
-    canActivate: [AuthGuard, AgentGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'otc',

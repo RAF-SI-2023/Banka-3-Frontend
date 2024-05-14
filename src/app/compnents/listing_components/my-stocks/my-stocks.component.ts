@@ -4,6 +4,9 @@ import {Dialog} from "@angular/cdk/dialog";
 import {BuyFuturePopupComponent} from "../sell-future-popup/buy-future-popup.component";
 import {MyFuture, MyStock} from "../../../models/models";
 import {ExchangeService} from "../../../services/exchange.service";
+import { parseJson } from '@angular/cli/src/utilities/json-file';
+import { SetStockVisibilityComponent } from '../set-stock-visibility/set-stock-visibility.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-my-stocks',
@@ -18,7 +21,8 @@ export class MyStocksComponent implements OnInit{
   myFutureColumns = ['myFutureId', 'contractName', 'amount', 'opcije'];
   stocksFlag = true
   futuresFlag = false
-  constructor(private service: ExchangeService, private router: Router, private dialog: Dialog) {
+  role: string = ''
+  constructor(private service: ExchangeService, private router: Router, private dialog: MatDialog) {
 
   }
 
@@ -41,6 +45,12 @@ export class MyStocksComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    if("role" in tk){
+      this.role = tk.role
+    }else{
+      this.role = "ROLE_USER"
+    }
     this.service.getMyStocks().subscribe( res => {
       this.myStocks = res
       this.myStocks.sort((a, b) => a.myStockId - b.myStockId)
@@ -59,6 +69,12 @@ export class MyStocksComponent implements OnInit{
     this.dialog.open(BuyFuturePopupComponent, {
       data: { selectedFutureId: id}
     });
+  }
+  setStockOtc(stock: MyStock){
+    console.log(stock)
+    this.dialog.open(SetStockVisibilityComponent, {
+      data: { stock: stock}
+    })
   }
 
 
