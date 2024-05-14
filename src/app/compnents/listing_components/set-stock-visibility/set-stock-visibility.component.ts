@@ -18,6 +18,7 @@ export class SetStockVisibilityComponent {
         this.stock = data.stock
       }
       this.amount = data.stock.amount
+
     }
     cancel(){
       this.dialog.close()
@@ -31,6 +32,5 @@ export class SetStockVisibilityComponent {
       //   console.log(error)
       // })
     }
-
 
 }
