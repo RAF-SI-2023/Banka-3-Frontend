@@ -1,0 +1,32 @@
+<div class="popup-container">
+    <h2 class="popup-title text-center">{{ stock }}</h2>
+    <p class="line"></p>
+    <div class="popup-content">
+      <p class="text-center"><strong>Količina:</strong></p>
+      <div style="text-align: center;">
+        <input
+          type="number"
+          class="input"
+          [(ngModel)]="amount"
+          style="display: inline-block; width: 100px;"
+          min="0"
+        >
+      </div>
+      <p class="text-center"><strong>Predložena cena:</strong></p>
+      <div style="text-align: center;">
+        <input
+          type="number"
+          class="input"
+          [(ngModel)]="price"
+          style="display: inline-block; width: 100px;"
+          min="0"
+        >
+      </div>
+
+    </div>
+    <div class="text-center">
+      <button class="myButtonPrimary" (click)="cancel()">Odustani</button>
+      <button class="myButtonSecondary" (click)="confirm()">Potvrdi</button>
+    </div>
+  </div>
+  
