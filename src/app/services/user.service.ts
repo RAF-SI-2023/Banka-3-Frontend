@@ -17,6 +17,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
 import { Credit } from '../models/models';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -26,15 +27,15 @@ import { Credit } from '../models/models';
   providedIn: 'root'
 })
 export class UserService {
-  apiUrlUser : string = "http://localhost:8080/api/v1/user"
-  apiUrlCompany : string = "http://localhost:8080/api/v1/company"
-  apiUrlEmployee : string = "http://localhost:8080/api/v1/employee"
-  apiUrlEmailUser : string = "http://localhost:8081/api/v1/user"
-  apiUrlEmailCompany : string = "http://localhost:8081/api/v1/company"
-  apiUrlEmailEmployee : string = "http://localhost:8081/api/v1/employee"
-  apiUrlPermission : string = "http://localhost:8080/api/v1/permission"
-  apiUrlRole : string = "http://localhost:8080/api/v1/role"
-  apiUrlContact : string = "http://localhost:8080/api/v1/contact"
+  apiUrlUser : string = environment.userServiceUrl + "/api/v1/user"
+  apiUrlCompany : string = environment.userServiceUrl + "/api/v1/company"
+  apiUrlEmployee : string = environment.userServiceUrl + "/api/v1/employee"
+  apiUrlEmailUser : string = environment.emailServiceUrl + "/api/v1/user"
+  apiUrlEmailCompany : string = environment.emailServiceUrl + "/api/v1/company"
+  apiUrlEmailEmployee : string = environment.emailServiceUrl + "/api/v1/employee"
+  apiUrlPermission : string = environment.userServiceUrl + "/api/v1/permission"
+  apiUrlRole : string = environment.userServiceUrl + "/api/v1/role"
+  apiUrlContact : string = environment.userServiceUrl + "/api/v1/contact"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -303,7 +304,7 @@ export class UserService {
       'Content-Type': 'application/json',
       responseType: 'text'
     });
-    // let sendToUrl = "http://localhost:8081/api/v1/employee";  //PORT: 8081 jer user-service zauzme 8080 na beku
+    // let sendToUrl = environment.emailServiceUrl + "/api/v1/employee";  //PORT: 8081 jer user-service zauzme 8080 na beku
     return this.httpClient.post<any>(`${this.apiUrlEmailEmployee}/setPassword/${identifier}`, password, {headers});
   }
 

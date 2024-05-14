@@ -35,7 +35,7 @@ postsubmits:
               
               SERVICE_NAME="frontend"
               
-              docker build -f "./images/${SERVICE_NAME}.Dockerfile" -t harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:latest ../Banka-3-Frontend/
+              docker build --build-arg ENV=production -f "./images/${SERVICE_NAME}.Dockerfile" -t harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:latest ../Banka-3-Frontend/
             
               docker tag harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:latest harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:${commit_hash}
             
