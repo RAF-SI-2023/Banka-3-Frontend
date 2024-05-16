@@ -6,6 +6,7 @@ import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ExchangeService} from "../../../services/exchange.service";
 import {Forex, Future, Stock} from "../../../models/models";
+import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
   selector: 'app-listing-list',
@@ -26,7 +27,7 @@ export class ListingListComponent implements OnInit{
   forexColumns: string[] = [ "baseCurrency" ,"quoteCurrency", "conversionRate", "lastRefresh"]
 
 
-  constructor(private exchangeService: ExchangeService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private webSocketService: WebsocketService, private exchangeService: ExchangeService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) {
 
   }
   switchToStocks(){
