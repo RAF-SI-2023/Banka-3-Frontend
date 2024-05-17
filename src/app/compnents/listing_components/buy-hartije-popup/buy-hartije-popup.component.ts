@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router} from "@angular/router";
 import {ExchangeService} from "../../../services/exchange.service";
+import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
   selector: 'app-buy-hartije-popup',
@@ -20,7 +21,8 @@ export class BuyHartijePopupComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialogRef<any>,
     private snackBar: MatSnackBar,
-    private exchangeService: ExchangeService
+    private exchangeService: ExchangeService,
+    private webSocketService: WebsocketService
 ) {
     if (data && data.selectedOrderType && data.selectedQuantity && data.estimatedPrice) {
       this.selectedOrderType = data.selectedOrderType;
@@ -34,7 +36,8 @@ export class BuyHartijePopupComponent {
       (response) => {
         this.openSuccessSnackBar("Uspešna kupovina.");
         this.dialog.close();
-        this.router.navigate(['listing-list']);
+        console.log(response)
+        this.router.navigate(['listing-list'])
       },
       (error) => {
         console.error('Nemate dovoljno sredstava:', error);
