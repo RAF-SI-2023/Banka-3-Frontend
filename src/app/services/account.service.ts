@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {
   Account,
   AccountDto,
-  Card, ConfirmTransactionDto, Credit, CreditRequestCreateDto,
+  Card, ConfirmTransactionDto, Contract, ContractAnswerDto, Credit, CreditRequestCreateDto,
   CreditRequestDto,
   Currency, CurrencyExchangeDto,
   Firm,
@@ -29,6 +29,7 @@ export class AccountService {
   apiUrlCreditRequest: string = environment.bankServiceUrl + "/api/v1/credit-request"
   apiUrlCredit: string = environment.bankServiceUrl + "/api/v1/credit"
   apiUrlCurrencyExchange: string = environment.bankServiceUrl + "/api/v1/currencyExchange"
+  apiUrlContract: string = environment.bankServiceUrl + "/api/v1/contract"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -296,5 +297,36 @@ export class AccountService {
       responseType: 'text' as 'json'
     });
   }
+  supervisorAccept(contractAnswerDto: ContractAnswerDto){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.post<any>(`${this.apiUrlContract}`+'/supervisorAccept', contractAnswerDto, {
+      headers,
+      responseType: 'text' as 'json'
+    });
+  }
 
+  supervisorDecline(contractAnswerDto: ContractAnswerDto){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.post<any>(`${this.apiUrlContract}`+'/supervisorDecline', contractAnswerDto, {
+      headers,
+      responseType: 'text' as 'json'
+    });
+  }
+
+  getAllContracts(){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<Contract[]>(`${this.apiUrlContract}`+'/getAllSupervisor', {
+      headers,
+      responseType: 'text' as 'json'
+    });
+  }
 }

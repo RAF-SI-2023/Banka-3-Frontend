@@ -321,3 +321,24 @@ export interface CurrencyExchangeDto {
   accountTo: string
   amount: number
 }
+export interface ContractAnswerDto{
+  contractId: number,
+  comment: string
+}
+export interface Contract{
+  contractId: number,
+  userSellerId: number,
+  userBuyerId: number,
+  companySellerId: number,
+  companyBuyerId: number,
+  bankCertificate: string,
+  sellerCertificate: string,
+  comment: string,
+  dateCreated: number,
+  dateFinished: number,
+  contractNumber: string,
+  about: string,
+  ticker: string,
+  amount: number,
+  price: number,
+}
