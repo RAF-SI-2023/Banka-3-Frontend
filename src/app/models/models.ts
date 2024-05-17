@@ -330,6 +330,7 @@ export interface Contract{
   userSellerId: number,
   userBuyerId: number,
   companySellerId: number,
+  companyBuyerId: number,
   bankCertificate: string,
   sellerCertificate: string,
   comment: string,
