@@ -212,6 +212,10 @@ export interface MyStock{
   myStockId: number,
   ticker: string,
   amount: number,
+  publicAmount: number,
+  privateAmount: number,
+  userId: number,
+  companyId: number,
   version: number
 }
 export interface MyFuture{
@@ -316,4 +320,25 @@ export interface CurrencyExchangeDto {
   accountFrom: string,
   accountTo: string
   amount: number
+}
+export interface ContractAnswerDto{
+  contractId: number,
+  comment: string
+}
+export interface Contract{
+  contractId: number,
+  userSellerId: number,
+  userBuyerId: number,
+  companySellerId: number,
+  companyBuyerId: number,
+  bankCertificate: string,
+  sellerCertificate: string,
+  comment: string,
+  dateCreated: number,
+  dateFinished: number,
+  contractNumber: string,
+  about: string,
+  ticker: string,
+  amount: number,
+  price: number,
 }

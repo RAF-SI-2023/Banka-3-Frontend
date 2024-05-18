@@ -184,13 +184,11 @@ export class OptionsComponent implements OnInit {
     this.exchange.getAllPuts(this.ticker).subscribe(
       (response) => {
         this.puts = response;
-        console.log(this.puts);
       });
 
     this.exchange.getAllCalls(this.ticker).subscribe(
       (response) => {
         this.calls = response;
-        console.log(this.calls);
       });
   }
 

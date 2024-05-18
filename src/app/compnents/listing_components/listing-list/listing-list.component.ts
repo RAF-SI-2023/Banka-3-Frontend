@@ -6,6 +6,7 @@ import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ExchangeService} from "../../../services/exchange.service";
 import {Forex, Future, Stock} from "../../../models/models";
+import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
   selector: 'app-listing-list',
@@ -16,6 +17,7 @@ export class ListingListComponent implements OnInit{
   stocksFlag: boolean = true
   futuresFlag: boolean = false
   forexFlag: boolean = false
+  role: string = ''
 
   stocks: Stock[] = [];
   futures: Future[] = [];
@@ -25,7 +27,7 @@ export class ListingListComponent implements OnInit{
   forexColumns: string[] = [ "baseCurrency" ,"quoteCurrency", "conversionRate", "lastRefresh"]
 
 
-  constructor(private exchangeService: ExchangeService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private webSocketService: WebsocketService, private exchangeService: ExchangeService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) {
 
   }
   switchToStocks(){
@@ -104,6 +106,12 @@ export class ListingListComponent implements OnInit{
     });
   }
   ngOnInit(){
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    if("role" in tk){
+      this.role = tk.role
+    }else{
+      this.role = "ROLE_USER"
+    }
     this.exchangeService.getAllStocks().subscribe( res => {
       this.stocks = res;
     }, error => {

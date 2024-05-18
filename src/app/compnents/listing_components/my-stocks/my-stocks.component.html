@@ -4,7 +4,7 @@
     <button [ngStyle]="{ 'opacity': !stocksFlag ? '0.5' : '1'}" (click)="switchToStocks()" class="stock-button">
       M y  S t o c k s
     </button>
-    <button [ngStyle]="{ 'opacity': !futuresFlag ? '0.5' : '1'}" (click)="switchToFutures()" class="future-button">
+    <button *ngIf="role !== 'ROLE_USER'" [ngStyle]="{ 'opacity': !futuresFlag ? '0.5' : '1'}" (click)="switchToFutures()" class="future-button">
       M y  F u t u r e s
     </button>
     <!-- Tabela za prikaz podataka -->
@@ -27,6 +27,7 @@
             </ng-container>
             <ng-container *ngIf="column === 'opcije'">
               <button (click)="sellStock(element['ticker'])" class="button">Prodaj</button>
+              <button (click)="setStockOtc(element)" class="button">Vidljivost</button>
             </ng-container>
           </mat-cell>
         </ng-container>

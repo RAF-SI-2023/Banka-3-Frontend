@@ -69,6 +69,9 @@ import {
 import {RegisterCodeComponent} from "./compnents/password_components/register-code/register-code.component";
 import { CompanyLoginComponent } from './compnents/login/company-login/company-login.component';
 import { CompanyHomePageComponent } from './compnents/company-home-page/company-home-page.component';
+import { OtcViewComponent } from './compnents/otc/otc-view/otc-view.component';
+import { OtcBuyPopupComponent } from './compnents/otc/otc-buy-popup/otc-buy-popup.component';
+import { SetStockVisibilityComponent } from './compnents/listing_components/set-stock-visibility/set-stock-visibility.component';
 
 
 @NgModule({
@@ -123,7 +126,10 @@ import { CompanyHomePageComponent } from './compnents/company-home-page/company-
     BuyFuturePopupComponent,
     PaswordPopupComponent,
     CompanyLoginComponent,
-    CompanyHomePageComponent
+    CompanyHomePageComponent,
+    OtcViewComponent,
+    OtcBuyPopupComponent,
+    SetStockVisibilityComponent
 
   ],
   imports: [

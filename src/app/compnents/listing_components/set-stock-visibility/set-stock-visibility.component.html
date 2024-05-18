@@ -1,0 +1,27 @@
+<div class="popup-container">
+    <h2 class="popup-title text-center">{{ stock.ticker }}</h2>
+    <p class="line"></p>
+    <div class="popup-content">
+      <p class="text-center"><strong>Količina:</strong></p>
+      <div style="text-align: center;">
+        <p><strong>{{amount}}</strong></p>
+      </div>
+      <p class="text-center"><strong>Stavi public</strong></p>
+      <div style="text-align: center;">
+        <input
+          type="number"
+          class="input"
+          [(ngModel)]="publicAmount"
+          style="display: inline-block; width: 100px;"
+          min="0"
+          max={{amount}}
+        >
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="myButtonPrimary" (click)="cancel()">Odustani</button>
+      <button class="myButtonSecondary" (click)="confirm()">Potvrdi</button>
+    </div>
+  </div>
+
+

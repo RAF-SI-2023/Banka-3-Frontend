@@ -35,7 +35,7 @@ export class NavbarComponent  implements OnInit{
     const token = sessionStorage.getItem("token");
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      if(payload.role)
+      if(payload.role && payload.role !== "ROLE_COMPANY")
         return true
     }
     return false;
