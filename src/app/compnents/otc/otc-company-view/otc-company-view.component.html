@@ -1,0 +1,103 @@
+<div class="page">
+  <div class="panel">
+
+    <button [ngStyle]="{ 'opacity': !kupovinaFlag ? '0.5' : '1'}" class="users-button" (click)="switchToKupovina()">
+      Kupovina
+    </button>
+    <button [ngStyle]="{ 'opacity': !zahteviFlag ? '0.5' : '1'}" class="employees-button" (click)="switchToZahtevi()">
+      Zahtevi
+    </button>
+    <button [ngStyle]="{ 'opacity': !ponudeFlag ? '0.5' : '1'}" class="employees-button" (click)="switchToPonude()">
+      Ponude
+    </button>
+    <div class="table">
+      <div class="header">
+
+      </div>
+      <!-- KUPOVINA -->
+      <mat-table *ngIf="kupovinaFlag" [dataSource]="stocksData" matSort>
+        <ng-container *ngFor="let column of kupovinaColumns" [matColumnDef]="column">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ column | titlecase }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <ng-container *ngIf="column === 'Količina'">
+              {{ element['amount'] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'Kompanija'">
+              {{ element['user'] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'Cena'">
+              {{ element['price'] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'Hartija'">
+              {{ element['stock'] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'Opcije'">
+              <button (click)="buttonBuy(element)" class="button">Kupi</button>
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="kupovinaColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: kupovinaColumns;"></mat-row>
+      </mat-table>
+
+      <!-- ZAHTEVI -->
+      <mat-table *ngIf="zahteviFlag" [dataSource]="stocksData" matSort>
+        <ng-container *ngFor="let column of zahteviColumns" [matColumnDef]="column">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ column | titlecase }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <ng-container *ngIf="column === 'Količina'">
+              {{ element['amount'] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'Cena'">
+              {{ element['price'] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'Hartija'">
+              {{ element['stock'] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'Status'">
+              {{ element['status'] }}
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="zahteviColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: zahteviColumns;"></mat-row>
+      </mat-table>
+
+
+      <!-- PONUDE -->
+      <mat-table *ngIf="ponudeFlag" [dataSource]="stocksData" matSort>
+        <ng-container *ngFor="let column of ponudeColumns" [matColumnDef]="column">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ column | titlecase }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <ng-container *ngIf="column === 'Količina'">
+              {{ element['amount'] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'Cena'">
+              {{ element['price'] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'Hartija'">
+              {{ element['stock'] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'Opcije'">
+
+              <button class="button" (click)="buttonAccept(element)">Prihvati</button>
+              <button class="button2" (click)="buttonDecline(element)">Odbij</button>
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="ponudeColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ponudeColumns;"></mat-row>
+      </mat-table>
+
+    </div>
+  </div>
+</div>
+
+
+
