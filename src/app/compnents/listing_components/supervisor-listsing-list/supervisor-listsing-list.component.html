@@ -6,6 +6,9 @@
     <button [ngStyle]="{ 'opacity': !limitFlag ? '0.5' : '1'}" class="limit-button" (click)="switchToLimits()">
       L i m i t s
     </button>
+    <button [ngStyle]="{ 'opacity': !contractsFlag ? '0.5' : '1'}" class="contract-button" (click)="switchToContracts()">
+      C o n t r a c t s
+    </button>
 
     <div *ngIf = 'showRequests'>
     <mat-table [dataSource]="requests" matSort style="max-width: var(--max-screen-width)">
@@ -87,4 +90,43 @@
     </div>
   </div>
 
+    <!-- Contracts Section -->
+    <div *ngIf="showContracts">
+      <mat-table [dataSource]="contracts" matSort style="max-width: var(--max-screen-width)">
+        <ng-container *ngFor="let column of contractColumns" [matColumnDef]="column">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column | uppercase }}</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element[column] }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="accept">
+          <mat-header-cell *matHeaderCellDef> Accept </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button class="icon-button" (click)="acceptContract(element.contractId)">
+              <img src="assets/circle-check-svgrepo-com.svg" width="24" height="24">
+            </button>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="reject">
+          <mat-header-cell *matHeaderCellDef> Reject </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button class="icon-button" (click)="openDeclineModal(element)">
+              <img src="assets/circle-quarters-svgrepo-com.svg" width="24" height="24">
+            </button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="contractColumns.concat(['accept', 'reject'])"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: contractColumns.concat(['accept', 'reject'])"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Decline Comment -->
+<div *ngIf="selectedContract" class="modal">
+  <div class="modal-content">
+    <h2>Decline Contract</h2>
+    <p>Are you sure you want to decline the contract?</p>
+    <textarea [(ngModel)]="rejectComment" placeholder="Enter rejection comment"></textarea>
+    <button (click)="declineContract(selectedContract.contractId)">Decline</button>
+    <button (click)="closeDeclineModal()">Cancel</button>
+  </div>
  </div>

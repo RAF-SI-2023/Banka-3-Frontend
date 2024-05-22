@@ -197,7 +197,7 @@ const routes: Routes = [
   {
     path: 'supervisor-listing',
     component: SupervisorListsingListComponent,
-    canActivate: [AuthGuard, SupervisorGuard] //treba postaviti gard za supervizora --> postavljen
+   // canActivate: [AuthGuard, SupervisorGuard] //treba postaviti gard za supervizora --> postavljen
   },
   {
     path : 'options/:ticker',

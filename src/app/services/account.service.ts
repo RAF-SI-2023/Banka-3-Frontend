@@ -29,7 +29,7 @@ export class AccountService {
   apiUrlCreditRequest: string = environment.bankServiceUrl + "/api/v1/credit-request"
   apiUrlCredit: string = environment.bankServiceUrl + "/api/v1/credit"
   apiUrlCurrencyExchange: string = environment.bankServiceUrl + "/api/v1/currencyExchange"
-  apiUrlContract: string = environment.bankServiceUrl + "/api/v1/contract"
+  apiUrlContract: string = environment.exchangeServiceUrl + "/api/v1/contract"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -324,7 +324,8 @@ export class AccountService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    return this.httpClient.get<Contract[]>(`${this.apiUrlContract}`+'/getAllSupervisor', {
+    return this.httpClient.get<Contract[]>(
+      `${this.apiUrlContract}`+'/getAllSupervisor', {
       headers,
       responseType: 'text' as 'json'
     });
