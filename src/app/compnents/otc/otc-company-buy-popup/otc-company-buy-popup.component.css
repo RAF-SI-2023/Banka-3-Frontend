@@ -1,0 +1,46 @@
+.popup-container {
+  width: 400px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.popup-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.popup-content {
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
+.popup-content p {
+  margin: 5px 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.myButtonPrimary,
+.myButtonSecondary {
+  margin: 0 10px;
+}
+
+.line {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem;
+  padding-bottom: 5px;
+}
+
+.input {
+  border: 0.1rem solid #ccc;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+  width: 80%;
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+  color: #333;
+}
