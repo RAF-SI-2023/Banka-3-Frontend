@@ -32,7 +32,7 @@
           <a *ngIf="!isEmployeeUser" [routerLink]="'/credit-list-user'">Krediti</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/otc'">OTC</a>
+          <a *ngIf="!isEmployeeUser" [routerLink]="isCompany ? '/otc-company' : '/otc'">OTC</a>
         </div>
 <!--        <div class="item">-->
 <!--          <a *ngIf="!isEmployeeUser" [routerLink]="'/bankomat'">Bankomat</a>-->
