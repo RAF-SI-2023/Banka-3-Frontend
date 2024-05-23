@@ -342,3 +342,37 @@ export interface Contract{
   amount: number,
   price: number,
 }
+export interface FutureContract {
+  futureContractId?: number;
+  companySellerId: number;
+  companyBuyerId: number;
+  bankCertificate: BankCertificate;
+  sellerCertificate: SellerCertificate;
+  comment: string;
+  dateCreated: number;
+  dateFinished: number;
+  contractNumber: string;
+  about: string;
+  contractName: string;
+  price: number;
+}
+
+export enum BankCertificate {
+  PROCESSING = 'PROCESSING',
+  ACCEPTED = 'ACCEPTED',
+  DECLINED = 'DECLINED'
+}
+
+export enum SellerCertificate {
+  PROCESSING = 'PROCESSING',
+  ACCEPTED = 'ACCEPTED',
+  DECLINED = 'DECLINED'
+}
+
+export interface BuyStockCompanyDto {
+  sellerId: number;
+  buyerId: number;
+  ticker: string;
+  amount: number;
+  price: number;
+}

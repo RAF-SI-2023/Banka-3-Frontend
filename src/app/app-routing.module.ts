@@ -52,6 +52,7 @@ import {CompanyHomePageComponent} from "./compnents/company-home-page/company-ho
 import { OtcViewComponent } from './compnents/otc/otc-view/otc-view.component';
 import { SetStockVisibilityComponent } from './compnents/listing_components/set-stock-visibility/set-stock-visibility.component';
 import { CompanyGuard } from './guards/company.guard';
+import {OtcCompanyViewComponent} from "./compnents/otc/otc-company-view/otc-company-view.component";
 
 
 const routes: Routes = [
@@ -202,7 +203,7 @@ const routes: Routes = [
   {
     path : 'options/:ticker',
     component: OptionsComponent,
-    canActivate:[AuthGuard, AgentGuard]
+    canActivate:[AuthGuard]
   },
   {
     path : 'credit-list-user',
@@ -258,6 +259,11 @@ const routes: Routes = [
     path: 'otc',
     component: OtcViewComponent,
     // canActivate: [AuthGuard, UserGuard]
+  },
+  {
+    path: 'otc-company',
+    component: OtcCompanyViewComponent,
+    canActivate: [AuthGuard, CompanyGuard]
   }
 ];
 

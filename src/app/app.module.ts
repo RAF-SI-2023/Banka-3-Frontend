@@ -72,6 +72,9 @@ import { CompanyHomePageComponent } from './compnents/company-home-page/company-
 import { OtcViewComponent } from './compnents/otc/otc-view/otc-view.component';
 import { OtcBuyPopupComponent } from './compnents/otc/otc-buy-popup/otc-buy-popup.component';
 import { SetStockVisibilityComponent } from './compnents/listing_components/set-stock-visibility/set-stock-visibility.component';
+import { OtcCompanyViewComponent } from './compnents/otc/otc-company-view/otc-company-view.component';
+import { OtcDeclinePopupComponent } from './compnents/otc/otc-decline-popup/otc-decline-popup.component';
+import { OtcCompanyBuyPopupComponent } from './compnents/otc/otc-company-buy-popup/otc-company-buy-popup.component';
 
 
 @NgModule({
@@ -129,7 +132,10 @@ import { SetStockVisibilityComponent } from './compnents/listing_components/set-
     CompanyHomePageComponent,
     OtcViewComponent,
     OtcBuyPopupComponent,
-    SetStockVisibilityComponent
+    SetStockVisibilityComponent,
+    OtcCompanyViewComponent,
+    OtcDeclinePopupComponent,
+    OtcCompanyBuyPopupComponent
 
   ],
   imports: [
