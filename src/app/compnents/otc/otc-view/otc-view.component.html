@@ -1,6 +1,6 @@
 <div class="page">
     <div class="panel">
-  
+
       <button [ngStyle]="{ 'opacity': !kupovinaFlag ? '0.5' : '1'}" class="users-button" (click)="switchToKupovina()">
         Kupovina
       </button>
@@ -22,16 +22,13 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let element">
               <ng-container *ngIf="column === 'Količina'">
-                {{ element['amount'] }}
+                {{ element['publicAmount'] }}
               </ng-container>
               <ng-container *ngIf="column === 'Korisnik'">
-                {{ element['user'] }}
-              </ng-container>
-              <ng-container *ngIf="column === 'Cena'">
-                {{ element['price'] }}
+                {{ users[element['userId']]?.firstName + " " + users[element['userId']]?.lastName || 'Loading data..'}}
               </ng-container>
               <ng-container *ngIf="column === 'Hartija'">
-                {{ element['stock'] }}
+                <strong><p>{{ element['ticker'] }}</p></strong>
               </ng-container>
               <ng-container *ngIf="column === 'Opcije'">
                 <button (click)="buttonBuy(element)" class="button">Kupi</button>
@@ -43,7 +40,7 @@
         </mat-table>
 
 <!-- ZAHTEVI -->
-        <mat-table *ngIf="zahteviFlag" [dataSource]="stocksData" matSort>
+        <mat-table *ngIf="zahteviFlag" [dataSource]="sentData" matSort>
           <ng-container *ngFor="let column of zahteviColumns" [matColumnDef]="column">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               {{ column | titlecase }}
@@ -53,13 +50,22 @@
                 {{ element['amount'] }}
               </ng-container>
               <ng-container *ngIf="column === 'Cena'">
-                {{ element['price'] }}
+                {{ element['price'] }} RSD
               </ng-container>
               <ng-container *ngIf="column === 'Hartija'">
-                {{ element['stock'] }}
+                <strong><p>{{ element['ticker'] }}</p></strong>
               </ng-container>
               <ng-container *ngIf="column === 'Status'">
-                {{ element['status'] }}
+                  <!-- RADI NE DIRAJ -->
+                <div *ngIf="(element['sellerCertificate'] === 'PROCESSING' || element['sellerCertificate'] === 'ACCEPTED') && (element['bankCertificate'] === 'PROCESSING')">
+                  <strong><p>PROCESSING</p></strong>
+                </div>
+                <div *ngIf="element['sellerCertificate'] === 'DECLINED' || element['bankCertificate'] === 'DECLINED'">
+                  <strong><p>DECLINED</p></strong>
+                </div>
+                <div *ngIf="element['sellerCertificate'] === 'ACCEPTED' && element['bankCertificate'] === 'ACCEPTED'">
+                  <strong><p>ACCEPTED</p></strong>
+                </div>
               </ng-container>
             </mat-cell>
           </ng-container>
@@ -69,7 +75,7 @@
 
 
 <!-- PONUDE -->
-        <mat-table *ngIf="ponudeFlag" [dataSource]="stocksData" matSort>
+        <mat-table *ngIf="ponudeFlag" [dataSource]="receivedData" matSort>
           <ng-container *ngFor="let column of ponudeColumns" [matColumnDef]="column">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               {{ column | titlecase }}
@@ -79,25 +85,32 @@
                 {{ element['amount'] }}
               </ng-container>
               <ng-container *ngIf="column === 'Cena'">
-                {{ element['price'] }}
+                {{ element['price'] }} RSD
               </ng-container>
               <ng-container *ngIf="column === 'Hartija'">
-                {{ element['stock'] }}
+                <strong><p>{{ element['ticker'] }}</p></strong>
               </ng-container>
               <ng-container *ngIf="column === 'Opcije'">
 
-                <button class="button">Prihvati</button>
-                <button class="button2">Odbij</button>
+                <button *ngIf="element['sellerCertificate'] === 'PROCESSING'" (click)="acceptOffer(element)" class="button">Prihvati</button>
+                <button *ngIf="element['sellerCertificate'] === 'PROCESSING'" (click)="declineOffer(element)" class="button2">Odbij</button>
+
+                <div *ngIf="element['sellerCertificate'] === 'ACCEPTED'" class="img">
+                  <img src="../../../../assets/circle-check-svgrepo-com.svg" alt="accepted">
+                </div>
+                <div *ngIf="element['sellerCertificate'] === 'DECLINED'" class="img">
+                  <img src="../../../../assets/circle-quarters-svgrepo-com.svg" alt="declined">
+                </div>
               </ng-container>
             </mat-cell>
-          </ng-container> 
+          </ng-container>
           <mat-header-row *matHeaderRowDef="ponudeColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: ponudeColumns;"></mat-row>
         </mat-table>
-    
+
       </div>
     </div>
   </div>
-  
-  
-  
+
+
+

@@ -51,6 +51,11 @@
   padding: 10px 15px;
 }
 
+.img img{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .primary-button2{
   display: flex;
   justify-content: space-between;

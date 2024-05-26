@@ -75,6 +75,7 @@ import { SetStockVisibilityComponent } from './compnents/listing_components/set-
 import { OtcCompanyViewComponent } from './compnents/otc/otc-company-view/otc-company-view.component';
 import { OtcDeclinePopupComponent } from './compnents/otc/otc-decline-popup/otc-decline-popup.component';
 import { OtcCompanyBuyPopupComponent } from './compnents/otc/otc-company-buy-popup/otc-company-buy-popup.component';
+import { OtcAcceptDeclineComponent } from './compnents/otc/otc-accept-decline/otc-accept-decline.component';
 
 
 @NgModule({
@@ -135,7 +136,8 @@ import { OtcCompanyBuyPopupComponent } from './compnents/otc/otc-company-buy-pop
     SetStockVisibilityComponent,
     OtcCompanyViewComponent,
     OtcDeclinePopupComponent,
-    OtcCompanyBuyPopupComponent
+    OtcCompanyBuyPopupComponent,
+    OtcAcceptDeclineComponent
 
   ],
   imports: [
