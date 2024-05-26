@@ -5,10 +5,11 @@ import {ExchangeService} from "../../../services/exchange.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {OtcBuyPopupComponent} from "../otc-buy-popup/otc-buy-popup.component";
-import {Contract} from "../../../models/models";
+import {Contract, Firm, FutureContract, MyFuture, MyStock, User} from "../../../models/models";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {OtcDeclinePopupComponent} from "../otc-decline-popup/otc-decline-popup.component";
 import {OtcCompanyBuyPopupComponent} from "../otc-company-buy-popup/otc-company-buy-popup.component";
+import { OtcAcceptDeclineComponent } from '../otc-accept-decline/otc-accept-decline.component';
 
 @Component({
   selector: 'app-otc-company-view',
@@ -18,19 +19,31 @@ import {OtcCompanyBuyPopupComponent} from "../otc-company-buy-popup/otc-company-
 export class OtcCompanyViewComponent implements OnInit{
 
   kupovinaFlag = true;
+  tipHartije = "Stock"
+  selectedHartija = "Stock"
   zahteviFlag = false;
   ponudeFlag = false;
+  user = {} as User
+  users: { [userId: number]: User | undefined } = {};
+  companies: { [firmId: number]: Firm | undefined } = {};
 
-  stocksData: any[] = [];
+  stocksData: MyStock[] = [];
+  sentData: Contract[] = []
+  receivedData: Contract[] = []
 
-  kupovinaColumns: string[] = [ "Hartija", "Kompanija", "Količina", "Cena", "Opcije"];
+
+  futureData: MyFuture[] = [];
+  futureSentData: FutureContract[] = [];
+  futureReceivedData: FutureContract[] = [];
+
+
+  kupovinaColumns: string[] = [ "Hartija", "Kompanija", "Količina", "Opcije"];
   zahteviColumns: string[] = [ "Hartija", "Količina", "Cena", "Status"];
   ponudeColumns: string[] = [ "Hartija", "Količina", "Cena", "Opcije"];
+  futureKupovinaColumns: string[] = [ "Future", "Kompanija", "Veličina", "Jedinica", "Opcije"];
+  futureZahteviColumns: string[] = [ "Future", "Broj", "Cena", "Status"];
+  futurePonudeColumns: string[] = [ "Future", "Broj", "Cena", "Opcije"];
 
-  companyID: number = 0
-  sentContracts: Contract[] = []
-  receivedContracts: Contract[] = []
-  allContracts: Contract[] = []
 
   constructor(private accountService: AccountService,
               private userService : UserService,
@@ -41,24 +54,48 @@ export class OtcCompanyViewComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.mockData();
-    //TODO Bek treba da se doradi
     // getAllPublicStocks();
-    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-    let companyId = tk.id
-    this.companyID = companyId
+    const token = sessionStorage.getItem('token');
+    const payload = JSON.parse(atob(token!.split('.')[1]));
+    const hasRole = "role" in payload;
 
-    //Zameniti mock podatke
-    this.exService.getAllSentContracts(companyId).subscribe( data => {
-      this.sentContracts = data
-    })
-    this.exService.getAllReceivedContracts(companyId).subscribe( data => {
-      this.receivedContracts = data
-    })
-    this.exService.getAllContracts(companyId).subscribe( data => {
-      this.allContracts = data
-    })
+    if(hasRole && payload.role === 'ROLE_COMPANY'){
+      //SOTCK
+      this.exService.getCompanyPublicStocks(payload.id).subscribe( res => {
+        this.stocksData = res;
+        this.stocksData.forEach(future => {
+          this.fetchCompany(future.companyId);
+        });
+      })
+      this.exService.getAllSentRequestsCompany(payload.id).subscribe( res => {
+        this.sentData = res;
+      })
+      this.exService.getAllReceivedRequestsCompany(payload.id).subscribe( res => {
+        this.receivedData = res;
+      })
+
+      //FUTURE
+      this.exService.getCompanyMyFutures(payload.id).subscribe( res => {
+        this.futureData = res;
+        this.futureData.forEach(future => {
+          this.fetchCompany(future.companyId);
+        });
+      })
+      this.exService.getAllSentFutureRequestsCompany(payload.id).subscribe( res => {
+        this.futureSentData = res;
+      })
+      this.exService.getAllReceivedFutureRequestsCompany(payload.id).subscribe( res => {
+        this.futureReceivedData = res;
+      })
+    }
   }
+
+  fetchCompany(companyId: number){
+      if (!this.companies[companyId]) {
+        this.userService.getCompanyById(companyId).subscribe(res => {
+          this.companies[companyId] = res;
+        });
+    }}
 
   getAllPublicStocks(): void{
     // this.exService.getPublicStocks().subscribe( res=> {
@@ -66,22 +103,59 @@ export class OtcCompanyViewComponent implements OnInit{
     // })
   }
 
-  buttonBuy(element: any) {
-    this.dialog.open(OtcCompanyBuyPopupComponent, {
-      data: element
+  onStockChange(event: string){
+    this.tipHartije = event
+  }
+
+  buttonBuy(stock: MyStock) {
+    this.dialog.open(OtcBuyPopupComponent, {
+      data: { stock: stock}
     });
   }
-  buttonDecline(element: any){
-    this.dialog.open(OtcDeclinePopupComponent, {
-      data: element
+  buttonBuyFuture(future: MyFuture) {
+    this.dialog.open(OtcBuyPopupComponent, {
+      data: { future: future}
+    });
+  }
+
+  acceptOffer(contract: Contract){
+    let obj = {
+      contractId: contract.contractId,
+      accept: true
+    }
+    this.dialog.open(OtcAcceptDeclineComponent,{
+      data: { data: obj }
     })
   }
-  buttonAccept(element: any){
-    //TODO Otkomentarisati kada se sklone mock podaci
+  declineOffer(contract: Contract){
+    let obj = {
+      contractId: contract.contractId,
+      accept: false
+    }
+    this.dialog.open(OtcAcceptDeclineComponent,{
+      data: { data: obj }
+    })
 
-    // this.exService.companyAcceptContract(element.contractId, "").subscribe( data => {
-    //
-    // })
+  }
+
+  acceptOfferFuture(contract: FutureContract){
+    let obj = {
+      contractId: contract.futureContractId,
+      accept: true
+    }
+    this.dialog.open(OtcAcceptDeclineComponent,{
+      data: { data: obj }
+    })
+  }
+  declineOfferFuture(contract: FutureContract){
+    let obj = {
+      contractId: contract.futureContractId,
+      accept: false
+    }
+    this.dialog.open(OtcAcceptDeclineComponent,{
+      data: { data: obj }
+    })
+
   }
 
   switchToKupovina(){
@@ -89,6 +163,9 @@ export class OtcCompanyViewComponent implements OnInit{
     this.kupovinaFlag = !this.kupovinaFlag;
     this.zahteviFlag = false;
     this.ponudeFlag = false;
+    // this.userService.getAllUsers().subscribe( res=> {
+    //   this.users = res;
+    // })
   }
 
   switchToZahtevi(){
@@ -107,49 +184,37 @@ export class OtcCompanyViewComponent implements OnInit{
 
   mockData(): void{
 
-    this.stocksData = [
-      {
-        "stock": "Tesla Inc.",
-        "user": "Tech Innovators Inc.",
-        "amount": 8,
-        "price": 900.00,
-        "status": "ACCEPTED",
-        "sellerId": 1,
-        "ticker": "T",
-        "contractId": 1
-      },
-      {
-        "stock": "Amazon.com Inc.",
-        "user": "Global Traders LLC",
-        "amount": 15,
-        "price": 3300.25,
-        "status": "ACCEPTED",
-        "sellerId": 2,
-        "ticker": "AMZN",
-        "contractId": 2
-      },
-      {
-        "stock": "Meta Platforms Inc.",
-        "user": "Digital Ventures Ltd.",
-        "amount": 20,
-        "price": 340.75,
-        "status": "DECLINED",
-        "sellerId": 3,
-        "ticker": "META",
-        "contractId": 3
-      },
-      {
-        "stock": "Netflix Inc.",
-        "user": "Streaming Giants Corp.",
-        "amount": 12,
-        "price": 550.25,
-        "status": "PROCESSING",
-        "sellerId": 4,
-        "ticker": "NF",
-        "contractId": 4
-      }
-    ];
-
+    // this.stocksData = [
+    //   {
+    //     "stock": "Tesla Inc.",
+    //     "user": "alice_smith",
+    //     "amount": 8,
+    //     "price": 900.00,
+    //     "status": "ACCEPTED"
+    //   },
+    //   {
+    //     "stock": "Amazon.com Inc.",
+    //     "user": "bob_johnson",
+    //     "amount": 15,
+    //     "price": 3300.25,
+    //     "status": "ACCEPTED"
+    //   },
+    //   {
+    //     "stock": "Meta Platforms Inc.",
+    //     "user": "emma_wilson",
+    //     "amount": 20,
+    //     "price": 340.75,
+    //     "status": "DECLINED"
+    //   },
+    //   {
+    //     "stock": "Netflix Inc.",
+    //     "user": "chris_miller",
+    //     "amount": 12,
+    //     "price": 550.25,
+    //     "status": "PROCESSING"
+    //   },
+    // ];
   }
+
 
 }

@@ -82,14 +82,29 @@ export class ListingListComponent implements OnInit{
   buyFuture(id: number){
 
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-    this.exchangeService.buyFuture(id, tk.id).subscribe(res => {
-      console.log(res)
-      this.openErrorSnackBar("Uspesno ste kupili future!")
+    const hasRole = "role" in tk;
+    if(hasRole){
+      if(tk.role === "ROLE_COMPANY"){
+          this.exchangeService.buyFuture(id, tk.id).subscribe(res => {
+            console.log(res)
+            this.openErrorSnackBar("Uspesno ste kupili future!")
 
-    }, error => {
-      this.openErrorSnackBar("Doslo je do greske kod kupovanja future-a!")
-      console.log(error)
-    })
+          }, error => {
+            this.openErrorSnackBar("Doslo je do greske kod kupovanja future-a!")
+            console.log(error)
+          })
+      }else{
+          this.exchangeService.buyFuture(id, tk.id).subscribe(res => {
+            console.log(res)
+            this.openErrorSnackBar("Uspesno ste kupili future!")
+
+          }, error => {
+            this.openErrorSnackBar("Doslo je do greske kod kupovanja future-a!")
+            console.log(error)
+          })
+      }
+
+    }
     // this.dialog.open(BuyFuturePopupComponent, {
     //   data: { selectedFutureId: id}
     // });

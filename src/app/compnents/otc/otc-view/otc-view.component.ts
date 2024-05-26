@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Firm, Stock, User } from 'src/app/models/models';
+import { Contract, Firm, MyStock, Stock, User } from 'src/app/models/models';
 import { AccountService } from 'src/app/services/account.service';
 import { ExchangeService } from 'src/app/services/exchange.service';
 import { UserService } from 'src/app/services/user.service';
 import { BuyHartijePopupComponent } from '../../listing_components/buy-hartije-popup/buy-hartije-popup.component';
 import { OtcBuyPopupComponent } from '../otc-buy-popup/otc-buy-popup.component';
 import { Obj } from '@popperjs/core';
+import { OtcAcceptDeclineComponent } from '../otc-accept-decline/otc-accept-decline.component';
 
 @Component({
   selector: 'app-otc-view',
@@ -17,18 +18,22 @@ import { Obj } from '@popperjs/core';
 export class OtcViewComponent implements OnInit{
 
   kupovinaFlag = true;
-  zahteviFlag = false;  
+  zahteviFlag = false;
   ponudeFlag = false;
+  user = {} as User
+  users: { [userId: number]: User | undefined } = {};
 
-  stocksData: any[] = [];
+  stocksData: MyStock[] = [];
+  sentData: Contract[] = []
+  receivedData: Contract[] = []
 
-  kupovinaColumns: string[] = [ "Hartija", "Korisnik", "Količina", "Cena", "Opcije"];
+  kupovinaColumns: string[] = [ "Hartija", "Korisnik", "Količina", "Opcije"];
   zahteviColumns: string[] = [ "Hartija", "Količina", "Cena", "Status"];
   ponudeColumns: string[] = [ "Hartija", "Količina", "Cena", "Opcije"];
 
 
-  constructor(private accountService: AccountService, 
-              private userService : UserService, 
+  constructor(private accountService: AccountService,
+              private userService : UserService,
               private exService: ExchangeService,
               private router: Router,
               private dialog: MatDialog) {
@@ -36,9 +41,32 @@ export class OtcViewComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.mockData();
     // getAllPublicStocks();
+    const token = sessionStorage.getItem('token');
+    const payload = JSON.parse(atob(token!.split('.')[1]));
+    const hasRole = "role" in payload;
+
+    if(!hasRole){
+      this.exService.getPublicStocks(payload.id).subscribe( res => {
+        this.stocksData = res;
+        this.stocksData.forEach(stock => {
+          this.fetchUser(stock.userId);
+        });
+      })
+      this.exService.getAllSentRequestsUser(payload.id).subscribe( res => {
+        this.sentData = res;
+      })
+      this.exService.getAllReceivedRequestsUser(payload.id).subscribe( res => {
+        this.receivedData = res;
+      })
+    }
   }
+    fetchUser(userId: number){
+      if (!this.users[userId]) {
+        this.userService.getUserById(userId).subscribe(user => {
+          this.users[userId] = user;
+        });
+    }}
 
   getAllPublicStocks(): void{
     // this.exService.getPublicStocks().subscribe( res=> {
@@ -46,10 +74,30 @@ export class OtcViewComponent implements OnInit{
     // })
   }
 
-  buttonBuy(element: any) {
+  buttonBuy(stock: MyStock) {
     this.dialog.open(OtcBuyPopupComponent, {
-      data: { stock: element.stock}
+      data: { stock: stock}
     });
+  }
+
+  acceptOffer(contract: Contract){
+    let obj = {
+      contractId: contract.contractId,
+      accept: true
+    }
+    this.dialog.open(OtcAcceptDeclineComponent,{
+      data: { data: obj }
+    })
+  }
+  declineOffer(contract: Contract){
+    let obj = {
+      contractId: contract.contractId,
+      accept: false
+    }
+    this.dialog.open(OtcAcceptDeclineComponent,{
+      data: { data: obj }
+    })
+
   }
 
   switchToKupovina(){
@@ -78,36 +126,36 @@ export class OtcViewComponent implements OnInit{
 
   mockData(): void{
 
-    this.stocksData = [
-      {
-        "stock": "Tesla Inc.",
-        "user": "alice_smith",
-        "amount": 8,
-        "price": 900.00,
-        "status": "ACCEPTED"
-      },
-      {
-        "stock": "Amazon.com Inc.",
-        "user": "bob_johnson",
-        "amount": 15,
-        "price": 3300.25,
-        "status": "ACCEPTED"
-      },
-      {
-        "stock": "Meta Platforms Inc.",
-        "user": "emma_wilson",
-        "amount": 20,
-        "price": 340.75,
-        "status": "DECLINED"
-      },
-      {
-        "stock": "Netflix Inc.",
-        "user": "chris_miller",
-        "amount": 12,
-        "price": 550.25,
-        "status": "PROCESSING"
-      },
-    ];
+    // this.stocksData = [
+    //   {
+    //     "stock": "Tesla Inc.",
+    //     "user": "alice_smith",
+    //     "amount": 8,
+    //     "price": 900.00,
+    //     "status": "ACCEPTED"
+    //   },
+    //   {
+    //     "stock": "Amazon.com Inc.",
+    //     "user": "bob_johnson",
+    //     "amount": 15,
+    //     "price": 3300.25,
+    //     "status": "ACCEPTED"
+    //   },
+    //   {
+    //     "stock": "Meta Platforms Inc.",
+    //     "user": "emma_wilson",
+    //     "amount": 20,
+    //     "price": 340.75,
+    //     "status": "DECLINED"
+    //   },
+    //   {
+    //     "stock": "Netflix Inc.",
+    //     "user": "chris_miller",
+    //     "amount": 12,
+    //     "price": 550.25,
+    //     "status": "PROCESSING"
+    //   },
+    // ];
   }
 
 

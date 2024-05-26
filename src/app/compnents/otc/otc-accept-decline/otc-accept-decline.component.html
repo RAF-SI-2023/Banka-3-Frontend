@@ -1,0 +1,22 @@
+<div class="popup-container">
+    <h2 *ngIf="dataObj.accept" class="popup-title text-center">Prihvati ponudu</h2>
+    <h2 *ngIf="!dataObj.accept" class="popup-title text-center">Odbij ponudu</h2>
+    <p class="line"></p>
+    <div class="popup-content">
+      <p class="text-center"><strong>Komentar:</strong></p>
+      <div style="text-align: center;">
+        <input
+          type="text"
+          class="input"
+          [(ngModel)]="comment"
+          style="display: inline-block; width: 300px;"
+          min="0"
+        >
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="myButtonPrimary" (click)="cancel()">Odustani</button>
+      <button class="myButtonSecondary" (click)="confirm()">Potvrdi</button>
+    </div>
+  </div>
+
