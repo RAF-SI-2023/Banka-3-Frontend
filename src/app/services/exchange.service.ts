@@ -13,7 +13,8 @@ import {
   MyFuture,
   RequestDto,
   Actuary,
-  Contract
+  Contract,
+  FutureContract
 } from "../models/models";
 import {Observable} from "rxjs";
 import { environment } from 'src/environments/environment';
@@ -127,12 +128,14 @@ export class ExchangeService {
     return this.httpClient.get<Options[]>(`${this.apiUrlOptions}/puts/${ticker}`,{headers} )
   }
 
-  buyStock(employeeId: number, ticker:string, amount: number, limitValue:number, stopValue: number, aon: boolean, margine:boolean){
+  buyStock(userId: number, companyId: number, employeeId: number, ticker:string, amount: number,
+           limitValue:number, stopValue: number, aon: boolean,
+           margine:boolean){
         const headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         })
-        const body = {employeeId, ticker, amount, limitValue, stopValue, aon, margine};
+        const body = {userId, companyId, employeeId, ticker, amount, limitValue, stopValue, aon, margine};
         return this.httpClient.post<any>(`${this.apiUrlStocks}/buyStock`,body,{ headers })
       }
 
@@ -241,6 +244,7 @@ export class ExchangeService {
       });
       return this.httpClient.get<Contract[]>(`${this.apiUrlExchangeService}/contract/getAllReceived/${companyId}`, { headers });
     }
+
     getAllContracts(companyId: number){
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -248,6 +252,15 @@ export class ExchangeService {
       });
       return this.httpClient.get<Contract[]>(`${this.apiUrlExchangeService}/contract/getAll/${companyId}`, { headers });
     }
+
+    getAllSupervisor(){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<Contract[]>(`${this.apiUrlExchangeService}/contract/getAllSupervisor`, { headers });
+    }
+
     companyAcceptContract(contractId: number, comment: string){
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -264,6 +277,7 @@ export class ExchangeService {
       const body = { contractId, comment}
       return this.httpClient.post<any>(`${this.apiUrlExchangeService}/contract/companyDecline`, body, { headers });
     }
+
     buyCompanyStockOtc(sellerId: number, buyerId: number, ticker: string, amount: number, price: number){
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -271,6 +285,154 @@ export class ExchangeService {
       });
       const body = { sellerId: sellerId, buyerId: buyerId, ticker: ticker, amount: amount, price: price}
       return this.httpClient.post<any>(`${this.apiUrlExchangeService}/stock/buyCompanyStockOtc`, body, { headers });
+    }
+
+    buyUserStockOtc(sellerId: number, buyerId: number, ticker: string, amount: number, price: number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      const body = { userSellerId: sellerId, userBuyerId: buyerId, ticker: ticker, amount: amount, price: price}
+      return this.httpClient.post<any>(`${this.apiUrlExchangeService}/stock/buyUserStockOtc`, body, { headers });
+    }
+
+    getPublicStocks(userId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<MyStock[]>(`${this.apiUrlExchangeService}/stock/myStock/getAllForUserOtcBuy/${userId}`, { headers });
+    }
+    getCompanyPublicStocks(userId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<MyStock[]>(`${this.apiUrlExchangeService}/stock/myStock/getAllForCompanyOtcBuy/${userId}`, { headers });
+    }
+
+
+    getUserMyStocks(userId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<MyStock[]>(`${this.apiUrlExchangeService}/stock/myStock/getAllForUser?userId=${userId}`, { headers });
+    }
+
+    getCompanyMyStocks(companyId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<MyStock[]>(`${this.apiUrlExchangeService}/stock/myStock/getAllForCompany?companyId=${companyId}`, { headers });
+    }
+
+    getCompanyMyFutures(companyId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<MyFuture[]>(`${this.apiUrlExchangeService}/stock/myFuture/getAllForCompany?companyId=${companyId}`, { headers });
+    }
+
+
+    getAllSentRequestsUser(userId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<Contract[]>(`${this.apiUrlExchangeService}/contract/getAllSentUser/${userId}`, { headers });
+    }
+
+    getAllSentRequestsCompany(companyId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<Contract[]>(`${this.apiUrlExchangeService}/contract/getAllSent/${companyId}`, { headers });
+    }
+
+    getAllSentFutureRequestsCompany(companyId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<FutureContract[]>(`${this.apiUrlExchangeService}/future-contract/getAllSent/${companyId}`, { headers });
+    }
+
+    getAllReceivedRequestsUser(userId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<Contract[]>(`${this.apiUrlExchangeService}/contract/getAllReceivedUser/${userId}`, { headers });
+    }
+
+    getAllReceivedRequestsCompany(companyId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<Contract[]>(`${this.apiUrlExchangeService}/contract/getAllReceived/${companyId}`, { headers });
+    }
+
+    getAllReceivedFutureRequestsCompany(companyId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<FutureContract[]>(`${this.apiUrlExchangeService}/future-contract/getAllReceived/${companyId}`, { headers });
+    }
+
+    setStockViewUser(ticker: string, userId: number, amount: number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      let data = {
+        ticker, ownerId: userId, amount
+      }
+      return this.httpClient.put<any>(`${this.apiUrlExchangeService}/stock/myStock/makeUserStockPublic`, data, { headers });
+    }
+
+
+    setStockViewCompany(ticker: string, userId: number, amount: number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      let data = {
+        ticker, ownerId: userId, amount
+      }
+      return this.httpClient.put<any>(`${this.apiUrlExchangeService}/stock/myStock/makeCompanyStockPublic`, data, { headers });
+    }
+
+    acceptOrDeclineOffer(contractId: number, accept: boolean, comment: string){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      let data = {
+        contractId, comment
+      }
+      if(accept){
+        return this.httpClient.post<any>(`${this.apiUrlExchangeService}/contract/companyAccept`, data, { headers });
+      }
+        return this.httpClient.post<any>(`${this.apiUrlExchangeService}/contract/companyDecline`, data, { headers });
+    }
+    acceptOrDeclineOfferSupervisor(contractId: number, accept: boolean, comment: string){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      let data = {
+        contractId, comment
+      }
+      if(accept){
+        return this.httpClient.post<any>(`${this.apiUrlExchangeService}/contract/supervisorAccept`, data, { headers });
+      }
+        return this.httpClient.post<any>(`${this.apiUrlExchangeService}/contract/supervisorDecline`, data, { headers });
     }
 
 }

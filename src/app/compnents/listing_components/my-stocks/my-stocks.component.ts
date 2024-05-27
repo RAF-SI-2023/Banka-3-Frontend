@@ -48,55 +48,53 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     })
   }
 
+  private tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
   ngOnInit(): void {
-    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-    if("role" in tk){
-      this.role = tk.role
+    if("role" in this.tk){
+      this.role = this.tk.role
     }else{
       this.role = "ROLE_USER"
     }
-    this.service.getMyStocks().subscribe( res => {
-      this.myStocks = res
-      this.myStocks.sort((a, b) => a.myStockId - b.myStockId)
-    })
+    this.fetchStocks()
 
     this.service.getMyFutures().subscribe( res => {
       this.myFutures = res
     })
     this.stockSubscription = this.webSocketService.messages.subscribe( msg => {
-      this.service.getMyStocks().subscribe( res => {
+      // this.service.getMyStocks().subscribe( res => {
+      //   this.myStocks = res
+      //   this.myStocks.sort((a, b) => a.myStockId - b.myStockId)
+      // })
+      this.fetchStocks()
+    })
+
+  }
+
+  private fetchStocks(){
+    if(this.role === "ROLE_USER"){
+      this.service.getUserMyStocks(this.tk.id).subscribe(res => {
         this.myStocks = res
         this.myStocks.sort((a, b) => a.myStockId - b.myStockId)
       })
-    })
-
-    // this.stockSubscription = this.webSocketService.getStockUpdates().subscribe(
-    //   (stockUpdate) => {
-    //     this.updateStockList(stockUpdate);
-    //   },
-    //   (err) => console.error('Error receiving stock updates', err),
-    //   () => console.log('Stock updates complete')
-    // );
-
+    }
+    else if(this.role === "ROLE_COMPANY"){
+      this.service.getCompanyMyStocks(this.tk.id).subscribe( res => {
+        this.myStocks = res
+        this.myStocks.sort((a, b) => a.myStockId - b.myStockId)
+      })
+    }
+    else{
+      this.service.getCompanyMyStocks(1).subscribe( res => {
+        this.myStocks = res
+        this.myStocks.sort((a, b) => a.myStockId - b.myStockId)
+      })
+    }
   }
 
   ngOnDestroy(): void {
       if (this.stockSubscription) {
         this.stockSubscription.unsubscribe();
       }
-  }
-
-
-
-  private updateStockList(stockUpdate: MyStock): void {
-    const existingStock = this.myStocks.find(stock => stock.myStockId === stockUpdate.myStockId);
-    if (existingStock) {
-      existingStock.amount = stockUpdate.amount
-      Object.assign(existingStock, stockUpdate);
-      this.myStocks.push(existingStock)
-    } else {
-      this.myStocks.push(stockUpdate);
-    }
   }
 
   sellStock(ticker: string){

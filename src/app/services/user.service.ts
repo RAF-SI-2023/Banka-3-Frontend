@@ -181,6 +181,20 @@ export class UserService {
   }
 
   /**
+    *   Get company by id
+    *   Dohvatanje firme po id-u
+    */
+
+  getCompanyById(id : number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    return this.httpClient.get<Firm>(`${this.apiUrlCompany}/getByCompany/${id}`, { headers })
+  }
+
+  /**
     *   Get employee by id
     *   Dohvatanje zaposlenog po id-u.
     */

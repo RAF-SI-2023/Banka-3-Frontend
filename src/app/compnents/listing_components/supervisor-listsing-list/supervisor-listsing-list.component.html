@@ -6,6 +6,9 @@
     <button [ngStyle]="{ 'opacity': !limitFlag ? '0.5' : '1'}" class="limit-button" (click)="switchToLimits()">
       L i m i t s
     </button>
+    <button [ngStyle]="{ 'opacity': !contractFlag ? '0.5' : '1'}" class="contract-button" (click)="switchToContracts()">
+      C o n t r a c t s
+    </button>
 
     <div *ngIf = 'showRequests'>
     <mat-table [dataSource]="requests" matSort style="max-width: var(--max-screen-width)">
@@ -85,6 +88,40 @@
         <mat-row *matRowDef="let row; columns: ['employeeId', 'limitValue', 'setNewLimit', 'resetLimit','orderRequest']"></mat-row>
       </mat-table>
     </div>
+
+  </div>
+    <div *ngIf="contractFlag">
+    <mat-table [dataSource]="contracts" matSort style="max-width: var(--max-screen-width)">
+      <ng-container *ngFor="let column of contractColumns" [matColumnDef]="column">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ column | uppercase }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element[column] }}
+        </mat-cell>
+      </ng-container>
+      <!-- Accept Button -->
+      <ng-container matColumnDef="accept">
+        <mat-header-cell *matHeaderCellDef> ACCEPT </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button class="icon-button" (click)="acceptContract(element)">
+            <img src="assets/circle-check-svgrepo-com.svg" width="24" height="24">
+          </button>
+        </mat-cell>
+      </ng-container>
+      <!-- Reject Button -->
+
+      <ng-container matColumnDef="decline">
+        <mat-header-cell *matHeaderCellDef> DECLINE </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button class="icon-button" (click)="rejectContract(element)">
+            <img src="assets/circle-quarters-svgrepo-com.svg " width="24" height="24">
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="contractColumns.concat(['accept', 'decline'])"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: contractColumns.concat(['accept', 'decline'])"></mat-row>
+    </mat-table>
   </div>
 
  </div>

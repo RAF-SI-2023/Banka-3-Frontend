@@ -220,8 +220,15 @@ export interface MyStock{
 }
 export interface MyFuture{
   myFutureId: number,
+  companyId: number,
   contractName: string,
-  amount: number,
+  contractSize: number,
+  contractUnit: string,
+  maintenanceMargin: string,
+  type: string,
+  currencyMark: string,
+  price: number,
+  isPublic: boolean,
   version: number
 }
 
@@ -342,6 +349,7 @@ export interface Contract{
   amount: number,
   price: number,
 }
+
 export interface FutureContract {
   futureContractId?: number;
   companySellerId: number;

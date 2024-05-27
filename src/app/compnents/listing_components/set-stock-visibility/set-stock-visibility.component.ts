@@ -23,14 +23,38 @@ export class SetStockVisibilityComponent {
     cancel(){
       this.dialog.close()
     }
-    //TODO treba ruta na backu da se uradi
+
     confirm(){
-      // this.exchangeService.setStockView().subscribe( res => {
-      //   console.log(res)
-      //
-      // }, error => {
-      //   console.log(error)
-      // })
+      const token = sessionStorage.getItem('token');
+      const payload = JSON.parse(atob(token!.split('.')[1]));
+      const hasRole = "role" in payload;
+      if(!hasRole){
+        this.exchangeService.setStockViewUser(this.stock.ticker, this.stock.userId, this.publicAmount).subscribe( res => {
+          console.log(res)
+          this.dialog.close()
+
+        }, error => {
+          console.log(error)
+        })
+      }
+      else if(payload.role === "ROLE_COMPANY"){
+        this.exchangeService.setStockViewCompany(this.stock.ticker, this.stock.companyId, this.publicAmount).subscribe( res => {
+          this.dialog.close()
+          console.log(res)
+
+        }, error => {
+          console.log(error)
+        })
+      }
+      else{
+        this.exchangeService.setStockViewCompany(this.stock.ticker, 1, this.publicAmount).subscribe( res => {
+          this.dialog.close()
+          console.log(res)
+
+        }, error => {
+          console.log(error)
+        })
+      }
     }
 
 }

@@ -80,11 +80,38 @@ export class BuyHartijeComponent implements OnInit{
 
 
 
+      const token = sessionStorage.getItem('token');
+      const payload = JSON.parse(atob(token!.split('.')[1]));
+      const hasRole = "role" in payload;
+
+      //USER kad kupuje: companyId = null, employeeId = null, userId = userId
+      //EMPLOYEE kad kupuje: companyId = 1, employeeId = employeeId, userId = null
+      //COMPANY kad kupuje: companyId = companyId, employeeId = null, userId = null
+
+      if(hasRole){
+        if(payload.role === "ROLE_COMPANY"){
+
+          this.dialog.open(BuyHartijePopupComponent, {
+            data: {userId: null, companyId: payload.id, selectedOrderType: orderDetails, selectedQuantity: amountLet, estimatedPrice: estimatedPrice, employeeId: null,
+              ticker: this.ticker, amount: amount, limitValue: limit, stopValue: stop, aon: allOrNone, margin:margin}
+          });
+
+        }else{
+
+          this.dialog.open(BuyHartijePopupComponent, {
+            data: {userId: null, companyId: 1, selectedOrderType: orderDetails, selectedQuantity: amountLet, estimatedPrice: estimatedPrice, employeeId: payload.id,
+              ticker: this.ticker, amount: amount, limitValue: limit, stopValue: stop, aon: allOrNone, margin:margin}
+          });
+        }
+
+      }else{
+        this.dialog.open(BuyHartijePopupComponent, {
+          data: {userId: payload.id, companyId: null, selectedOrderType: orderDetails, selectedQuantity: amountLet, estimatedPrice: estimatedPrice, employeeId: null,
+            ticker: this.ticker, amount: amount, limitValue: limit, stopValue: stop, aon: allOrNone, margin:margin}
+        });
+      }
       // Open dialog and pass order details
-      this.dialog.open(BuyHartijePopupComponent, {
-        data: { selectedOrderType: orderDetails, selectedQuantity: amountLet, estimatedPrice: estimatedPrice, employeeId: this.employeeId,
-          ticker: this.ticker, amount: amount, limitValue: limit, stopValue: stop, aon: allOrNone, margin:margin}
-      });
+
 
     }
   }
