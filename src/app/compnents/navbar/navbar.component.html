@@ -2,10 +2,10 @@
   <div class="container">
       <div class="left">
         <div class="item">
-          <img [routerLink]="'/'" class="logo" src="../../assets/logo-full.svg" alt="logo">
+          <img [routerLink]="isCompany ? '/company-home' : '/'" class="logo" src="../../assets/logo-full.svg" alt="logo">
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/'">Početna</a>
+          <a *ngIf="!isEmployeeUser" [routerLink]="isCompany ? '/company-home' : '/'">Početna</a>
         </div>
         <div class="item">
           <a *ngIf="isEmployeeUser" [routerLink]="'/user-list'">Korisnici</a>
@@ -17,16 +17,14 @@
           <a *ngIf="!isEmployeeUser" [routerLink]="'/card-view'">Kartice</a>
         </div>
         <div class="item">
-          <a *ngIf="isEmployeeUser" [routerLink]="'/credit-list'">Zahtevi za kredit</a>
+          <a *ngIf="isEmployeeUser && !isCompany" [routerLink]="'/credit-list'">Zahtevi za kredit</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/exchange'">Menjačnica</a>
+          <!-- TODO  provera da li je kompanija, ako jeste da li je id === 1 -->
+          <a *ngIf="!isEmployeeUser && (isCompany && id !== 1) " [routerLink]="'/exchange'">Menjačnica</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/payment'">Plaćanja</a>
-        </div>
-        <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/credit-list-user'">Krediti</a>
+          <a *ngIf="!isEmployeeUser && !isCompany" [routerLink]="'/payment'">Plaćanja</a>
         </div>
         <div class="item">
           <a *ngIf="!isEmployeeUser" [routerLink]="'/credit-list-user'">Krediti</a>
@@ -38,25 +36,19 @@
 <!--          <a *ngIf="!isEmployeeUser" [routerLink]="'/bankomat'">Bankomat</a>-->
 <!--        </div>-->
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/payment-recipients'">Primaoci plaćanja</a>
+          <a *ngIf="!isEmployeeUser && !isCompany" [routerLink]="'/payment-recipients'">Primaoci</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/bankomat'">Bankomat</a>
+          <a *ngIf="!isEmployeeUser && !isCompany" [routerLink]="'/bankomat'">Bankomat</a>
         </div>
         <div class="item">
-          <a *ngIf="isEmployeeUser" [routerLink]="'/listing-list'">Hartije</a>
+          <a [routerLink]="'/listing-list'">Hartije</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/listing-list'">Hartije</a>
+          <a [routerLink]="'/my-listings'">Moje hartije</a>
         </div>
         <div class="item">
-          <a *ngIf="isEmployeeUser" [routerLink]="'/my-listings'">Moje hartije</a>
-        </div>
-        <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/my-listings'">Moje hartije</a>
-        </div>
-        <div class="item">
-          <a *ngIf="isEmployeeUser" [routerLink]="'/supervisor-listing'">Lista agenata</a>
+          <a *ngIf="isEmployeeUser && !isCompany" [routerLink]="'/supervisor-listing'">Lista agenata</a>
         </div>
       </div>
       <div class="right">

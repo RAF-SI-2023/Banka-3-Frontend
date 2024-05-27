@@ -11,6 +11,7 @@ export class NavbarComponent  implements OnInit{
 
   isEmployeeUser = false
   isCompany = false
+  id = 0
   constructor(private router: Router) {
   }
 
@@ -37,6 +38,7 @@ export class NavbarComponent  implements OnInit{
     const token = sessionStorage.getItem("token");
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
+      this.id = payload.id
       if(payload.role && payload.role !== "ROLE_COMPANY")
         return true
     }
@@ -47,6 +49,7 @@ export class NavbarComponent  implements OnInit{
     const token = sessionStorage.getItem("token");
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
+      this.id = payload.id
       if(payload.role && payload.role === "ROLE_COMPANY")
         return true
     }
