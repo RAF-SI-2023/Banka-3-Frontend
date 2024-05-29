@@ -31,7 +31,7 @@ export class BuyHartijePopupComponent {
     }
   }
   confirm() {
-    this.exchangeService.buyStock(this.data.employeeId,
+    this.exchangeService.buyStock(this.data.userId, this.data.companyId, this.data.employeeId,
       this.data.ticker, this.data.amount, this.data.limitValue, this.data.stopValue, this.data.aon, this.data.margin).subscribe(
       (response) => {
         this.openSuccessSnackBar("Uspešna kupovina.");

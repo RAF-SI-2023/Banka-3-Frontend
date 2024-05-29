@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router} from "@angular/router";
 import {ExchangeService} from "../../../services/exchange.service";
+import { MyStock } from 'src/app/models/models';
 
 @Component({
   selector: 'app-otc-buy-popup',
@@ -11,7 +12,7 @@ import {ExchangeService} from "../../../services/exchange.service";
 })
 export class OtcBuyPopupComponent {
   amount: number = 0;
-  stock: string = '';
+  stock = {} as MyStock
   price: number = 0;
 
   constructor(
@@ -27,19 +28,40 @@ export class OtcBuyPopupComponent {
   }
 
   confirm() {
-    // this.exchangeService.buy(this.amount, this.price).subscribe(
-    //   (response) => {
-    //     this.openSuccessSnackBar("Uspešna kupovina.");
-    //     this.dialog.close();
-    //     this.router.navigate(['listing-list']);
-    //   },
-    //   (error) => {
-    //     console.error('Nemate dovoljno sredstava:', error);
-    //     this.openSuccessSnackBar("Neuspešna kupovina.");
-    //     this.dialog.close();
-    //     this.router.navigate(['listing-list']);
-    //   },
-    // )
+
+    const token = sessionStorage.getItem('token');
+    const payload = JSON.parse(atob(token!.split('.')[1]));
+    const hasRole = "role" in payload
+
+    if(hasRole){
+      this.exchangeService.buyCompanyStockOtc(this.stock.companyId, payload.id, this.stock.ticker,this.amount, this.price).subscribe(
+        (response) => {
+          this.openSuccessSnackBar("Uspešna kupovina.");
+          this.dialog.close();
+          this.router.navigate(['otc-company']);
+        },
+        (error) => {
+          console.error('Nemate dovoljno sredstava:', error);
+          this.openSuccessSnackBar("Neuspešna kupovina.");
+          this.dialog.close();
+          this.router.navigate(['otc-company']);
+        },
+      )
+    }else{
+      this.exchangeService.buyUserStockOtc(this.stock.userId, payload.id, this.stock.ticker,this.amount, this.price).subscribe(
+        (response) => {
+          this.openSuccessSnackBar("Uspešna kupovina.");
+          this.dialog.close();
+          this.router.navigate(['otc']);
+        },
+        (error) => {
+          console.error('Nemate dovoljno sredstava:', error);
+          this.openSuccessSnackBar("Neuspešna kupovina.");
+          this.dialog.close();
+          this.router.navigate(['otc']);
+        },
+      )
+    }
 
   }
 

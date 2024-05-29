@@ -10,11 +10,14 @@ import {parseJson} from "@angular/cli/src/utilities/json-file";
 export class NavbarComponent  implements OnInit{
 
   isEmployeeUser = false
+  isCompany = false
+  id = 0
   constructor(private router: Router) {
   }
 
   ngOnInit(): void {
     this.isEmployeeUser = this.isEmployee();
+    this.isCompany = this.isCompanyCheck()
   }
   userProfile(){
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
@@ -35,7 +38,19 @@ export class NavbarComponent  implements OnInit{
     const token = sessionStorage.getItem("token");
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
+      this.id = payload.id
       if(payload.role && payload.role !== "ROLE_COMPANY")
+        return true
+    }
+    return false;
+  }
+
+  isCompanyCheck(){
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      this.id = payload.id
+      if(payload.role && payload.role === "ROLE_COMPANY")
         return true
     }
     return false;
