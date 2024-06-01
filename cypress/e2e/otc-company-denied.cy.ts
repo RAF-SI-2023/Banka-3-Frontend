@@ -20,14 +20,13 @@ describe('Purchase Tests', () => {
     cy.get('.primary-button').contains('Log in').should('be.enabled').click();
     cy.get('app-navbar').should('be.visible');
   });
-
   it('should purchase a stock', () => {
     cy.get(':nth-child(13) > a').click();
     cy.get(':nth-child(2) > .cdk-column-opcije > :nth-child(2)').click();
     cy.contains('Kupovina hartije').should('be.visible');
-    cy.get('input[formControlName="amount"]').clear().type('5');
-    cy.get('input[formControlName="limit"]').clear().type('100');
-    cy.get('input[formControlName="stop"]').clear().type('50');
+    // cy.get('input[formControlName="amount"]').clear().type('5');
+    // cy.get('input[formControlName="limit"]').clear().type('100');
+    // cy.get('input[formControlName="stop"]').clear().type('50');
     cy.get('input[formControlName="allOrNone"]').check();
     cy.get('input.myButtonSecondary').contains('Kupi').click();
     cy.get('.popup-container').should('be.visible');
@@ -36,9 +35,13 @@ describe('Purchase Tests', () => {
     cy.reload();
     cy.get(':nth-child(14) > a').click();
     cy.reload();
+    cy.wait(6000);
+    cy.reload();
+    cy.get(':nth-child(13) > a').click();
+    cy.get(':nth-child(14) > a').click();
     cy.get(':nth-child(2) > .cdk-column-opcije > :nth-child(2)').should('be.visible');
 
-    cy.get('.button').contains('Vidljivost').click();
+    cy.get(':nth-child(2) > .cdk-column-opcije > :nth-child(2)').click();
 
     cy.get('.popup-container').should('be.visible');
     cy.get('.popup-content input.input').clear().type('1');
@@ -47,7 +50,6 @@ describe('Purchase Tests', () => {
 
   });
 });
-
 
 describe('Exchange User Tests', () => {
   beforeEach(() => {
@@ -72,7 +74,7 @@ describe('Exchange User Tests', () => {
   });
 });
 
-describe('First company accepts Tests', () => {
+describe('First company declines Tests', () => {
   beforeEach(() => {
     cy.visit('http://localhost:80');
     cy.get('a[routerLink="/company-login"]').click();
@@ -86,13 +88,18 @@ describe('First company accepts Tests', () => {
     cy.get('app-navbar').should('be.visible');
     cy.get(':nth-child(10) > a').click();
     cy.get('.panel > :nth-child(3)').click();
-    cy.get('.button').contains('Prihvati').click();
+    cy.get('.button2').contains('Odbij').click();
+
+    cy.get('.popup-container').should('be.visible');
+    cy.get('.popup-content input.input').clear().type('comment here');
+    cy.get('.myButtonSecondary').contains('Potvrdi').click();
+
 
   });
 });
 
 
-describe('First company accepts Tests', () => {
+describe('Check if declined', () => {
   beforeEach(() => {
     cy.visit('http://localhost:80');
     cy.get('a[routerLink="/company-login"]').click();

@@ -25,9 +25,9 @@ describe('Purchase Tests', () => {
     cy.get(':nth-child(13) > a').click();
     cy.get(':nth-child(2) > .cdk-column-opcije > :nth-child(2)').click();
     cy.contains('Kupovina hartije').should('be.visible');
-    cy.get('input[formControlName="amount"]').clear().type('5');
-    cy.get('input[formControlName="limit"]').clear().type('100');
-    cy.get('input[formControlName="stop"]').clear().type('50');
+    // cy.get('input[formControlName="amount"]').clear().type('5');
+    // cy.get('input[formControlName="limit"]').clear().type('100');
+    // cy.get('input[formControlName="stop"]').clear().type('50');
     cy.get('input[formControlName="allOrNone"]').check();
     cy.get('input.myButtonSecondary').contains('Kupi').click();
     cy.get('.popup-container').should('be.visible');
@@ -36,10 +36,13 @@ describe('Purchase Tests', () => {
     cy.reload();
     cy.get(':nth-child(14) > a').click();
     cy.reload();
+    cy.wait(6000);
+    cy.reload();
+    cy.get(':nth-child(13) > a').click();
+    cy.get(':nth-child(14) > a').click();
     cy.get(':nth-child(2) > .cdk-column-opcije > :nth-child(2)').should('be.visible');
 
-    cy.get('.button').contains('Vidljivost').click();
-
+    cy.get(':nth-child(2) > .cdk-column-opcije > :nth-child(2)').click();
 
     cy.get('.popup-container').should('be.visible');
     cy.get('.popup-content input.input').clear().type('1');
@@ -122,6 +125,12 @@ describe('Supervisor User Tests', () => {
     cy.reload();
     cy.get('.contract-button').click();
     cy.get('.cdk-column-decline > .icon-button > img').last().click();
+    // cy.get('.mat-mdc-row > .cdk-column-decline').last().click();
+    // cy.get(':nth-child(2) > .cdk-column-decline > .icon-button > img').click();
+
+    cy.get('.popup-container').should('be.visible');
+    cy.get('.popup-content input.input').clear().type('comment here');
+    cy.get('.myButtonSecondary').contains('Potvrdi').click();
 
   });
 });
