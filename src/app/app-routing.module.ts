@@ -11,6 +11,7 @@ import {CreateEmployeeComponent} from "./compnents/employee_components/create-em
 import {AuthGuard} from "./guards/auth.guard";
 import {AdminGuard} from "./guards/admin.guard";
 import {CreateUserComponent} from "./compnents/user_components/create-user/create-user.component";
+import {OurCompanyGuard} from "./guards/our-company.guard";
 
 import {UserAddAccountFormComponent} from "./compnents/employee_components/user-add-account-form/user-add-account-form.component";
 import {FirmAddAccountFormComponent} from "./compnents/firm_components/firm-add-account-form/firm-add-account-form.component";
@@ -53,6 +54,7 @@ import { OtcViewComponent } from './compnents/otc/otc-view/otc-view.component';
 import { SetStockVisibilityComponent } from './compnents/listing_components/set-stock-visibility/set-stock-visibility.component';
 import { CompanyGuard } from './guards/company.guard';
 import {OtcCompanyViewComponent} from "./compnents/otc/otc-company-view/otc-company-view.component";
+import {ProfitTableComponent} from "./compnents/profit-table/profit-table.component";
 
 
 const routes: Routes = [
@@ -264,6 +266,10 @@ const routes: Routes = [
     path: 'otc-company',
     component: OtcCompanyViewComponent,
     canActivate: [AuthGuard, CompanyGuard]
+  }, {
+    path: 'profit-table',
+    component: ProfitTableComponent,
+    canActivate: [AuthGuard,OurCompanyGuard]
   }
 ];
 
