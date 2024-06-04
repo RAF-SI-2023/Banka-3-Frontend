@@ -24,6 +24,10 @@
           <a *ngIf="!isEmployeeUser && (isCompany && id !== 1) " [routerLink]="'/exchange'">Menjačnica</a>
         </div>
         <div class="item">
+          <a *ngIf="!isEmployeeUser && (isCompany && id == 1) " [routerLink]="'/profit-table'">Profit</a>
+        </div>
+
+        <div class="item">
           <a *ngIf="!isEmployeeUser && !isCompany" [routerLink]="'/payment'">Plaćanja</a>
         </div>
         <div class="item">
