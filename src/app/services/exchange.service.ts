@@ -29,6 +29,7 @@ export class ExchangeService {
   apiUrlOptions: string = environment.exchangeServiceUrl + "/api/v1/option"
   apiUrlStocks: string = environment.exchangeServiceUrl + "/api/v1/stock"
   apiUrlForex: string = environment.exchangeServiceUrl + "/api/v1/forex"
+  apiAgentProfit: string = environment.exchangeServiceUrl + "/api/v1/actuary/profit"
   constructor(private httpClient : HttpClient) { }
 
   getAllStocks(){
@@ -434,6 +435,13 @@ export class ExchangeService {
       }
         return this.httpClient.post<any>(`${this.apiUrlExchangeService}/contract/supervisorDecline`, data, { headers });
     }
+  getAgentProfits(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<any>(`${this.apiAgentProfit}/getAll`, {headers});
+  }
 
 }
 
