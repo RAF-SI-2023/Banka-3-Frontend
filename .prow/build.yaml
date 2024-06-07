@@ -5,6 +5,7 @@ postsubmits:
     max_concurrency: 1
     labels:
       preset-harbor-robot-push: "true"
+      preset-k8s-banka-3: "true"
     spec:
       containers:
         - image: harbor.k8s.elab.rs/base-images/base:java-17-node-18-docker
@@ -27,6 +28,12 @@ postsubmits:
 
               TEAM_NAME="banka-3"
 
+              ENVIRONMENT="development"
+
+              if [ "$PULL_BASE_REF" == "main" ]; then
+                ENVIRONMENT="production"
+              fi
+
               start-docker.sh
 
               docker login -u $HARBOR_USERNAME -p $HARBOR_PASSWORD harbor.k8s.elab.rs
@@ -35,12 +42,17 @@ postsubmits:
               
               SERVICE_NAME="frontend"
               
-              docker build --build-arg ENV=production -f "./images/${SERVICE_NAME}.Dockerfile" -t harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:latest ../Banka-3-Frontend/
+              docker build --build-arg ENV=${ENVIRONMENT} -f "./images/${SERVICE_NAME}.Dockerfile" -t harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:latest ../Banka-3-Frontend/
             
               docker tag harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:latest harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:${commit_hash}
             
               docker push harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:latest
               docker push harbor.k8s.elab.rs/${TEAM_NAME}/${SERVICE_NAME}:${commit_hash}
+
+              helm upgrade --namespace="$TEAM_NAME-dev" --create-namespace --timeout=20m --atomic --install --set imageTag="${commit_hash}" "$TEAM_NAME-frontend" "oci://harbor.k8s.elab.rs/$TEAM_NAME/$TEAM_NAME-frontend/$TEAM_NAME-frontend"
+              if [ "$PULL_BASE_REF" == "main" ]; then
+                helm upgrade --namespace="$TEAM_NAME-prod" --create-namespace --timeout=20m --atomic --install --set imageTag="${commit_hash}",host="$TEAM_NAME.si.raf.edu.rs" "$TEAM_NAME-frontend" "oci://harbor.k8s.elab.rs/$TEAM_NAME/$TEAM_NAME-frontend/$TEAM_NAME-frontend"
+              fi
               
           securityContext:
             privileged: true
