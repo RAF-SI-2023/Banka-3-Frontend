@@ -27,7 +27,7 @@ export class TransactionDetailsComponent implements OnInit{
 
 
   goBack(){
-    this.router.navigate(['']);
+    this.router.navigate(['/company-home']);
   }
 
 }

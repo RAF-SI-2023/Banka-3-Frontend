@@ -96,7 +96,7 @@
                                 <p class="bold">Iznos</p>
                                 <div class="input-with-addon">
                                     <input class="inputField" type="text" id="iznos" name="iznos" placeholder="0,00" formControlName="amount">
-                                    <span class="addon">RSD</span>
+                                    <span class="addon">{{accountMark}}</span>
                                     <div *ngIf="amount && amount.invalid && amount.touched" class="error-message">
                                         Obavezno polje.
                                     </div>
