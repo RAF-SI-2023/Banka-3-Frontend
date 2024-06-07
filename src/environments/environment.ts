@@ -5,3 +5,4 @@ export const environment = {
     exchangeServiceUrl: 'http://localhost:8083',
     emailServiceUrl: 'http://localhost:8081'
 };
+
