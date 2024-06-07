@@ -29,6 +29,7 @@ export class SetStockVisibilityComponent {
       const payload = JSON.parse(atob(token!.split('.')[1]));
       const hasRole = "role" in payload;
       if(!hasRole){
+        console.log(this.publicAmount + "PUBLICC")
         this.exchangeService.setStockViewUser(this.stock.ticker, this.stock.userId, this.publicAmount).subscribe( res => {
           console.log(res)
           this.dialog.close()
@@ -38,6 +39,7 @@ export class SetStockVisibilityComponent {
         })
       }
       else if(payload.role === "ROLE_COMPANY"){
+
         this.exchangeService.setStockViewCompany(this.stock.ticker, this.stock.companyId, this.publicAmount).subscribe( res => {
           this.dialog.close()
           console.log(res)
@@ -54,6 +56,16 @@ export class SetStockVisibilityComponent {
         }, error => {
           console.log(error)
         })
+      }
+    }
+
+    validatePublicAmount() {
+      if (isNaN(this.publicAmount)) {
+        this.publicAmount = 0;
+      } else if (this.publicAmount < 0) {
+        this.publicAmount = 0;
+      } else if (this.publicAmount > this.amount) {
+        this.publicAmount = this.amount;
       }
     }
 

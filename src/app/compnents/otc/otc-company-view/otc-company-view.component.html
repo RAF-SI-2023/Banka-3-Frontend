@@ -1,14 +1,14 @@
 <div class="page">
-    <div class="dropdown">
-          <mat-form-field>
-              <mat-label>Hartije</mat-label>
-              <mat-select [(ngModel)]="tipHartije" (ngModelChange)="onStockChange($event)">
-                  <mat-option value="Stock">Stock</mat-option>
-                  <mat-option value="Future">Future</mat-option>
-                  <mat-option value="Option">Option</mat-option>
-                </mat-select>
-            </mat-form-field>
-    </div>
+    <!-- <div class="dropdown"> -->
+    <!--       <mat-form-field> -->
+    <!--           <mat-label>Hartije</mat-label> -->
+    <!--           <mat-select [(ngModel)]="tipHartije" (ngModelChange)="onStockChange($event)"> -->
+    <!--               <mat-option value="Stock">Stock</mat-option> -->
+    <!--               <mat-option value="Future">Future</mat-option> -->
+    <!--               <mat-option value="Option">Option</mat-option> -->
+    <!--             </mat-select> -->
+    <!--         </mat-form-field> -->
+    <!-- </div> -->
     <div class="panel">
 
       <button [ngStyle]="{ 'opacity': !kupovinaFlag ? '0.5' : '1'}" class="users-button" (click)="switchToKupovina()">

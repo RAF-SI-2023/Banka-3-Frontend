@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Contract, Firm, MyStock, Stock, User } from 'src/app/models/models';
@@ -9,13 +9,15 @@ import { BuyHartijePopupComponent } from '../../listing_components/buy-hartije-p
 import { OtcBuyPopupComponent } from '../otc-buy-popup/otc-buy-popup.component';
 import { Obj } from '@popperjs/core';
 import { OtcAcceptDeclineComponent } from '../otc-accept-decline/otc-accept-decline.component';
+import { WebsocketService } from 'src/app/services/websocket.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-otc-view',
   templateUrl: './otc-view.component.html',
   styleUrls: ['./otc-view.component.css']
 })
-export class OtcViewComponent implements OnInit{
+export class OtcViewComponent implements OnInit, OnDestroy{
 
   kupovinaFlag = true;
   zahteviFlag = false;
@@ -31,12 +33,16 @@ export class OtcViewComponent implements OnInit{
   zahteviColumns: string[] = [ "Hartija", "Količina", "Cena", "Status"];
   ponudeColumns: string[] = [ "Hartija", "Količina", "Cena", "Opcije"];
 
+  contractSubscription: Subscription | null = null
+  stockSubscription: Subscription | null = null
+
 
   constructor(private accountService: AccountService,
               private userService : UserService,
               private exService: ExchangeService,
               private router: Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private WebsocketService: WebsocketService) {
   }
 
 
@@ -47,19 +53,49 @@ export class OtcViewComponent implements OnInit{
     const hasRole = "role" in payload;
 
     if(!hasRole){
-      this.exService.getPublicStocks(payload.id).subscribe( res => {
-        this.stocksData = res;
-        this.stocksData.forEach(stock => {
-          this.fetchUser(stock.userId);
-        });
+
+      this.fetchPublicStocks()
+
+      this.contractSubscription = this.WebsocketService.contractMessages.subscribe( msg => {
+        this.fetchPublicStocks()
+
       })
-      this.exService.getAllSentRequestsUser(payload.id).subscribe( res => {
-        this.sentData = res;
-      })
-      this.exService.getAllReceivedRequestsUser(payload.id).subscribe( res => {
-        this.receivedData = res;
+      this.stockSubscription = this.WebsocketService.messages.subscribe( msg => {
+        this.fetchPublicStocks()
       })
     }
+  }
+
+  fetchPublicStocks(){
+    const token = sessionStorage.getItem('token');
+    const payload = JSON.parse(atob(token!.split('.')[1]));
+    this.exService.getPublicStocks(payload.id).subscribe( res => {
+      this.stocksData = res;
+      this.stocksData.forEach(stock => {
+        this.fetchUser(stock.userId);
+      });
+    })
+    this.exService.getAllSentRequestsUser(payload.id).subscribe( res => {
+      this.sentData = res;
+    })
+    this.exService.getAllReceivedRequestsUser(payload.id).subscribe( res => {
+      this.receivedData = res;
+    })
+  }
+
+  ngOnDestroy(): void {
+      if (this.stockSubscription) {
+        this.stockSubscription.unsubscribe();
+      }
+      if (this.contractSubscription) {
+        this.contractSubscription.unsubscribe();
+      }
+      // if (this.futureSubscription) {
+      //   this.futureSubscription.unsubscribe();
+      // }
+      // if (this.forexSubscription) {
+      //   this.forexSubscription.unsubscribe();
+      // }
   }
     fetchUser(userId: number){
       if (!this.users[userId]) {

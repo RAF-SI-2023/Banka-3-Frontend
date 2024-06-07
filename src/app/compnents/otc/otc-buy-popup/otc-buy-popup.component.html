@@ -1,5 +1,5 @@
 <div class="popup-container">
-    <h2 class="popup-title text-center">{{ stock }}</h2>
+    <h2 class="popup-title text-center">{{ stock.ticker }}</h2>
     <p class="line"></p>
     <div class="popup-content">
       <p class="text-center"><strong>Količina:</strong></p>
@@ -8,25 +8,60 @@
           type="number"
           class="input"
           [(ngModel)]="amount"
+          name="amount"
+          #amountInput="ngModel"
+          (ngModelChange)="validateAmount()"
           style="display: inline-block; width: 100px;"
           min="0"
-        >
+          [max]="stock.amount"
+          required
+          >
+          <div *ngIf="amountInput.invalid && (amountInput.dirty || amountInput.touched)">
+            <div *ngIf="amountInput.errors?.['required']">
+              Količina je obavezna.
+            </div>
+            <div *ngIf="amountInput.errors?.['min']">
+              Količina ne može biti negativna.
+            </div>
+            <div *ngIf="amountInput.errors?.['max']">
+              Količina ne može biti veća od {{ stock.amount }}.
+            </div>
+            <div *ngIf="amountInput.errors?.['pattern']">
+              Unesite važeći broj.
+            </div>
+          </div>
       </div>
+
       <p class="text-center"><strong>Predložena cena:</strong></p>
       <div style="text-align: center;">
         <input
           type="number"
           class="input"
           [(ngModel)]="price"
+          #priceInput="ngModel"
+          (ngModelChange)="validatePrice()"
           style="display: inline-block; width: 100px;"
           min="0"
+          required
         >
+        <div *ngIf="priceInput.invalid && (priceInput.dirty || priceInput.touched)">
+          <div *ngIf="priceInput.errors?.['required']">
+            Cena je obavezna.
+          </div>
+          <div *ngIf="priceInput.errors?.['min']">
+            Cena ne može biti negativna.
+          </div>
+          <div *ngIf="priceInput.errors?.['pattern']">
+            Unesite važeći broj.
+          </div>
+        </div>
+
       </div>
 
     </div>
     <div class="text-center">
       <button class="myButtonPrimary" (click)="cancel()">Odustani</button>
-      <button class="myButtonSecondary" (click)="confirm()">Potvrdi</button>
+      <button [disabled]="amountInput.invalid || priceInput.invalid" class="myButtonSecondary" (click)="confirm()">Potvrdi</button>
     </div>
   </div>
-  
+

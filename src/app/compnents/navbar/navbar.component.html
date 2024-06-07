@@ -11,20 +11,20 @@
           <a *ngIf="isEmployeeUser" [routerLink]="'/user-list'">Korisnici</a>
         </div>
         <div class="item">
-          <a *ngIf="isEmployeeUser" [routerLink]="'/user-control'">Računi</a>
+          <a *ngIf="isEmployeeUser && !isCompany" [routerLink]="'/user-control'">Računi</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser" [routerLink]="'/card-view'">Kartice</a>
+          <a *ngIf="!isEmployeeUser && !isCompany" [routerLink]="'/card-view'">Kartice</a>
         </div>
         <div class="item">
           <a *ngIf="isEmployeeUser && !isCompany" [routerLink]="'/credit-list'">Zahtevi za kredit</a>
         </div>
         <div class="item">
           <!-- TODO  provera da li je kompanija, ako jeste da li je id === 1 -->
-          <a *ngIf="!isEmployeeUser && (isCompany && id !== 1) " [routerLink]="'/exchange'">Menjačnica</a>
+          <a *ngIf="!isEmployeeUser && ((!isCompany) || (isCompany && id !== 1))" [routerLink]="'/exchange'">Menjačnica</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser && (isCompany && id == 1) " [routerLink]="'/profit-table'">Profit</a>
+          <a *ngIf="!isEmployeeUser && ((!isCompany) || (isCompany && id == 1))" [routerLink]="'/profit-table'">Profit</a>
         </div>
 
         <div class="item">
@@ -46,7 +46,7 @@
           <a *ngIf="!isEmployeeUser && !isCompany" [routerLink]="'/bankomat'">Bankomat</a>
         </div>
         <div class="item">
-          <a [routerLink]="'/listing-list'">Hartije</a>
+          <a [routerLink]="'/listing-list'">Berza</a>
         </div>
         <div class="item">
           <a [routerLink]="'/my-listings'">Moje hartije</a>
@@ -58,14 +58,14 @@
       <div class="right">
         <div class="divider">
         </div>
-        <div *ngIf="!isEmployeeUser" class="profile">
-          <button (click)="userProfile()" class="btn" type="button">
-              <svg class="user" width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            Profil
-          </button>
-        </div>
+        <!-- <div *ngIf="!isEmployeeUser" class="profile"> -->
+        <!--   <button (click)="userProfile()" class="btn" type="button"> -->
+        <!--       <svg class="user" width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> -->
+        <!--         <path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> -->
+        <!--       </svg> -->
+        <!--     Profil -->
+        <!--   </button> -->
+        <!-- </div> -->
         <div class="logout">
           <button (click)="logout()" class="log" type="button">
             Odjavi se

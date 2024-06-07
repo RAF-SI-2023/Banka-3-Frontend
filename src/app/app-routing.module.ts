@@ -107,7 +107,7 @@ const routes: Routes = [
   {
     path: 'add-user',
     component: CreateUserComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    canActivate: [AuthGuard, BankingOfficerGuard]
   },
   {
     path: 'user-profile/:id',
