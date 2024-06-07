@@ -5,3 +5,4 @@ export const environment = {
     exchangeServiceUrl: 'https://banka-3.si.raf.edu.rs/exchange-service',
     emailServiceUrl: 'https://banka-3.si.raf.edu.rs/email-service'
 };
+
