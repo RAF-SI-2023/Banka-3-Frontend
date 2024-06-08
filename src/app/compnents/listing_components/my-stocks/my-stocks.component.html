@@ -7,8 +7,14 @@
     <button *ngIf="role !== 'ROLE_USER'" [ngStyle]="{ 'opacity': !futuresFlag ? '0.5' : '1'}" (click)="switchToFutures()" class="future-button">
       M y  F u t u r e s
     </button>
+    <button *ngIf="role !== 'ROLE_USER' && role !== 'ROLE_COMPANY'" [ngStyle]="{ 'opacity': !forexFlag ? '0.5' : '1'}" (click)="switchToForex()" class="forex-button">
+      M y  F o r e x
+    </button>
     <!-- Tabela za prikaz podataka -->
     <div class="table">
+
+
+      <!-- S T O C K S -->
       <mat-table *ngIf="stocksFlag" [dataSource]="myStocks" matSort>
 
         <ng-container *ngFor="let column of myStockColumns" [matColumnDef]="column">
@@ -35,9 +41,41 @@
         <mat-header-row *matHeaderRowDef="myStockColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: myStockColumns;"></mat-row>
       </mat-table>
+
+
+      <!-- F U T U R E S -->
       <mat-table *ngIf="futuresFlag" [dataSource]="myFutures" matSort>
 
-        <ng-container *ngFor="let column of myFutureColumns" [matColumnDef]="column">
+      <ng-container *ngFor="let column of myFutureColumns" [matColumnDef]="column">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ column | uppercase }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"
+                  [ngStyle]="{
+                'color': column === 'change' ? (element[column] > 0 ? '#33d17a' : '#ed333b') : 'inherit',
+                'font-weight': column === 'ticker' ? 'bold' : 'normal',
+                'cursor': column === 'ticker' ? 'pointer' : 'default'
+
+              }">
+          <ng-container *ngIf="column !== 'opcije'">
+            {{ element[column] }}
+          </ng-container>
+          <ng-container *ngIf="column === 'opcije'">
+            <button (click)="sellFuture(element['myFutureId'])" class="button">Prodaj</button>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+        <mat-header-row *matHeaderRowDef="myFutureColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: myFutureColumns;"></mat-row>
+      </mat-table>
+
+
+
+      <!-- F O R E X -->
+      <mat-table *ngIf="forexFlag" [dataSource]="myForex" matSort>
+
+        <ng-container *ngFor="let column of myForexColumns" [matColumnDef]="column">
           <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{ column | uppercase }}
           </mat-header-cell>
@@ -52,14 +90,17 @@
               {{ element[column] }}
             </ng-container>
             <ng-container *ngIf="column === 'opcije'">
-              <button (click)="sellFuture(element['myFutureId'])" class="button">Prodaj</button>
+              <button (click)="sellStock(element['ticker'])" class="button">Prodaj</button>
+              <button (click)="setStockOtc(element)" class="button">Vidljivost</button>
             </ng-container>
           </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="myFutureColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: myFutureColumns;"></mat-row>
+        <mat-header-row *matHeaderRowDef="myForexColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: myForexColumns;"></mat-row>
       </mat-table>
+
+
     </div>
   </div>
 </div>

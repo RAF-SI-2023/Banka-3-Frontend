@@ -258,6 +258,17 @@ export interface Forex{
 
 }
 
+export interface MyForex{
+
+  myForexId: number,
+  companyId: number,
+  quoteCurrency: string,
+  amount: number,
+  conversionRate: number,
+  version: number
+
+}
+
 export interface Daily{
   stockDailyId:number,
   date: number,

@@ -34,6 +34,9 @@ export class OtcBuyPopupComponent {
     const hasRole = "role" in payload
 
     if(hasRole){
+      if(this.amount <= 0 || this.price <= 0 || this.stock.amount < this.amount){
+        return;
+      }
       this.exchangeService.buyCompanyStockOtc(this.stock.companyId, payload.id, this.stock.ticker,this.amount, this.price).subscribe(
         (response) => {
           this.openSuccessSnackBar("Uspešna kupovina.");
@@ -48,6 +51,9 @@ export class OtcBuyPopupComponent {
         },
       )
     }else{
+      if(this.amount <= 0 || this.price <= 0 || this.stock.amount < this.amount){
+        return;
+      }
       this.exchangeService.buyUserStockOtc(this.stock.userId, payload.id, this.stock.ticker,this.amount, this.price).subscribe(
         (response) => {
           this.openSuccessSnackBar("Uspešna kupovina.");
@@ -64,6 +70,24 @@ export class OtcBuyPopupComponent {
     }
 
   }
+
+  validateAmount() {
+      if (isNaN(this.amount)) {
+        this.amount = 0;
+      } else if (this.amount < 0) {
+        this.amount = 0;
+      } else if (this.stock.amount > this.amount) {
+        this.amount = this.amount;
+      }
+  }
+  validatePrice() {
+      if (!isNaN(this.price)) {
+        this.price = 0;
+      } else if (this.price < 0) {
+        this.price = 0;
+      }
+  }
+
 
   cancel() {
     this.dialog.close();
