@@ -1,13 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {BuyFuturePopupComponent} from "../sell-future-popup/buy-future-popup.component";
-import {MyFuture, MyStock} from "../../../models/models";
+import {Firm, MyForex, MyFuture, MyStock} from "../../../models/models";
 import {ExchangeService} from "../../../services/exchange.service";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
 import { SetStockVisibilityComponent } from '../set-stock-visibility/set-stock-visibility.component';
 import { MatDialog } from '@angular/material/dialog';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-my-stocks',
@@ -18,15 +19,21 @@ export class MyStocksComponent implements OnInit, OnDestroy{
 
   myStocks = [] as MyStock[]
   myFutures = [] as MyFuture[]
-  myStockColumns = ['myStockId', 'ticker', 'amount', 'opcije'];
+  myForex = [] as MyForex[]
+  myStockColumns = ['myStockId', 'ticker', 'amount', 'publicAmount', 'opcije'];
   myFutureColumns = ['myFutureId', 'contractName', 'amount', 'opcije'];
+  myForexColumns = ['myForexId', 'companyId', 'amount', 'quoteCurrency', 'conversionRate', 'opcije'];
   stocksFlag = true
   futuresFlag = false
+  forexFlag = false
   role: string = ''
+  companies: { [firmId: number]: Firm | undefined } = {};
 
   stockSubscription: Subscription | null = null
+  futureSubscription: Subscription | null = null
+  forexSubscription: Subscription | null = null
 
-  constructor(private service: ExchangeService,  private webSocketService: WebsocketService, private router: Router, private dialog: MatDialog) {
+  constructor(private service: ExchangeService, private userService: UserService,  private webSocketService: WebsocketService, private router: Router, private dialog: MatDialog) {
 
   }
 
@@ -34,18 +41,25 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     if(this.stocksFlag) return;
     this.stocksFlag = true
     this.futuresFlag = false
-    this.service.getMyStocks().subscribe( res => {
-      this.myStocks = res
-    })
+    this.forexFlag = false
+    this.fetchStocks()
 
   }
   switchToFutures(){
     if(this.futuresFlag) return;
     this.futuresFlag = true
     this.stocksFlag = false
-    this.service.getMyFutures().subscribe( res => {
-      this.myFutures = res
-    })
+    this.forexFlag = false
+    // this.service.getMyFutures().subscribe( res => {
+    //   this.myFutures = res
+    // })
+  }
+  switchToForex(){
+    if(this.forexFlag) return;
+    this.forexFlag = true
+    this.stocksFlag = false
+    this.futuresFlag = false
+    //TODO getAllForex
   }
 
   private tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
@@ -61,11 +75,13 @@ export class MyStocksComponent implements OnInit, OnDestroy{
       this.myFutures = res
     })
     this.stockSubscription = this.webSocketService.messages.subscribe( msg => {
-      // this.service.getMyStocks().subscribe( res => {
-      //   this.myStocks = res
-      //   this.myStocks.sort((a, b) => a.myStockId - b.myStockId)
-      // })
       this.fetchStocks()
+    })
+    this.futureSubscription = this.webSocketService.futureMessages.subscribe( msg => {
+      this.fetchFutures()
+    })
+    this.forexSubscription = this.webSocketService.forexMessages.subscribe( msg => {
+      this.fetchForex()
     })
 
   }
@@ -91,9 +107,39 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     }
   }
 
+  private fetchForex(){
+    if(this.role === "ROLE_COMPANY"){
+      this.service.getCompanyMyForex(this.tk.id).subscribe(res => {
+        this.myForex = res
+      })
+    }else{
+      this.service.getCompanyMyForex(1).subscribe(res => {
+        this.myForex = res
+      })
+    }
+  }
+
+  private fetchFutures(){
+
+  }
+
+
+  fetchCompany(companyId: number){
+      if (!this.companies[companyId]) {
+        this.userService.getCompanyById(companyId).subscribe(res => {
+          this.companies[companyId] = res;
+        });
+    }}
+
   ngOnDestroy(): void {
       if (this.stockSubscription) {
         this.stockSubscription.unsubscribe();
+      }
+      if (this.futureSubscription) {
+        this.futureSubscription.unsubscribe();
+      }
+      if (this.forexSubscription) {
+        this.forexSubscription.unsubscribe();
       }
   }
 

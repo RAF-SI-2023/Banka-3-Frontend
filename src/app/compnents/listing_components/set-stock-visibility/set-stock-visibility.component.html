@@ -12,15 +12,33 @@
           type="number"
           class="input"
           [(ngModel)]="publicAmount"
+          name="publicAmount"
+          #publicAmountInput="ngModel"
+          (ngModelChange)="validatePublicAmount()"
           style="display: inline-block; width: 100px;"
           min="0"
-          max={{amount}}
-        >
+          [max]="stock.amount"
+          required
+          >
+          <div *ngIf="publicAmountInput.invalid && (publicAmountInput.dirty || publicAmountInput.touched)">
+            <div *ngIf="publicAmountInput.errors?.['required']">
+              Amount je obavezan.
+            </div>
+            <div *ngIf="publicAmountInput.errors?.['min']">
+              Amount ne može biti negativan.
+            </div>
+            <div *ngIf="publicAmountInput.errors?.['max']">
+              Amount ne može biti veći od {{ amount }}.
+            </div>
+            <div *ngIf="publicAmountInput.errors?.['pattern']">
+              Unesite važeći broj.
+            </div>
+          </div>
       </div>
     </div>
     <div class="text-center">
       <button class="myButtonPrimary" (click)="cancel()">Odustani</button>
-      <button class="myButtonSecondary" (click)="confirm()">Potvrdi</button>
+      <button [disabled]="publicAmountInput.invalid" class="myButtonSecondary" (click)="confirm()">Potvrdi</button>
     </div>
   </div>
 

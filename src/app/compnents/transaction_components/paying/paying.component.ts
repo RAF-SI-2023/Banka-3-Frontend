@@ -49,6 +49,7 @@ export class PayingComponent implements OnInit {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
       this.account = navigation.extras.state['account'];
+      this.accountMark = this.account.currency.mark
     }
     this.groupForm = this.formBuilder.group({
       recipientName: new FormControl('', Validators.required),
@@ -202,10 +203,11 @@ export class PayingComponent implements OnInit {
   onAccountChange(event: any){
     const acc = this.userAccounts.find((item) => item.accountNumber === event)
     if(acc){
+      console.log(acc)
       this.selectedAccount = acc;
       this.accountNumber = this.selectedAccount.accountNumber;
       this.accountBalance = this.selectedAccount.availableBalance - this.selectedAccount.reservedAmount;
-      this.accountMark = this.selectedAccount.currency.currencyMark
+      this.accountMark = this.selectedAccount.currency.mark
     }
   }
 

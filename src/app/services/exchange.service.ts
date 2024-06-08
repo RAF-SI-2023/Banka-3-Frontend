@@ -14,7 +14,8 @@ import {
   RequestDto,
   Actuary,
   Contract,
-  FutureContract
+  FutureContract,
+  MyForex
 } from "../models/models";
 import {Observable} from "rxjs";
 import { environment } from 'src/environments/environment';
@@ -30,6 +31,7 @@ export class ExchangeService {
   apiUrlStocks: string = environment.exchangeServiceUrl + "/api/v1/stock"
   apiUrlForex: string = environment.exchangeServiceUrl + "/api/v1/forex"
   apiAgentProfit: string = environment.exchangeServiceUrl + "/api/v1/actuary/profit"
+
   constructor(private httpClient : HttpClient) { }
 
   getAllStocks(){
@@ -54,6 +56,13 @@ export class ExchangeService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
     return this.httpClient.get<Forex[]>(`${this.apiUrlExchangeService}/forex`, { headers });
+  }
+  getCompanyMyForex(firmId: number): Observable<MyForex[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<MyForex[]>(`${this.apiUrlForex}/myForex/getAllForCompany/${firmId}`, { headers });
   }
   getAllOptions(){
 
