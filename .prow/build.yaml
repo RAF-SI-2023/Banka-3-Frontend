@@ -28,14 +28,6 @@ postsubmits:
 
               TEAM_NAME="banka-3"
 
-              ENVIRONMENT="development"
-              IMAGE_NAME="frontend-dev"
-
-              if [ "$PULL_BASE_REF" == "main" ]; then
-                ENVIRONMENT="production"
-                IMAGE_NAME="frontend"
-              fi
-
               start-docker.sh
 
               docker login -u $HARBOR_USERNAME -p $HARBOR_PASSWORD harbor.k8s.elab.rs
@@ -43,7 +35,21 @@ postsubmits:
               commit_hash=$(git rev-parse HEAD)
               
               SERVICE_NAME="frontend"
-              
+
+
+              ENVIRONMENT="development"
+              IMAGE_NAME="frontend-dev"
+
+              docker build --build-arg ENV=${ENVIRONMENT} -f "./images/${SERVICE_NAME}.Dockerfile" -t harbor.k8s.elab.rs/${TEAM_NAME}/${IMAGE_NAME}:latest ../Banka-3-Frontend/
+            
+              docker tag harbor.k8s.elab.rs/${TEAM_NAME}/${IMAGE_NAME}:latest harbor.k8s.elab.rs/${TEAM_NAME}/${IMAGE_NAME}:${commit_hash}
+            
+              docker push harbor.k8s.elab.rs/${TEAM_NAME}/${IMAGE_NAME}:latest
+              docker push harbor.k8s.elab.rs/${TEAM_NAME}/${IMAGE_NAME}:${commit_hash}
+
+              ENVIRONMENT="production"
+              IMAGE_NAME="frontend"
+
               docker build --build-arg ENV=${ENVIRONMENT} -f "./images/${SERVICE_NAME}.Dockerfile" -t harbor.k8s.elab.rs/${TEAM_NAME}/${IMAGE_NAME}:latest ../Banka-3-Frontend/
             
               docker tag harbor.k8s.elab.rs/${TEAM_NAME}/${IMAGE_NAME}:latest harbor.k8s.elab.rs/${TEAM_NAME}/${IMAGE_NAME}:${commit_hash}
