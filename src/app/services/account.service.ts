@@ -30,6 +30,7 @@ export class AccountService {
   apiUrlCredit: string = environment.bankServiceUrl + "/api/v1/credit"
   apiUrlCurrencyExchange: string = environment.bankServiceUrl + "/api/v1/currencyExchange"
   apiUrlContract: string = environment.bankServiceUrl + "/api/v1/contract"
+  apiUrlExchange: string = environment.bankServiceUrl + "/api/v1/currencyExchange"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -328,5 +329,12 @@ export class AccountService {
       headers,
       responseType: 'text' as 'json'
     });
+  }
+  getProfits(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<any>(`${this.apiUrlExchange}`, {headers});
   }
 }
