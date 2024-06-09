@@ -96,14 +96,14 @@ export class AccountService {
     })
     let newMark = ''
     switch (mark){
-      case "JEN":
-        newMark = "JEN"
-        break;
-      case "FUNTA":
-        newMark = "GBR"
-        break;
       case "EURO":
         newMark = "EUR"
+        break;
+      case "RSD":
+        newMark = "RSD"
+        break;
+      case "DOLLAR":
+        newMark = "USD"
         break;
     }
 

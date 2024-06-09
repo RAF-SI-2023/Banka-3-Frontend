@@ -156,8 +156,9 @@ export class PayingComponent implements OnInit {
         });
       },
       (error) => {
-        console.error('Nemate dovoljno sredstava:', error);
-        this.openErrorSnackBar('Nemate dovoljno sredstava');
+        console.error('Račun na koji pukušavate da uplatite nije iste valute.', error);
+        this.openErrorSnackBar('Račun na koji pukušavate da uplatite nije iste valute.');
+        this.isSubmitting = false;
       },
       () => {
         setTimeout( ()=> {

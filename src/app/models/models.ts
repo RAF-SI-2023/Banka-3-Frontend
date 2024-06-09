@@ -192,6 +192,7 @@ export interface Future{
   contractSize: number,
   contractUnit: string,
   maintenanceMargin: number,
+  price: number,
   type: string
 
 }
@@ -233,7 +234,7 @@ export interface MyFuture{
 }
 
 export interface Options{
-  optionsId: number,
+  optionId: number,
   ask: number,
   bid: number,
   change: number,

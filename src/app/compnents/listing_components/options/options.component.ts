@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute
 import { Options } from '../../../models/models';
 import {ExchangeService} from "../../../services/exchange.service";
 import {formatDate} from "@angular/common";
+import { MatDialog } from '@angular/material/dialog';
+import { BuyOptionPopupComponent } from '../buy-option-popup/buy-option-popup.component';
 
 
 @Component({
@@ -22,7 +24,7 @@ export class OptionsComponent implements OnInit {
   putsFlag = false;
   selectedDate: string | null = null;
 
-  constructor(private route: ActivatedRoute, private exchange: ExchangeService) {
+  constructor(private route: ActivatedRoute, private exchange: ExchangeService, private dialog: MatDialog) {
   } // Inject ActivatedRoute
 
 
@@ -63,41 +65,41 @@ export class OptionsComponent implements OnInit {
 
   loadMockOptions(): void {
     // Mock data array with settlementDate property (YYYY-MM-DD format)
-    this.options = [
-      {
-        optionsId: 1,
-        ask: 100,
-        bid: 90,
-        change: 5,
-        contractSymbol: 'ABC',
-        impliedVolatility: 0.2,
-        lastRefresh: 20052001,
-        openInterest: 1000,
-        optionType: 'call',
-        price: 105,
-        settlementDate: 20240410,
-        stockListing: 'XYZ',
-        strikePrice: 95,
-        volume: 500
-      },
-      {
-        optionsId: 2,
-        ask: 110,
-        bid: 100,
-        change: 8,
-        contractSymbol: 'DEF',
-        impliedVolatility: 0.25,
-        lastRefresh: 20052001,
-        openInterest: 800,
-        optionType: 'put',
-        price: 112,
-        settlementDate: 20240515,
-        stockListing: 'UVW',
-        strikePrice: 105,
-        volume: 700
-      },
-      // Add more mock options as needed
-    ];
+    // this.options = [
+    //   {
+    //     optionsId: 1,
+    //     ask: 100,
+    //     bid: 90,
+    //     change: 5,
+    //     contractSymbol: 'ABC',
+    //     impliedVolatility: 0.2,
+    //     lastRefresh: 20052001,
+    //     openInterest: 1000,
+    //     optionType: 'call',
+    //     price: 105,
+    //     settlementDate: 20240410,
+    //     stockListing: 'XYZ',
+    //     strikePrice: 95,
+    //     volume: 500
+    //   },
+    //   {
+    //     optionsId: 2,
+    //     ask: 110,
+    //     bid: 100,
+    //     change: 8,
+    //     contractSymbol: 'DEF',
+    //     impliedVolatility: 0.25,
+    //     lastRefresh: 20052001,
+    //     openInterest: 800,
+    //     optionType: 'put',
+    //     price: 112,
+    //     settlementDate: 20240515,
+    //     stockListing: 'UVW',
+    //     strikePrice: 105,
+    //     volume: 700
+    //   },
+    //   // Add more mock options as needed
+    // ];
   }
 
   callAfter15() {
@@ -171,6 +173,14 @@ export class OptionsComponent implements OnInit {
 
 
   buyOption(option: Options): void {
+    //TODO option buy
+    //amount i contractSymbol u dto, ne sme amount da predje openInterest
+    //companyId, contractSymbol, optionType (calls ili puts), quantity
+    console.log(option)
+    this.dialog.open(BuyOptionPopupComponent, {
+      data: option
+    })
+
 
   }
 

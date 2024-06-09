@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {error} from "@angular/compiler-cli/src/transformers/util";
@@ -7,24 +7,31 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {ExchangeService} from "../../../services/exchange.service";
 import {Forex, Future, Stock} from "../../../models/models";
 import { WebsocketService } from 'src/app/services/websocket.service';
+import { BuyForexPopupComponent } from '../buy-forex-popup/buy-forex-popup.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-listing-list',
   templateUrl: './listing-list.component.html',
   styleUrls: ['./listing-list.component.css']
 })
-export class ListingListComponent implements OnInit{
+export class ListingListComponent implements OnInit, OnDestroy{
   stocksFlag: boolean = true
   futuresFlag: boolean = false
   forexFlag: boolean = false
   role: string = ''
+  id = 0;
 
   stocks: Stock[] = [];
   futures: Future[] = [];
   forex: Forex[] = [];
   stockColumns: string[] = [ "ticker" ,"name", "exchange", "lastRefresh", "price", "ask","bid", "change", "volume", "opcije"]
-  futureColumns: string[] = [ "contractName" ,"contractSize", "contractUnit", "maintenanceMargin", "type", "opcije"]
-  forexColumns: string[] = [ "baseCurrency" ,"quoteCurrency", "conversionRate", "lastRefresh"]
+  futureColumns: string[] = [ "contractName" ,"contractSize", "contractUnit", "price", "maintenanceMargin", "type", "opcije"]
+  forexColumns: string[] = [ "baseCurrency" ,"quoteCurrency", "conversionRate", "lastRefresh", "opcije"]
+
+  stockSubscription: Subscription | null = null
+  futureSubscription: Subscription | null = null
+  forexSubscription: Subscription | null = null
 
 
   constructor(private webSocketService: WebsocketService, private exchangeService: ExchangeService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) {
@@ -36,23 +43,25 @@ export class ListingListComponent implements OnInit{
     this.futuresFlag = false;
     this.forexFlag = false;
     console.log(this.stocksFlag, this.futuresFlag, this.forexFlag)
-    this.exchangeService.getAllStocks().subscribe( res => {
-      this.stocks = res;
-    }, error => {
-      console.log(error)
-    })
+    // this.exchangeService.getAllStocks().subscribe( res => {
+    //   this.stocks = res;
+    // }, error => {
+    //   console.log(error)
+    // })
+    this.fetchStocks()
   }
   switchToFutures(){
     if(this.futuresFlag) return;
     this.futuresFlag = true;
     this.stocksFlag = false;
     this.forexFlag = false;
-    console.log(this.stocksFlag, this.futuresFlag, this.forexFlag)
-    this.exchangeService.getAllFutures().subscribe( res => {
-       this.futures = res;
-     }, error => {
-       console.log(error)
-     })
+    // console.log(this.stocksFlag, this.futuresFlag, this.forexFlag)
+    // this.exchangeService.getAllFutures().subscribe( res => {
+    //    this.futures = res;
+    //  }, error => {
+    //    console.log(error)
+    //  })
+    this.fetchFutures()
   }
 
   switchToForex() {
@@ -60,15 +69,16 @@ export class ListingListComponent implements OnInit{
     this.forexFlag = true;
     this.stocksFlag = false;
     this.futuresFlag = false;
-    console.log(this.stocksFlag, this.futuresFlag, this.forexFlag);
-    this.exchangeService.getAllForex().subscribe(
-        res => {
-            this.forex = res;
-        },
-        error => {
-            console.log(error);
-        }
-    );
+    // console.log(this.stocksFlag, this.futuresFlag, this.forexFlag);
+    // this.exchangeService.getAllForex().subscribe(
+    //     res => {
+    //         this.forex = res;
+    //     },
+    //     error => {
+    //         console.log(error);
+    //     }
+    // );
+    this.fetchForex()
 }
 
 
@@ -94,7 +104,7 @@ export class ListingListComponent implements OnInit{
             console.log(error)
           })
       }else{
-          this.exchangeService.buyFuture(id, tk.id).subscribe(res => {
+          this.exchangeService.buyFuture(id, 1).subscribe(res => {
             console.log(res)
             this.openErrorSnackBar("Uspesno ste kupili future!")
 
@@ -108,6 +118,13 @@ export class ListingListComponent implements OnInit{
     // this.dialog.open(BuyFuturePopupComponent, {
     //   data: { selectedFutureId: id}
     // });
+  }
+
+
+  buyForex(forex: Forex){
+    this.dialog.open(BuyForexPopupComponent, {
+      data: forex
+    })
   }
 
   sell(stock: Stock){
@@ -127,11 +144,26 @@ export class ListingListComponent implements OnInit{
     }else{
       this.role = "ROLE_USER"
     }
+    this.id = tk.id
     this.exchangeService.getAllStocks().subscribe( res => {
       this.stocks = res;
     }, error => {
 
     })
+
+    this.stockSubscription = this.webSocketService.messages.subscribe( msg => {
+      this.fetchStocks()
+    })
+    this.futureSubscription = this.webSocketService.futureMessages.subscribe( msg => {
+      this.fetchFutures()
+    })
+    this.forexSubscription = this.webSocketService.forexMessages.subscribe( msg => {
+      this.fetchForex()
+    })
+
+
+
+
     this.stocks = [
       {
         "stockId": 1,
@@ -254,6 +286,40 @@ export class ListingListComponent implements OnInit{
         "volume": 100000
       }
     ]
+  }
+
+  private fetchStocks(){
+    this.exchangeService.getAllStocks().subscribe(res => {
+      this.stocks = res
+    })
+  }
+
+  private fetchForex(){
+    if((this.role === "ROLE_COMPANY" && this.id == 1) || this.role === 'ROLE_AGENT' || this.role === 'ROLE_SUPERVISOR'){
+      this.exchangeService.getAllForex().subscribe(res => {
+        this.forex = res
+      })
+    }
+  }
+
+  private fetchFutures(){
+
+    this.exchangeService.getAllFutures().subscribe( res => {
+      this.futures = res
+    })
+
+  }
+
+  ngOnDestroy(): void {
+      if (this.stockSubscription) {
+        this.stockSubscription.unsubscribe();
+      }
+      if (this.futureSubscription) {
+        this.futureSubscription.unsubscribe();
+      }
+      if (this.forexSubscription) {
+        this.forexSubscription.unsubscribe();
+      }
   }
 
 }

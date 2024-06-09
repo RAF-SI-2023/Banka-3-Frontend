@@ -33,22 +33,22 @@ export class BuyFuturePopupComponent {
     })
   }
   confirm() {
-    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
-    this.exchangeService.sellFuture(this.futureId, tk.id, this.groupForm.get('amount')?.value).subscribe(
-      (response) => {
-        this.openSuccessSnackBar("Uspešna kupovina.");
-        this.dialog.close();
-        this.router.navigate(['listing-list'])
-          .then(window.location.reload);
-      },
-      (error) => {
-        console.error('Nemate dovoljno sredstava:', error);
-        this.openSuccessSnackBar("Neuspešna kupovina.");
-        this.dialog.close();
-        this.router.navigate(['listing-list'])
-        .then(window.location.reload);
-      },
-    )
+    // let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    // this.exchangeService.sellFuture(this.futureId, tk.id, this.groupForm.get('amount')?.value).subscribe(
+    //   (response) => {
+    //     this.openSuccessSnackBar("Uspešna kupovina.");
+    //     this.dialog.close();
+    //     this.router.navigate(['listing-list'])
+    //       .then(window.location.reload);
+    //   },
+    //   (error) => {
+    //     console.error('Nemate dovoljno sredstava:', error);
+    //     this.openSuccessSnackBar("Neuspešna kupovina.");
+    //     this.dialog.close();
+    //     this.router.navigate(['listing-list'])
+    //     .then(window.location.reload);
+    //   },
+    // )
 
   }
 

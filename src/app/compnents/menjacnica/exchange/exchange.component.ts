@@ -16,6 +16,8 @@ export class ExchangeComponent implements OnInit{
   // selectedAccount1= {} as AccountDto;
   // selectedAccount2= {} as AccountDto;
   accounts = [] as AccountDto[]
+  account1 = {} as AccountDto | undefined
+  account2 = {} as AccountDto | undefined
 
   form = new FormGroup({
     selectedAccount1: new FormControl('', Validators.required),
@@ -43,6 +45,10 @@ export class ExchangeComponent implements OnInit{
     }
     console.log(acc1)
     console.log(acc2)
+    if(acc1 === acc2){
+      this.openSuccessSnackBar("Ne možete na isti račun poslati novac")
+      return;
+    }
     this.accountService.sendCurrencyExchange({accountFrom: acc1!, accountTo: acc2!, amount: amount }).subscribe(res => {
       this.router.navigate([''])
       this.openSuccessSnackBar("Uspesno ste uradili konverziju novca sa racuna: "+ acc1 + " na " + acc2)
@@ -59,6 +65,14 @@ export class ExchangeComponent implements OnInit{
     });
   }
 
+  onAccountChange1(event: any){
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.account1 = this.accounts.find(acc =>  acc.accountNumber === selectedValue)
+  }
+  onAccountChange2(event: any){
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.account2 = this.accounts.find(acc =>  acc.accountNumber === selectedValue )
+  }
 
   get selectedAccount1() {
     return this.form.get('selectedAccount1');

@@ -9,9 +9,12 @@
                 <div class="row align-items-center">
                   <div class="col-sm">
                     <div class="input-container">
-                      <select formControlName="selectedAccount1" class="inputField" name="account1">
+                      <select formControlName="selectedAccount1" class="inputField" name="account1" (change)="onAccountChange1($event)">
                         <option *ngFor="let account of accounts" [value]="account.accountNumber">{{ account.accountNumber }}</option>
                       </select>
+                    </div>
+                    <div class="currencyMark">
+                      <strong>{{account1?.currency?.mark}}</strong>
                     </div>
                     <span
                       *ngIf="selectedAccount1 && selectedAccount1.invalid && selectedAccount1.touched"
@@ -22,9 +25,12 @@
                   </div>
                   <div class="col-sm">
                     <div class="input-container">
-                      <select formControlName="selectedAccount2" class="inputField" name="account2" >
+                      <select formControlName="selectedAccount2" class="inputField" name="account2" (change)="onAccountChange2($event)">
                         <option *ngFor="let account of accounts" [value]="account.accountNumber">{{ account.accountNumber }}</option>
                       </select>
+                    </div>
+                    <div class="currencyMark">
+                      <strong>{{account2?.currency?.mark}}</strong>
                     </div>
                     <span
                       *ngIf="selectedAccount2 && selectedAccount2.invalid && selectedAccount2.touched"
