@@ -57,7 +57,7 @@ export class PasswordConfirmationComponent implements OnInit {
       this.userService.tryResetPassword(this.code, newPassword, this.tip).subscribe({
         next: (response) => {
           console.log(response);
-          this.router.navigate(['admin-login']);
+          this.router.navigate(['/']);
           this.openSuccessSnackBar("Uspesno ste postavili sifru!")
 
         },

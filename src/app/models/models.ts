@@ -27,6 +27,7 @@ export interface Employee {
   role: Role
 }
 
+
 export interface FirmCreateDto {
   companyId: number,
   title: string,
@@ -219,6 +220,19 @@ export interface MyStock{
   companyId: number,
   version: number
 }
+
+export interface MyOptions{
+  myOptionId: number,
+  contractSymbol: string,
+  companyId: number
+  optiontype: string,
+  price: number,
+  ask: number,
+  bid: number,
+  currencyMark: string,
+  quantity: number
+}
+
 export interface MyFuture{
   myFutureId: number,
   companyId: number,
