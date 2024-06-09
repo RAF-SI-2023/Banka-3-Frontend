@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AccountService} from "../../../services/account.service";
 import {UserService} from "../../../services/user.service";
 import {ExchangeService} from "../../../services/exchange.service";
@@ -10,13 +10,15 @@ import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {OtcDeclinePopupComponent} from "../otc-decline-popup/otc-decline-popup.component";
 import {OtcCompanyBuyPopupComponent} from "../otc-company-buy-popup/otc-company-buy-popup.component";
 import { OtcAcceptDeclineComponent } from '../otc-accept-decline/otc-accept-decline.component';
+import { Subscription } from 'rxjs';
+import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
   selector: 'app-otc-company-view',
   templateUrl: './otc-company-view.component.html',
   styleUrls: ['./otc-company-view.component.css']
 })
-export class OtcCompanyViewComponent implements OnInit{
+export class OtcCompanyViewComponent implements OnInit, OnDestroy{
 
   kupovinaFlag = true;
   tipHartije = "Stock"
@@ -43,13 +45,16 @@ export class OtcCompanyViewComponent implements OnInit{
   futureKupovinaColumns: string[] = [ "Future", "Kompanija", "Veličina", "Jedinica", "Opcije"];
   futureZahteviColumns: string[] = [ "Future", "Broj", "Cena", "Status"];
   futurePonudeColumns: string[] = [ "Future", "Broj", "Cena", "Opcije"];
+  contractSubscription : Subscription | null = null
+  stockSubscription : Subscription | null = null
 
 
   constructor(private accountService: AccountService,
               private userService : UserService,
               private exService: ExchangeService,
               private router: Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private webSocketService: WebsocketService) {
   }
 
 
@@ -88,6 +93,47 @@ export class OtcCompanyViewComponent implements OnInit{
         this.futureReceivedData = res;
       })
     }
+
+    this.contractSubscription = this.webSocketService.contractMessages.subscribe(res => {
+      console.log(res)
+      this.fetchStocks()
+      this.fetchRequests()
+    })
+    this.stockSubscription = this.webSocketService.messages.subscribe(res => {
+      console.log(res)
+      this.fetchStocks()
+      this.fetchRequests()
+    })
+  }
+  ngOnDestroy(): void {
+      if (this.stockSubscription) {
+        this.stockSubscription.unsubscribe();
+      }
+      if (this.contractSubscription) {
+        this.contractSubscription.unsubscribe();
+      }
+  }
+
+  fetchRequests(){
+    const token = sessionStorage.getItem('token');
+    const payload = JSON.parse(atob(token!.split('.')[1]));
+    this.exService.getAllSentRequestsCompany(payload.id).subscribe( res => {
+      this.sentData = res;
+    })
+    this.exService.getAllReceivedRequestsCompany(payload.id).subscribe( res => {
+      this.receivedData = res;
+    })
+  }
+
+  fetchStocks(){
+    const token = sessionStorage.getItem('token');
+    const payload = JSON.parse(atob(token!.split('.')[1]));
+    this.exService.getCompanyPublicStocks(payload.id).subscribe( res => {
+      this.stocksData = res;
+      this.stocksData.forEach(future => {
+        this.fetchCompany(future.companyId);
+      });
+    })
   }
 
   fetchCompany(companyId: number){

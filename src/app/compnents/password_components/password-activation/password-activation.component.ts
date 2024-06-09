@@ -93,7 +93,7 @@ export class PasswordActivationComponent implements OnInit{
       console.log("Poslat POST zahtev, potreban redirect na sledecu stranicu.");
       if ( data === 'Password successfully changed'){
         this.openSuccessSnackBar("Uspesno postavljena nova sifra!")
-        this.router.navigate(['admin-login']); //Potrebno promeniti kada se napravi employee-view
+        this.router.navigate(['/admin-login']); //Potrebno promeniti kada se napravi employee-view
       } else {
         this.openSuccessSnackBar("Neuspesno postavljanje sifre. Proverite mail i pokusajte opet.")
       }

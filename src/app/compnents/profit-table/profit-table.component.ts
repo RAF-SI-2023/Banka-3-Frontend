@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MOCK_PROFITS} from "./mock-profits";
 import {AccountService} from "../../services/account.service";
 import {ExchangeService} from "../../services/exchange.service";
@@ -8,13 +8,16 @@ import {ExchangeService} from "../../services/exchange.service";
   templateUrl: './profit-table.component.html',
   styleUrls: ['./profit-table.component.css']
 })
-export class ProfitTableComponent {
+export class ProfitTableComponent implements OnInit{
   exchange: any[] = [];
   agents: any = {};
+  taxes: any[] = []
   exchangeColumns: string[] = ['amount', 'currency'];
   agentColumns: string[] = ['id','totalAmount'];
+  taxesColumns: string[] = ['amount'];
   exchangeFlag = true
   agentFlag = false
+  taxFlag = false
   id: number = 0;
   errorMessage: string = '';
 
@@ -25,12 +28,16 @@ export class ProfitTableComponent {
     if (this.isOurCompanyCheck()) {
       this.fetchExchangeProfits();
     }
+    this.exchangeService.getTaxes().subscribe(res => {
+      this.taxes = res
+    })
   }
 
   switchToAgent() {
     if (this.agentFlag) return;
     this.agentFlag = true;
     this.exchangeFlag = false;
+    this.taxFlag = false
     this.exchangeService.getAgentProfits().subscribe(
       res => {
         this.groupProfitsByAgent(res);
@@ -44,9 +51,20 @@ export class ProfitTableComponent {
     if (this.exchangeFlag) return;
     this.exchangeFlag = true
     this.agentFlag = false
+    this.taxFlag = false
     this.accountService.getProfits().subscribe(res => {
       this.exchange = res
     })
+  }
+  switchToTax() {
+    if (this.taxFlag) return;
+    this.taxFlag = true
+    this.exchangeFlag = false
+    this.agentFlag = false
+    this.exchangeService.getTaxes().subscribe(res => {
+      this.taxes = res
+    })
+
   }
   isOurCompanyCheck(): boolean {
     const token = sessionStorage.getItem('token');

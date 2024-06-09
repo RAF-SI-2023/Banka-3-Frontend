@@ -137,6 +137,20 @@
   border-top-left-radius: var(--border-radius-standard);
   margin-left: 5px;
 }
+.option-button{
+  background-color: var(--blue-medium);
+  border: 0;
+  height: var(--button-height-small);
+  color: #F6F6F6;
+  width: var(--button-width);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  font-family: 'Archivo', sans-serif;
+  cursor: pointer;
+  border-top-right-radius: var(--border-radius-standard);
+  border-top-left-radius: var(--border-radius-standard);
+  margin-left: 5px;
+}
 
 stock-up{
   color: #33d17a;
