@@ -77,6 +77,8 @@ import { OtcDeclinePopupComponent } from './compnents/otc/otc-decline-popup/otc-
 import { OtcCompanyBuyPopupComponent } from './compnents/otc/otc-company-buy-popup/otc-company-buy-popup.component';
 import { OtcAcceptDeclineComponent } from './compnents/otc/otc-accept-decline/otc-accept-decline.component';
 import { ProfitTableComponent } from './compnents/profit-table/profit-table.component';
+import { BuyForexPopupComponent } from './compnents/listing_components/buy-forex-popup/buy-forex-popup.component';
+import { BuyOptionPopupComponent } from './compnents/listing_components/buy-option-popup/buy-option-popup.component';
 
 
 @NgModule({
@@ -139,7 +141,9 @@ import { ProfitTableComponent } from './compnents/profit-table/profit-table.comp
     OtcDeclinePopupComponent,
     OtcCompanyBuyPopupComponent,
     OtcAcceptDeclineComponent,
-    ProfitTableComponent
+    ProfitTableComponent,
+    BuyForexPopupComponent,
+    BuyOptionPopupComponent
 
   ],
   imports: [

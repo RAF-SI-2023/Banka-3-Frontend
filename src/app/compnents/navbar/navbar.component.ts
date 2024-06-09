@@ -12,10 +12,19 @@ export class NavbarComponent  implements OnInit{
   isEmployeeUser = false
   isCompany = false
   id = 0
+  email = ''
   constructor(private router: Router) {
   }
 
   ngOnInit(): void {
+    // const token = sessionStorage.getItem("token");
+    // if (token) {
+    //   const payload = JSON.parse(atob(token.split('.')[1]));
+    //   this.email = payload.email
+    //   console.log(this.email)
+    //   console.log(this.id)
+    //   console.log(this.id)
+    // }
     this.isEmployeeUser = this.isEmployee();
     this.isCompany = this.isCompanyCheck()
   }
@@ -39,6 +48,7 @@ export class NavbarComponent  implements OnInit{
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
       this.id = payload.id
+      this.email = payload.sub
       if(payload.role && payload.role !== "ROLE_COMPANY")
         return true
     }
@@ -50,6 +60,7 @@ export class NavbarComponent  implements OnInit{
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
       this.id = payload.id
+      this.email = payload.sub
       if(payload.role && payload.role === "ROLE_COMPANY")
         return true
     }
