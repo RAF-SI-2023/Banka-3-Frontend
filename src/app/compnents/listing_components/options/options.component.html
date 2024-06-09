@@ -50,7 +50,7 @@
               {{ element[column] }}
             </ng-container>
             <ng-container *ngIf=" column === 'opcije'" style="width: 200px;">
-              <button (click)="sellOption(element)" class="optionsButton">Prodaj</button>
+              <button (click)="buyOption(element)" class="optionsButton">Kupi</button>
             </ng-container>
             <ng-container *ngIf=" column === 'lastRefresh'" style="width: 200px;">
               {{ element[column] | date}}
