@@ -15,7 +15,8 @@ import {
   Actuary,
   Contract,
   FutureContract,
-  MyForex
+  MyForex,
+  MyOptions
 } from "../models/models";
 import {Observable} from "rxjs";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
@@ -65,13 +66,13 @@ export class ExchangeService {
     });
     return this.httpClient.get<MyForex[]>(`${this.apiUrlForex}/myForex/getAllForCompany/${firmId}`, { headers });
   }
-  getAllOptions(){
+  getCompanyMyOptions(companyId: number){
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    return this.httpClient.get<Future[]>(`${this.apiUrlExchangeService}/options/getAll`,{headers} )
+    return this.httpClient.get<MyOptions[]>(`${this.apiUrlExchangeService}/option/getAllForCompany/${companyId}`,{headers} )
   }
 
   getIntraday(ticker: string){
@@ -476,10 +477,15 @@ export class ExchangeService {
     });
     return this.httpClient.get<any>(`${this.apiAgentProfit}/getAll`, {headers});
   }
+  getTaxes(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<any>(`${this.apiUrlExchangeService}/tax`, {headers});
+  }
 
 }
-
-
 
 
 

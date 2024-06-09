@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {BuyFuturePopupComponent} from "../sell-future-popup/buy-future-popup.component";
-import {Firm, MyForex, MyFuture, MyStock} from "../../../models/models";
+import {Firm, MyForex, MyFuture, MyOptions, MyStock} from "../../../models/models";
 import {ExchangeService} from "../../../services/exchange.service";
 import { parseJson } from '@angular/cli/src/utilities/json-file';
 import { SetStockVisibilityComponent } from '../set-stock-visibility/set-stock-visibility.component';
@@ -21,18 +21,23 @@ export class MyStocksComponent implements OnInit, OnDestroy{
   myStocks = [] as MyStock[]
   myFutures = [] as MyFuture[]
   myForex = [] as MyForex[]
+  myOptions = [] as MyOptions[]
   myStockColumns = ['myStockId', 'ticker', 'amount', 'publicAmount', 'opcije'];
   myFutureColumns = ['myFutureId', 'contractName', 'contractSize','contractUnit','price', 'opcije'];
-  myForexColumns = ['myForexId', 'companyId', 'amount', 'quoteCurrency', 'conversionRate', 'opcije'];
+  myForexColumns = ['myForexId', 'companyId', 'amount', 'quoteCurrency'];
+  myOptionColumns = ['myOptionId', 'companyId','contractSymbol', 'optionType', 'ask', 'bid', 'price', 'quantity', 'opcije'];
   stocksFlag = true
   futuresFlag = false
   forexFlag = false
+  optionsFlag = false
   role: string = ''
+  id = 0
   companies: { [firmId: number]: Firm | undefined } = {};
 
   stockSubscription: Subscription | null = null
   futureSubscription: Subscription | null = null
   forexSubscription: Subscription | null = null
+  optionsSubscription: Subscription | null = null
 
   constructor(private service: ExchangeService,
               private userService: UserService,
@@ -48,6 +53,7 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     this.stocksFlag = true
     this.futuresFlag = false
     this.forexFlag = false
+    this.optionsFlag = false
     this.fetchStocks()
 
   }
@@ -56,6 +62,7 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     this.futuresFlag = true
     this.stocksFlag = false
     this.forexFlag = false
+    this.optionsFlag = false
     // this.service.getMyFutures().subscribe( res => {
     //   this.myFutures = res
     // })
@@ -66,8 +73,16 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     this.forexFlag = true
     this.stocksFlag = false
     this.futuresFlag = false
-    //TODO getAllForex
+    this.optionsFlag = false
     this.fetchForex()
+  }
+  switchToOptions(){
+    if(this.optionsFlag) return;
+    this.optionsFlag = true
+    this.stocksFlag = false
+    this.forexFlag = false
+    this.futuresFlag = false
+    this.fetchOptions()
   }
 
   private tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
@@ -77,6 +92,7 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     }else{
       this.role = "ROLE_USER"
     }
+    this.id = this.tk.id
     this.fetchStocks()
 
     // this.service.getMyFuturesForCompany(this.tk.id).subscribe( res => {
@@ -90,6 +106,9 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     })
     this.forexSubscription = this.webSocketService.forexMessages.subscribe( msg => {
       this.fetchForex()
+    })
+    this.optionsSubscription = this.webSocketService.optionsMessages.subscribe( msg => {
+      this.fetchOptions()
     })
 
   }
@@ -126,6 +145,11 @@ export class MyStocksComponent implements OnInit, OnDestroy{
       })
     }
   }
+  private fetchOptions(){
+    this.service.getCompanyMyOptions(this.tk.id).subscribe(res => {
+      this.myOptions = res
+    })
+  }
 
   private fetchFutures(){
 
@@ -158,12 +182,21 @@ export class MyStocksComponent implements OnInit, OnDestroy{
       if (this.forexSubscription) {
         this.forexSubscription.unsubscribe();
       }
+      if (this.optionsSubscription) {
+        this.optionsSubscription.unsubscribe();
+      }
   }
 
   sellStock(ticker: string){
     this.router.navigate(['sell-hartije', ticker]);
   }
-  //TODO sell future
+  sellOption(option: MyOptions){
+    //TODO option
+  }
+
+  sellForex(forex: MyForex){
+    //TODO sellFOREX
+  }
   sellFuture(id: number){
 
     if(this.tk.role === 'ROLE_COMPANY'){

@@ -7,7 +7,10 @@
     <button *ngIf="role !== 'ROLE_USER'" [ngStyle]="{ 'opacity': !futuresFlag ? '0.5' : '1'}" (click)="switchToFutures()" class="future-button">
       M y  F u t u r e s
     </button>
-    <button *ngIf="role !== 'ROLE_USER' && role !== 'ROLE_COMPANY'" [ngStyle]="{ 'opacity': !forexFlag ? '0.5' : '1'}" (click)="switchToForex()" class="forex-button">
+    <button *ngIf="role !== 'ROLE_USER'" [ngStyle]="{ 'opacity': !optionsFlag ? '0.5' : '1'}" (click)="switchToOptions()" class="option-button">
+      M y  O p t i o n s
+    </button>
+    <button *ngIf="role !== 'ROLE_USER' && (role !== 'ROLE_COMPANY' || id === 1)" [ngStyle]="{ 'opacity': !forexFlag ? '0.5' : '1'}" (click)="switchToForex()" class="forex-button">
       M y  F o r e x
     </button>
     <!-- Tabela za prikaz podataka -->
@@ -86,12 +89,8 @@
                   'cursor': column === 'ticker' ? 'pointer' : 'default'
 
                 }">
-            <ng-container *ngIf="column !== 'opcije'">
+            <ng-container>
               {{ element[column] }}
-            </ng-container>
-            <ng-container *ngIf="column === 'opcije'">
-              <button (click)="sellStock(element['ticker'])" class="button">Prodaj</button>
-              <button (click)="setStockOtc(element)" class="button">Vidljivost</button>
             </ng-container>
           </mat-cell>
         </ng-container>
@@ -99,6 +98,35 @@
         <mat-header-row *matHeaderRowDef="myForexColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: myForexColumns;"></mat-row>
       </mat-table>
+
+      <!-- OPTIONS -->
+
+      <mat-table *ngIf="optionsFlag" [dataSource]="myOptions" matSort>
+
+      <ng-container *ngFor="let column of myOptionColumns" [matColumnDef]="column">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ column | uppercase }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"
+                  [ngStyle]="{
+                'color': column === 'change' ? (element[column] > 0 ? '#33d17a' : '#ed333b') : 'inherit',
+                'font-weight': column === 'ticker' ? 'bold' : 'normal',
+                'cursor': column === 'ticker' ? 'pointer' : 'default'
+
+              }">
+          <ng-container *ngIf="column !== 'opcije'">
+            {{ element[column] }}
+          </ng-container>
+          <ng-container *ngIf="column === 'opcije'">
+            <button (click)="sellOption(element)" class="button">Prodaj</button>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+        <mat-header-row *matHeaderRowDef="myOptionColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: myOptionColumns;"></mat-row>
+      </mat-table>
+
 
 
     </div>

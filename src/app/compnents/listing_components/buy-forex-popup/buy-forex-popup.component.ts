@@ -51,6 +51,14 @@ export class BuyForexPopupComponent implements OnInit{
     )
 
   }
+  onChangeAmount(event: any){
+    const inputElement = event.target as HTMLInputElement;
+    console.log(inputElement.value)
+    // if(isNaN(parseInt(inputElement.value))){
+    //   this.amount = 0
+    // }
+  }
+
 
   validateAmount() {
       if (isNaN(this.amount)) {

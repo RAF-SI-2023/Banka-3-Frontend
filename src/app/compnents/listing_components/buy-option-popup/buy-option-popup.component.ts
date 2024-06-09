@@ -57,7 +57,10 @@ export class BuyOptionPopupComponent implements OnInit{
         this.quantity = 0;
       } else if (this.quantity < 0) {
         this.quantity = 0;
+      }else if (this.quantity > this.option.openInterest) {
+        this.quantity = 0;
       }
+
   }
   ngOnInit(): void {
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
