@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { BuyHartijePopupComponent } from '../buy-hartije-popup/buy-hartije-popup.component';
 import {ExchangeService} from "../../../services/exchange.service";
+import { Stock } from 'src/app/models/models';
 
 @Component({
   selector: 'app-buy-hartije',
@@ -17,6 +18,7 @@ export class BuyHartijeComponent implements OnInit{
   ticker: string = "";
   employeeId: number = 0;
   groupForm: FormGroup;
+  stock = {} as Stock
 
 
 
@@ -46,20 +48,20 @@ export class BuyHartijeComponent implements OnInit{
       const margin = this.groupForm.get('margin')?.value;
 
       let orderType = '';
-      let estimatedPrice = amount;
+      let estimatedPrice = amount*this.stock.ask;
 
       if (stop && limit && limit!=0 && stop!=0) {
-        estimatedPrice = estimatedPrice*limit;
+        estimatedPrice = estimatedPrice*1;
         orderType = "Stop-Limit";
       } else if (stop && stop!=0 && margin) {
         orderType = "Margin Stop";
-        estimatedPrice = estimatedPrice*stop;
+        estimatedPrice = estimatedPrice*1;
       } else if (limit && limit!=0) {
         orderType = "Limit";
-        estimatedPrice = estimatedPrice*limit;
+        estimatedPrice = estimatedPrice*1;
       } else if (stop && stop!=0) {
         orderType = "Stop";
-        estimatedPrice = estimatedPrice*stop;
+        estimatedPrice = estimatedPrice*1;
       } else {
         orderType = "Market";
       }
@@ -121,6 +123,9 @@ export class BuyHartijeComponent implements OnInit{
       const ticker = params['ticker'];
       this.ticker = ticker;
     });
+    this.exchangeService.getByTicker(this.ticker).subscribe(res => {
+      this.stock = res
+    })
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
     this.employeeId = tk.id;
   }

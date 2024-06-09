@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-my-stocks',
@@ -21,7 +22,7 @@ export class MyStocksComponent implements OnInit, OnDestroy{
   myFutures = [] as MyFuture[]
   myForex = [] as MyForex[]
   myStockColumns = ['myStockId', 'ticker', 'amount', 'publicAmount', 'opcije'];
-  myFutureColumns = ['myFutureId', 'contractName', 'amount', 'opcije'];
+  myFutureColumns = ['myFutureId', 'contractName', 'contractSize','contractUnit','price', 'opcije'];
   myForexColumns = ['myForexId', 'companyId', 'amount', 'quoteCurrency', 'conversionRate', 'opcije'];
   stocksFlag = true
   futuresFlag = false
@@ -33,7 +34,12 @@ export class MyStocksComponent implements OnInit, OnDestroy{
   futureSubscription: Subscription | null = null
   forexSubscription: Subscription | null = null
 
-  constructor(private service: ExchangeService, private userService: UserService,  private webSocketService: WebsocketService, private router: Router, private dialog: MatDialog) {
+  constructor(private service: ExchangeService,
+              private userService: UserService,
+              private webSocketService: WebsocketService,
+              private router: Router,
+              private dialog: MatDialog,
+              private snackBar: MatSnackBar) {
 
   }
 
@@ -53,6 +59,7 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     // this.service.getMyFutures().subscribe( res => {
     //   this.myFutures = res
     // })
+    this.fetchFutures()
   }
   switchToForex(){
     if(this.forexFlag) return;
@@ -60,6 +67,7 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     this.stocksFlag = false
     this.futuresFlag = false
     //TODO getAllForex
+    this.fetchForex()
   }
 
   private tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
@@ -71,9 +79,9 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     }
     this.fetchStocks()
 
-    this.service.getMyFutures().subscribe( res => {
-      this.myFutures = res
-    })
+    // this.service.getMyFuturesForCompany(this.tk.id).subscribe( res => {
+    //   this.myFutures = res
+    // })
     this.stockSubscription = this.webSocketService.messages.subscribe( msg => {
       this.fetchStocks()
     })
@@ -121,6 +129,15 @@ export class MyStocksComponent implements OnInit, OnDestroy{
 
   private fetchFutures(){
 
+    if(this.role === "ROLE_COMPANY"){
+      this.service.getMyFuturesForCompany(this.tk.id).subscribe( res => {
+        this.myFutures = res
+      })
+    }else{
+      this.service.getMyFuturesForCompany(1).subscribe( res => {
+        this.myFutures = res
+      })
+    }
   }
 
 
@@ -149,9 +166,21 @@ export class MyStocksComponent implements OnInit, OnDestroy{
   //TODO sell future
   sellFuture(id: number){
 
-    this.dialog.open(BuyFuturePopupComponent, {
-      data: { selectedFutureId: id}
-    });
+    if(this.tk.role === 'ROLE_COMPANY'){
+      this.service.sellFuture(id, this.tk.id).subscribe(res => {
+        this.openSnackBar("Uspesno ste prodali future!")
+      }, err => {
+        this.openSnackBar("Doslo je do greske kod prodaje future!")
+        console.error(err)
+      })
+    }else{
+      this.service.sellFuture(id, 1).subscribe(res => {
+        this.openSnackBar("Uspesno ste prodali future!")
+      }, err => {
+        this.openSnackBar("Doslo je do greske kod prodaje future!")
+        console.error(err)
+      })
+    }
   }
   setStockOtc(stock: any){
     this.dialog.open(SetStockVisibilityComponent, {
@@ -160,5 +189,10 @@ export class MyStocksComponent implements OnInit, OnDestroy{
   }
 
 
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 3000,
+    });
+  }
 
 }

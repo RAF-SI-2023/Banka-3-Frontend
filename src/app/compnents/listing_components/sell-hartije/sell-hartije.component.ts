@@ -77,12 +77,40 @@ export class SellHartijeComponent implements OnInit{
       let amountLet = amount;
 
 
+      const token = sessionStorage.getItem('token');
+      const payload = JSON.parse(atob(token!.split('.')[1]));
+      const hasRole = "role" in payload;
 
       // Open dialog and pass order details
-      this.dialog.open(SellHartijePopupComponent, {
-        data: { selectedOrderType: orderDetails, selectedQuantity: amountLet, estimatedPrice: estimatedPrice, employeeId: this.employeeId,
-          ticker: this.ticker, amount: amount, limitValue: limit, stopValue: stop, aon: allOrNone, margin:margin}
-      });
+      // this.dialog.open(SellHartijePopupComponent, {
+      //   data: { selectedOrderType: orderDetails, selectedQuantity: amountLet, estimatedPrice: estimatedPrice, employeeId: this.employeeId,
+      //     ticker: this.ticker, amount: amount, limitValue: limit, stopValue: stop, aon: allOrNone, margin:margin}
+      // });
+
+
+      if(hasRole){
+        if(payload.role === "ROLE_COMPANY"){
+
+          this.dialog.open(SellHartijePopupComponent, {
+            data: {userId: null, companyId: payload.id, selectedOrderType: orderDetails, selectedQuantity: amountLet, estimatedPrice: estimatedPrice, employeeId: null,
+              ticker: this.ticker, amount: amount, limitValue: limit, stopValue: stop, aon: allOrNone, margin:margin}
+          });
+
+        }else{
+
+          this.dialog.open(SellHartijePopupComponent, {
+            data: {userId: null, companyId: 1, selectedOrderType: orderDetails, selectedQuantity: amountLet, estimatedPrice: estimatedPrice, employeeId: payload.id,
+              ticker: this.ticker, amount: amount, limitValue: limit, stopValue: stop, aon: allOrNone, margin:margin}
+          });
+        }
+
+      }else{
+        this.dialog.open(SellHartijePopupComponent, {
+          data: {userId: payload.id, companyId: null, selectedOrderType: orderDetails, selectedQuantity: amountLet, estimatedPrice: estimatedPrice, employeeId: null,
+            ticker: this.ticker, amount: amount, limitValue: limit, stopValue: stop, aon: allOrNone, margin:margin}
+        });
+      }
+
 
     }
   }

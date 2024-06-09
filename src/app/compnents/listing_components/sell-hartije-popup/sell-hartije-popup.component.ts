@@ -29,7 +29,7 @@ export class SellHartijePopupComponent {
     }
   }
   confirm() {
-    this.exchangeService.sellStock(this.data.employeeId,
+    this.exchangeService.sellStock(this.data.userId, this.data.companyId, this.data.employeeId,
       this.data.ticker, this.data.amount, this.data.limitValue, this.data.stopValue, this.data.aon, this.data.margin).subscribe(
       (response) => {
         this.openSuccessSnackBar("Uspešna prodaja.");
