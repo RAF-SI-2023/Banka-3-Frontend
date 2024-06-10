@@ -1,9 +1,11 @@
 describe('home page test', () => {
   before('open page', () => {
     cy.visit('http://localhost:80');
+    cy.wait(6000)
   });
 
   it('moving to admin user page - user-list', () => {
+    cy.wait(6000)
     cy.contains('Prijava korisnika');
     cy.get('a[routerLink="/admin-login"]').click();
     cy.url().should('include', '/admin-login');
