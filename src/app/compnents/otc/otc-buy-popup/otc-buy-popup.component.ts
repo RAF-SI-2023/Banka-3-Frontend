@@ -34,6 +34,9 @@ export class OtcBuyPopupComponent {
     const hasRole = "role" in payload
 
     if(hasRole){
+      console.log(this.amount)
+      console.log(this.price)
+      console.log(this.stock.amount)
       if(this.amount <= 0 || this.price <= 0 || this.stock.amount < this.amount){
         return;
       }
@@ -76,15 +79,15 @@ export class OtcBuyPopupComponent {
         this.amount = 0;
       } else if (this.amount < 0) {
         this.amount = 0;
-      } else if (this.stock.amount > this.amount) {
+      } else if (this.stock.publicAmount > this.amount) {
         this.amount = this.amount;
       }
   }
   validatePrice() {
-      if (!isNaN(this.price)) {
+      if (isNaN(this.price)) {
         this.price = 0;
       } else if (this.price < 0) {
-        this.price = 0;
+        this.price = this.price;
       }
   }
 

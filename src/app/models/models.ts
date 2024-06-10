@@ -27,6 +27,7 @@ export interface Employee {
   role: Role
 }
 
+
 export interface FirmCreateDto {
   companyId: number,
   title: string,
@@ -105,6 +106,38 @@ export interface Role {
 
 export interface Token {
   token: string
+}
+
+export interface StockBanka4{
+  amount: number,
+  ticker: string
+}
+// -dto: Long offerId, String ticker, Integer amount, Double price, Long idBank4, String offerStatus
+export interface OfferBanka4{
+  offerId: number,
+  ticker: string,
+  amount: number,
+  price: number,
+  idBank4: number,
+  offerStatus: string
+}
+
+// -dto:  Long myOfferId, String ticker, Integer amount, Integer price, OfferStatus offerStatus
+export interface MyOfferBanka4{
+  myOfferId: number,
+  ticker: string,
+  amount: number,
+  price: number,
+  idBank4: number,
+  offerStatus: string
+}
+// -dto: Long myOfferId, String ticker, Integer amount, Integer price, OfferStatus offerStatus (ovde proslediti null ili prazan string)
+export interface MakeOfferBanka4{
+  myOfferId: number,
+  ticker: string,
+  amount: number,
+  price: number,
+  offerStatus: string
 }
 
 
@@ -192,6 +225,7 @@ export interface Future{
   contractSize: number,
   contractUnit: string,
   maintenanceMargin: number,
+  price: number,
   type: string
 
 }
@@ -218,6 +252,19 @@ export interface MyStock{
   companyId: number,
   version: number
 }
+
+export interface MyOptions{
+  myOptionId: number,
+  contractSymbol: string,
+  companyId: number
+  optiontype: string,
+  price: number,
+  ask: number,
+  bid: number,
+  currencyMark: string,
+  quantity: number
+}
+
 export interface MyFuture{
   myFutureId: number,
   companyId: number,
@@ -233,7 +280,7 @@ export interface MyFuture{
 }
 
 export interface Options{
-  optionsId: number,
+  optionId: number,
   ask: number,
   bid: number,
   change: number,

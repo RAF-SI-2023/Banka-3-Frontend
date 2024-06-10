@@ -6,6 +6,9 @@
     <button [ngStyle]="{ 'opacity': !agentFlag? '0.5' : '1'}" (click)="switchToAgent()" class="profit-button" >
       A G E N T
     </button>
+    <button [ngStyle]="{ 'opacity': !taxFlag? '0.5' : '1'}" (click)="switchToTax()" class="tax-button" >
+      T A X
+    </button>
     <div class="table-container">
       <!-- Exchange Table -->
       <table mat-table *ngIf="exchangeFlag" [dataSource]="exchange" class="mat-elevation-z8 compact-table">
@@ -37,6 +40,18 @@
         <tr mat-header-row *matHeaderRowDef="agentColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: agentColumns;"></tr>
       </table>
+
+
+      <table mat-table *ngIf="taxFlag" [dataSource]="taxes" class="mat-elevation-z8 compact-table">
+        <!-- ID Column -->
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef class="table-header"> Amount </th>
+          <td mat-cell *matCellDef="let element" class="amount-column"> {{element.amount}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="taxesColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: taxesColumns;"></tr>
+      </table>
+
     </div>
   </div>
 </div>

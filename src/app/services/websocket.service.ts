@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable, Subject } from 'rxjs';
-import { Contract, MyForex, MyFuture, MyStock } from '../models/models';
+import { Contract, MyForex, MyFuture, MyOptions, MyStock } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,7 @@ export class WebsocketService {
   private futureSocket: WebSocket;
   private forexSocket: WebSocket;
   private contractSocket: WebSocket;
+  private optionsSocket: WebSocket;
 
 
 
@@ -21,6 +22,7 @@ export class WebsocketService {
   private futureSubject: Subject<MyFuture> = new Subject<MyFuture>();
   private forexSubject: Subject<MyForex> = new Subject<MyForex>();
   private contractSubject: Subject<Contract> = new Subject<Contract>();
+  private optionsSubject: Subject<MyOptions> = new Subject<MyOptions>();
 
   constructor() {
 
@@ -28,6 +30,7 @@ export class WebsocketService {
     this.futureSocket = new WebSocket('ws://localhost:8083/ws/futures');
     this.forexSocket = new WebSocket('ws://localhost:8083/ws/forex');
     this.contractSocket = new WebSocket('ws://localhost:8083/ws/contract');
+    this.optionsSocket = new WebSocket('ws://localhost:8083/ws/option');
 
 
     this.socket.onopen = () => {
@@ -62,6 +65,11 @@ export class WebsocketService {
       this.forexSubject.next(event.data);
 
     };
+    this.optionsSocket.onmessage = (event) => {
+      console.log('Contract received from server:', event.data);
+      this.optionsSubject.next(event.data);
+
+    };
 
 
 
@@ -85,6 +93,10 @@ export class WebsocketService {
       console.log('Contract WebSocket disconnected');
       this.contractSocket.close()
     };
+    this.optionsSocket.onclose = () => {
+      console.log('Contract WebSocket disconnected');
+      this.optionsSocket.close()
+    };
   }
 
   get messages(): Observable<MyStock> {
@@ -98,6 +110,9 @@ export class WebsocketService {
   }
   get contractMessages(): Observable<Contract> {
     return this.contractSubject.asObservable();
+  }
+  get optionsMessages(): Observable<MyOptions> {
+    return this.optionsSubject.asObservable();
   }
 }
 

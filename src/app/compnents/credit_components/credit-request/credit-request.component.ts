@@ -5,6 +5,7 @@ import {CreditRequestCreateDto} from '../../../models/models';
 import {AccountService} from "../../../services/account.service";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-credit-request',
@@ -19,7 +20,7 @@ export class CreditRequestComponent implements OnInit {
   selectedCurrency: string = 'RSD';
   isSubmitting: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private accountService: AccountService, private snackBar: MatSnackBar) {}
+  constructor(private formBuilder: FormBuilder, private router: Router,private accountService: AccountService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
@@ -76,10 +77,13 @@ export class CreditRequestComponent implements OnInit {
 
           this.openErrorSnackBar("Uspesno poslat zahtev za kredit")
           console.log("Credit request sent successfully:", response);
+          this.router.navigate(['/'])
+          this.isSubmitting = false;
         },
         error => {
           this.openErrorSnackBar("Doslo je do greske kod slanja zahteva za kredit")
           console.error("Error sending credit request:", error);
+          this.isSubmitting = false;
         },
         () => {
           setTimeout( ()=> {

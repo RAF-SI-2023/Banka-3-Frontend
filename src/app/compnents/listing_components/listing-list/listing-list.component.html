@@ -8,7 +8,7 @@
     <button *ngIf="role !== 'ROLE_USER'" [ngStyle]="{ 'opacity': !futuresFlag ? '0.5' : '1'}" class="future-button" (click)="switchToFutures()">
       F u t u r e s
     </button>
-    <button *ngIf="role !== 'ROLE_USER'" [ngStyle]="{ 'opacity': !forexFlag ? '0.5' : '1'}" class="forex-button" (click)="switchToForex()">
+    <button *ngIf="role !== 'ROLE_USER' && (role !== 'ROLE_COMPANY' || (role === 'ROLE_COMPANY' && id == 1))" [ngStyle]="{ 'opacity': !forexFlag ? '0.5' : '1'}" class="forex-button" (click)="switchToForex()">
       F o r e x
     </button>
 
@@ -44,7 +44,7 @@
               {{ element[column] }} <img [width]="16" [height]="16" src="assets/chart-line-down-svgrepo-com.svg" />
             </ng-container>
             <ng-container *ngIf="column === 'opcije'">
-              <button (click)="sell(element['ticker'])" class="button">Options</button>
+              <button *ngIf="role !== 'ROLE_USER'" (click)="sell(element['ticker'])" class="button">Options</button>
 
               <button (click)="buy(element['ticker'])" class="button">Kupi</button>
             </ng-container>
@@ -88,8 +88,11 @@
             <ng-container *ngIf="column === 'lastRefresh'">
               {{ element[column] | date: 'dd-MM-yyyy' }}
             </ng-container>
-            <ng-container *ngIf="column !== 'lastRefresh'">
+            <ng-container *ngIf="column !== 'lastRefresh' && column !== 'opcije'">
               {{ element[column] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'opcije'">
+              <button (click)="buyForex(element)" class="button">Kupi</button>
             </ng-container>
 
           </mat-cell>

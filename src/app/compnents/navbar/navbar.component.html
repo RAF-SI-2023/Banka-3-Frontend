@@ -36,6 +36,9 @@
         <div class="item">
           <a *ngIf="!isEmployeeUser" [routerLink]="isCompany ? '/otc-company' : '/otc'">OTC</a>
         </div>
+        <div class="item">
+          <a *ngIf="!isEmployeeUser && ((!isCompany) || (isCompany && id == 1))" [routerLink]="'/otc-banka4'">OTC Banka4</a>
+        </div>
 <!--        <div class="item">-->
 <!--          <a *ngIf="!isEmployeeUser" [routerLink]="'/bankomat'">Bankomat</a>-->
 <!--        </div>-->
@@ -66,6 +69,9 @@
         <!--     Profil -->
         <!--   </button> -->
         <!-- </div> -->
+        <div class="current-user">
+          {{email}}
+        </div>
         <div class="logout">
           <button (click)="logout()" class="log" type="button">
             Odjavi se

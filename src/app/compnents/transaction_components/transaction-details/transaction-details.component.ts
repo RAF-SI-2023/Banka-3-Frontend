@@ -1,6 +1,7 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {TransactionDto} from "../../../models/models";
 import {ActivatedRoute, Router} from "@angular/router";
+import { parseJson } from '@angular/cli/src/utilities/json-file';
 
 @Component({
   selector: 'app-transaction-details',
@@ -27,7 +28,13 @@ export class TransactionDetailsComponent implements OnInit{
 
 
   goBack(){
-    this.router.navigate(['/company-home']);
+
+    let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
+    if(tk.role === "ROLE_COMPANY"){
+      this.router.navigate(['/company-home']);
+    }else{
+      this.router.navigate(['/']);
+    }
   }
 
 }

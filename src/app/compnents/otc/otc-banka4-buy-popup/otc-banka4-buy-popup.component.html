@@ -13,7 +13,7 @@
           (ngModelChange)="validateAmount()"
           style="display: inline-block; width: 100px;"
           min="0"
-          [max]="stock.publicAmount"
+          [max]="stock.amount"
           required
           >
           <div *ngIf="amountInput.invalid && (amountInput.dirty || amountInput.touched)">
@@ -24,7 +24,7 @@
               Količina ne može biti negativna.
             </div>
             <div *ngIf="amountInput.errors?.['max']">
-              Količina ne može biti veća od {{ stock.publicAmount }}.
+              Količina ne može biti veća od {{ stock.amount }}.
             </div>
             <div *ngIf="amountInput.errors?.['pattern']">
               Unesite važeći broj.
@@ -64,4 +64,5 @@
       <button [disabled]="amountInput.invalid || priceInput.invalid" class="myButtonSecondary" (click)="confirm()">Potvrdi</button>
     </div>
   </div>
+
 

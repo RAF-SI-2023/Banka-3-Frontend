@@ -1,0 +1,38 @@
+<div class="popup-container">
+    <h2 class="popup-title text-center">Kupi forex</h2>
+    <p class="line"></p>
+    <div class="popup-content">
+      <p class="text-center"><strong>Predložena cena:</strong></p>
+      <div style="text-align: center;">
+        <input
+          (input)="validateAmount()"
+          type="number"
+          class="input"
+          [(ngModel)]="amount"
+          name="amount"
+          #amountInput="ngModel"
+          (ngModelChange)="validateAmount()"
+          style="display: inline-block; width: 100px;"
+          min="0"
+          required
+          >
+          <div *ngIf="amountInput.invalid && (amountInput.dirty || amountInput.touched)">
+            <div *ngIf="amountInput.errors?.['required']">
+              Cena je obavezna.
+            </div>
+            <div *ngIf="amountInput.errors?.['min']">
+              Cena ne može biti negativna.
+            </div>
+            <div *ngIf="amountInput.errors?.['pattern']">
+              Unesite važeći broj.
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="myButtonPrimary" (click)="cancel()">Odustani</button>
+      <button [disabled]="amountInput.invalid" class="myButtonSecondary" (click)="confirm()">Potvrdi</button>
+    </div>
+  </div>
+
+
