@@ -16,7 +16,10 @@ import {
   Contract,
   FutureContract,
   MyForex,
-  MyOptions
+  MyOptions,
+  StockBanka4,
+  OfferBanka4,
+  MyOfferBanka4
 } from "../models/models";
 import {Observable} from "rxjs";
 import {parseJson} from "@angular/cli/src/utilities/json-file";
@@ -32,6 +35,7 @@ export class ExchangeService {
   apiUrlStocks: string = environment.exchangeServiceUrl + "/api/v1/stock"
   apiUrlForex: string = environment.exchangeServiceUrl + "/api/v1/forex"
   apiAgentProfit: string = environment.exchangeServiceUrl + "/api/v1/actuary/profit"
+  apiBanka4Otc: string = environment.exchangeServiceUrl + "/api/v1/otcTrade"
 
   constructor(private httpClient : HttpClient) { }
 
@@ -470,22 +474,68 @@ export class ExchangeService {
       }
         return this.httpClient.post<any>(`${this.apiUrlExchangeService}/contract/supervisorDecline`, data, { headers });
     }
-  getAgentProfits(): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    });
-    return this.httpClient.get<any>(`${this.apiAgentProfit}/getAll`, {headers});
-  }
-  getTaxes(): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-    });
-    return this.httpClient.get<any>(`${this.apiUrlExchangeService}/tax`, {headers});
-  }
+    getAgentProfits(): Observable<any> {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<any>(`${this.apiAgentProfit}/getAll`, {headers});
+    }
+    getTaxes(): Observable<any> {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<any>(`${this.apiUrlExchangeService}/tax`, {headers});
+    }
+    getBank4Stocks(){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<StockBanka4[]>(`${this.apiBanka4Otc}/getBank4Stocks`, {headers});
+    }
+    getBank4Offers(){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<OfferBanka4[]>(`${this.apiBanka4Otc}/getOffers`, {headers});
+    }
+    getMyBank4Offers(){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<MyOfferBanka4[]>(`${this.apiBanka4Otc}/getMyOffers`, {headers});
+    }
+    makeBank4Offer(ticker: string, amount: number, price: number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+
+      let body = {
+        ticker, amount, price
+      }
+      console.log(`${this.apiBanka4Otc}/makeOffer`)
+      return this.httpClient.post<any>(`${this.apiBanka4Otc}/makeOffer`, body, {headers});
+    }
+    acceptBank4Offer(id: number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<any>(`${this.apiBanka4Otc}/acceptOffer/${id}`, {headers});
+    }
+    declineBank4Offer(id: number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<any>(`${this.apiBanka4Otc}/declineOffer/${id}`, {headers});
+    }
 
 }
-
 
 
