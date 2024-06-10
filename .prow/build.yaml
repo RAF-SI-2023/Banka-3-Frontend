@@ -14,13 +14,14 @@ postsubmits:
             - -c
             - |
               set -euo pipefail
-              
+
+              commit_hash=$(git rev-parse HEAD)
+
               cd ..
               
               git clone https://github.com/RAF-SI-2023/Banka-3-Infrastructure.git ./Banka-3-Infrastructure
               
               cd ./Banka-3-Infrastructure
-              
               
               echo "BACKEND_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Backend" > .env 
               echo "INFRA_REPO_ABSOLUTE_PATH=/home/prow/go/src/github.com/RAF-SI-2023/Banka-3-Infrastructure" >> .env
@@ -32,7 +33,6 @@ postsubmits:
 
               docker login -u $HARBOR_USERNAME -p $HARBOR_PASSWORD harbor.k8s.elab.rs
 
-              commit_hash=$(git rev-parse HEAD)
               
               SERVICE_NAME="frontend"
 

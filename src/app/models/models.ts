@@ -108,6 +108,38 @@ export interface Token {
   token: string
 }
 
+export interface StockBanka4{
+  amount: number,
+  ticker: string
+}
+// -dto: Long offerId, String ticker, Integer amount, Double price, Long idBank4, String offerStatus
+export interface OfferBanka4{
+  offerId: number,
+  ticker: string,
+  amount: number,
+  price: number,
+  idBank4: number,
+  offerStatus: string
+}
+
+// -dto:  Long myOfferId, String ticker, Integer amount, Integer price, OfferStatus offerStatus
+export interface MyOfferBanka4{
+  myOfferId: number,
+  ticker: string,
+  amount: number,
+  price: number,
+  idBank4: number,
+  offerStatus: string
+}
+// -dto: Long myOfferId, String ticker, Integer amount, Integer price, OfferStatus offerStatus (ovde proslediti null ili prazan string)
+export interface MakeOfferBanka4{
+  myOfferId: number,
+  ticker: string,
+  amount: number,
+  price: number,
+  offerStatus: string
+}
+
 
 export interface Contact{
   id: number,
