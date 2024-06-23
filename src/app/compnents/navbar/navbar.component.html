@@ -21,10 +21,10 @@
         </div>
         <div class="item">
           <!-- TODO  provera da li je kompanija, ako jeste da li je id === 1 -->
-          <a *ngIf="!isEmployeeUser && ((!isCompany) || (isCompany && id !== 1))" [routerLink]="'/exchange'">Menjačnica</a>
+          <a *ngIf="!isEmployeeUser && (!isCompany || (isCompany && id !== 1))" [routerLink]="'/exchange'">Menjačnica</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser && ((!isCompany) || (isCompany && id == 1))" [routerLink]="'/profit-table'">Profit</a>
+          <a *ngIf="isCompany && id == 1" [routerLink]="'/profit-table'">Profit</a>
         </div>
 
         <div class="item">
@@ -37,7 +37,7 @@
           <a *ngIf="!isEmployeeUser" [routerLink]="isCompany ? '/otc-company' : '/otc'">OTC</a>
         </div>
         <div class="item">
-          <a *ngIf="!isEmployeeUser && ((!isCompany) || (isCompany && id == 1))" [routerLink]="'/otc-banka4'">OTC Banka4</a>
+          <a *ngIf="isCompany && id === 1" [routerLink]="'/otc-banka4'">OTC Banka4</a>
         </div>
 <!--        <div class="item">-->
 <!--          <a *ngIf="!isEmployeeUser" [routerLink]="'/bankomat'">Bankomat</a>-->

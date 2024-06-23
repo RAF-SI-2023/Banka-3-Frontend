@@ -14,7 +14,7 @@ export class ProfitTableComponent implements OnInit{
   taxes: any[] = []
   exchangeColumns: string[] = ['amount', 'currency'];
   agentColumns: string[] = ['id','totalAmount'];
-  taxesColumns: string[] = ['amount'];
+  taxesColumns: string[] = ['taxStockId', 'amount'];
   exchangeFlag = true
   agentFlag = false
   taxFlag = false
@@ -89,15 +89,15 @@ export class ProfitTableComponent implements OnInit{
   }
   private groupProfitsByAgent(profits: any[]) {
     this.agents = profits.reduce((acc, profit) => {
-      if (!acc[profit.agentId]) {
-        acc[profit.agentId] = {
-          id: profit.agentId,
+      if (!acc[profit.employeeId]) {
+        acc[profit.employeeId] = {
+          id: profit.employeeId,
           totalAmount: 0,
           profits: []
         };
       }
-      acc[profit.agentId].totalAmount += profit.amount;
-      acc[profit.agentId].profits.push(profit);
+      acc[profit.employeeId].totalAmount += profit.amount;
+      acc[profit.employeeId].profits.push(profit);
       return acc;
     }, {});
     this.agents = Object.values(this.agents);
