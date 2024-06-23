@@ -49,9 +49,12 @@ export class NavbarComponent  implements OnInit{
       const payload = JSON.parse(atob(token.split('.')[1]));
       this.id = payload.id
       this.email = payload.sub
-      if(payload.role && payload.role !== "ROLE_COMPANY")
+      if(payload.role && payload.role !== "ROLE_COMPANY"){
+        console.log('Employee: true')
         return true
+      }
     }
+    console.log('Employee: false')
     return false;
   }
 
@@ -61,9 +64,12 @@ export class NavbarComponent  implements OnInit{
       const payload = JSON.parse(atob(token.split('.')[1]));
       this.id = payload.id
       this.email = payload.sub
-      if(payload.role && payload.role === "ROLE_COMPANY")
+      if(payload.role && payload.role === "ROLE_COMPANY"){
+        console.log('Company: true')
         return true
+      }
     }
+    console.log('Company: false')
     return false;
   }
 

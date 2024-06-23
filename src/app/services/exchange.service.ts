@@ -488,6 +488,9 @@ export class ExchangeService {
       });
       return this.httpClient.get<any>(`${this.apiUrlExchangeService}/tax`, {headers});
     }
+
+    //TODO: PROMENA STOCKOVA TREBA
+
     getBank4Stocks(){
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
