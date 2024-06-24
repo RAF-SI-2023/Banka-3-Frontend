@@ -36,10 +36,17 @@ presubmits:
               npx cypress run
 
               if [ -d "./cypress/screenshots" ]; then
-                  cp -r ./cypress/screenshots /path/to/destination
+                  cp -r ./cypress/screenshots /logs/artifacts
                   echo "${GCSWEB_URL}/prow-logs/pr-logs/pull/${REPO_OWNER}_${REPO_NAME}/${PULL_NUMBER}/${JOB_NAME}/${BUILD_NUMBER}/artifacts/screenshots" > /logs/artifacts/screenshots.link.txt
               else
                   echo "No screenshots to copy. All tests have passed."
+              fi
+
+              if [ -d "./cypress/videos" ]; then
+                  cp -r ./cypress/videos /logs/artifacts
+                  echo "${GCSWEB_URL}/prow-logs/pr-logs/pull/${REPO_OWNER}_${REPO_NAME}/${PULL_NUMBER}/${JOB_NAME}/${BUILD_NUMBER}/artifacts/videos" > /logs/artifacts/videos.link.txt
+              else
+                  echo "No videos to copy. All tests have passed."
               fi
 
           securityContext:
