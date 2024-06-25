@@ -55,7 +55,7 @@ import { SetStockVisibilityComponent } from './compnents/listing_components/set-
 import { CompanyGuard } from './guards/company.guard';
 import {OtcCompanyViewComponent} from "./compnents/otc/otc-company-view/otc-company-view.component";
 import {ProfitTableComponent} from "./compnents/profit-table/profit-table.component";
-import { OtcBanka4Component } from './compnents/otc/otc-banka4/otc-banka4.component';
+import { BankOtcComponent } from './compnents/otc/bank-otc/bank-otc.component';
 
 
 const routes: Routes = [
@@ -274,8 +274,8 @@ const routes: Routes = [
     canActivate: [AuthGuard,OurCompanyGuard]
   },
   {
-    path: 'otc-banka4',
-    component: OtcBanka4Component,
+    path: 'bank-otc',
+    component: BankOtcComponent,
     canActivate: [AuthGuard,OurCompanyGuard]
   }
 ];

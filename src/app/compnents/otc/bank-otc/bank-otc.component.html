@@ -10,6 +10,7 @@
       <button [ngStyle]="{ 'opacity': !ponudeFlag ? '0.5' : '1'}" class="employees-button" (click)="switchToPonude()">
         Ponude
       </button>
+      <button class="myButtonPrimary" (click)="refreshData()">Refresh</button>
       <div class="table">
         <div class="header">
 
@@ -23,6 +24,17 @@
             <mat-cell *matCellDef="let element">
               <ng-container *ngIf="column === 'Količina'">
                 {{ element['amount'] }}
+              </ng-container>
+              <ng-container *ngIf="column === 'Vlasnik'">
+                <div *ngIf="element['owner'] === 1">
+                  Banka 1
+                </div>
+                <div *ngIf="element['owner'] === 2">
+                  Banka 2
+                </div>
+                <div *ngIf="element['owner'] === 4">
+                  Banka 4
+                </div>
               </ng-container>
               <ng-container *ngIf="column === 'Hartija'">
                 <strong><p>{{ element['ticker'] }}</p></strong>
@@ -49,6 +61,17 @@
               <ng-container *ngIf="column === 'Cena'">
                 {{ element['price'] }} RSD
               </ng-container>
+              <ng-container *ngIf="column === 'Vlasnik'">
+                <div *ngIf="element['owner'] === 1">
+                  Banka 1
+                </div>
+                <div *ngIf="element['owner'] === 2">
+                  Banka 2
+                </div>
+                <div *ngIf="element['owner'] === 4">
+                  Banka 4
+                </div>
+              </ng-container>
               <ng-container *ngIf="column === 'Hartija'">
                 <strong><p>{{ element['ticker'] }}</p></strong>
               </ng-container>
@@ -72,8 +95,19 @@
               <ng-container *ngIf="column === 'Količina'">
                 {{ element['amount'] }}
               </ng-container>
-              <ng-container *ngIf="column === 'idBank4'">
-                {{ element['idBank4'] }}
+              <ng-container *ngIf="column === 'idBank'">
+                {{ element['idBank'] }}
+              </ng-container>
+              <ng-container *ngIf="column === 'Vlasnik'">
+                <div *ngIf="element['owner'] === 1">
+                  Banka 1
+                </div>
+                <div *ngIf="element['owner'] === 2">
+                  Banka 2
+                </div>
+                <div *ngIf="element['owner'] === 4">
+                  Banka 4
+                </div>
               </ng-container>
               <ng-container *ngIf="column === 'Cena'">
                 {{ element['price'] }} RSD
@@ -106,6 +140,7 @@
       </div>
     </div>
   </div>
+
 
 
 

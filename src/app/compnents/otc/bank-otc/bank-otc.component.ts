@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Contract, Firm, MyOfferBanka4, MyStock, OfferBanka4, Stock, StockBanka4, User } from 'src/app/models/models';
+import { Contract, Firm, MyOffer, MyStock, Offer, Stock, BankStock, User } from 'src/app/models/models';
 import { AccountService } from 'src/app/services/account.service';
 import { ExchangeService } from 'src/app/services/exchange.service';
 import { UserService } from 'src/app/services/user.service';
@@ -14,11 +14,11 @@ import { Subscription } from 'rxjs';
 import { OtcBanka4BuyPopupComponent } from '../otc-banka4-buy-popup/otc-banka4-buy-popup.component';
 
 @Component({
-  selector: 'app-otc-banka4',
-  templateUrl: './otc-banka4.component.html',
-  styleUrls: ['./otc-banka4.component.css']
+  selector: 'app-bank-otc',
+  templateUrl: './bank-otc.component.html',
+  styleUrls: ['./bank-otc.component.css']
 })
-export class OtcBanka4Component implements OnInit, OnDestroy{
+export class BankOtcComponent implements OnInit, OnDestroy{
 
   kupovinaFlag = true;
   zahteviFlag = false;
@@ -26,13 +26,13 @@ export class OtcBanka4Component implements OnInit, OnDestroy{
   user = {} as User
   users: { [userId: number]: User | undefined } = {};
 
-  stocksData: StockBanka4[] = [];
-  sentData: MyOfferBanka4[] = []
-  receivedData: OfferBanka4[] = []
+  stocksData: BankStock[] = [];
+  sentData: MyOffer[] = []
+  receivedData: Offer[] = []
 
-  kupovinaColumns: string[] = [ "Hartija", "Količina", "Opcije"];
-  zahteviColumns: string[] = [ "Hartija", "Količina", "Cena", "Status"];
-  ponudeColumns: string[] = [ "Hartija", "Količina", "Cena", "idBank4", "Status", "Opcije"];
+  kupovinaColumns: string[] = [ "Hartija", "Količina", "Vlasnik", "Opcije"];
+  zahteviColumns: string[] = [ "Hartija", "Količina", "Vlasnik", "Cena", "Status"];
+  ponudeColumns: string[] = [ "Hartija", "Količina", "Vlasnik","Cena", "idBank", "Status", "Opcije"];
 
   contractSubscription: Subscription | null = null
   stockSubscription: Subscription | null = null
@@ -68,13 +68,13 @@ export class OtcBanka4Component implements OnInit, OnDestroy{
   fetchPublicStocks(){
     const token = sessionStorage.getItem('token');
     const payload = JSON.parse(atob(token!.split('.')[1]));
-    this.exService.getBank4Stocks().subscribe( res => {
+    this.exService.getBankStocks().subscribe( res => {
       this.stocksData = res;
     })
-    this.exService.getMyBank4Offers().subscribe( res => {
+    this.exService.getMyBankOffers().subscribe( res => {
       this.sentData = res;
     })
-    this.exService.getBank4Offers().subscribe( res => {
+    this.exService.getBankOffers().subscribe( res => {
       this.receivedData = res;
     })
   }
@@ -100,22 +100,27 @@ export class OtcBanka4Component implements OnInit, OnDestroy{
     // })
   }
 
-  buttonBuy(stock: StockBanka4) {
+  buttonBuy(stock: BankStock) {
     this.dialog.open(OtcBanka4BuyPopupComponent, {
       data: { stock: stock}
     });
   }
 
-  acceptOffer(offer: OfferBanka4){
-    this.exService.acceptBank4Offer(offer.idBank4).subscribe(res => {
+  acceptOffer(offer: Offer){
+    this.exService.acceptBankffer(offer.idBank).subscribe(res => {
       console.log(res)
     })
   }
-  declineOffer(offer: OfferBanka4){
-    this.exService.declineBank4Offer(offer.idBank4).subscribe(res => {
+  declineOffer(offer: Offer){
+    this.exService.declineBankOffer(offer.idBank).subscribe(res => {
       console.log(res)
     })
 
+  }
+  refreshData(){
+    this.exService.refreshData().subscribe(res => {
+      console.log(res)
+    })
   }
 
   switchToKupovina(){
@@ -145,5 +150,6 @@ export class OtcBanka4Component implements OnInit, OnDestroy{
   mockData(): void{
 
   }
+
 
 }

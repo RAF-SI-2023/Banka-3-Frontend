@@ -191,7 +191,21 @@ export class MyStocksComponent implements OnInit, OnDestroy{
     this.router.navigate(['sell-hartije', ticker]);
   }
   sellOption(option: MyOptions){
-    //TODO option
+    if(this.tk.role === 'ROLE_COMPANY'){
+      this.service.sellOption(this.tk.id, option.contractSymbol, option.optiontype, option.quantity).subscribe(res => {
+        this.openSnackBar("Uspesno ste prodali option!")
+      }, err => {
+        this.openSnackBar("Doslo je do greske kod prodaje future!")
+        console.error(err)
+      })
+    }else{
+      this.service.sellOption(1, option.contractSymbol, option.optiontype, option.quantity).subscribe(res => {
+        this.openSnackBar("Uspesno ste prodali option!")
+      }, err => {
+        this.openSnackBar("Doslo je do greske kod option future!")
+        console.error(err)
+      })
+    }
   }
 
   sellForex(forex: MyForex){
