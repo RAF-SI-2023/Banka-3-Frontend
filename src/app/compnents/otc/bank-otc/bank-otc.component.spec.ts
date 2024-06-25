@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OtcBanka4Component } from './otc-banka4.component';
+import { BankOtcComponent } from './bank-otc.component';
 
-describe('OtcBanka4Component', () => {
-  let component: OtcBanka4Component;
-  let fixture: ComponentFixture<OtcBanka4Component>;
+describe('BankOtcComponent', () => {
+  let component: BankOtcComponent;
+  let fixture: ComponentFixture<BankOtcComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [OtcBanka4Component]
+      declarations: [BankOtcComponent]
     });
-    fixture = TestBed.createComponent(OtcBanka4Component);
+    fixture = TestBed.createComponent(BankOtcComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
