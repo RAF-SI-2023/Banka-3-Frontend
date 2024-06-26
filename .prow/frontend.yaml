@@ -39,6 +39,8 @@ presubmits:
               
               sleep 120
 
+              mkdir -p ./cypress/screenshots ./cypress/videos
+
               npm install cypress --save-dev
 
               npx cypress run
