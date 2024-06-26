@@ -11,6 +11,14 @@ presubmits:
             - |
               set -euo pipefail
 
+              collectRecordings() {
+                cp -r ./cypress/videos /logs/artifacts
+                cp -r ./cypress/screenshots /logs/artifacts
+
+                echo "${GCSWEB_URL}/prow-logs/pr-logs/pull/${REPO_OWNER}_${REPO_NAME}/${PULL_NUMBER}/${JOB_NAME}/${BUILD_NUMBER}/artifacts/videos" > /logs/artifacts/videos.link.txt
+                echo "${GCSWEB_URL}/prow-logs/pr-logs/pull/${REPO_OWNER}_${REPO_NAME}/${PULL_NUMBER}/${JOB_NAME}/${BUILD_NUMBER}/artifacts/screenshots" > /logs/artifacts/screenshots.link.txt
+              }
+
               cd ..
               git clone https://github.com/RAF-SI-2023/Banka-3-Backend.git ./Banka-3-Backend
               
@@ -35,11 +43,8 @@ presubmits:
 
               npx cypress run
 
-              cp -r ./cypress/screenshots /logs/artifacts
-              echo "${GCSWEB_URL}/prow-logs/pr-logs/pull/${REPO_OWNER}_${REPO_NAME}/${PULL_NUMBER}/${JOB_NAME}/${BUILD_NUMBER}/artifacts/screenshots" > /logs/artifacts/screenshots.link.txt
-             
-              cp -r ./cypress/videos /logs/artifacts
-              echo "${GCSWEB_URL}/prow-logs/pr-logs/pull/${REPO_OWNER}_${REPO_NAME}/${PULL_NUMBER}/${JOB_NAME}/${BUILD_NUMBER}/artifacts/videos" > /logs/artifacts/videos.link.txt              
+
+              trap collectRecordings EXIT
 
           securityContext:
             privileged: true
