@@ -26,9 +26,9 @@ export class SupervisorListsingListComponent implements OnInit {
   actuaries = [] as Actuary[];
   // request: RequestDto = {} as RequestDto;
   requestColumns = ['stockOrderId', 'employeeId', 'ticker','status','type', 'limitValue',
-  'stopValue', 'amount','amountLeft','aon', 'margine'];
+  'stopValue', 'amount','amountLeft','aon'];
 
-  contractColumns = ['contractId', 'ticker', 'userSellerId', 'userBuyerId','companySellerId','companyBuyerId', 'dateCreated'];
+  contractColumns = ['contractId', 'ticker', 'userSellerId', 'userBuyerId','companySellerId','companyBuyerId', 'dateCreated', 'price'];
 
   showRequests = true;
   showLimits = false;

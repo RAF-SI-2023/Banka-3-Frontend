@@ -28,6 +28,11 @@
   .panel{
     margin-top: 50px;
   }
+  .myButtonSecondary{
+    margin: 0 10px;
+    font-size: 0.8rem;
+    padding: 0.4rem 1.2rem 0.4rem 1.2rem;
+  }
 /*.mat-sort-header {*/
 /*  width: 100%*/
 /*}*/

@@ -23,13 +23,16 @@
             {{ column | titlecase }}
           </mat-header-cell>
           <mat-cell mat-cell *matCellDef="let element">
-            <ng-container *ngIf=" column !== 'lastRefresh'" style="width: 200px;">
+            <ng-container *ngIf=" column !== 'lastRefresh' && column !== 'contractSymbol'">
               {{ element[column] }}
             </ng-container>
-            <ng-container *ngIf=" column === 'opcije'" style="width: 200px;">
-              <button (click)="buyOption(element)" class="optionsButton">Kupi</button>
+            <ng-container *ngIf="column === 'contractSymbol'" style="width: 300px;">
+              {{ element[column] }}
             </ng-container>
-            <ng-container *ngIf=" column === 'lastRefresh'" style="width: 200px;">
+            <ng-container *ngIf=" column === 'opcije'">
+              <button (click)="buyOption(element)" class="myButtonSecondary">Kupi</button>
+            </ng-container>
+            <ng-container *ngIf=" column === 'lastRefresh'">
               {{ element[column] | date}}
             </ng-container>
           </mat-cell>
@@ -46,13 +49,16 @@
             {{ column | titlecase }}
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <ng-container *ngIf=" column !== 'lastRefresh'" style="width: 200px;">
+            <ng-container *ngIf=" column !== 'lastRefresh' && column !== 'contractSymbol'">
               {{ element[column] }}
             </ng-container>
-            <ng-container *ngIf=" column === 'opcije'" style="width: 200px;">
-              <button (click)="buyOption(element)" class="optionsButton">Kupi</button>
+            <ng-container *ngIf="column === 'contractSymbol'" style="width: 300px;">
+              {{ element[column] }}
             </ng-container>
-            <ng-container *ngIf=" column === 'lastRefresh'" style="width: 200px;">
+            <ng-container *ngIf=" column === 'opcije'">
+              <button (click)="buyOption(element)" class="myButtonSecondary">Kupi</button>
+            </ng-container>
+            <ng-container *ngIf=" column === 'lastRefresh'">
               {{ element[column] | date}}
             </ng-container>
           </mat-cell>
