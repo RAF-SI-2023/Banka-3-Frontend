@@ -337,4 +337,20 @@ export class AccountService {
     });
     return this.httpClient.get<any>(`${this.apiUrlExchange}`, {headers});
   }
+
+  getMarginAccountForUser(userId: number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<any>(`${this.apiUrlAccount}/getMarginUser/${userId}`, {headers});
+  }
+  getMarginAccountForCompany(companyId: number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<any>(`${this.apiUrlAccount}/getMarginCompany/${companyId}`, {headers});
+
+  }
 }

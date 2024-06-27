@@ -11,6 +11,7 @@ export class NavbarComponent  implements OnInit{
 
   isEmployeeUser = false
   isCompany = false
+  isBank = false
   id = 0
   email = ''
   constructor(private router: Router) {
@@ -27,6 +28,7 @@ export class NavbarComponent  implements OnInit{
     // }
     this.isEmployeeUser = this.isEmployee();
     this.isCompany = this.isCompanyCheck()
+    this.isBank = this.isBankCheck()
   }
   userProfile(){
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
@@ -70,6 +72,30 @@ export class NavbarComponent  implements OnInit{
       }
     }
     console.log('Company: false')
+    return false;
+  }
+  isBankCheck(){
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      this.id = payload.id
+      this.email = payload.sub
+      if (payload.role){
+
+      } else {
+        console.log("User")
+        return false;
+      }
+      if(payload.role && payload.role === "ROLE_COMPANY" && !(payload.id === 1)){
+        console.log('Bank: false')
+        return false;
+      }
+      if(payload.role && payload.role === "ROLE_COMPANY" && payload.id === 1){
+        console.log('Bank: true')
+        return true
+      }
+    }
+    console.log('Bank: false')
     return false;
   }
 

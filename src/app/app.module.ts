@@ -81,6 +81,7 @@ import { BuyForexPopupComponent } from './compnents/listing_components/buy-forex
 import { BuyOptionPopupComponent } from './compnents/listing_components/buy-option-popup/buy-option-popup.component';
 import { OtcBanka4Component } from './compnents/otc/otc-banka4/otc-banka4.component';
 import { OtcBanka4BuyPopupComponent } from './compnents/otc/otc-banka4-buy-popup/otc-banka4-buy-popup.component';
+import { MarginAccountViewComponent } from './compnents/margin-account/margin-account-view/margin-account-view.component';
 
 
 @NgModule({
@@ -147,7 +148,8 @@ import { OtcBanka4BuyPopupComponent } from './compnents/otc/otc-banka4-buy-popup
     BuyForexPopupComponent,
     BuyOptionPopupComponent,
     OtcBanka4Component,
-    OtcBanka4BuyPopupComponent
+    OtcBanka4BuyPopupComponent,
+    MarginAccountViewComponent
 
   ],
   imports: [
