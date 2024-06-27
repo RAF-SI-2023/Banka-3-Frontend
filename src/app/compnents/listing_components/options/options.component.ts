@@ -19,7 +19,7 @@ export class OptionsComponent implements OnInit {
   calls: Options[] = [];
   puts: Options[] = [];
   ticker: string = '';
-  optionColumns: string[] = ['contractSymbol','stockListing','ask', 'bid', 'change', 'impliedVolatility', 'lastRefresh', 'openInterest', 'optionType', 'strike', 'lastPrice', 'volume', 'opcije'];
+  optionColumns: string[] = ['contractSymbol','stockListing','ask', 'bid', 'lastRefresh', 'openInterest', 'optionType', 'strike', 'lastPrice', 'opcije'];
   callsFlag = true;
   putsFlag = false;
   selectedDate: string | null = null;

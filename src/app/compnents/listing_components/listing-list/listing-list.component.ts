@@ -25,7 +25,7 @@ export class ListingListComponent implements OnInit, OnDestroy{
   stocks: Stock[] = [];
   futures: Future[] = [];
   forex: Forex[] = [];
-  stockColumns: string[] = [ "ticker" ,"name", "exchange", "lastRefresh", "price", "ask","bid", "change", "volume", "opcije"]
+  stockColumns: string[] = [ "ticker" ,"name", "exchange", "refresh", "price", "ask","bid", "change", "opcije"]
   futureColumns: string[] = [ "contractName" ,"contractSize", "contractUnit", "price", "maintenanceMargin", "type", "opcije"]
   forexColumns: string[] = [ "baseCurrency" ,"quoteCurrency", "conversionRate", "lastRefresh", "opcije"]
 
