@@ -1,10 +1,8 @@
 <div class="accountsView">
   <div class="container">
     <div class="accountsScroller">
-      <span style="text-align: center" class="h2">Marzni racun</span>
+      <span style="text-align: center" class="h2">Maržni račun</span>
       <div class="selectCardWrapper">
-
-        <!-- Display selected account details -->
         <div class="accountCard">
           <div class="cardInfoWrapper">
             <div class="leftInfo">
@@ -19,7 +17,7 @@
               <span class="p">Vrednost kredita</span>
               <p class="h4 blueText">{{ account?.loanValue }} RSD</p>
               <span class="p">Status</span>
-              <p class="h4 blueText" >{{ account?.status ? 'ACTIVE' : 'BLOCKED' }}</p>
+              <p class="h4 blueText" [ngStyle]="{'color': account?.status ? '' : 'var(--color-primary)'}">{{ account?.status ? 'ACTIVE' : 'BLOCKED' }}</p>
             </div>
           </div>
         </div>
@@ -35,7 +33,6 @@
       <div (click)="redirectToTransaction(transaction)" class="transactionCard">
         <div class="transactionDetailsWrapper">
           <div class="transactionDate">
-            <!-- Display day -->
             <div class="day">{{ getDayFromDate(transaction.date) }}</div>
             <div class="month">{{ getMonthFromDate(transaction.date) }}</div>
 

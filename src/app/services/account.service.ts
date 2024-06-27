@@ -7,7 +7,7 @@ import {
   CreditRequestDto,
   Currency, CurrencyExchangeDto,
   Firm,
-  FirmCreateDto,
+  FirmCreateDto, MarginAccount,
   TransactionDto,
 } from "../models/models";
 import {Observable} from "rxjs";
@@ -343,14 +343,14 @@ export class AccountService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    return this.httpClient.get<any>(`${this.apiUrlAccount}/getMarginUser/${userId}`, {headers});
+    return this.httpClient.get<MarginAccount>(`${this.apiUrlAccount}/getMarginUser/${userId}`, {headers});
   }
   getMarginAccountForCompany(companyId: number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    return this.httpClient.get<any>(`${this.apiUrlAccount}/getMarginCompany/${companyId}`, {headers});
+    return this.httpClient.get<MarginAccount>(`${this.apiUrlAccount}/getMarginCompany/${companyId}`, {headers});
 
   }
 }

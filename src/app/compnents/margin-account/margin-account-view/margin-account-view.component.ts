@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {parseJson} from "@angular/cli/src/utilities/json-file";
-import {Observable, of} from "rxjs";
 import {AccountService} from "../../../services/account.service";
 import {TransactionDto} from "../../../models/models";
 import {Router} from "@angular/router";
@@ -17,16 +16,15 @@ export class MarginAccountViewComponent implements OnInit{
   transactions = [] as TransactionDto[];
 
   constructor(private accountService: AccountService, private router: Router){
+    //Mock podaci za racun, skloniti kada se doda ruta na beku
     const account = {
       accountNumber: '1111111111111111',
       initialMargine: 20000,
       loanValue: 3000,
-      status: true
+      status: false
     };
     this.account = account
-  }
 
-  ngOnInit() {
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
     this.accountEmail = tk.sub
     if (tk.role && tk.role === 'ROLE_COMPANY'){
@@ -44,6 +42,10 @@ export class MarginAccountViewComponent implements OnInit{
         // this.account = data
       })
     }
+  }
+
+  ngOnInit() {
+
     //this.updateTransactions()
     //Mock transakcije, otkomentarisati gornju liniju kada se zavrsi bek za marzne racune
     this.transactions = [
