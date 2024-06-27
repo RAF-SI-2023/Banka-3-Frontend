@@ -3,5 +3,6 @@ export const environment = {
     userServiceUrl: 'http://localhost:8080',
     bankServiceUrl: 'http://localhost:8082',
     exchangeServiceUrl: 'http://localhost:8083',
-    emailServiceUrl: 'http://localhost:8081'
+    emailServiceUrl: 'http://localhost:8081',
+    exchangeServiceWebSocket: 'ws://localhost:8083'
 };
