@@ -442,3 +442,12 @@ export interface BuyStockCompanyDto {
   amount: number;
   price: number;
 }
+
+export interface MarginAccount{
+  companyId: number;
+  userId: number;
+  accountNumber: string;
+  initialMargine: number;
+  loanValue: number;
+  active: boolean;
+}
