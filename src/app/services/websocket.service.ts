@@ -9,6 +9,7 @@ import { Contract, MyForex, MyFuture, MyOptions, MyStock } from '../models/model
 export class WebsocketService {
 
   apiUrlExchangeService: string = environment.exchangeServiceUrl + "/api/v1"
+  apiUrlWebSocket: string = environment.exchangeServiceWebSocket + "/ws"
 
   private socket: WebSocket;
   private futureSocket: WebSocket;
@@ -26,11 +27,11 @@ export class WebsocketService {
 
   constructor() {
 
-    this.socket = new WebSocket('ws://localhost:8083/ws/stocks');
-    this.futureSocket = new WebSocket('ws://localhost:8083/ws/futures');
-    this.forexSocket = new WebSocket('ws://localhost:8083/ws/forex');
-    this.contractSocket = new WebSocket('ws://localhost:8083/ws/contract');
-    this.optionsSocket = new WebSocket('ws://localhost:8083/ws/option');
+    this.socket = new WebSocket(`${this.apiUrlWebSocket}/stocks`);
+    this.futureSocket = new WebSocket(`${this.apiUrlWebSocket}/futures`);
+    this.forexSocket = new WebSocket(`${this.apiUrlWebSocket}/forex`);
+    this.contractSocket = new WebSocket(`${this.apiUrlWebSocket}/contract`);
+    this.optionsSocket = new WebSocket(`${this.apiUrlWebSocket}/option`);
 
 
     this.socket.onopen = () => {
