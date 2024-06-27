@@ -1,29 +1,128 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.css" integrity="sha512-SudEgtLVV+Wip7/PrEh2zd0mO/PqR1w26NEJfhnHGxZdng3KYsLhpAZQG0mPMUykCYoKgdBc7/ItrUYzbC0aTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.js" integrity="sha512-SmkWOBrqYIdqATrk8lM9D2LXXA5rZAcuGTgdzM5REXSGYAtlTgp+88rUzBXxKEd78bnvyEfA7sbZIfe8/vA2Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <form [formGroup]= "firmForm" (ngSubmit)="save()">
-<div class="container">
-  <div class="card details">
-    <h2 class="h4">&nbsp;</h2>
-    <h2 class="h4" style="text-align: center; font-weight: bold;">Forma za dodavanje racuna firme</h2>
-    <hr>
-      <div class="card details-smaller">
-        <h2 class="h4">&nbsp;</h2>
-        <h2 class="h4" style="text-align: right; font-weight: bold;">Tekuci racun</h2>
-        <div class="spacer"></div>
-        <div class="input-container">
-          <input
-            type="text"
-            placeholder="Balance za firmu"
-            class="input"
-            formControlName="balance"
-          />
-          <label>RSD</label>
+  <div class="container">
+    <div class="card details">
+      <h2 class="h4">&nbsp;</h2>
+      <h2 class="h4" style="text-align: center; font-weight: bold;">Forma za dodavanje racuna firme</h2>
+      <hr>
+      <div class="input-container">
+        <p class="bold">Tip racuna</p>
+      </div>
+      <div class="input-row">
+        <mat-form-field>
+          <mat-label>Izaberite tip racuna</mat-label>
+          <mat-select formControlName = "accountType">
+            <mat-option value="Tekuci">Tekuci</mat-option>
+            <mat-option value="Marzni">Marzni</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span
+          *ngIf="accountType && accountType.invalid && accountType.touched"
+          class="wrong-input-span"
+        >
+            Tip racuna mora biti izabran!</span>
+      </div>
+
+      <div *ngIf="firmForm.get('accountType')?.value === 'Tekuci'">
+        <div class="card details-smaller">
+          <h2 class="h4">&nbsp;</h2>
+          <h2 class="h4" style="text-align: right; font-weight: bold;">Tekuci racun</h2>
+          <div class="spacer"></div>
+          <div class="input-container">
+            <input
+              type="text"
+              placeholder="Balance za firmu"
+              class="input"
+              formControlName="balance"
+            />
+            <label>RSD</label>
+          </div>
+          <span *ngIf="firmForm.get('balance')?.invalid && firmForm.get('balance')?.touched" class="wrong-input-span">
+           Balance mora da bude popunjen!
+          </span>
+          <div class="spacer"></div>
+
+          <div class="buttons">
+            <button (click)="save()" class="button-next" >Kreiraj racun</button>
+          </div>
         </div>
       </div>
-    <span *ngIf="firmForm.get('balance')?.invalid && firmForm.get('balance')?.touched" class="wrong-input-span">
-           Balance mora da bude popunjen!</span>
-        <div class="spacer"></div>
-        <div class="buttons">
-          <button (click)="save()" class="button-next" >Kreiraj racun</button>
+
+      <div *ngIf="firmForm.get('accountType')?.value === 'Marzni'">
+        <div class="card details-smaller">
+          <h2 class="h4">&nbsp;</h2>
+          <h2 class="h4" style="text-align: right; font-weight: bold;">Marzni racun</h2>
+          <div class="spacer"></div>
+          <div class="input-container">
+            <div class="column">
+              <div class="input-group">
+                <label for="balance">Balance za korisnika:</label>
+                <div class="input-with-label">
+                  <input
+                    type="text"
+                    placeholder="Balance za korisnika"
+                    class="input"
+                    formControlName="balance"
+                    id="balance"
+                  />
+                  <label>RSD</label>
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="initialMargin">Initial margin:</label>
+                <input
+                  type="text"
+                  placeholder="Initial margin"
+                  class="input"
+                  formControlName="initialMargin"
+                  id="initialMargin"
+                />
+              </div>
+            </div>
+            <div class="column">
+              <div class="input-group">
+                <label for="maintenanceMargin">Maintenance margin:</label>
+                <input
+                  type="text"
+                  placeholder="Maintenance margin"
+                  class="input"
+                  formControlName="maintenanceMargin"
+                  id="maintenanceMargin"
+                />
+              </div>
+              <div class="input-group">
+                <label for="initialMargin">Bank participation:</label>
+                <mat-form-field>
+                  <mat-label>Bank participation:</mat-label>
+                  <mat-select formControlName="bankParticipation">
+                    <mat-option *ngFor="let bankParticipation of bankParticipations" [value]="bankParticipation">
+                      {{bankParticipation}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <span *ngIf="firmForm.get('balance')?.invalid && firmForm.get('balance')?.touched" class="wrong-input-span">
+            Balance mora da bude popunjen!
+          </span>
+          <span *ngIf="firmForm.get('initialMargin')?.invalid && firmForm.get('initialMargin')?.touched" class="wrong-input-span">
+            Initial margin mora da bude popunjen!
+          </span>
+          <span *ngIf="firmForm.get('maintenanceMargin')?.invalid && firmForm.get('maintenanceMargin')?.touched" class="wrong-input-span">
+            Maintenance margin mora da bude popunjen!
+          </span>
+          <span *ngIf="firmForm.get('bankParticipation')?.invalid && firmForm.get('bankParticipation')?.touched" class="wrong-input-span">
+            Bank participation mora da bude popunjen!
+          </span>
+          <div class="spacer"></div>
+          <div class="buttons">
+            <button (click)="save()" class="button-next">Kreiraj racun</button>
+          </div>
         </div>
+      </div>
     </div>
   </div>
 </form>
