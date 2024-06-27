@@ -16,6 +16,7 @@ export class UserAddAccountFormComponent implements OnInit{
 
   account: Account = {} as Account
   currencies: Currency[] | null = null;
+  bankParticipations: String[] = ["10", "20", "30", "40", "50"];
   userId: number;
   employeeId: number;
   accountForm: FormGroup
@@ -26,7 +27,9 @@ export class UserAddAccountFormComponent implements OnInit{
       accountType: new FormControl('', Validators.required),
       balance: new FormControl('', Validators.required),
       mark: new FormControl('', Validators.required),
-
+      initialMargin: new FormControl('', Validators.required),
+      maintenanceMargin: new FormControl('', Validators.required),
+      bankParticipations: new FormControl('', Validators.required)
 
       })
     this.userId = 0;
@@ -61,7 +64,7 @@ export class UserAddAccountFormComponent implements OnInit{
           }, 3000);
         }
         );
-    }else{
+    }else if(this.account.accountType == 'Devizni'){
       this.accountService.saveAccount(this.userId, this.account.availableBalance, this.account.mark, this.employeeId, "DEVIZNI")
       .subscribe(
         res => {
@@ -78,6 +81,24 @@ export class UserAddAccountFormComponent implements OnInit{
             this.isSubmitting = false;
           }, 3000);
         }
+        );
+    }else if(this.account.accountType == 'Marzni'){
+      this.accountService.saveMarginAccount(this.employeeId, this.userId, this.account.availableBalance, this.account.initialMargine, this.account.maitenanceMargine, this.account.bankParticipation, "MARZNI")
+        .subscribe(
+          res => {
+            console.log(res);
+            this.openErrorSnackBar('Uspešno kreiran račun.');
+            this.router.navigate(['user-control'])
+          },
+          error=>{
+            this.openErrorSnackBar('Greška u kreiranju računa.');
+            this.router.navigate(['user-control'])
+          },
+          () => {
+            setTimeout( ()=> {
+              this.isSubmitting = false;
+            }, 3000);
+          }
         );
     }
 

@@ -92,6 +92,9 @@ export interface Account{
   mark: string,
   employeeId: number,
   userId: number,
+  initialMargine: number,
+  maitenanceMargine: number,
+  bankParticipation: number
 }
 
 export interface Currency{
@@ -99,6 +102,7 @@ export interface Currency{
   name: string,
   mark: string
 }
+
 export interface Role {
   roleId: number | undefined,
   roleName: string,
