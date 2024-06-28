@@ -19,7 +19,8 @@ import {
   MyOptions,
   BankStock,
   Offer,
-  MyOffer
+  MyOffer,
+  MyMarginStock
 } from "../models/models";
 import {Observable} from "rxjs";
 import { environment } from 'src/environments/environment';
@@ -150,7 +151,7 @@ export class ExchangeService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     })
-    const body = {userId, companyId, employeeId, ticker, amount, limitValue, stopValue, aon, margine};
+    const body = {userId, companyId, employeeId, ticker, amount, limitValue, stopValue, aon, margin: margine};
     return this.httpClient.post<any>(`${this.apiUrlStocks}/buyStock`,body,{ headers })
   }
   buyOption(companyId: number, contractSymbol: string, optionType: string, quantity: number){
@@ -357,6 +358,20 @@ export class ExchangeService {
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       });
       return this.httpClient.get<MyStock[]>(`${this.apiUrlExchangeService}/stock/myStock/getAllForUser?userId=${userId}`, { headers });
+    }
+    getUserMyMarginStocks(userId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<MyMarginStock[]>(`${this.apiUrlExchangeService}/stock/myMarginStock/getAllForUser?userId=${userId}`, { headers });
+    }
+    getCompanyMyMarginStocks(userId : number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<MyMarginStock[]>(`${this.apiUrlExchangeService}/stock/myMarginStock/getAllForCompany?companyId=${userId}`, { headers });
     }
 
     getCompanyMyStocks(companyId : number){

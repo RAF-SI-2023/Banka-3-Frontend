@@ -89,6 +89,7 @@ export class BuyHartijeComponent implements OnInit{
       //USER kad kupuje: companyId = null, employeeId = null, userId = userId
       //EMPLOYEE kad kupuje: companyId = 1, employeeId = employeeId, userId = null
       //COMPANY kad kupuje: companyId = companyId, employeeId = null, userId = null
+      console.log(margin)
 
       if(hasRole){
         if(payload.role === "ROLE_COMPANY"){

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable, Subject } from 'rxjs';
-import { Contract, MyForex, MyFuture, MyOptions, MyStock } from '../models/models';
+import { Contract, MyForex, MyFuture, MyMarginStock, MyOptions, MyStock } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class WebsocketService {
   private forexSocket: WebSocket;
   private contractSocket: WebSocket;
   private optionsSocket: WebSocket;
+  private marginStockSocket: WebSocket;
 
 
 
@@ -24,6 +25,7 @@ export class WebsocketService {
   private forexSubject: Subject<MyForex> = new Subject<MyForex>();
   private contractSubject: Subject<Contract> = new Subject<Contract>();
   private optionsSubject: Subject<MyOptions> = new Subject<MyOptions>();
+  private marginStockSubject: Subject<MyMarginStock> = new Subject<MyMarginStock>();
 
   constructor() {
 
@@ -32,6 +34,7 @@ export class WebsocketService {
     this.forexSocket = new WebSocket(`${this.apiUrlWebSocket}/forex`);
     this.contractSocket = new WebSocket(`${this.apiUrlWebSocket}/contract`);
     this.optionsSocket = new WebSocket(`${this.apiUrlWebSocket}/option`);
+    this.marginStockSocket = new WebSocket(`${this.apiUrlWebSocket}/margin`);
 
 
     this.socket.onopen = () => {
@@ -42,6 +45,12 @@ export class WebsocketService {
     };
     this.forexSocket.onopen = () => {
       console.log('Forex WebSocket connected');
+    };
+    this.contractSocket.onopen = () => {
+      console.log('Contract WebSocket connected');
+    };
+    this.marginStockSocket.onopen = () => {
+      console.log('Margin WebSocket connected');
     };
 
 
@@ -68,6 +77,11 @@ export class WebsocketService {
     };
     this.optionsSocket.onmessage = (event) => {
       console.log('Contract received from server:', event.data);
+      this.optionsSubject.next(event.data);
+
+    };
+    this.marginStockSocket.onmessage = (event) => {
+      console.log('Margin stock received from server:', event.data);
       this.optionsSubject.next(event.data);
 
     };
@@ -98,6 +112,10 @@ export class WebsocketService {
       console.log('Contract WebSocket disconnected');
       this.optionsSocket.close()
     };
+    this.marginStockSocket.onclose = () => {
+      console.log('Margin stock WebSocket disconnected');
+      this.optionsSocket.close()
+    };
   }
 
   get messages(): Observable<MyStock> {
@@ -114,6 +132,9 @@ export class WebsocketService {
   }
   get optionsMessages(): Observable<MyOptions> {
     return this.optionsSubject.asObservable();
+  }
+  get marginStockMessages(): Observable<MyMarginStock> {
+    return this.marginStockSubject.asObservable();
   }
 }
 
