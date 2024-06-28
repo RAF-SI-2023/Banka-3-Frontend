@@ -4,5 +4,5 @@ export const environment = {
     bankServiceUrl: 'https://banka-3.si.raf.edu.rs/bank-service',
     exchangeServiceUrl: 'https://banka-3.si.raf.edu.rs/exchange-service',
     emailServiceUrl: 'https://banka-3.si.raf.edu.rs/email-service',
-    exchangeServiceWebSocket: 'ws://banka-3.si.raf.edu.rs/exchange-service'
+    exchangeServiceWebSocket: 'wss://banka-3.si.raf.edu.rs/exchange-service'
 };

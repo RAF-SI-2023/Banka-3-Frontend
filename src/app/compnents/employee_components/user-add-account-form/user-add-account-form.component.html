@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.css" integrity="sha512-SudEgtLVV+Wip7/PrEh2zd0mO/PqR1w26NEJfhnHGxZdng3KYsLhpAZQG0mPMUykCYoKgdBc7/ItrUYzbC0aTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.2.5/angular-material.min.js" integrity="sha512-SmkWOBrqYIdqATrk8lM9D2LXXA5rZAcuGTgdzM5REXSGYAtlTgp+88rUzBXxKEd78bnvyEfA7sbZIfe8/vA2Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 <form [formGroup]= "accountForm" (ngSubmit)="save()">
   <div class="container">
     <div class="card details">
@@ -85,24 +82,10 @@
 
       <div *ngIf="accountForm.get('accountType')?.value === 'Marzni'">
         <div class="card details-smaller">
-          <h2 class="h4">&nbsp;</h2>
           <h2 class="h4" style="text-align: right; font-weight: bold;">Marzni racun</h2>
           <div class="spacer"></div>
-          <div class="input-container">
+          <div class="input-container2">
             <div class="column">
-              <div class="input-group">
-                <label for="balance">Balance za korisnika:</label>
-                <div class="input-with-label">
-                  <input
-                    type="text"
-                    placeholder="Balance za korisnika"
-                    class="input"
-                    formControlName="balance"
-                    id="balance"
-                  />
-                  <label>RSD</label>
-                </div>
-              </div>
               <div class="input-group">
                 <label for="initialMargin">Initial margin:</label>
                 <input
@@ -112,9 +95,19 @@
                   formControlName="initialMargin"
                   id="initialMargin"
                 />
-              </div>
             </div>
-            <div class="column">
+              <div class="input-group">
+                <mat-form-field>
+                  <mat-label>Bank participation:</mat-label>
+                  <mat-select formControlName="bankPart">
+                    <mat-option *ngFor="let bankParticipation of bankParticipations" [value]="bankParticipation">
+                      {{bankParticipation}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+              </div>
+
               <div class="input-group">
                 <label for="maintenanceMargin">Maintenance margin:</label>
                 <input
@@ -125,22 +118,8 @@
                   id="maintenanceMargin"
                 />
               </div>
-              <div class="input-group">
-                <label for="initialMargin">Bank participation:</label>
-                <mat-form-field>
-                  <mat-label>Bank participation:</mat-label>
-                  <mat-select formControlName="bankParticipation">
-                    <mat-option *ngFor="let bankParticipation of bankParticipations" [value]="bankParticipation">
-                      {{bankParticipation}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
+
           </div>
-          <span *ngIf="accountForm.get('balance')?.invalid && accountForm.get('balance')?.touched" class="wrong-input-span">
-            Balance mora da bude popunjen!
-          </span>
           <span *ngIf="accountForm.get('initialMargin')?.invalid && accountForm.get('initialMargin')?.touched" class="wrong-input-span">
             Initial margin mora da bude popunjen!
           </span>
