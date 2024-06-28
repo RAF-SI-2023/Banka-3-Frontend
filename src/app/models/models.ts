@@ -261,6 +261,30 @@ export interface MyStock{
   version: number
 }
 
+// @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long myMarginStockId;
+//     private String ticker;
+//     private Long userId;
+//     private Long companyId;
+//     private Integer amount;
+//     private String currencyMark;
+//     @JsonIgnore
+//     private Double minimumPrice;
+//     @Version
+//     private Integer version;
+
+export interface MyMarginStock{
+  myMarginStockId: number,
+  ticker: string,
+  amount: number,
+  userId: number,
+  companyId: number,
+  version: number
+  minimumPrice: number,
+  currencyMark: string
+}
+
 export interface MyOptions{
   myOptionId: number,
   contractSymbol: string,
