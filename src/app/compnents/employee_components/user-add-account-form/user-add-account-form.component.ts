@@ -16,7 +16,8 @@ export class UserAddAccountFormComponent implements OnInit{
 
   account: Account = {} as Account
   currencies: Currency[] | null = null;
-  bankParticipations: String[] = ["10", "20", "30", "40", "50"];
+  bankParticipations: String[] = ["10%", "20%", "30%", "40%", "50%"];
+  bankP = ''
   userId: number;
   employeeId: number;
   accountForm: FormGroup
@@ -29,7 +30,7 @@ export class UserAddAccountFormComponent implements OnInit{
       mark: new FormControl('', Validators.required),
       initialMargin: new FormControl('', Validators.required),
       maintenanceMargin: new FormControl('', Validators.required),
-      bankParticipations: new FormControl('', Validators.required)
+      bankPart: new FormControl('', Validators.required)
 
       })
     this.userId = 0;
@@ -45,6 +46,7 @@ export class UserAddAccountFormComponent implements OnInit{
     this.account.accountType = this.accountForm.get('accountType')?.value;
     this.account.availableBalance = this.accountForm.get('balance')?.value;
     this.account.mark = this.accountForm.get('mark')?.value;
+    this.bankP = this.accountForm.get('bankPart')?.value;
 
     if(this.account.accountType == 'Tekuci'){
       this.accountService.saveAccount(this.userId, this.account.availableBalance, "RSD", this.employeeId, "DINARSKI")
@@ -83,7 +85,18 @@ export class UserAddAccountFormComponent implements OnInit{
         }
         );
     }else if(this.account.accountType == 'Marzni'){
-      this.accountService.saveMarginAccount(this.employeeId, this.userId, this.account.availableBalance, this.account.initialMargine, this.account.maitenanceMargine, this.account.bankParticipation, "MARZNI")
+      let bp = 0;
+      if(this.bankP === '10%')
+        bp = 0.1
+      if(this.bankP === '20%')
+        bp = 0.2
+      if(this.bankP === '30%')
+        bp = 0.3
+      if(this.bankP === '40%')
+        bp = 0.4
+      if(this.bankP === '50%')
+        bp = 0.5
+      this.accountService.saveMarginAccount(this.employeeId, this.userId, this.account.availableBalance, this.account.initialMargine, this.account.maitenanceMargine, bp, "MARZNI")
         .subscribe(
           res => {
             console.log(res);

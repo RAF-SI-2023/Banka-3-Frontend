@@ -209,21 +209,28 @@ label {
 .input-container {
   display: flex;
   justify-content: space-between;
+  /* align-items: start; */
+}
+.input-container2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
 }
 
 .column {
   display: flex;
   flex-direction: column;
-  width: 48%;
+  width: 50%;
 }
 
 .input-group {
   margin-bottom: 10px;
+  padding: 1rem;
 }
 
 .input-group label {
   margin-bottom: 5px;
-  display: block;
+  display: inline-block;
 }
 
 .input-with-label {
