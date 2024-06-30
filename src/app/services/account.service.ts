@@ -88,6 +88,15 @@ export class AccountService {
 
     return this.httpClient.get<TransactionDto[]>(`${this.apiUrlBank}/getAllPaymentTransactions/${accountId}`, {headers})
   }
+  getAllMarginTransactionsByAccountId(accountId: string){
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    return this.httpClient.get<TransactionDto[]>(`${this.apiUrlBank}/getAllMarginTransactions/${accountId}`, {headers})
+  }
 
   saveAccount(userId: number, balance:number, mark:string, employeeId:number, accountType: string){
     const headers = new HttpHeaders({
@@ -111,7 +120,7 @@ export class AccountService {
     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createAccount`,body,{ headers })
   }
 
-  saveMarginAccount(employeeId: number, userId: number, balance: number ,initialMargine: number, maitenanceMargine: number, bankParticipation: number, accountType: string){
+  saveMarginAccount(employeeId: number, userId: number ,initialMargin: number, maitenanceMargin: number, bankParticipation: number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -120,14 +129,12 @@ export class AccountService {
     const body = {
       employeeId: employeeId,
       userId: userId,
-      balance: balance,
-      initialMargine: initialMargine,
-      maitenanceMargine: maitenanceMargine,
-      bankParticipation: bankParticipation/100, // da se salje kao 0.1, 0.2, ...
-      accountType: accountType
+      initialMargin: initialMargin,
+      maintenanceMargin: maitenanceMargin,
+      bankParticipation: bankParticipation
     };
 
-    return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createMarginAccount`, body,{ headers })
+    return this.httpClient.post<any>(`${this.apiUrlAccount}/createMarginAccount`, body,{ headers })
   }
 
 
@@ -148,7 +155,7 @@ export class AccountService {
     return this.httpClient.post<Account[]>(`${this.apiUrlCompanyAccount}/createAccount`, body,{ headers })
   }
 
-  saveMarginAccountFirm(employeeId: number, companyID: number, balance: number ,initialMargine: number, maitenanceMargine: number, bankParticipation: number, accountType: string){
+  saveMarginAccountFirm(employeeId: number, companyId: number ,initialMargin: number, maitenanceMargin: number, bankParticipation: number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -156,15 +163,13 @@ export class AccountService {
 
     const body = {
       employeeId: employeeId,
-      companyID: companyID,
-      balance: balance,
-      initialMargine: initialMargine,
-      maitenanceMargine: maitenanceMargine,
-      bankParticipation: bankParticipation/100, // da se salje kao 0.1, 0.2, ...
-      accountType: accountType
+      companyID: companyId,
+      initialMargin: initialMargin,
+      maintenanceMargin: maitenanceMargin,
+      bankParticipation: bankParticipation, // da se salje kao 0.1, 0.2, ...
     };
 
-    return this.httpClient.post<Account[]>(`${this.apiUrlCompanyAccount}/createMarginAccount`, body,{ headers })
+    return this.httpClient.post<any>(`${this.apiUrlCompanyAccount}/createMarginAccount`, body,{ headers })
   }
 
   //FIRMA
@@ -381,14 +386,14 @@ export class AccountService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    return this.httpClient.get<MarginAccount>(`${this.apiUrlAccount}/getMarginUser/${userId}`, {headers});
+    return this.httpClient.get<MarginAccount>(`${this.apiUrlAccount}/getMarginByUser/${userId}`, {headers});
   }
   getMarginAccountForCompany(companyId: number){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    return this.httpClient.get<MarginAccount>(`${this.apiUrlAccount}/getMarginCompany/${companyId}`, {headers});
+    return this.httpClient.get<MarginAccount>(`${this.apiUrlAccount}/getMarginByCompany/${companyId}`, {headers});
 
   }
 }

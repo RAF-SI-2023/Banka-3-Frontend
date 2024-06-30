@@ -479,7 +479,7 @@ export interface MarginAccount{
   companyId: number;
   userId: number;
   accountNumber: string;
-  initialMargine: number;
+  initialMargin: number;
   loanValue: number;
   active: boolean;
 }

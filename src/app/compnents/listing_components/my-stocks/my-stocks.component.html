@@ -4,7 +4,7 @@
     <button [ngStyle]="{ 'opacity': !stocksFlag ? '0.5' : '1'}" (click)="switchToStocks()" class="stock-button">
       M y  S t o c k s
     </button>
-    <button [ngStyle]="{ 'opacity': !marginStockFlag ? '0.5' : '1'}" (click)="switchToMarginStock()" class="margin-button">
+    <button *ngIf="(role === 'ROLE_COMPANY' && id !== 1) || role === 'ROLE_USER'" [ngStyle]="{ 'opacity': !marginStockFlag ? '0.5' : '1'}" (click)="switchToMarginStock()" class="margin-button">
       M y  M a r g i n
     </button>
     <button *ngIf="role !== 'ROLE_USER'" [ngStyle]="{ 'opacity': !futuresFlag ? '0.5' : '1'}" (click)="switchToFutures()" class="future-button">

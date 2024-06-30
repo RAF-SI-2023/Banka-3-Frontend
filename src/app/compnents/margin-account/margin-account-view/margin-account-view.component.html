@@ -4,20 +4,24 @@
       <span style="text-align: center" class="h2">Maržni račun</span>
       <div class="selectCardWrapper">
         <div class="accountCard">
+          <div class="centerInfo">
+            <div>
+              <span class="p">Stanje na računu</span>
+              <strong><h2 class="h3 blueText"><u>{{ account.initialMargin }} RSD </u></h2></strong>
+            </div>
+          </div>
           <div class="cardInfoWrapper">
             <div class="leftInfo">
               <span class="p">Email</span>
               <p class="h4 blueText">{{ accountEmail }}</p>
               <span class="p">Broj računa</span>
-              <p class="h4 blueText">{{ account?.accountNumber }}</p>
-              <span class="p">Početna margina</span>
-              <p class="h4 blueText"><u>{{ account?.initialMargine }} RSD </u></p>
+              <p class="h4 blueText">{{ account.accountNumber }}</p>
             </div>
             <div class="rightInfo">
               <span class="p">Vrednost kredita</span>
-              <p class="h4 blueText">{{ account?.loanValue }} RSD</p>
+              <p class="h4 blueText">{{ account.loanValue }} RSD</p>
               <span class="p">Status</span>
-              <p class="h4 blueText" [ngStyle]="{'color': account?.status ? '' : 'var(--color-primary)'}">{{ account?.status ? 'ACTIVE' : 'BLOCKED' }}</p>
+              <p class="h4 blueText" [ngStyle]="{'color': account.active ? '' : 'var(--color-primary)'}">{{ account.active ? 'ACTIVE' : 'BLOCKED' }}</p>
             </div>
           </div>
         </div>

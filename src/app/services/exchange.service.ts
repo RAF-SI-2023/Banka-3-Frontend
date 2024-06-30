@@ -558,5 +558,19 @@ export class ExchangeService {
       });
       return this.httpClient.put<any>(`${this.apiBankOtc}/refresh`, {headers});
     }
+    deleteOffer(offerId: number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.put<any>(`${this.apiBankOtc}/deleteOffer/${offerId}`, {headers});
+    }
+    deleteMyOffer(offerId: number){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.put<any>(`${this.apiBankOtc}/deleteMyOffer/${offerId}`, {headers});
+    }
 
 }

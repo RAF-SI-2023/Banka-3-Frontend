@@ -80,19 +80,16 @@ export class NavbarComponent  implements OnInit{
       const payload = JSON.parse(atob(token.split('.')[1]));
       this.id = payload.id
       this.email = payload.sub
-      if (payload.role){
-
-      } else {
+      if (payload.role && payload.role !== "ROLE_COMPANY"){
+        return false;
+      }
+      if(!("role" in payload)){
         console.log("User")
-        return false;
+        return true;
       }
-      if(payload.role && payload.role === "ROLE_COMPANY" && !(payload.id === 1)){
-        console.log('Bank: false')
-        return false;
-      }
-      if(payload.role && payload.role === "ROLE_COMPANY" && payload.id === 1){
+      if(payload.role && payload.role === "ROLE_COMPANY" && payload.id !== 1){
         console.log('Bank: true')
-        return true
+        return true;
       }
     }
     console.log('Bank: false')

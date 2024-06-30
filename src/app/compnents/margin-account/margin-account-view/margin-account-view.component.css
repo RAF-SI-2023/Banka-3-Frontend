@@ -22,15 +22,16 @@
 }
 
 .accountCard {
-  width: 100%;
+  width: 80%;
   display: flex;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   cursor: pointer;
   background-color: white;
   margin: 1rem 1rem 1rem 1rem;
   -ms-flex-item-align: center;
   flex-direction: row;
-  padding: 2rem 3rem 3rem 2rem;
+  padding: 2rem 3rem 2rem 3rem;
+  flex-direction: column;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
   transition: all 0.2s ease-in-out;
 }
@@ -46,22 +47,31 @@
 .cardInfoWrapper {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  align-items: center;
+  /* width: 100%; */
 }
 
 .leftInfo, .rightInfo {
   display: flex;
   flex-direction: column;
 }
+.centerInfo{
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  background: #B8E4EC;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
 
 .leftInfo {
   flex: 1;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 
 .rightInfo {
   flex: 1;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
 
 .myModalWrapper {
@@ -123,10 +133,6 @@
   width: 100%;
   padding-top: 1rem;
   min-height: 100vh;
-}
-
-.cardInfoWrapper {
-  margin-left: 2rem;
 }
 
 .transactionsWrapper {
