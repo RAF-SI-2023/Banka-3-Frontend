@@ -24,7 +24,7 @@ presubmits:
 
               start-docker.sh
 
-              docker compose up -d
+              docker-compose --profile user-service --profile bank-service --profile all up -d
 
               cd ..
               cd ./Banka-3-Frontend
