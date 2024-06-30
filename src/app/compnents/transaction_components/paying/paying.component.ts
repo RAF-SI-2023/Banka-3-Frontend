@@ -49,7 +49,7 @@ export class PayingComponent implements OnInit {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
       this.account = navigation.extras.state['account'];
-      this.accountMark = this.account.currency.mark
+      this.accountMark = this.account.currency!.mark
     }
     this.groupForm = this.formBuilder.group({
       recipientName: new FormControl('', Validators.required),

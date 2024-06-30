@@ -11,6 +11,7 @@
     <button *ngIf="role !== 'ROLE_USER' && (role !== 'ROLE_COMPANY' || (role === 'ROLE_COMPANY' && id == 1))" [ngStyle]="{ 'opacity': !forexFlag ? '0.5' : '1'}" class="forex-button" (click)="switchToForex()">
       F o r e x
     </button>
+    <button class="myButtonPrimary" (click)="refreshData()">Refresh</button>
 
     <!-- Tabela za prikaz podataka -->
     <div class="table">

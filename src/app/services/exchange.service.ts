@@ -31,6 +31,7 @@ import { environment } from 'src/environments/environment';
 export class ExchangeService {
 
   apiUrlExchangeService: string = environment.exchangeServiceUrl + "/api/v1"
+  apiUrlBankService: string = environment.bankServiceUrl + "/api/v1"
   apiUrlOptions: string = environment.exchangeServiceUrl + "/api/v1/option"
   apiUrlStocks: string = environment.exchangeServiceUrl + "/api/v1/stock"
   apiUrlForex: string = environment.exchangeServiceUrl + "/api/v1/forex"
@@ -248,7 +249,7 @@ export class ExchangeService {
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       });
 
-      const body = {userId, companyId, employeeId, ticker, amount, limitValue, stopValue, aon, margine};
+      const body = {userId, companyId, employeeId, ticker, amount, limitValue, stopValue, aon, margin : margine};
       return this.httpClient.post<any>(`${this.apiUrlExchangeService}/stock/sellStock`, body, { headers });
     }
     buyFuture(futureId: number, companyId: number){
@@ -563,14 +564,35 @@ export class ExchangeService {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       });
-      return this.httpClient.put<any>(`${this.apiBankOtc}/deleteOffer/${offerId}`, {headers});
+      return this.httpClient.delete<any>(`${this.apiBankOtc}/deleteOffer/${offerId}`, {headers});
     }
     deleteMyOffer(offerId: number){
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       });
-      return this.httpClient.put<any>(`${this.apiBankOtc}/deleteMyOffer/${offerId}`, {headers});
+      return this.httpClient.delete<any>(`${this.apiBankOtc}/deleteMyOffer/${offerId}`, {headers});
+    }
+    getCommissionsByMark(){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<any>(`${this.apiUrlBankService}/currencyExchange/commissionByMark`, {headers});
+    }
+    getCommissions(){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<any>(`${this.apiUrlBankService}/currencyExchange/commission`, {headers});
+    }
+    refreshDataStocks(){
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      });
+      return this.httpClient.get<any>(`${this.apiUrlStocks}/refresh`, {headers});
     }
 
 }

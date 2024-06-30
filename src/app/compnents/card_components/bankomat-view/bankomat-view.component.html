@@ -16,10 +16,10 @@
         {{ account.accountNumber }}
       </option>
     </select>
-    
-    
+
+
     </div>
-    
+
     <button class="users-button" (click)="switchToOptions('call')" [ngStyle]="{ 'opacity': !uplata ? '0.5' : '1'}">
       Uplata
     </button>
@@ -32,7 +32,7 @@
       <div>
         <div class="h3">Uplata sredstava</div>
         <div class="p blueText">Broj računa: {{ selectedAccount.accountNumber }}</div>
-        
+
         <div style="text-align: center;">
           <input
             type="number"
@@ -41,10 +41,10 @@
             style="display: inline-block; width: 100px;"
             min="0"
           >
-          <span style="display: inline-block; margin-left: 8px;">{{ selectedAccount.currency.mark }}</span>
+          <span style="display: inline-block; margin-left: 8px;">{{ selectedAccount.currency?.mark }}</span>
         </div>
       </div>
-    
+
       <div class="text-center">
         <button
           class="myButtonPrimary"
@@ -56,7 +56,7 @@
         </button>
       </div>
     </div>
-    
+
 
     <div *ngIf="isplata" class="table text-center">
       <div>
@@ -65,7 +65,7 @@
         <!-- <p class="h4">Iznos</p> -->
       <div style="text-align: center;">
         <input type="number" class="input" [(ngModel)]="amount" style="display: inline-block; width: 100px;" min="0">
-        <span style="display: inline-block; margin-left: 8px;">{{ selectedAccount.currency.mark }}</span>
+        <span style="display: inline-block; margin-left: 8px;">{{ selectedAccount.currency?.mark }}</span>
       </div>
       </div>
       <div class="text-center">

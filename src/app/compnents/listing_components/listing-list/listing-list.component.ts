@@ -86,6 +86,12 @@ export class ListingListComponent implements OnInit, OnDestroy{
     this.router.navigate(['stock-info', ticker])
   }
 
+  refreshData(){
+    this.exchangeService.refreshDataStocks().subscribe(res => {
+      console.log(res)
+    })
+  }
+
   buy(ticker: string){
     this.router.navigate(['buy-hartije', ticker]);
   }

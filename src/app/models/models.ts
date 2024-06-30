@@ -193,7 +193,7 @@ export interface AccountDto{
   expirationDate: number,
   active: boolean,
   employeeId: number,
-  currency: Currency,
+  currency: Currency | undefined,
   accountType: any,
 }
 
