@@ -4,6 +4,9 @@
     <button [ngStyle]="{ 'opacity': !stocksFlag ? '0.5' : '1'}" (click)="switchToStocks()" class="stock-button">
       M y  S t o c k s
     </button>
+    <button [ngStyle]="{ 'opacity': !marginStockFlag ? '0.5' : '1'}" (click)="switchToMarginStock()" class="margin-button">
+      M y  M a r g i n
+    </button>
     <button *ngIf="role !== 'ROLE_USER'" [ngStyle]="{ 'opacity': !futuresFlag ? '0.5' : '1'}" (click)="switchToFutures()" class="future-button">
       M y  F u t u r e s
     </button>
@@ -44,6 +47,36 @@
         <mat-header-row *matHeaderRowDef="myStockColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: myStockColumns;"></mat-row>
       </mat-table>
+
+
+    <!-- M A R G I N S T O C K S -->
+
+      <mat-table *ngIf="marginStockFlag" [dataSource]="myMarginStocks" matSort>
+
+        <ng-container *ngFor="let column of myMarginStockColumns" [matColumnDef]="column">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ column | uppercase }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"
+                    [ngStyle]="{
+                  'color': column === 'change' ? (element[column] > 0 ? '#33d17a' : '#ed333b') : 'inherit',
+                  'font-weight': column === 'ticker' ? 'bold' : 'normal',
+                  'cursor': column === 'ticker' ? 'pointer' : 'default'
+
+                }">
+            <ng-container *ngIf="column !== 'opcije'">
+              {{ element[column] }}
+            </ng-container>
+            <ng-container *ngIf="column === 'opcije'">
+              <button (click)="sellStock(element['ticker'])" class="button">Prodaj</button>
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="myMarginStockColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: myMarginStockColumns;"></mat-row>
+      </mat-table>
+
 
 
       <!-- F U T U R E S -->

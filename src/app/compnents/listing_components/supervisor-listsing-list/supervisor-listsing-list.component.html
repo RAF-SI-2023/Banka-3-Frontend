@@ -1,20 +1,20 @@
 <div class="page">
   <div class="panel">
     <button [ngStyle]="{ 'opacity': !stocksFlag ? '0.5' : '1'}" class="stock-button" (click)="switchToRequests()">
-      R e q u e s t s
+      Agent Requests
     </button>
     <button [ngStyle]="{ 'opacity': !limitFlag ? '0.5' : '1'}" class="limit-button" (click)="switchToLimits()">
-      L i m i t s
+      Agent Limits
     </button>
     <button [ngStyle]="{ 'opacity': !contractFlag ? '0.5' : '1'}" class="contract-button" (click)="switchToContracts()">
-      C o n t r a c t s
+      Contracts
     </button>
 
-    <div *ngIf = 'showRequests'>
-    <mat-table [dataSource]="requests" matSort style="max-width: var(--max-screen-width)">
+      <div class="table">
+    <mat-table *ngIf = 'showRequests' [dataSource]="requests" matSort style="max-width: var(--max-screen-width)">
       <ng-container *ngFor="let column of requestColumns" [matColumnDef]="column">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ column | uppercase }}
+          {{ column | titlecase}}
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{ element[column] }}
@@ -44,13 +44,10 @@
       <mat-header-row *matHeaderRowDef="requestColumns.concat(['accept', 'reject'])"></mat-header-row>
       <mat-row *matRowDef="let row; columns: requestColumns.concat(['accept', 'reject'])"></mat-row>
     </mat-table>
-  </div>
     <!--limits-->
 
 
-    <div *ngIf = 'showLimits'>
-    <div *ngIf="showLimits">
-      <mat-table [dataSource]="actuaries" matSort style="max-width: var(--max-screen-width)">
+      <mat-table *ngIf="showLimits" [dataSource]="actuaries" matSort style="max-width: var(--max-screen-width)">
         <ng-container matColumnDef="employeeId">
           <mat-header-cell *matHeaderCellDef> Employee ID </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ element.employeeId }} </mat-cell>
@@ -87,14 +84,11 @@
         <mat-header-row *matHeaderRowDef="['employeeId', 'limitValue', 'setNewLimit', 'resetLimit','orderRequest']"></mat-header-row>
         <mat-row *matRowDef="let row; columns: ['employeeId', 'limitValue', 'setNewLimit', 'resetLimit','orderRequest']"></mat-row>
       </mat-table>
-    </div>
 
-  </div>
-    <div *ngIf="contractFlag">
-    <mat-table [dataSource]="contracts" matSort style="max-width: var(--max-screen-width)">
+    <mat-table *ngIf="contractFlag" [dataSource]="contracts" matSort style="max-width: var(--max-screen-width)">
       <ng-container *ngFor="let column of contractColumns" [matColumnDef]="column">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ column | uppercase }}
+          {{ column | titlecase}}
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{ element[column] }}
@@ -123,5 +117,5 @@
       <mat-row *matRowDef="let row; columns: contractColumns.concat(['accept', 'decline'])"></mat-row>
     </mat-table>
   </div>
-
  </div>
+  </div>

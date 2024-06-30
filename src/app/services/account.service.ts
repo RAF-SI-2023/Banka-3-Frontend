@@ -7,7 +7,7 @@ import {
   CreditRequestDto,
   Currency, CurrencyExchangeDto,
   Firm,
-  FirmCreateDto,
+  FirmCreateDto, MarginAccount,
   TransactionDto,
 } from "../models/models";
 import {Observable} from "rxjs";
@@ -111,6 +111,25 @@ export class AccountService {
     return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createAccount`,body,{ headers })
   }
 
+  saveMarginAccount(employeeId: number, userId: number, balance: number ,initialMargine: number, maitenanceMargine: number, bankParticipation: number, accountType: string){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    const body = {
+      employeeId: employeeId,
+      userId: userId,
+      balance: balance,
+      initialMargine: initialMargine,
+      maitenanceMargine: maitenanceMargine,
+      bankParticipation: bankParticipation/100, // da se salje kao 0.1, 0.2, ...
+      accountType: accountType
+    };
+
+    return this.httpClient.post<Account[]>(`${this.apiUrlAccount}/createMarginAccount`, body,{ headers })
+  }
+
 
   saveCompanyAccount(companyId: number, balance:number, mark:string, employeeId:number, accountType: string){
     const headers = new HttpHeaders({
@@ -127,6 +146,25 @@ export class AccountService {
 
     };
     return this.httpClient.post<Account[]>(`${this.apiUrlCompanyAccount}/createAccount`, body,{ headers })
+  }
+
+  saveMarginAccountFirm(employeeId: number, companyID: number, balance: number ,initialMargine: number, maitenanceMargine: number, bankParticipation: number, accountType: string){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+
+    const body = {
+      employeeId: employeeId,
+      companyID: companyID,
+      balance: balance,
+      initialMargine: initialMargine,
+      maitenanceMargine: maitenanceMargine,
+      bankParticipation: bankParticipation/100, // da se salje kao 0.1, 0.2, ...
+      accountType: accountType
+    };
+
+    return this.httpClient.post<Account[]>(`${this.apiUrlCompanyAccount}/createMarginAccount`, body,{ headers })
   }
 
   //FIRMA
@@ -336,5 +374,21 @@ export class AccountService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
     return this.httpClient.get<any>(`${this.apiUrlExchange}`, {headers});
+  }
+
+  getMarginAccountForUser(userId: number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<MarginAccount>(`${this.apiUrlAccount}/getMarginUser/${userId}`, {headers});
+  }
+  getMarginAccountForCompany(companyId: number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    return this.httpClient.get<MarginAccount>(`${this.apiUrlAccount}/getMarginCompany/${companyId}`, {headers});
+
   }
 }

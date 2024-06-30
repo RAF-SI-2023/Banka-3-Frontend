@@ -21,8 +21,8 @@
 }
 
 .panel{
-  max-width: var(--max-screen-width);
-  width: 80%;
+  max-width: calc(var(--max-screen-width) + 150px);
+  width: 100%;
   margin-top: 50px;
 }
 
@@ -63,6 +63,11 @@
   font-family: 'Archivo', sans-serif;
   cursor: pointer;
 }
+.myButtonSecondary{
+  margin: 0 4px;
+  font-size: 1rem;
+  padding: 0.4rem 1rem 0.4rem 1rem;
+}
 .primary-button{
   display: flex;
   justify-content: space-between;
@@ -94,6 +99,7 @@
   border-top-left-radius: var(--border-radius-standard);
 
 }
+
 
 .future-button{
   background-color: var(--blue-medium);

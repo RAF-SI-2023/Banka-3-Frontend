@@ -5,6 +5,8 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    video: true,
+    videoCompression: 20,
   },
   projectId: 'abc123',
 });

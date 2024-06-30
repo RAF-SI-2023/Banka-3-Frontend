@@ -52,9 +52,9 @@ export class OtcViewComponent implements OnInit, OnDestroy{
     const payload = JSON.parse(atob(token!.split('.')[1]));
     const hasRole = "role" in payload;
 
+    this.fetchPublicStocks()
     if(!hasRole){
 
-      this.fetchPublicStocks()
 
       this.contractSubscription = this.WebsocketService.contractMessages.subscribe( msg => {
         this.fetchPublicStocks()

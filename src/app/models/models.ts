@@ -92,6 +92,9 @@ export interface Account{
   mark: string,
   employeeId: number,
   userId: number,
+  initialMargine: number,
+  maitenanceMargine: number,
+  bankParticipation: number
 }
 
 export interface Currency{
@@ -99,6 +102,7 @@ export interface Currency{
   name: string,
   mark: string
 }
+
 export interface Role {
   roleId: number | undefined,
   roleName: string,
@@ -108,28 +112,32 @@ export interface Token {
   token: string
 }
 
-export interface StockBanka4{
+export interface BankStock{
+  id: number,
   amount: number,
-  ticker: string
+  ticker: string,
+  owner: number
+
 }
 // -dto: Long offerId, String ticker, Integer amount, Double price, Long idBank4, String offerStatus
-export interface OfferBanka4{
+export interface Offer{
   offerId: number,
   ticker: string,
   amount: number,
   price: number,
-  idBank4: number,
-  offerStatus: string
+  idBank: number,
+  offerStatus: string,
+  owner: number
 }
 
 // -dto:  Long myOfferId, String ticker, Integer amount, Integer price, OfferStatus offerStatus
-export interface MyOfferBanka4{
+export interface MyOffer{
   myOfferId: number,
   ticker: string,
   amount: number,
   price: number,
-  idBank4: number,
-  offerStatus: string
+  offerStatus: string,
+  owner: number
 }
 // -dto: Long myOfferId, String ticker, Integer amount, Integer price, OfferStatus offerStatus (ovde proslediti null ili prazan string)
 export interface MakeOfferBanka4{
@@ -251,6 +259,30 @@ export interface MyStock{
   userId: number,
   companyId: number,
   version: number
+}
+
+// @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long myMarginStockId;
+//     private String ticker;
+//     private Long userId;
+//     private Long companyId;
+//     private Integer amount;
+//     private String currencyMark;
+//     @JsonIgnore
+//     private Double minimumPrice;
+//     @Version
+//     private Integer version;
+
+export interface MyMarginStock{
+  myMarginStockId: number,
+  ticker: string,
+  amount: number,
+  userId: number,
+  companyId: number,
+  version: number
+  minimumPrice: number,
+  currencyMark: string
 }
 
 export interface MyOptions{
@@ -441,4 +473,13 @@ export interface BuyStockCompanyDto {
   ticker: string;
   amount: number;
   price: number;
+}
+
+export interface MarginAccount{
+  companyId: number;
+  userId: number;
+  accountNumber: string;
+  initialMargine: number;
+  loanValue: number;
+  active: boolean;
 }

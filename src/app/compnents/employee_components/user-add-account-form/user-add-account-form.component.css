@@ -206,6 +206,51 @@ label {
   flex-grow: 1;
 }
 
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: start; */
+}
+.input-container2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.input-group {
+  margin-bottom: 10px;
+  padding: 1rem;
+}
+
+.input-group label {
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.input-with-label {
+  display: flex;
+  align-items: center;
+}
+
+.input-with-label input {
+  flex-grow: 1;
+}
+
+.input-with-label label {
+  margin-left: 5px;
+}
+
+.input-group input,
+.input-group mat-form-field {
+  width: 100%;
+}
+
 
 
 
