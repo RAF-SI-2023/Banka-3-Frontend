@@ -163,7 +163,7 @@ export class AccountService {
 
     const body = {
       employeeId: employeeId,
-      companyID: companyId,
+      companyId: companyId,
       initialMargin: initialMargin,
       maintenanceMargin: maitenanceMargin,
       bankParticipation: bankParticipation, // da se salje kao 0.1, 0.2, ...

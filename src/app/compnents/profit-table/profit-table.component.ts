@@ -12,9 +12,12 @@ export class ProfitTableComponent implements OnInit{
   exchange: any[] = [];
   agents: any = {};
   taxes: any[] = []
+  commissions: any[] = []
+  commissionsByMark: any[] = []
   exchangeColumns: string[] = ['amount', 'currency'];
+  commissionColumns: string[] = ['accountFrom', 'commission', 'currencyMark', 'date'];
   agentColumns: string[] = ['id','totalAmount'];
-  taxesColumns: string[] = ['taxStockId', 'amount'];
+  taxesColumns: string[] = ['taxStockId', 'amount', 'date'];
   exchangeFlag = true
   agentFlag = false
   taxFlag = false
@@ -25,12 +28,19 @@ export class ProfitTableComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if (this.isOurCompanyCheck()) {
-      this.fetchExchangeProfits();
-    }
-    this.exchangeService.getTaxes().subscribe(res => {
-      this.taxes = res
+    // if (this.isOurCompanyCheck()) {
+    //   this.fetchExchangeProfits();
+    // }
+    this.exchangeService.getCommissionsByMark().subscribe(res => {
+      this.commissionsByMark = res
     })
+    this.exchangeService.getCommissions().subscribe(res => {
+      this.commissions = res
+    })
+
+    // this.exchangeService.getTaxes().subscribe(res => {
+    //   this.taxes = res
+    // })
   }
 
   switchToAgent() {
@@ -52,8 +62,12 @@ export class ProfitTableComponent implements OnInit{
     this.exchangeFlag = true
     this.agentFlag = false
     this.taxFlag = false
-    this.accountService.getProfits().subscribe(res => {
-      this.exchange = res
+
+    this.exchangeService.getCommissionsByMark().subscribe(res => {
+      this.commissionsByMark = res
+    })
+    this.exchangeService.getCommissions().subscribe(res => {
+      this.commissions = res
     })
   }
   switchToTax() {

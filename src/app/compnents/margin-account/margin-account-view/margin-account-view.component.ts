@@ -39,46 +39,6 @@ export class MarginAccountViewComponent implements OnInit{
         // this.account = data
       })
     }
-
-    //Mock transakcije, otkomentarisati gornju liniju kada se zavrsi bek za marzne racune
-    // this.transactions = [
-    //   {
-    //     accountFrom: '1111111111111111',
-    //     accountTo: '2222222222222222',
-    //     amount: 1500,
-    //     currencyMark: 'RSD',
-    //     sifraPlacanja: 1001,
-    //     pozivNaBroj: '123-456-789',
-    //     date: new Date('2023-06-25').getTime()
-    //   },
-    //   {
-    //     accountFrom: '3333333333333333',
-    //     accountTo: '1111111111111111',
-    //     amount: 2000,
-    //     currencyMark: 'RSD',
-    //     sifraPlacanja: 1002,
-    //     pozivNaBroj: '987-654-321',
-    //     date: new Date('2023-06-24').getTime()
-    //   },
-    //   {
-    //     accountFrom: '1111111111111111',
-    //     accountTo: '4444444444444444',
-    //     amount: 500,
-    //     currencyMark: 'RSD',
-    //     sifraPlacanja: 1003,
-    //     pozivNaBroj: '321-654-987',
-    //     date: new Date('2023-06-23').getTime()
-    //   },
-    //   {
-    //     accountFrom: '5555555555555555',
-    //     accountTo: '1111111111111111',
-    //     amount: 750,
-    //     currencyMark: 'RSD',
-    //     sifraPlacanja: 1004,
-    //     pozivNaBroj: '654-321-987',
-    //     date: new Date('2023-06-22').getTime()
-    //   }
-    // ];
   }
 
   updateTransactions() {
