@@ -15,11 +15,14 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class FirmAddAccountFormComponent implements OnInit {
 
   account = {} as Account
-  bankParticipations: String[] = ["10", "20", "30", "40", "50"]
+  bankParticipations: String[] = ["10%", "20%", "30%", "40%", "50%"];
   firmForm: FormGroup
   companyId: number;
   employeeId: number;
   isSubmitting: boolean = false;
+  bankP = ''
+  maintenanceM = 0.0
+  initialM = 0.0
 
   constructor(private fb: FormBuilder, private accountService: AccountService, private route : ActivatedRoute, private router: Router, private snackBar: MatSnackBar) {
     this.firmForm = this.fb.group({
@@ -28,15 +31,22 @@ export class FirmAddAccountFormComponent implements OnInit {
       mark: new FormControl('', Validators.required),
       initialMargin: new FormControl('', Validators.required),
       maintenanceMargin: new FormControl('', Validators.required),
-      bankParticipations: new FormControl('', Validators.required)
+      bankPart: new FormControl('', Validators.required)
     })
     this.companyId = 0;
     this.employeeId = 0;
   }
   save(){
+    if(this.isSubmitting){
+      return
+    }
+    this.isSubmitting = true
     this.account.accountType = this.firmForm.get('accountType')?.value;
     this.account.availableBalance = this.firmForm.get('balance')?.value;
     this.account.mark = this.firmForm.get('mark')?.value;
+    this.bankP = this.firmForm.get('bankPart')?.value;
+    this.maintenanceM = this.firmForm.get('maintenanceMargin')?.value;
+    this.initialM =  this.firmForm.get('initialMargin')?.value;
 
     if(this.account.accountType == 'Tekuci'){
       this.accountService.saveCompanyAccount(this.companyId, this.account.availableBalance, "RSD", this.employeeId, "DINARSKI")
@@ -57,7 +67,23 @@ export class FirmAddAccountFormComponent implements OnInit {
           }
         );
     }else if(this.account.accountType == 'Marzni'){
-      this.accountService.saveMarginAccountFirm(this.employeeId, this.companyId, this.account.availableBalance, this.account.initialMargine, this.account.maitenanceMargine, this.account.bankParticipation, "MARZNI")
+      let prct = 0.0
+      if(this.bankP === '10%'){
+        prct = 0.1
+      }
+      if(this.bankP === '20%'){
+        prct = 0.2
+      }
+      if(this.bankP === '30%'){
+        prct = 0.3
+      }
+      if(this.bankP === '40%'){
+        prct = 0.4
+      }
+      if(this.bankP === '50%'){
+        prct = 0.5
+      }
+      this.accountService.saveMarginAccountFirm(this.employeeId, this.companyId, this.initialM, this.maintenanceM, prct)
         .subscribe(
           res => {
             console.log(res);
@@ -97,6 +123,15 @@ export class FirmAddAccountFormComponent implements OnInit {
     return this.firmForm.get('mark');
   }
 
+  get initialMargin(){
+    return this.firmForm.get('initialMargin');
+  }
+  get maintenanceMargin(){
+    return this.firmForm.get('maintenanceMargin');
+  }
+  get bankParticipation(){
+    return this.firmForm.get('bankParticipation');
+  }
   openErrorSnackBar(message: string) {
     this.snackBar.open(message, 'Zatvori', {
       duration: 3000,

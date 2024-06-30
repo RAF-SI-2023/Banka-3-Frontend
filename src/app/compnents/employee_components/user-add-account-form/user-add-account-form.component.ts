@@ -17,11 +17,13 @@ export class UserAddAccountFormComponent implements OnInit{
   account: Account = {} as Account
   currencies: Currency[] | null = null;
   bankParticipations: String[] = ["10%", "20%", "30%", "40%", "50%"];
-  bankP = ''
   userId: number;
   employeeId: number;
   accountForm: FormGroup
   isSubmitting: boolean = false;
+  bankP = ''
+  maintenanceM = 0.0
+  initialM = 0.0
 
   constructor(private fb: FormBuilder,private accountService: AccountService, private route : ActivatedRoute,private router: Router, private snackBar: MatSnackBar) {
     this.accountForm = this.fb.group({
@@ -47,6 +49,10 @@ export class UserAddAccountFormComponent implements OnInit{
     this.account.availableBalance = this.accountForm.get('balance')?.value;
     this.account.mark = this.accountForm.get('mark')?.value;
     this.bankP = this.accountForm.get('bankPart')?.value;
+    this.maintenanceM = this.accountForm.get('maintenanceMargin')?.value;
+    this.initialM =  this.accountForm.get('initialMargin')?.value;
+
+
 
     if(this.account.accountType == 'Tekuci'){
       this.accountService.saveAccount(this.userId, this.account.availableBalance, "RSD", this.employeeId, "DINARSKI")
@@ -85,18 +91,23 @@ export class UserAddAccountFormComponent implements OnInit{
         }
         );
     }else if(this.account.accountType == 'Marzni'){
-      let bp = 0;
-      if(this.bankP === '10%')
-        bp = 0.1
-      if(this.bankP === '20%')
-        bp = 0.2
-      if(this.bankP === '30%')
-        bp = 0.3
-      if(this.bankP === '40%')
-        bp = 0.4
-      if(this.bankP === '50%')
-        bp = 0.5
-      this.accountService.saveMarginAccount(this.employeeId, this.userId, this.account.availableBalance, this.account.initialMargine, this.account.maitenanceMargine, bp, "MARZNI")
+      let prct = 0.0
+      if(this.bankP === '10%'){
+        prct = 0.1
+      }
+      if(this.bankP === '20%'){
+        prct = 0.2
+      }
+      if(this.bankP === '30%'){
+        prct = 0.3
+      }
+      if(this.bankP === '40%'){
+        prct = 0.4
+      }
+      if(this.bankP === '50%'){
+        prct = 0.5
+      }
+      this.accountService.saveMarginAccount(this.employeeId, this.userId, this.initialM, this.maintenanceM, prct)
         .subscribe(
           res => {
             console.log(res);
@@ -148,5 +159,14 @@ export class UserAddAccountFormComponent implements OnInit{
   }
   get mark(){
     return this.accountForm.get('mark');
+  }
+  get initialMargin(){
+    return this.accountForm.get('initialMargin');
+  }
+  get maintenanceMargin(){
+    return this.accountForm.get('maintenanceMargin');
+  }
+  get bankParticipation(){
+    return this.accountForm.get('bankParticipation');
   }
 }

@@ -12,6 +12,7 @@ import { OtcAcceptDeclineComponent } from '../otc-accept-decline/otc-accept-decl
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { Subscription } from 'rxjs';
 import { OtcBanka4BuyPopupComponent } from '../otc-banka4-buy-popup/otc-banka4-buy-popup.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-bank-otc',
@@ -31,8 +32,8 @@ export class BankOtcComponent implements OnInit, OnDestroy{
   receivedData: Offer[] = []
 
   kupovinaColumns: string[] = [ "Hartija", "Količina", "Vlasnik", "Opcije"];
-  zahteviColumns: string[] = [ "Hartija", "Količina", "Vlasnik", "Cena", "Status"];
-  ponudeColumns: string[] = [ "Hartija", "Količina", "Vlasnik","Cena", "idBank", "Status", "Opcije"];
+  zahteviColumns: string[] = [ "Hartija", "Količina", "Vlasnik", "Cena", "Status", "Opcije"];
+  ponudeColumns: string[] = [ "Hartija", "Količina", "Vlasnik","Cena", "Status", "Opcije"];
 
   contractSubscription: Subscription | null = null
   stockSubscription: Subscription | null = null
@@ -43,7 +44,8 @@ export class BankOtcComponent implements OnInit, OnDestroy{
               private exService: ExchangeService,
               private router: Router,
               private dialog: MatDialog,
-              private WebsocketService: WebsocketService) {
+              private WebsocketService: WebsocketService,
+             private snackBar: MatSnackBar) {
   }
 
 
@@ -109,11 +111,13 @@ export class BankOtcComponent implements OnInit, OnDestroy{
   acceptOffer(offer: Offer){
     this.exService.acceptBankffer(offer.idBank).subscribe(res => {
       console.log(res)
+      this.openSuccessSnackBar("Uspešno ste prihvatili ponudu.")
     })
   }
   declineOffer(offer: Offer){
     this.exService.declineBankOffer(offer.idBank).subscribe(res => {
       console.log(res)
+      this.openSuccessSnackBar("Uspešno ste odbili ponudu.")
     })
 
   }
@@ -121,6 +125,20 @@ export class BankOtcComponent implements OnInit, OnDestroy{
     this.exService.refreshData().subscribe(res => {
       console.log(res)
     })
+  }
+
+  deleteMyOffer(offerId: number){
+    this.exService.deleteMyOffer(offerId).subscribe(res => {
+      console.log(res)
+      this.openSuccessSnackBar("Uspešno ste izbrisali zahtev.")
+    })
+  }
+  deleteOffer(offerId: number){
+    this.exService.deleteOffer(offerId).subscribe(res => {
+      console.log(res)
+      this.openSuccessSnackBar("Uspešno ste izbrisali ponudu.")
+    })
+
   }
 
   switchToKupovina(){
@@ -149,6 +167,11 @@ export class BankOtcComponent implements OnInit, OnDestroy{
 
   mockData(): void{
 
+  }
+  openSuccessSnackBar(message:string) {
+    this.snackBar.open(message, 'Zatvori', {
+      duration: 3000,
+    });
   }
 
 

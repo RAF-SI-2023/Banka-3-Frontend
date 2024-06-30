@@ -78,6 +78,10 @@
               <ng-container *ngIf="column === 'Status'">
                   {{element['offerStatus']}}
               </ng-container>
+              <ng-container *ngIf="column === 'Opcije'">
+                <button (click)="deleteMyOffer(element['myOfferId'])" class="button2">Delete ponudu</button>
+              </ng-container>
+
             </mat-cell>
           </ng-container>
           <mat-header-row *matHeaderRowDef="zahteviColumns"></mat-header-row>
@@ -121,13 +125,14 @@
               <ng-container *ngIf="column === 'Opcije'">
 
                 <!-- PRIHVACENO, ODBIJENO, U OBRADI -->
-                <button *ngIf="element['offerStatus'] === 'U OBRADI'" (click)="acceptOffer(element)" class="button">Prihvati</button>
-                <button *ngIf="element['offerStatus'] === 'U OBRADI'" (click)="declineOffer(element)" class="button2">Odbij</button>
+                <button *ngIf="element['offerStatus'] === 'PROCESSING'" (click)="acceptOffer(element)" class="button">Prihvati</button>
+                <button *ngIf="element['offerStatus'] === 'PROCESSING'" (click)="declineOffer(element)" class="button2">Odbij</button>
+                <button (click)="deleteOffer(element['offerId'])" class="button2">Delete ponudu</button>
 
-                <div *ngIf="element['sellerCertificate'] === 'PRIHVACENO'" class="img">
+                <div *ngIf="element['sellerCertificate'] === 'ACCEPTED' || element['sellerCertificate'] === 'FINISHED_ACCEPTED'" class="img">
                   <img src="../../../../assets/circle-check-svgrepo-com.svg" alt="accepted">
                 </div>
-                <div *ngIf="element['sellerCertificate'] === 'ODBIJENO'" class="img">
+                <div *ngIf="element['sellerCertificate'] === 'DECLINED' || element['sellerCertificate'] === 'FINISHED_DECLINED'" class="img">
                   <img src="../../../../assets/circle-quarters-svgrepo-com.svg" alt="declined">
                 </div>
               </ng-container>
