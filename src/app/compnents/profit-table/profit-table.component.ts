@@ -43,6 +43,10 @@ export class ProfitTableComponent implements OnInit{
     // })
   }
 
+  formatDate(timestamp: number): string {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString(); // Example output: "4/3/2024"
+  }
   switchToAgent() {
     if (this.agentFlag) return;
     this.agentFlag = true;
