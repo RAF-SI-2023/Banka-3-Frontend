@@ -393,7 +393,7 @@ export class AccountService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')}`
     });
-    return this.httpClient.get<MarginAccount>(`${this.apiUrlAccount}/getMarginByCompany/${companyId}`, {headers});
+    return this.httpClient.get<MarginAccount>(`${this.apiUrlCompanyAccount}/getMarginByCompany/${companyId}`, {headers});
 
   }
 }
