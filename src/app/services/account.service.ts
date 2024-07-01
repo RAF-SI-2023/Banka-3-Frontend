@@ -396,4 +396,34 @@ export class AccountService {
     return this.httpClient.get<MarginAccount>(`${this.apiUrlAccount}/getMarginByCompany/${companyId}`, {headers});
 
   }
+  addToMarginAccount(amount: number, id: number, method: string){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    let data = {
+      amount: amount
+    }
+    if(method === "COMPANY"){
+      return this.httpClient.post<any>(`${this.apiUrlBank}/addToMarginCompany/${id}`, data, {headers});
+    }else{
+      return this.httpClient.post<any>(`${this.apiUrlBank}/addToMarginUser/${id}`, data, {headers});
+    }
+
+  }
+  withdrawFromMarginAccount(amount: number, id: number, method: string){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    });
+    let data = {
+      amount: amount
+    }
+    if(method === "COMPANY"){
+      return this.httpClient.post<any>(`${this.apiUrlBank}/withdrawFromMarginCompany/${id}`, data, {headers});
+    }else{
+      return this.httpClient.post<any>(`${this.apiUrlBank}/withdrawFromMarginUser/${id}`, data, {headers});
+    }
+
+  }
 }

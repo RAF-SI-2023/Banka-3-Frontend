@@ -21,6 +21,21 @@
   -ms-flex-item-align: center;
 }
 
+.buttonView{
+  /* max-width: var(--max-screen-width); */
+  display: flex;
+  background: var(--background-main);
+  justify-content: center;
+}
+
+.myButtonPrimary{
+
+  transition: 0.2s;
+}
+.myButtonPrimary:hover{
+  transform: translateY(-5px);
+}
+
 .accountCard {
   width: 80%;
   display: flex;

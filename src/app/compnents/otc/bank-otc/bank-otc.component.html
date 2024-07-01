@@ -79,7 +79,7 @@
                   {{element['offerStatus']}}
               </ng-container>
               <ng-container *ngIf="column === 'Opcije'">
-                <button (click)="deleteMyOffer(element['myOfferId'])" class="button2">Delete ponudu</button>
+                <button (click)="deleteMyOffer(element['myOfferId'])" class="button2">Delete</button>
               </ng-container>
 
             </mat-cell>
@@ -127,7 +127,7 @@
                 <!-- PRIHVACENO, ODBIJENO, U OBRADI -->
                 <button *ngIf="element['offerStatus'] === 'PROCESSING'" (click)="acceptOffer(element)" class="button">Prihvati</button>
                 <button *ngIf="element['offerStatus'] === 'PROCESSING'" (click)="declineOffer(element)" class="button2">Odbij</button>
-                <button (click)="deleteOffer(element['offerId'])" class="button2">Delete ponudu</button>
+                <button (click)="deleteOffer(element['offerId'])" class="button2">Delete</button>
 
                 <div *ngIf="element['sellerCertificate'] === 'ACCEPTED' || element['sellerCertificate'] === 'FINISHED_ACCEPTED'" class="img">
                   <img src="../../../../assets/circle-check-svgrepo-com.svg" alt="accepted">

@@ -543,14 +543,14 @@ export class ExchangeService {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       });
-      return this.httpClient.get<any>(`${this.apiBankOtc}/acceptOffer/${id}`, {headers});
+      return this.httpClient.post<any>(`${this.apiBankOtc}/acceptOffer/${id}`, {headers});
     }
     declineBankOffer(id: number){
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       });
-      return this.httpClient.get<any>(`${this.apiBankOtc}/declineOffer/${id}`, {headers});
+      return this.httpClient.post<any>(`${this.apiBankOtc}/declineOffer/${id}`, {headers});
     }
     refreshData(){
       const headers = new HttpHeaders({
@@ -594,5 +594,6 @@ export class ExchangeService {
       });
       return this.httpClient.get<any>(`${this.apiUrlStocks}/refresh`, {headers});
     }
+
 
 }

@@ -3,6 +3,8 @@ import {parseJson} from "@angular/cli/src/utilities/json-file";
 import {AccountService} from "../../../services/account.service";
 import {MarginAccount, TransactionDto} from "../../../models/models";
 import {Router} from "@angular/router";
+import { MatDialog } from '@angular/material/dialog';
+import { AddWithdrawMarginAccountComponent } from '../../add-withdraw-margin-account/add-withdraw-margin-account.component';
 
 @Component({
   selector: 'app-margin-account-view',
@@ -14,8 +16,9 @@ export class MarginAccountViewComponent implements OnInit{
   account = {} as MarginAccount;
   accountEmail = ''
   transactions = [] as TransactionDto[];
+  role = ''
 
-  constructor(private accountService: AccountService, private router: Router){
+  constructor(private accountService: AccountService, private router: Router, private dialog: MatDialog){
     //Mock podaci za racun, skloniti kada se doda ruta na beku
     // this.account = account
 
@@ -24,6 +27,11 @@ export class MarginAccountViewComponent implements OnInit{
   ngOnInit() {
     let tk = parseJson(atob(sessionStorage.getItem("token")!.split('.')[1]));
     this.accountEmail = tk.sub
+    if(tk.role && tk.role === 'ROLE_COMPANY'){
+      this.role = 'ROLE_COMPANY'
+    }else{
+      this.role = 'ROLE_USER'
+    }
     if (tk.role && tk.role === 'ROLE_COMPANY'){
       this.accountService.getMarginAccountForCompany(tk.id).subscribe( data => {
         this.account = data;
@@ -39,6 +47,19 @@ export class MarginAccountViewComponent implements OnInit{
         // this.account = data
       })
     }
+  }
+
+
+  addToMarginUser(){
+    this.dialog.open(AddWithdrawMarginAccountComponent, {
+      data: 'Uplata'
+    })
+  }
+  withdrawToMarginUser(){
+    this.dialog.open(AddWithdrawMarginAccountComponent, {
+      data: 'Isplata'
+    })
+
   }
 
   updateTransactions() {

@@ -67,6 +67,11 @@
   margin: 0 4px;
   font-size: 1rem;
   padding: 0.4rem 1rem 0.4rem 1rem;
+  transition: 0.2s;
+}
+
+.myButtonSecondary:hover{
+  background: var(--blue-light);
 }
 .primary-button{
   display: flex;
@@ -83,6 +88,12 @@
   font-weight: 500;
   font-family: 'Archivo', sans-serif;
   cursor: pointer;
+}
+.myButtonPrimary{
+  transition: 0.2s;
+}
+.myButtonPrimary:hover{
+  transform: translateY(-4px);
 }
 
 .stock-button{
