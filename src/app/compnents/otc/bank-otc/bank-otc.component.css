@@ -34,6 +34,12 @@
   .plus{
     fill: #000
   }
+.myButtonPrimary{
+  transition: 0.2s;
+}
+.myButtonPrimary:hover{
+  transform: translateY(-4px);
+}
 
   .table{
     flex-direction: column;

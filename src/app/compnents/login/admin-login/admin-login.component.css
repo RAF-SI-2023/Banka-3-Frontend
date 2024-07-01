@@ -112,6 +112,11 @@ body, html {
 .primary-button {
     background-color: var(--button-primary);
     color: #F6F6F6;
+    transition: 0.2s;
+}
+
+.primary-button:hover{
+  transform: translateY(-4px);
 }
 
 .secondary-button {

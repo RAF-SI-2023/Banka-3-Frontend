@@ -38,8 +38,8 @@
               {{ element[column] }}
             </ng-container>
             <ng-container *ngIf="column === 'opcije'">
-              <button (click)="sellStock(element['ticker'])" class="button">Prodaj</button>
-              <button (click)="setStockOtc(element)" class="button">Vidljivost</button>
+              <button (click)="sellStock(element['ticker'])" class="myButtonSecondary">Prodaj</button>
+              <button (click)="setStockOtc(element)" class="myButtonSecondary">Vidljivost</button>
             </ng-container>
           </mat-cell>
         </ng-container>
@@ -97,7 +97,7 @@
             {{ element[column] }}
           </ng-container>
           <ng-container *ngIf="column === 'opcije'">
-            <button (click)="sellFuture(element['myFutureId'])" class="button">Prodaj</button>
+            <button (click)="sellFuture(element['myFutureId'])" class="myButtonSecondary">Prodaj</button>
           </ng-container>
         </mat-cell>
       </ng-container>
@@ -151,7 +151,7 @@
             {{ element[column] }}
           </ng-container>
           <ng-container *ngIf="column === 'opcije'">
-            <button (click)="sellOption(element)" class="button">Prodaj</button>
+            <button (click)="sellOption(element)" class="myButtonSecondary">Prodaj</button>
           </ng-container>
         </mat-cell>
       </ng-container>
