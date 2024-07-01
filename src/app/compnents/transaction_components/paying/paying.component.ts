@@ -99,7 +99,7 @@ export class PayingComponent implements OnInit {
 
   onRecipientSelectionChange() {
     // Pronalazimo izabranog primaoca
-    const selectedRecipient = this.existingRecipients.find(recipient => recipient.name === this.selectedRecipient);
+    const selectedRecipient = this.existingRecipients.find(recipient => recipient.accountNumber == this.selectedRecipient);
 
     // Ako je izabrani primaoc pronađen, popunjavamo polja sa njegovim detaljima
     if (selectedRecipient) {

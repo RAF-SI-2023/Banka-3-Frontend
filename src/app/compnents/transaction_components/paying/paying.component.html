@@ -41,7 +41,7 @@
                             <mat-form-field appearance="fill">
                                 <mat-label>Postojeći kontakti</mat-label>
                                 <mat-select [(ngModel)]="selectedRecipient" (selectionChange)="onRecipientSelectionChange()">
-                                    <mat-option *ngFor="let recipient of existingRecipients" [value]="recipient.name">{{recipient.name}}</mat-option>
+                                    <mat-option *ngFor="let recipient of existingRecipients" [value]="recipient.accountNumber">{{recipient.myName}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>

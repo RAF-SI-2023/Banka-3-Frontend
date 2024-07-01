@@ -14,7 +14,7 @@
     <mat-table *ngIf = 'showRequests' [dataSource]="requests" matSort style="max-width: var(--max-screen-width)">
       <ng-container *ngFor="let column of requestColumns" [matColumnDef]="column">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ column | titlecase}}
+          {{ column | uppercase}}
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{ element[column] }}
@@ -88,7 +88,7 @@
     <mat-table *ngIf="contractFlag" [dataSource]="contracts" matSort style="max-width: var(--max-screen-width)">
       <ng-container *ngFor="let column of contractColumns" [matColumnDef]="column">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ column | titlecase}}
+          {{ column | uppercase}}
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{ element[column] }}
