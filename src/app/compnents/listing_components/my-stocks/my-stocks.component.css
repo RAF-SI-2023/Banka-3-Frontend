@@ -123,6 +123,16 @@
   border-top-left-radius: var(--border-radius-standard);
   margin-left: 5px;
 }
+.myButtonSecondary{
+  margin: 0 4px;
+  font-size: 1rem;
+  padding: 0.4rem 1rem 0.4rem 1rem;
+  transition: 0.2s;
+}
+
+.myButtonSecondary:hover{
+  background: var(--blue-light);
+}
 .forex-button{
   background-color: var(--blue-medium);
   border: 0;

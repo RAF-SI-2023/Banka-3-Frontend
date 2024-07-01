@@ -109,15 +109,21 @@ export class BankOtcComponent implements OnInit, OnDestroy{
   }
 
   acceptOffer(offer: Offer){
-    this.exService.acceptBankffer(offer.idBank).subscribe(res => {
+    this.exService.acceptBankffer(offer.offerId).subscribe(res => {
       console.log(res)
       this.openSuccessSnackBar("Uspešno ste prihvatili ponudu.")
+    }, err => {
+      this.openSuccessSnackBar("Došlo je do greške.")
+      console.log(err)
     })
   }
   declineOffer(offer: Offer){
-    this.exService.declineBankOffer(offer.idBank).subscribe(res => {
+    this.exService.declineBankOffer(offer.offerId).subscribe(res => {
       console.log(res)
       this.openSuccessSnackBar("Uspešno ste odbili ponudu.")
+    }, err => {
+      this.openSuccessSnackBar("Došlo je do greške.")
+      console.log(err)
     })
 
   }
@@ -131,12 +137,18 @@ export class BankOtcComponent implements OnInit, OnDestroy{
     this.exService.deleteMyOffer(offerId).subscribe(res => {
       console.log(res)
       this.openSuccessSnackBar("Uspešno ste izbrisali zahtev.")
+    },err => {
+      this.openSuccessSnackBar("Došlo je do greške.")
+      console.log(err)
     })
   }
   deleteOffer(offerId: number){
     this.exService.deleteOffer(offerId).subscribe(res => {
       console.log(res)
       this.openSuccessSnackBar("Uspešno ste izbrisali ponudu.")
+    }, err => {
+      this.openSuccessSnackBar("Došlo je do greške.")
+      console.log(err)
     })
 
   }

@@ -30,7 +30,7 @@
 
                 }">
             <ng-container *ngIf="column === 'refresh'">
-              {{ element['lastRefresh'] | date: 'dd-MM-yyyy' }}
+              {{ element['lastRefresh'] | date: 'dd-MM-yyyy HH:mm' }}
             </ng-container>
             <ng-container *ngIf="column !== 'refresh' && column !== 'change' && column !== 'ticker'">
               {{ element[column] }}
@@ -88,7 +88,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
             <ng-container *ngIf="column === 'lastRefresh'">
-              {{ element[column] | date: 'dd-MM-yyyy' }}
+              {{ element[column] | date: 'dd-MM-yyyy HH:mm' }}
             </ng-container>
             <ng-container *ngIf="column !== 'lastRefresh' && column !== 'opcije'">
               {{ element[column] }}
