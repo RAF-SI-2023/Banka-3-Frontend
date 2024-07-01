@@ -1,6 +1,6 @@
 describe('home page test', () => {
   beforeEach('open page', () => {
-    cy.visit('http://localhost:4200')
+    cy.visit('http://localhost:80')
   })
 
   it('should display the user login title', () => {
@@ -11,7 +11,7 @@ describe('home page test', () => {
 
   describe('Prijava kompanije, kupovina i prodaja', () => {
     // beforeEach(() => {
-    //   cy.visit('http://localhost:4200');
+    //   cy.visit('http://localhost:80');
     //   cy.wait(5000); 
     //   cy.reload();
     //   cy.get('a[routerLink="/company-login"]').click();
@@ -23,7 +23,7 @@ describe('home page test', () => {
     // });
 
     beforeEach(() => {
-      cy.visit('http://localhost:4200');
+      cy.visit('http://localhost:80');
       cy.wait(30000); 
       cy.reload();
       cy.get('a[routerLink="/company-login"]').click();
