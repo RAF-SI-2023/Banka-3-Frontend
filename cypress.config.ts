@@ -7,6 +7,9 @@ export default defineConfig({
     },
     video: true,
     videoCompression: 20,
+    defaultCommandTimeout: 60000,
+    taskTimeout: 60000,
+    execTimeout: 60000
   },
   projectId: 'abc123',
 });
