@@ -9,12 +9,11 @@
     <button [ngStyle]="{ 'opacity': !taxFlag? '0.5' : '1'}" (click)="switchToTax()" class="tax-button" >
       T A X
     </button>
-    <div class="table-container">
-      <!-- Exchange Table -->
+     <!-- Exchange Table -->
 
     <!-- E X C H A N G E -->
 
-    <div class="table">
+    <div class="table"  >
       <div *ngIf="exchangeFlag" class="rowCommission">
         <div class="kolona">
           <strong>{{commissionsByMark[2].commission}} {{commissionsByMark[2].currencyMark}}</strong>
@@ -26,8 +25,20 @@
           <strong>{{commissionsByMark[0].commission}} {{commissionsByMark[0].currencyMark}}</strong>
         </div>
       </div>
-      <table mat-table *ngIf="exchangeFlag" [dataSource]="commissions" class="mat-elevation-z8 compact-table">
+      <mat-table mat-table *ngIf="exchangeFlag" [dataSource]="commissions" matSort>
         <!-- Amount Column -->
+        <ng-container *ngFor="let column of commissionColumns" [matColumnDef]="column">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header-cell">
+          {{ column | uppercase }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"
+              class="custom-cell"
+              [ngStyle]="{
+                'color': column === 'change' ? (element[column] > 0 ? '#33d17a' : '#ed333b') : 'inherit',
+                'font-weight': column === 'ticker' ? 'bold' : 'normal',
+                'cursor': column === 'ticker' ? 'pointer' : 'default'
+
+              }">
         <ng-container matColumnDef="accountFrom">
           <th mat-header-cell *matHeaderCellDef class="table-header"> Account From </th>
           <td mat-cell *matCellDef="let element" class="accountFrom-column"> {{element.accountFrom}} </td>
@@ -45,15 +56,29 @@
           <th mat-header-cell *matHeaderCellDef class="table-header"> Date </th>
           <td mat-cell *matCellDef="let element" class="date-column"> {{formatDate(element.date)}} </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="commissionColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: commissionColumns;"></tr>
-      </table>
+        </mat-cell>
+        </ng-container>
+          <mat-header-row mat-header-row *matHeaderRowDef="commissionColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: commissionColumns;"></mat-row>
+      </mat-table>
 
 
     <!-- A G E N T S -->
 
-      <table mat-table *ngIf="agentFlag" [dataSource]="agents" class="mat-elevation-z8 compact-table">
+      <mat-table mat-table *ngIf="agentFlag" [dataSource]="agents" matSort>
         <!-- ID Column -->
+        <ng-container *ngFor="let column of agentColumns" [matColumnDef]="column">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header-cell">
+          {{ column | uppercase }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"
+              class="custom-cell"
+              [ngStyle]="{
+                'color': column === 'change' ? (element[column] > 0 ? '#33d17a' : '#ed333b') : 'inherit',
+                'font-weight': column === 'ticker' ? 'bold' : 'normal',
+                'cursor': column === 'ticker' ? 'pointer' : 'default'
+
+              }">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef class="table-header"> Agent ID </th>
           <td mat-cell *matCellDef="let element" class="amount-column"> {{element.id}} </td>
@@ -63,14 +88,28 @@
           <th mat-header-cell *matHeaderCellDef class="table-header"> Total Amount </th>
           <td mat-cell *matCellDef="let element" class="amount-column"> {{element.totalAmount}} </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="agentColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: agentColumns;"></tr>
-      </table>
+        </mat-cell>
+        </ng-container>
+        <mat-header-row mat-header-row *matHeaderRowDef="agentColumns"></mat-header-row>
+        <mat-row mat-row *matRowDef="let row; columns: agentColumns;"></mat-row>
+      </mat-table>
 
     <!-- T A X -->
 
-      <table mat-table *ngIf="taxFlag" [dataSource]="taxes" class="mat-elevation-z8 compact-table">
+      <mat-table mat-table *ngIf="taxFlag" [dataSource]="taxes" matSort>
         <!-- ID Column -->
+        <ng-container *ngFor="let column of taxesColumns" [matColumnDef]="column">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header-cell">
+          {{ column | uppercase }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"
+              class="custom-cell"
+              [ngStyle]="{
+                'color': column === 'change' ? (element[column] > 0 ? '#33d17a' : '#ed333b') : 'inherit',
+                'font-weight': column === 'ticker' ? 'bold' : 'normal',
+                'cursor': column === 'ticker' ? 'pointer' : 'default'
+
+              }">
         <ng-container matColumnDef="taxStockId">
           <th mat-header-cell *matHeaderCellDef class="table-header"> Tax Id </th>
           <td mat-cell *matCellDef="let element" class="taxStockId-column"> {{element.taxtStockId}} </td>
@@ -83,10 +122,11 @@
           <th mat-header-cell *matHeaderCellDef class="table-header"> Date </th>
           <td mat-cell *matCellDef="let element" class="date-column"> {{formatDate(element.date)}} </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="taxesColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: taxesColumns;"></tr>
-      </table>
-    </div>
+        </mat-cell>
+        </ng-container>
+        <mat-header-row mat-header-row *matHeaderRowDef="taxesColumns"></mat-header-row>
+        <mat-row mat-row *matRowDef="let row; columns: taxesColumns;"></mat-row>
+      </mat-table>
     </div>
   </div>
 </div>
